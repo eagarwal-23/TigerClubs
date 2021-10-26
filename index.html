@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TigerClubs</title>
+        <link rel="stylesheet" href="maincss.css">
+    </head>
+    
+    <body>
+        <h1>Tiger Clubs</h1>
+        
+        <form class="searchform" action="clubsearch" method="get">
+            <label>Club:</label>
+            <input type="text" name="club">
+        </form>
+        <br>
+        <br>
+        <form class="searchform"action="studentsearch" method="get">
+            <label>Student:</label>
+            <input type="text" name="club">
+        </form>
+        <br>
+
+        <hr>
+
+        <button type="button">Category</button>
+        <button type="button">Sort</button>
+
+        <table>
+            <tr>
+                <td>
+                    <h3>Club name here</h3>
+                    <div class="clubcategory">{{category}}</div>
+                    <br>
+                    Members: {{ratingm}} Princeton: {{ratingp}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h3>Club name here</h3>
+                    <div class="clubcategory">{{category}}</div>
+                    <br>
+                    Members: {{ratingm}} Princeton: {{ratingp}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h3>Club name here</h3>
+                    <div class="clubcategory">{{category}}</div>
+                    <br>
+                    Members: {{ratingm}} Princeton: {{ratingp}}
+                </td>
+            </tr>
+        </table>
+
+        <hr>
+        <p>TigerClubs. Created by Anthony Guerra, Eesha Agarwaal, Natalie Reptak, Nadia Rodriguez, Camila Vasquez</p>
+    </body>
+</html>

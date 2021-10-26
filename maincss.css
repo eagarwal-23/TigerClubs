@@ -1,0 +1,13 @@
+.searchform{
+    float: right
+}
+
+.clubcategory{
+    width: 100px;
+    height: 35px;
+    border-style: solid;
+}
+
+td{
+    border-style: solid
+}

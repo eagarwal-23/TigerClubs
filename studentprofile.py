@@ -6,20 +6,29 @@
 #   Module for functions related to student's own profile page
 
 from sys import argv, stderr, exit
-from psycopg2 import connect
+from psycopg2 import connect, sql
 from contextlib import closing
 from student import Student
 
-# connecting to postgresql db
-conn = connect("")    
+# add database details as constants
+# DB = 
+# USERNAME = 
+# PASSWORD = 
+# HOST = 
+# PORT = 
 
-# given netid and password, return corresponding Student from database
+# connecting to postgresql db
+connection = connect("")    
+
+# given netid and password, return corresponding student info from database
+# for student profile page
 def get_student_info(netid):
     try:
         with connect(database=DB, user=USERNAME, password=PASSWORD, host=HOST, port= PORT):
             with closing(connection.cursor()) as cursor:
                 
                 # get student name, netid, year, major, bio
+                
                 cursor = cursor.execute(get_student_info_query(), [netid])
                 student_info = cursor.fetchone()
 
@@ -54,6 +63,28 @@ def get_student_info(netid):
     except Exception as ex:
         print(ex, file = stderr)
         exit(1)
+
+# query to update student's bio in student_info table
+def edit_student_bio_query():
+    stmt_str = "UPDATE student_info "
+    stmt_str += "SET bio = ? "
+    stmt_str += "WHERE netid = ?"
+
+    return stmt_str
+
+# query to edit student's clubs
+def edit_student_clubs():
+    stmt_str = "INSERT INTO student_clubs(netid, clubid) "
+    stmt_str = "VALUES (%s, %s)"
+
+    return stmt_str
+
+# query to edit student's tags
+def edit_student_tags():
+    stmt_str = "INSERT INTO student_tags(netid, tagid) "
+    stmt_str = "VALUES (%s, %s)"
+
+    return stmt_str
 
 # query to get student ingo
 def get_student_info_query():

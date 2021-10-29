@@ -36,7 +36,7 @@ def get_student_info(netid):
                 row = cursor.fetchone()
 
                 while row is not None:
-                    club = club[0]
+                    club = row[0]
                     if club not in clubs:
                         clubs.append(club)
                     row = cursor.fetchone()
@@ -47,7 +47,7 @@ def get_student_info(netid):
                 row = cursor.fetchone()
 
                 while row is not None:
-                    tag = tag[0]
+                    tag = row[0]
                     if tag not in tags:
                         tags.append(tag)
                     row = cursor.fetchone()

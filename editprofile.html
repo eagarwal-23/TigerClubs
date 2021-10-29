@@ -8,10 +8,11 @@
     <body>
         <h1>Tiger Clubs</h1>
 
-        <h2>Edit profile for: {{Name}}</h2>
+        <h2>Edit profile for: {{netid}}</h2>
         Submitting here will replace.
 
-        <form action="profile?netid={{netid}}" method="get">
+        <form action="profile" method="get">
+            <input type="hidden" name="netid" value="{{netid}}">
             <table>
                 <tr>
                     <td><label style="text-align:right">Change Clubs:</label></td>

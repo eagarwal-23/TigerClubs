@@ -1,8 +1,6 @@
 from flask import Flask, request, make_response
 from flask import render_template
 from student_db import get_student_info, update_student_info
-from testingdb import get_student_infop
-# from student import Student
 
 app = Flask(__name__, template_folder=".")
 
@@ -34,8 +32,7 @@ def profile():
     netid = request.args.get("netid")
 
     try:
-        student = get_student_infop()
-        print("moment of truth:", student)
+        student = get_student_info(netid)
 
         name = student.get_name()
         classyear = student.get_year()

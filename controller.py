@@ -28,7 +28,7 @@ def landing():
 
 @app.route("/profile", methods=["GET"])
 def profile():
-    netid = request.args.gets("netid")
+    netid = request.args.get("netid")
     # profile_informations = get_profile_information(netid)
     html = render_template("profile.html", netid=netid)
     #html = render_template("profile.html",

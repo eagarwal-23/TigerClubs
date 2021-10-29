@@ -64,11 +64,30 @@ def get_student_info(netid):
         print(ex, file = stderr)
         exit(1)
 
+def update_student_info(netid, bio = None, clubs = None, tags = None):
+    try:
+        with connect(database=DB, user=USERNAME, password=PASSWORD, host=HOST, port= PORT):
+            with closing(connection.cursor()) as cursor:
+
+                # update student's bio
+                if bio:
+                    cursor = cursor.execute(update_student_bio_query(), [bio, netid])
+                if clubs:
+                    cursor = cursor.execute(edit_student_clubs(), [netid, clubs])
+                if tags:
+                    cursor = cursor.execute(edit_student_tags(), [netid, tags])
+
+                connection.commit()
+
+    except Exception as ex:
+        print(ex, file = stderr)
+        exit(1)
+
 # query to update student's bio in student_info table
-def edit_student_bio_query():
+def update_student_bio_query():
     stmt_str = "UPDATE student_info "
-    stmt_str += "SET bio = ? "
-    stmt_str += "WHERE netid = ?"
+    stmt_str += "SET bio = %s "
+    stmt_str += "WHERE netid = %s"
 
     return stmt_str
 
@@ -90,7 +109,7 @@ def edit_student_tags():
 def get_student_info_query():
     stmt_str = "SELECT netid, name, res_college, year, major, bio "
     stmt_str += "FROM student_info "
-    stmt_str += "WHERE netid = ?"
+    stmt_str += "WHERE netid = %s"
 
     return stmt_str
 
@@ -104,6 +123,8 @@ def get_student_clubs_query():
 
     return stmt_str
 
+
+# query to get student's tags
 def get_student_tags_query():
     stmt_str = "SELECT tag_info.name, tagid "
     stmt_str += "FROM tag_info, students_tags "

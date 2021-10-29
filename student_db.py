@@ -69,11 +69,11 @@ def update_student_info(netid, bio = None, clubs = None, tags = None):
                 clubid = clubs
 
                 # update student's bio
-                if bio:
+                if bio is not "" and not None:
                     cursor = cursor.execute(update_student_bio_query(), [bio, netid])
-                if clubs:
+                if clubs is not "" and not None:
                     cursor = cursor.execute(edit_student_clubs(), [netid, clubs])
-                if tags:
+                if tags is not "" and not None:
                     cursor = cursor.execute(edit_student_tags(), [netid, tags])
 
                 connection.commit()

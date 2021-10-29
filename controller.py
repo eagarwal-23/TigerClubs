@@ -31,15 +31,15 @@ def landing():
 def profile():
     netid = request.args.get("netid")
     html = render_template("profile.html", netid=netid)
-
-    # html = render_template("profile.html",
-    # name= student_info.get_name(),
-    # netid= student_info.get_netid(),
-    # classyear= student_info.get_year(),
-    # major= student_info.get_major(),
-    # clubs= student_info.get_clubs(),
-    # bio=student_info.get_bio,
-    # interests=student_info.get_interests())
+    student_info = get_student_info(netid)
+    html = render_template("profile.html",
+    name= student_info.get_name(),
+    netid= student_info.get_netid(),
+    classyear= student_info.get_year(),
+    major= student_info.get_major(),
+    clubs= student_info.get_clubs(),
+    bio=student_info.get_bio,
+    interests=student_info.get_interests())
 
     response = make_response(html)
     return response
@@ -52,7 +52,7 @@ def edited_profile():
     clubs = request.args.get("clubs")
     tags = request.args.get("tags")
 
-    # update_student_info(netid, bio, clubs, tags)
+    update_student_info(netid, bio, clubs, tags)
     profile()
 
 # rendering edit profile page from the profile page

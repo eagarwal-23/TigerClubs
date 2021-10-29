@@ -11,7 +11,7 @@
         <h2>Edit profile for: {{Name}}</h2>
         Submitting here will replace.
 
-        <form action="profile" method="get">
+        <form action="profile?netid={{netid}}" method="get">
             <table>
                 <tr>
                     <td><label style="text-align:right">Change Clubs:</label></td>
@@ -27,7 +27,7 @@
                 </tr>
                 <tr>
                     <td><input type="submit" value="Save"></td>
-                    <a href="/profile?netid={{netid}}">Cancel</a>
+                    <td><a href="/profile?netid={{netid}}">Cancel</a></td>
                 </tr>
             </table>
         </form>

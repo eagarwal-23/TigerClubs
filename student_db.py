@@ -115,7 +115,7 @@ def get_student_info_query():
 
 # query to get student's clubs
 def get_student_clubs_query():
-    stmt_str = "SELECT club_info.name, clubid "
+    stmt_str = "SELECT club_info.name, club_info.clubid "
     stmt_str += "FROM club_info, student_clubs "
     stmt_str += "WHERE student_clubs.clubid = club_info.clubid "
     stmt_str += "AND student_clubs.netid = %s "

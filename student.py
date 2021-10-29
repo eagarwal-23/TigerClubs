@@ -31,8 +31,16 @@ class Student:
     def get_major(self):
         return self._major
 
+    #-------------------------`
     def get_clubs(self):
         return self._clubs
+
+    def get_club(self, x_val):
+        for club in self._clubs:
+            if club is x_val:
+                return club
+
+    #----------------------------
 
     def get_interests(self):
         return self._interests

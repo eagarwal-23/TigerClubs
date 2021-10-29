@@ -17,10 +17,13 @@ def login():
 
 @app.route("/landing", methods=["GET"])
 def landing():
-    netid = request.args.get("netid")
 
+    netid = request.args.get("netid")
     try:
-        html = render_template("landing.html", netid=netid)
+        student = get_student_info(netid)
+        name = student.get_name()
+        clubs = student.get_clubs()
+        html = render_template("landing.html", netid=netid, name = name, clubs = clubs, student = student)
         response = make_response(html)
         return response
     except Exception:
@@ -33,7 +36,6 @@ def profile():
 
     try:
         student = get_student_info(netid)
-
         name = student.get_name()
         classyear = student.get_year()
         major = student.get_major()

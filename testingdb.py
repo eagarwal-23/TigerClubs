@@ -39,9 +39,9 @@ def get_student_infop():
             #with closing(connection.cursor()) as cursor:
                 
         # get student name, netid, year, major, bio
-        all = "SELECT * FROM public.crap_table;"
+        all = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' ORDER BY table_name;"
         print(conn.get_dsn_parameters())
-        cursor = cursor.execute(all)
+        cursor.execute(all)
         result = cursor.fetchone()
         print("results:", result)
         cursor.close()

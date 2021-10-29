@@ -44,8 +44,9 @@ def profile():
 
 @app.route("/editprofile", methods=["GET"])
 def editprofile():
+    netid = request.args.get("netid")
     # profile_information = get_profile_information(netid)
-    html = render_template("editprofile.html")
+    html = render_template("editprofile.html", netid=netid)
     #html = render_template("profile.html",
     #name=name,
     #netid=netid,

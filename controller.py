@@ -43,7 +43,7 @@ def profile():
         bio = student.get_bio()
         interests = student.get_interests()
 
-        html = render_template("profile.html", netid=netid, name=name,
+        html = render_template("profile.html", student = student, netid=netid, name=name,
         classyear=classyear, major=major, clubs=clubs,
         bio=bio, interests=interests)
 

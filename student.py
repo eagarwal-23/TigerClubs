@@ -40,10 +40,14 @@ class Student:
             if club is x_val:
                 return club
 
-    #----------------------------
-
     def get_interests(self):
         return self._interests
+
+    def get_interest(self, x_val):
+        for interest in self._interests:
+            if interest is x_val:
+                return interest
+    #----------------------------
 
     def get_bio(self):
         return self._bio

@@ -18,11 +18,19 @@
         <br>
         <strong>Major: {{major}}</strong>
         <br>
-        <strong>Clubs: {{clubs}}</strong>
+        <strong>Clubs: <strong>
+        {%for club in student.get_clubs(): %}
+            <br>
+            <strong>&emsp;{{student.get_club(club)}}</strong>
+            {% endfor %}
         <br>
         <strong>Bio: {{bio}}</strong>
         <br>
-        <strong>Interests: {{interests}}</strong>
+        <strong>Interests: </strong>
+        {%for interest in student.get_interests(): %}
+            <br>
+            <strong>&emsp;{{student.get_interest(interest)}}</strong>
+            {% endfor %}
         <br>
         <br>
         <a href="/editprofile?netid={{netid}}">Edit Profile</a>

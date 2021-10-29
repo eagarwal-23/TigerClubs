@@ -39,7 +39,7 @@ def get_student_infop():
             #with closing(connection.cursor()) as cursor:
                 
         # get student name, netid, year, major, bio
-        all = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' ORDER BY table_name;"
+        all = "SELECT * FROM club_info;"
         print(conn.get_dsn_parameters())
         cursor.execute(all)
         result = cursor.fetchone()

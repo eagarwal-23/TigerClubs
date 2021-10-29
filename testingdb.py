@@ -34,7 +34,7 @@ def get_student_infop():
             with closing(connection.cursor()) as cursor:
                 
                 # get student name, netid, year, major, bio
-                all = "SELECT * from tigerclubtest.student_info"
+                all = "SELECT * FROM tigerclubtest.student_info"
                 cursor = cursor.execute(all)
                 result = cursor.fetchall()
                 print("results:", result)

@@ -2,7 +2,7 @@
 
 #-----------------------------------------------------------------------
 #   student.py
-#   Authors: Eesha Agarwal and
+#   Authors: Eesha Agarwal
 #
 class Student:
     def __init__(self, netid, name, res_college,

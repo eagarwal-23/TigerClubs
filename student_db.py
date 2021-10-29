@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 #-----------------------------------------------------------------------
-#   club.py
-#   Authors: Eesha Agarwal and
+#   studentdb.py
+#   Authors: Eesha Agarwal and Anthony Guerra
 #   Module for functions related to student's own profile page
 
 from sys import argv, stderr, exit

@@ -118,10 +118,17 @@ def update_student_bio_query():
 
     return stmt_str
 
+# # query to edit student's clubs
+# def edit_student_clubs():
+#     stmt_str = "INSERT INTO student_clubs (netid, clubid, index) "
+#     stmt_str = "VALUES (%s, %s, 40)"
+
+#     return stmt_str
+
 # query to edit student's clubs
 def edit_student_clubs():
-    stmt_str = "INSERT INTO student_clubs (netid, clubid, index) "
-    stmt_str = "VALUES (%s, %s, 40)"
+    stmt_str = "INSERT INTO student_info (netid, name) "
+    stmt_str = "VALUES (parthmah, Parth Maheshwari)"
 
     return stmt_str
 

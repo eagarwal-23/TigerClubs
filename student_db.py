@@ -83,13 +83,14 @@ def update_student_info(netid, bio = None, clubs = None, tags = None):
                 if tags != "" and tags is not None:
                     print("here b")
                     cursor.execute(get_tagid_query(), [tags])
+                    print(get_tagid_query())
                     row = cursor.fetchone()
                     print(row)
                     tagid = row[0]
                     print(tagid)
                     cursor.execute(edit_student_tags(), [netid, tagid])
 
-                connection.autocommit = True
+                connection.commit()
 
     except Exception as ex:
         print(ex, file = stderr)

@@ -34,16 +34,19 @@ PORT = '5432'
 # for student profile page
 def get_student_infop():
     try:
-        with connect(database=DB, user=USERNAME, password=PASSWORD, host=HOST, port= PORT) as connection:
-            with closing(connection.cursor()) as cursor:
+        conn = connect(database=DB, user=USERNAME, password=PASSWORD, host=HOST, port= PORT)
+        cursor = conn.cursor()
+            #with closing(connection.cursor()) as cursor:
                 
-                # get student name, netid, year, major, bio
-                all = "SELECT * FROM tigerclubtest.club_info"
-                print(connection.get_dsn_parameters())
-                cursor = cursor.execute(all)
-                result = cursor.fetchone()
-                print("results:", result)
-                return result
+        # get student name, netid, year, major, bio
+        all = "SELECT * FROM tigerclubtest.club_info"
+        print(conn.get_dsn_parameters())
+        cursor = cursor.execute(all)
+        result = cursor.fetchone()
+        print("results:", result)
+        cursor.close()
+        conn.close()
+        return result
 
     except Exception as ex:
         print(ex, file = stderr)

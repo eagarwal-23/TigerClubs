@@ -94,10 +94,14 @@ def get_clubid_query():
     stmt_str += "FROM club_info "
     stmt_str += "WHERE name = %s"
 
+    return stmt_str
+
 def get_tagid_query():
     stmt_str = "SELECT tag_id, name "
     stmt_str += "FROM tag_info "
     stmt_str += "WHERE name = %s"
+
+    return stmt_str
 
 # query to update student's bio in student_info table
 def update_student_bio_query():

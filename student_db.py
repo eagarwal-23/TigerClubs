@@ -126,7 +126,7 @@ def get_student_clubs_query():
 
 # query to get student's tags
 def get_student_tags_query():
-    stmt_str = "SELECT tag_info.name, tagid "
+    stmt_str = "SELECT tag_info.name, tag_info.tagid "
     stmt_str += "FROM tag_info, student_tags "
     stmt_str += "WHERE student_tags.tagid = tag_info.tagid "
     stmt_str += "AND student_tags.netid = %s "

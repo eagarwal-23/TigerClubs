@@ -34,7 +34,7 @@ PORT = '5432'
 # for student profile page
 def get_student_infop():
     try:
-        with connect(USERNAME, PASSWORD, HOST, PORT, DB) as connection:
+        with connect(database=DB, user=USERNAME, password=PASSWORD, host=HOST, port= PORT) as connection:
             with closing(connection.cursor()) as cursor:
                 
                 # get student name, netid, year, major, bio

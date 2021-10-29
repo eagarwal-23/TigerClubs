@@ -77,3 +77,15 @@ def editprofile():
         return response
     except Exception:
         print("whoops from editprofile")
+
+
+@app.route("/clubpage", methods=["GET"])
+def clubpage():
+    clubname = request.args.get("clubname")
+    try:
+        #club = get_club_info(clubname) <--- db search for club info!
+        html = render_template("clubpage.html", clubname=clubname)
+        response = make_response(html)
+        return response
+    except Exception:
+        print("whoops from clubpage")

@@ -31,7 +31,7 @@
             {%for club in student.get_clubs(): %}
                 <tr>
                     <td>
-                        <h3>{{student.get_club(club)}}</h3>
+                        <h3><a href="/clubpage?clubname={{student.get_club(club)}}" id = "clubname" name = "clubname">{{student.get_club(club)}}</a></h3>
                         <div class="clubcategory">{{category}}</div>
                         <br>
                         Members: {{ratingm}} Princeton: {{ratingp}}

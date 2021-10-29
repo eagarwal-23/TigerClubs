@@ -39,6 +39,7 @@ def get_student_infop():
                 
                 # get student name, netid, year, major, bio
                 all = "SELECT * FROM tigerclubtest.club_info"
+                print(connection.get_dsn_parameters())
                 cursor = cursor.execute(all)
                 result = cursor.fetchone()
                 print("results:", result)

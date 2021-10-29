@@ -116,8 +116,8 @@ def get_student_info_query():
 # query to get student's clubs
 def get_student_clubs_query():
     stmt_str = "SELECT club_info.name, clubid "
-    stmt_str += "FROM club_info, students_clubs "
-    stmt_str += "WHERE students_clubs.clubid = club_info.clubid "
+    stmt_str += "FROM club_info, student_clubs "
+    stmt_str += "WHERE student_clubs.clubid = club_info.clubid "
     stmt_str += "AND student_clubs.netid = %s "
     stmt_str += "ORDER BY club_info.name"
 
@@ -127,8 +127,8 @@ def get_student_clubs_query():
 # query to get student's tags
 def get_student_tags_query():
     stmt_str = "SELECT tag_info.name, tagid "
-    stmt_str += "FROM tag_info, students_tags "
-    stmt_str += "WHERE students_tags.tagid = tag_info.tagid "
+    stmt_str += "FROM tag_info, student_tags "
+    stmt_str += "WHERE student_tags.tagid = tag_info.tagid "
     stmt_str += "AND student_tags.netid = %s "
     stmt_str += "ORDER BY tag_info.name"
 

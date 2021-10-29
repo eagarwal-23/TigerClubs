@@ -24,13 +24,17 @@ DB_DEFAULT = "postgres://rvwhfgtoycqubz:e0cb0aca7c7da7773f28d1905455da0f9bf5e83d
 DB_URL = os.environ.get('DATABASE_URL', DB_DEFAULT)
 
 
-
+DB = 'd8hudjmal9i0pc'
+USERNAME = 'rvwhfgtoycqubz'
+PASSWORD = 'e0cb0aca7c7da7773f28d1905455da0f9bf5e83d1a0b98be573e86a621c168e9'
+HOST = 'ec2-23-23-199-57.compute-1.amazonaws.com'
+PORT = '5432'
 
 # given netid and password, return corresponding student info from database
 # for student profile page
 def get_student_infop():
     try:
-        with connect(DB_URL, sslmode = 'require') as connection:
+        with connect(USERNAME, PASSWORD, HOST, PORT, DB) as connection:
             with closing(connection.cursor()) as cursor:
                 
                 # get student name, netid, year, major, bio

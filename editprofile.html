@@ -10,17 +10,27 @@
 
         <h2>Edit profile for: {{Name}}</h2>
         Submitting here will replace.
-        <strong>NetID: {{netid}}</strong>
-        <strong>Year: {{classyear}}</strong>
-        <strong>Major: {{major}}</strong>
-        <strong>New Clubs: {{clubs}}</strong>
-        <strong>Bio: {{bio}}</strong>
-        <strong>Interests: {{interests}}</strong>
-        <br>
-        <br>
-        <a href="/profile?netid={{netid}}">Save</a>
-        <a href="/profile?netid={{netid}}">Cancel</a>
 
+        <form action="profile" method="get">
+            <table>
+                <tr>
+                    <td><label style="text-align:right">Change Clubs:</label></td>
+                    <td><input type="text" name="dept"></td>
+                </tr>
+                <tr>
+                    <td><label>Change Bio:</label></td>
+                    <td><input type="text" name="num"></td>
+                </tr>
+                <tr>
+                    <td><label>Change Interests:</label></td>
+                    <td><input type="text" name="area"></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="Save"></td>
+                    <a href="/profile?netid={{netid}}">Cancel</a>
+                </tr>
+            </table>
+        </form>
 
  
         <hr>

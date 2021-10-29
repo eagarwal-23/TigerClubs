@@ -73,15 +73,31 @@ def update_student_info(netid, bio = None, clubs = None, tags = None):
                 if bio is not "" and not None:
                     cursor.execute(update_student_bio_query(), [bio, netid])
                 if clubs is not "" and not None:
-                    cursor.execute(edit_student_clubs(), [netid, clubs])
+                    cursor.execute(get_clubid_query(), [clubs])
+                    row = cursor.fetchone()
+                    clubid = row[0]
+                    cursor.execute(edit_student_clubs(), [netid, clubid])
                 if tags is not "" and not None:
-                    cursor.execute(edit_student_tags(), [netid, tags])
+                    cursor.execute(get_tagid_query(), [tags])
+                    row = cursor.fetchone()
+                    tagid = row[0]
+                    cursor.execute(edit_student_tags(), [netid, tagid])
 
                 connection.commit()
 
     except Exception as ex:
         print(ex, file = stderr)
         exit(1)
+
+def get_clubid_query():
+    stmt_str = "SELECT club_id, name "
+    stmt_str += "FROM club_info "
+    stmt_str += "WHERE club_id = %s"
+
+def get_tagid_query():
+    stmt_str = "SELECT tag_id, name "
+    stmt_str += "FROM tag_info "
+    stmt_str += "WHERE tag_id = %s"
 
 # query to update student's bio in student_info table
 def update_student_bio_query():

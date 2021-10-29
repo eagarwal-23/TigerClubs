@@ -77,7 +77,7 @@ def update_student_info(netid, bio = None, clubs = None, tags = None):
                     row = cursor.fetchone()
                     clubid = row[0]
                     print(clubid)
-                    cursor.execute(edit_student_clubs())
+                    cursor.execute(edit_student_clubs(), [netid, clubid])
                 if tags is not "" and not None:
                     cursor.execute(get_tagid_query(), [tags])
                     row = cursor.fetchone()
@@ -85,7 +85,7 @@ def update_student_info(netid, bio = None, clubs = None, tags = None):
                     print(tagid)
                     cursor.execute(edit_student_tags(), [netid, tagid])
 
-                connection.commit()
+                connection.autocommit = True
 
     except Exception as ex:
         print(ex, file = stderr)
@@ -115,15 +115,15 @@ def update_student_bio_query():
 
 # query to edit student's clubs
 def edit_student_clubs():
-    stmt_str = "INSERT INTO student_clubs (index, netid, clubid) "
-    stmt_str = "VALUES (NULL, eagarwal, 6)"
+    stmt_str = "INSERT INTO student_clubs (netid, clubid) "
+    stmt_str = "VALUES (%s, %s)"
 
     return stmt_str
 
 # query to edit student's tags
 def edit_student_tags():
-    stmt_str = "INSERT INTO student_tags (index, netid, tagid) "
-    stmt_str = "VALUES (NULL, %s, %s)"
+    stmt_str = "INSERT INTO student_tags (netid, tagid) "
+    stmt_str = "VALUES (%s, %s)"
 
     return stmt_str
 

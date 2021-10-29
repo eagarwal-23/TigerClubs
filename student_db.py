@@ -26,13 +26,13 @@ def get_student_info(netid):
                 
                 # get student name, netid, year, major, bio
                 
-                cursor = cursor.execute(get_student_info_query(), [netid])
+                cursor.execute(get_student_info_query(), [netid])
 
                 student_info = cursor.fetchone()
 
                 # get students clubs
                 clubs = []
-                cursor = cursor.execute(get_student_clubs_query(), [netid])
+                cursor.execute(get_student_clubs_query(), [netid])
                 row = cursor.fetchone()
 
                 while row is not None:
@@ -43,7 +43,7 @@ def get_student_info(netid):
 
                 # get students tags (interests)
                 tags = []
-                cursor = cursor.execute(get_student_tags_query(), [netid])
+                cursor.execute(get_student_tags_query(), [netid])
                 row = cursor.fetchone()
 
                 while row is not None:
@@ -71,11 +71,11 @@ def update_student_info(netid, bio = None, clubs = None, tags = None):
 
                 # update student's bio
                 if bio is not "" and not None:
-                    cursor = cursor.execute(update_student_bio_query(), [bio, netid])
+                    cursor.execute(update_student_bio_query(), [bio, netid])
                 if clubs is not "" and not None:
-                    cursor = cursor.execute(edit_student_clubs(), [netid, clubs])
+                    cursor.execute(edit_student_clubs(), [netid, clubs])
                 if tags is not "" and not None:
-                    cursor = cursor.execute(edit_student_tags(), [netid, tags])
+                    cursor.execute(edit_student_tags(), [netid, tags])
 
                 connection.commit()
 

@@ -1,6 +1,7 @@
 from flask import Flask, request, make_response
 from flask import render_template
 from student_db import get_student_info, update_student_info
+from student import Student
 
 app = Flask(__name__, template_folder=".")
 

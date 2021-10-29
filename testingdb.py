@@ -36,7 +36,7 @@ def get_student_infop():
                 # get student name, netid, year, major, bio
                 all = "SELECT * FROM tigerclubtest.club_info"
                 cursor = cursor.execute(all)
-                result = cursor.fetchall()
+                result = cursor.fetchone()
                 print("results:", result)
                 return result
 

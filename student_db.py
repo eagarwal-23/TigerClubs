@@ -70,17 +70,21 @@ def update_student_info(netid, bio = None, clubs = None, tags = None):
                 clubid = clubs
 
                 # update student's bio
-                if bio is not "" and not None:
+                if bio != "" and not None:
                     cursor.execute(update_student_bio_query(), [bio, netid])
                 if clubs != "" and clubs is not None:
+                    print("here a")
                     cursor.execute(get_clubid_query(), [clubs])
                     row = cursor.fetchone()
                     clubid = row[0]
+                    print(row)
                     print(clubid)
                     cursor.execute(edit_student_clubs(), [netid, clubid])
                 if tags != "" and tags is not None:
+                    print("here b")
                     cursor.execute(get_tagid_query(), [tags])
                     row = cursor.fetchone()
+                    print(row)
                     tagid = row[0]
                     print(tagid)
                     cursor.execute(edit_student_tags(), [netid, tagid])

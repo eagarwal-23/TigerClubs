@@ -26,11 +26,9 @@ def landing():
     except Exception:
         print("whoops")
 
-
-@app.route("/profile", methods=["GET"])
+# rendering profile page from landing page
 def profile():
     netid = request.args.get("netid")
-    # student_info = get_student_info(netid)
     html = render_template("profile.html", netid=netid)
 
     # html = render_template("profile.html",
@@ -45,19 +43,21 @@ def profile():
     response = make_response(html)
     return response
 
+# rendering profile page after updating from editprofile.html
+@app.route("/profile", methods=["GET"])
+def edited_profile():
+    netid = request.args.get("netid")
+    bio = request.arts.get("bio")
+    clubs = request.args.get("clubs")
+    tags = request.args.get("tags")
+
+    # update_student_info(netid, bio, clubs, tags)
+    profile()
+
+# rendering edit profile page from the profile page
 @app.route("/editprofile", methods=["GET"])
 def editprofile():
     netid = request.args.get("netid")
-    # profile_information = get_profile_information(netid)
     html = render_template("editprofile.html", netid=netid)
-    #html = render_template("profile.html",
-    #name=name,
-    #netid=netid,
-    #classyear=classyear,
-    #major=major,
-    #clubs=clubs,
-    #bio=bio,
-    #interests=interests)
     response = make_response(html)
     return response
-    

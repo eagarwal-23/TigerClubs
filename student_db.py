@@ -3,7 +3,7 @@
 #-----------------------------------------------------------------------
 #   studentdb.py
 #   Authors: Eesha Agarwal and Anthony Guerra
-#   Module for functions related to student's own profile page
+#   Database functions related to student profile page
 
 from sys import argv, stderr, exit
 from psycopg2 import connect, sql

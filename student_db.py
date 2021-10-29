@@ -11,20 +11,17 @@ from contextlib import closing
 from student import Student
 
 # add database details as constants
-# DB = 
-# USERNAME = 
-# PASSWORD = 
-# HOST = 
-# PORT = 
-
-# connecting to postgresql db
-connection = connect("")    
+DB = 'd8hudjmal9i0pc'
+USERNAME = 'rvwhfgtoycqubz'
+PASSWORD = 'e0cb0aca7c7da7773f28d1905455da0f9bf5e83d1a0b98be573e86a621c168e9'
+HOST = 'ec2-23-23-199-57.compute-1.amazonaws.com'
+PORT = '5432'
 
 # given netid and password, return corresponding student info from database
 # for student profile page
 def get_student_info(netid):
     try:
-        with connect(database=DB, user=USERNAME, password=PASSWORD, host=HOST, port= PORT):
+        with connect(database=DB, user=USERNAME, password=PASSWORD, host=HOST, port= PORT) as connection:
             with closing(connection.cursor()) as cursor:
                 
                 # get student name, netid, year, major, bio
@@ -66,8 +63,10 @@ def get_student_info(netid):
 
 def update_student_info(netid, bio = None, clubs = None, tags = None):
     try:
-        with connect(database=DB, user=USERNAME, password=PASSWORD, host=HOST, port= PORT):
+        with connect(database=DB, user=USERNAME, password=PASSWORD, host=HOST, port= PORT) as connection:
             with closing(connection.cursor()) as cursor:
+
+                clubid = clubs
 
                 # update student's bio
                 if bio:
@@ -118,7 +117,7 @@ def get_student_clubs_query():
     stmt_str = "SELECT club_info.name, clubid "
     stmt_str += "FROM club_info, students_clubs "
     stmt_str += "WHERE students_clubs.clubid = club_info.clubid "
-    stmt_str += "AND student_clubs.netid = ? "
+    stmt_str += "AND student_clubs.netid = %s "
     stmt_str += "ORDER BY club_info.name"
 
     return stmt_str
@@ -129,8 +128,7 @@ def get_student_tags_query():
     stmt_str = "SELECT tag_info.name, tagid "
     stmt_str += "FROM tag_info, students_tags "
     stmt_str += "WHERE students_tags.tagid = tag_info.tagid "
-    stmt_str += "AND student_tags.netid = ? "
+    stmt_str += "AND student_tags.netid = %s "
     stmt_str += "ORDER BY tag_info.name"
 
     return stmt_str
-

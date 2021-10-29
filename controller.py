@@ -61,7 +61,7 @@ def edited_profile():
     try:
 
         update_student_info(netid, bio, clubs, tags)
-        profile()
+        return profile()
     except Exception:
         print("whoops profile from edit")
 

@@ -54,7 +54,7 @@ def profile():
 @app.route("/profilefromedit", methods=["GET"])
 def edited_profile():
     netid = request.args.get("netid")
-    bio = request.arts.get("bio")
+    bio = request.args.get("bio")
     clubs = request.args.get("clubs")
     tags = request.args.get("tags")
 

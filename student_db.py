@@ -90,14 +90,14 @@ def update_student_info(netid, bio = None, clubs = None, tags = None):
         exit(1)
 
 def get_clubid_query():
-    stmt_str = "SELECT club_id, name "
+    stmt_str = "SELECT clubid, name "
     stmt_str += "FROM club_info "
     stmt_str += "WHERE name = %s"
 
     return stmt_str
 
 def get_tagid_query():
-    stmt_str = "SELECT tag_id, name "
+    stmt_str = "SELECT tagid, name "
     stmt_str += "FROM tag_info "
     stmt_str += "WHERE name = %s"
 

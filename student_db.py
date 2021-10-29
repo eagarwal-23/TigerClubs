@@ -115,15 +115,15 @@ def update_student_bio_query():
 
 # query to edit student's clubs
 def edit_student_clubs():
-    stmt_str = "INSERT INTO student_clubs (netid, clubid) "
-    stmt_str = "VALUES (%s, %s)"
+    stmt_str = "INSERT INTO student_clubs (netid, clubid, index) "
+    stmt_str = "VALUES (%s, %s, 40)"
 
     return stmt_str
 
 # query to edit student's tags
 def edit_student_tags():
-    stmt_str = "INSERT INTO student_tags (netid, tagid) "
-    stmt_str = "VALUES (%s, %s)"
+    stmt_str = "INSERT INTO student_tags (netid, tagid, index) "
+    stmt_str = "VALUES (%s, %s, 40)"
 
     return stmt_str
 

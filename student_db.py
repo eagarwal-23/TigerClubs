@@ -101,7 +101,7 @@ def edit_student_clubs():
 def edit_student_tags():
     stmt_str = "INSERT INTO student_tags(netid, tagid) "
     stmt_str = "VALUES (%s, %s)"
-
+    #
     return stmt_str
 
 # query to get student ingo

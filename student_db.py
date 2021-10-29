@@ -69,6 +69,8 @@ def update_student_info(netid, bio = None, clubs = None, tags = None):
         with connect(database=DB, user=USERNAME, password=PASSWORD, host=HOST, port= PORT):
             with closing(connection.cursor()) as cursor:
 
+                clubid = clubs
+
                 # update student's bio
                 if bio:
                     cursor = cursor.execute(update_student_bio_query(), [bio, netid])

@@ -19,6 +19,7 @@ def login():
 def landing():
 
     netid = request.args.get("netid")
+
     try:
         student = get_student_info(netid)
         name = student.get_name()
@@ -43,7 +44,8 @@ def profile():
         bio = student.get_bio()
         interests = student.get_interests()
 
-        html = render_template("profile.html", student = student, netid=netid, name=name,
+        html = render_template("profile.html",
+        student = student, netid=netid, name=name,
         classyear=classyear, major=major, clubs=clubs,
         bio=bio, interests=interests)
 

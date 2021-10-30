@@ -1,22 +1,46 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>TigerClubs</title>
-        <link rel="stylesheet" href="maincss.css">
-    </head>
-    
-    <body>
-        <h1>Tiger Clubs</h1>
-        
-        <div class="rectangle-19"></div>
-        <form class="searchform" action="landing" method="get">
-            <label>NetID:</label>
-            <input type = text name="netid">
-            <input type="submit" value="Go!">
-        </form>
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <link href="/main.css" rel="stylesheet" id="bootstrap-css">
 
- 
-        <hr>
-        <p>TigerClubs. Created by Anthony Guerra, Eesha Agarwaal, Natalie Reptak, Nadia Rodriguez, Camila Vasquez</p>
-    </body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">TigerClubs</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </nav>
+
+</head>
+
+<body>
+    <div id="login">
+        <h3 class="text-center text-white pt-5">Login form</h3>
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" action="landing" method="get">
+                            <h3 class="text-center text-info">Login</h3>
+                            <div class="form-group">
+                                <label for="username" class="text-info">Netid:</label><br>
+                                <input type="text" name="netid" id="netid" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                            </div>
+                            <div id="register-link" class="text-right">
+                                <a href="#" class="text-info">Register here</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
 </html>

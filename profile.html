@@ -18,7 +18,10 @@
               <a class="nav-link" href="/profile?netid={{netid}}">Profile <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+              <a class="nav-link disabled" href="#">Voting!</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="login">Logout</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -31,39 +34,37 @@
                 <a class="dropdown-item" href="#">Something else here</a>
               </div>
             </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
           </ul>
         </div>
       </nav>
 </head>
 <body>
-  <h2>{{name}}</h2>
-        Potentially picture here
-        <br>
-        <br>
-        <strong>NetID: {{netid}}</strong>
-        <br>
-        <strong>Year: {{classyear}}</strong>
-        <br>
-        <strong>Major: {{major}}</strong>
-        <br>
-        <strong>Clubs: <strong>
-        {%for club in clubs: %}
-            <br>
-            <strong>&emsp;{{club}}</strong>
-            {% endfor %}
-        <br>
-        <strong>Bio: {{bio}}</strong>
-        <br>
-        <strong>Interests: </strong>
+  <div class = "container-fluid">
+    <br>
+    <div class="row d-flex justify-content-center">
+      <h2>{{name}}</h2>
+      </div>
+    <br>
+    <br>
+    <div class="row d-flex justify-content-center">
+      <figure class="figure">
+        <img src=".../400x300" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+        <figcaption class="figure-caption">Potentially picture here</figcaption>
+      </figure>
+    </div>
+    <div class="row d-flex justify-content-center">
+      <p><strong>NetID: {{netid}}</strong> <br>
+      <strong>Year: {{classyear}}</strong> <br>
+      <strong>Major: {{major}}</strong> <br>
+        <strong>Bio: {{bio}}</strong> <br>
+        <strong>Interests: </strong> <br>
         {%for interest in interests: %}
-            <br>
-            <strong>&emsp;{{interest}}</strong>
+            <strong>&emsp;{{interest}}</strong> <br>
             {% endfor %}
-        <br>
-        <br>
-  <a href="/editprofile?netid={{netid}}">Edit Profile</a>
+        <a href="/editprofile?netid={{netid}}">Edit Profile</a>
+          </p>
+    </div>
+
+  </div>
 </body>
 </html>

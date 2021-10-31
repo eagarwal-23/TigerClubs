@@ -2,11 +2,11 @@ from models import Student, Club, Tag
 from app import db
 
 def get_student_info(netid):
-    student = Student.query.filter_by(netid = 'eagarwal').first()
+    student = Student.query.filter_by(netid = netid).first()
     return student
 
 def update_student_info(netid, bio = None, clubs = None, tags = None):
-    student = Student.query.filter_by(netid = 'eagarwal').first()
+    student = Student.query.filter_by(netid = netid).first()
     print(student.year)
     if bio != "" and bio is not None:
         student.bio = bio

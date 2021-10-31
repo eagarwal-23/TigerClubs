@@ -37,7 +37,7 @@ def landing():
 # rendering profile page from landing page
 @app.route("/profile", methods=["GET"])
 def profile():
-
+   
     try:
         netid = request.args.get("netid")
         student = get_student_info(netid)
@@ -48,7 +48,7 @@ def profile():
         bio = student.bio
         interests = student.tags
 
-        html = render_template("profile.html", netid=netid, name=name,
+        html = render_template("profile.html", student = student, netid=netid, name=name,
         classyear=classyear, major=major, clubs=clubs,
         bio=bio, interests=interests)
 

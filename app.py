@@ -85,10 +85,13 @@ def editprofile():
 
 @app.route("/clubpage", methods=["GET"])
 def clubpage():
-    clubname = request.args.get("clubname")
+    netid = request.args.get("netid")
+    print(netid)
     try:
+        club = request.args.get("club")
+        print(club)
         #club = get_club_info(clubname) <--- db search for club info!
-        html = render_template("clubpage.html", clubname=clubname)
+        html = render_template("clubpage.html", netid=netid, club=club)
         response = make_response(html)
         return response
     except Exception:

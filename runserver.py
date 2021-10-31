@@ -1,6 +1,6 @@
 import argparse
 from sys import exit, stderr
-from controller import app
+from app import app
 
 def parse_args():
     parsing = argparse.ArgumentParser(

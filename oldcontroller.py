@@ -1,6 +1,7 @@
 from flask import Flask, request, make_response
-from flask import render_template
-from student_db import get_student_info, update_student_info
+from flask import render_template 
+#from student_db import get_student_info, update_student_info
+from student_db_sql import get_student_info, update_student_info
 
 app = Flask(__name__, template_folder=".")
 
@@ -19,12 +20,24 @@ def login():
 def landing():
 
     netid = request.args.get("netid")
+    student = get_student_info(netid)
+    netid = student.netid
+    name = student.name
+    clubs = student.clubs
+    print('name ' + name)
+    print('netid ' + netid)
+    print(clubs)
 
     try:
         student = get_student_info(netid)
-        name = student.get_name()
-        clubs = student.get_clubs()
-        html = render_template("landing.html", netid=netid, name = name, clubs = clubs, student = student)
+        print(student)
+        # name = student.get_name()
+        # clubs = student.get_clubs()
+        netid = student.netid
+        name = student.name
+        clubs = student.clubs
+        print(clubs)
+        html = render_template("landing.html", netid=netid, name = name, clubs = clubs)
         response = make_response(html)
         return response
     except Exception:
@@ -37,15 +50,21 @@ def profile():
 
     try:
         student = get_student_info(netid)
-        name = student.get_name()
-        classyear = student.get_year()
-        major = student.get_major()
-        clubs = student.get_clubs()
-        bio = student.get_bio()
-        interests = student.get_interests()
+        # name = student.get_name()
+        # classyear = student.get_year()
+        # major = student.get_major()
+        # clubs = student.get_clubs()
+        # bio = student.get_bio()
+        # interests = student.get_interests()
+        name = student.name
+        classyear = student.year
+        major = student.major
+        clubs = student.clubs
+        bio = student.bio
+        interests = student.tags
 
         html = render_template("profile.html",
-        student = student, netid=netid, name=name,
+        netid=netid, name=name,
         classyear=classyear, major=major, clubs=clubs,
         bio=bio, interests=interests)
 

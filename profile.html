@@ -50,17 +50,17 @@
         <strong>Major: {{major}}</strong>
         <br>
         <strong>Clubs: <strong>
-        {%for club in student.get_clubs(): %}
+        {%for club in clubs: %}
             <br>
-            <strong>&emsp;{{student.get_club(club)}}</strong>
+            <strong>&emsp;{{club}}</strong>
             {% endfor %}
         <br>
         <strong>Bio: {{bio}}</strong>
         <br>
         <strong>Interests: </strong>
-        {%for interest in student.get_interests(): %}
+        {%for interest in interests: %}
             <br>
-            <strong>&emsp;{{student.get_interest(interest)}}</strong>
+            <strong>&emsp;{{interest}}</strong>
             {% endfor %}
         <br>
         <br>

@@ -1,5 +1,5 @@
-from models import Student, Club, Tag
 from app import db
+from models import Student, Club, Tag
 
 def get_student_info(netid):
     student = Student.query.filter_by(netid = netid).first()
@@ -35,7 +35,6 @@ def get_clubs(input):
     print(clubs)
     return clubs
 
-
 def update_club_info(name, description = None, members = None, tags = None):
     club = Club.query.filter_by(name = name).first()
     if description != "" and not None:
@@ -53,3 +52,9 @@ def update_club_info(name, description = None, members = None, tags = None):
 
     db.session.commit()
 
+def club_search(search):
+    search_query = '%' + search + '%'
+    clubs = Club.query.filter((Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query)))).all()
+    for club in clubs:
+        print(club)
+    return clubs

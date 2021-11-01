@@ -73,7 +73,7 @@ class Tag(db.Model):
     clubs = db.relationship("Tag",
                                secondary=club_tags)
 
-    def __init__(self, name, desc):
+    def __init__(self, name):
         self._name = name
 
     def __repr__(self):

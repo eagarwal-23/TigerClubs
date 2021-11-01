@@ -1,17 +1,25 @@
 from app import db
 from models import Student, Club, Tag
 
-def club_search(name = None, tag = None):
+def club_search(search):
     clubs = None
-    if name:
-        name_search = '%' + name + '%'
-        clubs = Club.query.filter((Club.name.ilike(name_search))).all()
-    elif tag:
-        tag_search = '%' + tag + '%'
-        clubs = Club.query.join(Tag).filter(Tag.name.ilike(tag_search)).all()
+    search_query = '%' + search + '%'
+    clubs = Club.query.filter((Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query)))).all()
     for club in clubs:
         print(club)
 
+def add_tag(name):
+    tag = Tag(name)
+    db.session.add(tag)
+    db.session.commit()
+
 if __name__ == "__main__":
-    tag = 'c'
-    club_search(tag = tag)
+    add_tag('Instruments')
+    add_tag('Movies')
+    add_tag('MCU')
+    add_tag('Baseball')
+    add_tag('Basketball')
+    add_tag('Beachball')
+    add_tag('Sports')
+    add_tag('Bowling')
+    add_tag('Cricket')

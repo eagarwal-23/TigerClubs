@@ -61,10 +61,10 @@
     </div>
     <div class="row d-flex justify-content-center">
         <h3>Basic Info </h3>
-        <p>
-      <strong>Description: {{description}}</strong> <br>
-        <a href="#">Link to club website</a>
-        <br> <strong>Members: </strong> <br>
+        </div>
+    <div class="row d-flex justify-content-center">
+        <p> <strong>Description: {{description}}</strong> <br>
+        <strong>Members: </strong> <br>
         {%for member in members: %}
           <strong>&emsp;{{member}}</strong>
           {% endfor %}
@@ -72,6 +72,9 @@
         {%for tag in tags: %}
           <strong>&emsp;{{tag}}</strong>
           {% endfor %}
+        <br>
+        <br>
+        <a href="#">Link to club website</a>
           </p>
     </div>
 

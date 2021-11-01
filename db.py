@@ -26,6 +26,16 @@ def get_club_info(clubname):
     club = Club.query.filter(Club.name.like(clubname)).first()
     return club
 
+def get_clubs(input):
+    #doesn't work if not right case
+    clubs = Club.query.filter(Club.name.contains("%" + input + "%"))
+    #clubs2 = Club.query.filter(Club.tags.contains("%" + input + "%"))
+    #allclubs.append(clubs)
+    #allclubs.append(clubs2)
+    print(clubs)
+    return clubs
+
+
 def update_club_info(name, description = None, members = None, tags = None):
     club = Club.query.filter_by(name = name).first()
     if description != "" and not None:

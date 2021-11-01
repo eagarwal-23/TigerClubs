@@ -22,8 +22,10 @@ def update_student_info(netid, bio = None, clubs = None, tags = None):
 
     db.session.commit()
         
-def get_club_info(name):
-    club = Club.query.filter_by(name = name).first()
+def get_club_info(clubname):
+    print(clubname)
+    club = Club.query.filter(Club.name.like(clubname)).first()
+    print(club.description)
     return club
 
 def update_club_info(name, description = None, members = None, tags = None):

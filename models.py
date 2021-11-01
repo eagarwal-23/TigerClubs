@@ -78,3 +78,30 @@ class Tag(db.Model):
 
     def __repr__(self):
         return self.name 
+
+class Review(db.model):
+    __tablename__ = 'review_info'
+
+    # auto-increment is automatic
+    reviewid = db.Column(db.Integer(), primary_key = True)
+    diversity = db.Column(db.Integer())
+    inclusivity = db.Column(db.Integer())
+    time_comm = db.Column(db.Integer())
+    experience = db.Column(db.Integer())
+    workload = db.Column(db.Integer())
+
+    def __init__(self, diversity, inclusivity, time_comm, experience, workload):
+        self.diversity = diversity
+        self.inclusivity = inclusivity
+        self.time_comm = time_comm
+        self.experience = experience
+        self.workload = workload
+
+    def __repr__(self):
+        str_review = 'Diversity: ' + self.diversity + '\n'
+        str_review += 'Inclusivity: ' + self.inclusivity + '\n'
+        str_review += 'Time Commitment: ' + self.time_comm + '\n'
+        str_review += 'Experience required: ' + self.experience + '\n'
+        str_review += 'Workload: ' + self.workload
+
+        return str_review

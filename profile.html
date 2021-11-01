@@ -68,6 +68,10 @@
         {%for interest in interests: %}
             <strong>&emsp;{{interest}}</strong> <br>
             {% endfor %}
+        <strong>Clubs: </strong> <br>
+        {%for club in clubs: %}
+            <strong>&emsp;{{club}}</strong> <br>
+            {% endfor %}
         <a href="/editprofile?netid={{netid}}">Edit Profile</a>
           </p>
     </div>

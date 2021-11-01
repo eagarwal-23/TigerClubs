@@ -79,7 +79,7 @@ class Tag(db.Model):
     def __repr__(self):
         return self.name 
 
-class Review(db.model):
+class Review(db.Model):
     __tablename__ = 'review_info'
 
     # auto-increment is automatic

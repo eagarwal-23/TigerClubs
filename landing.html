@@ -10,10 +10,14 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <!------ nadia's js file ---------->
-  <script src="landing.js"></script>
-  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-  <!------ Include the above in your HEAD tag ---------->
+  <<<<<<< HEAD <!------ nadia's js file ---------->
+    <script src="landing.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    =======
+    <!------ Include the above in your HEAD tag ---------->
+
+    >>>>>>> 9d13bd74f97deb10531d3d0ddda040ace4b2a27b
 </head>
 
 <body>
@@ -52,9 +56,30 @@
     </nav>
   </div>
   <div class="container-fluid">
+    <a class="navbar-brand" href="/landing?netid={{netid}}">TigerClubs</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item ">
+          <a class="nav-link" href="/profile?netid={{netid}}">Profile <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Voting!</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="login">Logout</a>
+        </li>
+      </ul>
+    </div>
+    </nav>
+  </div>
+  <div class="container-fluid">
     <div class="row">
       <div class="col d-flex justify-content-center">
-        <strong> Hi {{name}} !</strong>
+        <h3> Hi {{name}} !</h3>
       </div>
     </div>
     <div class="row">
@@ -89,7 +114,7 @@
         </script>
 
       </div>
-      <div class="col-9">
+      <div class="col-6">
         {%for club in clubs: %}
         <div class="container">
           <div class="card" style="width: 40rem;">
@@ -99,6 +124,9 @@
               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
                 content.</p>
               <a href="#" class="card-link">Card link</a>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <a href="/clubpage?clubname={{club}}&netid={{netid}}" class="card-link stretched-link"></a>
               <a href="#" class="card-link">Another link</a>
             </div>
           </div>

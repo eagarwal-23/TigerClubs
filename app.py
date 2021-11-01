@@ -7,7 +7,7 @@ app = Flask(__name__, template_folder=".")
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://rvwhfgtoycqubz:e0cb0aca7c7da7773f28d1905455da0f9bf5e83d1a0b98be573e86a621c168e9@ec2-23-23-199-57.compute-1.amazonaws.com:5432/d8hudjmal9i0pc"
 db = SQLAlchemy(app)
 
-from db1 import get_student_info, update_student_info, get_club_info, update_club_info
+from db1 import get_student_info, update_student_info, get_club_info, update_club_info, get_clubs
 
 @app.route("/", methods=["GET"])
 @app.route("/login", methods=["GET"])
@@ -24,7 +24,7 @@ def login():
 def landing():
 
     netid = request.cookies.get('netid')
-    if netid is "":
+    if netid is None:
         netid = request.args.get("netid")
     clubname = request.args.get("clubname")
     if clubname is None:

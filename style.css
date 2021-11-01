@@ -7,3 +7,17 @@
 .menu-bar{
     background-image: linear-gradient(-90deg, #d38312, #f3ca7e);
 }
+<<<<<<< HEAD
+
+.nav-link{
+    font-size: 16px;
+    margin: 3px;
+    color: #fff!important;
+    font-weight:500;
+}
+
+.tag-buttons{
+    background-color: red;
+}
+=======
+>>>>>>> 9d13bd74f97deb10531d3d0ddda040ace4b2a27b

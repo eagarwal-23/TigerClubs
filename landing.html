@@ -1,40 +1,82 @@
 <!DOCTYPE html>
-<head lang = "en">
-  <meta charset = "UTF-8">
-  <meta name= "viewport" content= "width-device-width, initial-scale-1.0">
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width-device-width, initial-scale-1.0">
   <title> Tiger Clubs</title>
-  <link rel="stylesheet" href="style.css" >
+  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <<<<<<< HEAD <!------ nadia's js file ---------->
+    <script src="landing.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    =======
     <!------ Include the above in your HEAD tag ---------->
 
+    >>>>>>> 9d13bd74f97deb10531d3d0ddda040ace4b2a27b
 </head>
+
 <body>
-  <div class = "menu-bar">
+  <div class="menu-bar">
     <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="/landing?netid={{netid}}">TigerClubs</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <i class="fa fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item ">
-              <a class="nav-link" href="/profile?netid={{netid}}">Profile <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Voting!</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login">Logout</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+      <a class="navbar-brand" href="/landing?netid={{netid}}">TigerClubs</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item ">
+            <a class="nav-link" href="/profile?netid={{netid}}">Profile <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Voting!</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login">Logout</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Dropdown
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/landing?netid={{netid}}">TigerClubs</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item ">
+          <a class="nav-link" href="/profile?netid={{netid}}">Profile <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Voting!</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="login">Logout</a>
+        </li>
+      </ul>
     </div>
-  <div class = "container-fluid">
+    </nav>
+  </div>
+  <div class="container-fluid">
     <div class="row">
       <div class="col d-flex justify-content-center">
         <h3> Hi {{name}} !</h3>
@@ -42,31 +84,57 @@
     </div>
     <div class="row">
       <div class="col-3">
-        <form class="form-inline my-2 my-lg-0" action="/landing?netid={{netid}}" method="get">
-          <input class="form-control mr-sm-2" type="search" name = "clubname" placeholder="Search name, tag etc" value="{{clubname}}" aria-label="Search">
-          <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-        </form>
-        <form class="form-inline my-2 my-lg-0" action="studentsearch" method="get">
-          <input class="form-control mr-sm-2" type="search" name = "studentname" placeholder="Search Student" aria-label="Search">
-          <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        <!-- HANDLES STUDENT SEARCH -->
+        <div class="form-group">
+          <h3>Student Search</h3>
+          <form class="form-inline my-2 my-lg-0" method="GET">
+            <input class="form-control mr-sm-2" id="student_search" name="student_search" type="search"
+              placeholder="Search by name, year, etc" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+
+        <!-- HANDLES CLUB SEARCH -->
+        <div class="form-group">
+          <h3>Club Search</h3>
+          <form class="form-inline my-2 my-lg-0" method="GET" action="">
+            <input class="form-control mr-sm-2" id="club_search" name="club_search" type="search"
+              placeholder="Search by club, tag, etc." aria-label="Search">
+            <button type="submit">Search</button>
+          </form>
+        </div>
+
+        <!-- testing printing the user input -->
+        <script>
+          $("button").click(function () {
+            var club_search_name = document.getElementById("club_search").value;
+            console.log(club_search_name);
+            $(this).css('background-color', 'red');
+          });
+        </script>
+
       </div>
       <div class="col-6">
         {%for club in clubs: %}
-        <div class = "container">
+        <div class="container">
           <div class="card" style="width: 40rem;">
             <div class="card-body">
               <h5 class="card-title">{{club}}</h5>
               <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <a href="#" class="card-link">Card link</a>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
               <a href="/clubpage?clubname={{club}}&netid={{netid}}" class="card-link stretched-link"></a>
               <a href="#" class="card-link">Another link</a>
             </div>
           </div>
         </div>
-      {% endfor %}
+        {% endfor %}
       </div>
     </div>
   </div>
 </body>
+
 </html>

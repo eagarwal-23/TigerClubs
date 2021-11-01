@@ -7,7 +7,6 @@ def get_student_info(netid):
 
 def update_student_info(netid, bio = None, clubs = None, tags = None):
     student = Student.query.filter_by(netid = netid).first()
-    print(student.year)
     if bio != "" and bio is not None:
         student.bio = bio
 
@@ -23,3 +22,24 @@ def update_student_info(netid, bio = None, clubs = None, tags = None):
 
     db.session.commit()
         
+def get_club_info(name):
+    club = Club.query.filter_by(name = name).first()
+    return club
+
+def update_club_info(name, description = None, members = None, tags = None):
+    club = Club.query.filter_by(name = name).first()
+    if description != "" and not None:
+        club.description = description
+    
+    if members != "" and members is not None:
+        student = Student.query.filter_by(name=members).first()
+        club.members.append(student)
+        db.session.add(club)
+
+    if tags != "" and tags is not None:
+        tag = Tag.query.filter_by(name=tags).first()
+        club.tags.append(tag)
+        db.session.add(club)
+
+    db.session.commit()
+

@@ -51,15 +51,18 @@ def studentsearch():
     print(studentname)
 
     try:
+        student = get_student_info(netid)
+        name = student.name
         students_list = student_search(studentname)
         print(students_list)
+        clubs = club_search("")
         print("did i make it here")
         
         for student in students_list:
             print(student.name)
 
         print("how about here")
-        html = render_template("studentsearch.html", students = students_list)
+        html = render_template("studentsearch.html", clubs=clubs, netid = netid, name=name, students = students_list)
         print("okay well did i make it here")
         response = make_response(html)
         # print("before")

@@ -7,11 +7,7 @@ app = Flask(__name__, template_folder=".")
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://rvwhfgtoycqubz:e0cb0aca7c7da7773f28d1905455da0f9bf5e83d1a0b98be573e86a621c168e9@ec2-23-23-199-57.compute-1.amazonaws.com:5432/d8hudjmal9i0pc"
 db = SQLAlchemy(app)
 
-<<<<<<< Updated upstream
-from db1 import get_student_info, update_student_info, get_club_info, update_club_info, club_search, student_search
-=======
-from db1 import get_student_info, update_student_info, get_club_info, update_club_info, club_search, get_student_ratings
->>>>>>> Stashed changes
+from db1 import get_club_ratings, get_student_info, update_student_info, get_club_info, update_club_info, club_search, get_student_ratings, student_search, get_club_ratings
 
 @app.route("/", methods=["GET"])
 @app.route("/login", methods=["GET"])
@@ -50,6 +46,7 @@ def landing():
 def studentsearch():
 
     netid = request.cookies.get('netid')
+    print("HERE IS THE NETID RIGHT HERE", netid)
     studentname = request.args.get("studentname") 
 
     #print(netid)
@@ -77,9 +74,9 @@ def studentsearch():
     except Exception:
         print("whoops from student search")
 
-@app.route("/profileexternal", methods=["GET"])
-def profileexternal():
-    desirednetid = request.args.get("desirednetid")
+#@app.route("/profileexternal", methods=["GET"])
+#def profileexternal():
+#    desirednetid = request.args.get("desirednetid")
     
 
 # rendering profile page from landing page
@@ -87,8 +84,14 @@ def profileexternal():
 def profile():
    
     try:
-        netid = request.args.get("netid")
-        student = get_student_info(netid)
+        diffperson = request.args.get("diffperson")
+        netid = request.cookies.get("netid")
+        
+        if diffperson is not None:
+            student = get_student_info(diffperson)
+        else:
+            student = get_student_info(netid)
+
         name = student.name
         classyear = student.year
         major = student.major
@@ -98,7 +101,7 @@ def profile():
 
         html = render_template("profile.html", student = student, netid=netid, name=name,
         classyear=classyear, major=major, clubs=clubs,
-        bio=bio, interests=interests)
+        bio=bio, interests=interests, diffperson = diffperson)
 
         response = make_response(html)
         return response
@@ -136,9 +139,48 @@ def clubpage():
         clubname = request.args.get("clubname")
         netid = request.args.get("netid")
         club = get_club_info(clubname)
+
+        print("better get to here")
+
+        reviews = get_club_ratings(club.clubid)
+
+        diversity = 0.0
+        inclusivity = 0.0
+        time_commitment = 0.0
+        workload = 0.0
+        experience_requirement = 0.0
+
+        counter = 0
+        for review in reviews:
+            diversity += review.diversity
+            print("??????????")
+            inclusivity += review.inclusivity
+            print("???zzzzz???????")
+            time_commitment += review.time_commitment
+            print("????aaa??????")
+            workload += review.workload
+            print("????56456??????")
+            experience_requirement += review.experience_requirement
+            print("????MMMM??????")
+
+            counter += 1
+
+        diversity /= counter
+        inclusivity /= counter
+        time_commitment /= counter
+        workload /= counter
+        experience_requirement /= counter
+
+        print("MAMAMAAMMAMA")
+
         html = render_template("clubpage.html", netid = netid, clubname = club.name,
                                 description = club.description, members = club.members,
-                                tags = club.tags)
+                                tags = club.tags, 
+                                diversity = diversity,
+                                inclusivity = inclusivity,
+                                time_commitment = time_commitment,
+                                workload = workload,
+                                experience_requirement = experience_requirement)
         response = make_response(html)
         return response
     except Exception:
@@ -147,9 +189,10 @@ def clubpage():
 @app.route("/myratings", methods = ["GET"])
 def myratings():
     try:
-        netid = request.args.get("netid")
-        ratings = get_student_ratings(netid)
-        html = render_template("myratings.html", netid = netid, ratings = ratings)
+        netid = request.cookies.get("netid")
+        print("this is hte netididddd", netid)
+        ratings = get_student_ratings("eagarwal")
+        html = render_template("ratings_from_student.html", netid = "eagarwal", review = ratings)
         response = make_response(html)
         return response
     except Exception:

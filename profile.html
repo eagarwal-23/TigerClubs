@@ -63,7 +63,9 @@
             {% endfor %}
             <br>
             <br>
+        {%if diffperson == netid%}    
         <a href="/editprofile?netid={{netid}}">Edit Profile</a>
+        {%endif%}
           </p>
     </div>
 

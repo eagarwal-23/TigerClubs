@@ -1,7 +1,7 @@
 from app import db
 from models import Student, Club, Tag, Review
 
-from db1 import student_search
+from db1 import get_student_ratings, student_search
 
 def club_search(search):
     clubs = None
@@ -31,11 +31,14 @@ if __name__ == "__main__":
     for review in reviews:
         print(review)
 
-    club = Club.query.filter_by(clubid = 3).first()
+    club = Club.query.filter_by(clubid = "3").first()
     reviews = club.reviews
+
     for review in reviews:
-        print(review.diversity)
-        print(review)
+        print(review.inclusivity)
+
+    ratings = get_student_ratings("eagarwal")
+    print(ratings)
 
     # search = 'a'
     # student_search('a')

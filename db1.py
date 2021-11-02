@@ -44,7 +44,7 @@ def update_club_info(name, description = None, members = None, tags = None):
     db.session.commit()
 
 def club_search(search):
-    search_query = search + '%'
+    search_query = '%' + search + '%'
     clubs = Club.query.filter((Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query)))).all()
     for club in clubs:
         print(club)
@@ -67,5 +67,12 @@ def get_student_ratings(netid):
     reviews = student.reviews
     return reviews
 
+def add_student_rating(netid, clubid, div, inc, time, exp, work):
+    review = Review(netid)
+
+def get_club_ratings(clubid):
+    club = Club.query.filter_by(clubid = clubid).first()
+    reviews = club.reviews
+    return reviews
 # def add_student_rating(netid, clubid, div, inc, time, exp, work):
 #     review = Review(netid)

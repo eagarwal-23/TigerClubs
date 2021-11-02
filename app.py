@@ -44,7 +44,8 @@ def landing():
 def studentsearch():
 
     netid = request.cookies.get('netid')
-    studentname = request.cookies.get('studentname') 
+    print("HERE IS THE NETID RIGHT HERE", netid)
+    studentname = request.args.get("studentname") 
 
     #print(netid)
     print(studentname)
@@ -54,21 +55,40 @@ def studentsearch():
         name = student.name
         clubs = student.clubs
         html = render_template("studentsearch.html", netid = netid, name= name, clubs = clubs)
-        response = make_response(html)
-        # print("before")
-        # response.set_cookie('studentname', studentname)
-        # print("after")
+        students_list = student_search(studentname)
+        print(students_list)
+        clubs = club_search("")
+        
+        for student in students_list:
+            print(student.name)
+
         return response
     except Exception:
         print("whoops from landing")
+        print("whoops from student search")
+
+#@app.route("/profileexternal", methods=["GET"])
+#def profileexternal():
+#    desirednetid = request.args.get("desirednetid")
+    
 
 # rendering profile page from landing page
 @app.route("/profile", methods=["GET"])
 def profile():
    
     try:
-        netid = request.args.get("netid")
-        student = get_student_info(netid)
+        diffperson = request.args.get("diffperson")
+        # print(diffperson, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        netid = request.cookies.get("netid")
+        
+        if diffperson is not None:
+            student = get_student_info(diffperson)
+        else:
+            student = get_student_info(netid)
+            diffperson = netid
+
+        print(netid, "AAAAAAAAAAAAAAAAAAAAAA")
+
         name = student.name
         classyear = student.year
         major = student.major
@@ -78,7 +98,7 @@ def profile():
 
         html = render_template("profile.html", student = student, netid=netid, name=name,
         classyear=classyear, major=major, clubs=clubs,
-        bio=bio, interests=interests)
+        bio=bio, interests=interests, diffperson = diffperson)
 
         response = make_response(html)
         return response
@@ -117,10 +137,65 @@ def clubpage():
         clubname = request.args.get("clubname")
         netid = request.args.get("netid")
         club = get_club_info(clubname)
+
+        print("better get to here")
+
+        reviews = get_club_ratings(club.clubid)
+
+        diversity = 0.0
+        inclusivity = 0.0
+        time_commitment = 0.0
+        workload = 0.0
+        experience_requirement = 0.0
+
+        counter = 0
+        for review in reviews:
+            diversity += review.diversity
+            print("??????????")
+            inclusivity += review.inclusivity
+            print("???zzzzz???????")
+            time_commitment += review.time_commitment
+            print("????aaa??????")
+            workload += review.workload
+            print("????56456??????")
+            experience_requirement += review.experience_requirement
+            print("????MMMM??????")
+
+            counter += 1
+
+        diversity /= counter
+        inclusivity /= counter
+        time_commitment /= counter
+        workload /= counter
+        experience_requirement /= counter
+
+        print("MAMAMAAMMAMA")
+
         html = render_template("clubpage.html", netid = netid, clubname = club.name,
                                 description = club.description, members = club.members,
-                                tags = club.tags)
+                                tags = club.tags, 
+                                diversity = diversity,
+                                inclusivity = inclusivity,
+                                time_commitment = time_commitment,
+                                workload = workload,
+                                experience_requirement = experience_requirement)
         response = make_response(html)
         return response
     except Exception:
+<<<<<<< HEAD
         print("whoops from clubpage")
+=======
+        print("whoops from clubpage")
+
+@app.route("/myratings", methods = ["GET"])
+def myratings():
+    try:
+        netid = request.cookies.get("netid")
+        print("this is hte netididddd", netid)
+        ratings = get_student_ratings("eagarwal")
+        html = render_template("ratings_from_student.html", netid = "eagarwal", review = ratings)
+        response = make_response(html)
+        return response
+    except Exception:
+        print("whoops from ratings")
+>>>>>>> 56936fa9084a7b1c3696d35dcffcf4e8944ffca3

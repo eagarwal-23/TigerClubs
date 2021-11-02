@@ -78,6 +78,7 @@
           </p>
           
     </div>
+    {%if hasScores: %}
     <div class="row d-flex justify-content-center">
       <div class="card" style="width: 18rem;">
         <ul class="list-group list-group-flush">
@@ -89,6 +90,9 @@
         </ul>
       </div>
     </div>
+    {%else: %}
+      No reviews yet. 
+    {%endif%}
   </div>
 </body>
 </html>

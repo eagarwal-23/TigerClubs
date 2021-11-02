@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <!------ Include the above in your HEAD tag ---------->
     <link href="/main.css" rel="stylesheet" id="bootstrap-css">
@@ -45,7 +46,7 @@
     <div class="container">
         <div class="hero-unit">
             <row>
-                <h1>Hello, {{netid}}!</h1>
+                <h1>Hello, {{name}}!</h1>
             </row>>
             <p>Here, you can see how you previously rated your clubs based diversity, inclusivity, time commitment,
                 workload, and experience required.</p>
@@ -66,7 +67,7 @@
         <button type="button" data-toggle="modal" class="btn btn-primary" data-target="#add-club-rating">Rate club
     </div>
 
-    <div id="add-club-rating" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addClubRatingLabel"
+    <div id="add-club-rating" class="modal fade" role="dialog" aria-labelledby="addClubRatingLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -77,70 +78,84 @@
                 <!-- user types in club name to add their rating -->
                 <div class="modal-body">
                     <!-- CLUB NAME -->
-                    <form class>
-                        <div class="form-group">
-                            <label for="clubNameLabel">Club Name</label>
-                            <input type="search" class="form-control" id="clubNameLabel" aria-describedby="emailHelp"
-                                placeholder="e.g. IgniteSTEM, Roaring 20, COS Council">
-                            <small id="emailHelp" class="form-text text-muted">You must be a member of this club to add
-                                a rating</small>
-                        </div>
-                    </form>
+                    <label for="clubNameLabel">Club Name</label>
+                    <input type="text" class="form-control" id="clubname" aria-describedby="clubName"
+                            placeholder="e.g. IgniteSTEM, Roaring 20, COS Council">
+                        <!-- hmm ill fix this later
+                        <small id="emailHelp" class="form-text text-muted">You must be a member of this club to add
+                            a rating</small>
+                        -->
 
                     <!-- DIVERSITY RATING -->
-                    <form class>
-                        <div class="form-group">
-                            <label for="diversityLabel">Diversity</label>
-                            <input type="search" class="form-control" id="diversityLabel" aria-describedby="emailHelp"
-                                placeholder="Enter a rating from 1.0 to 5.0">
-                        </div>
-                    </form>
+                    
+                    <label for="diversityLabel">Diversity</label>
+                    <input type="text" class="form-control" id="diversity" aria-describedby="diversity"
+                        placeholder="Enter a rating from 1.0 to 5.0">
+                    <br>
 
                     <!-- INCLUSIVITY RATING -->
-                    <form class>
-                        <div class="form-group">
-                            <label for="inclusivityLabel">Inclusivity</label>
-                            <input type="search" class="form-control" id="inclusivityLabel" aria-describedby="emailHelp"
-                                placeholder="Enter a rating from 1.0 to 5.0">
-                        </div>
-                    </form>
+                    <label for="inclusivityLabel">Inclusivity</label>
+                    <input type="text" class="form-control" id="inclusivity" aria-describedby="inclusivity"
+                        placeholder="Enter a rating from 1.0 to 5.0">
+                    <br>
 
                     <!-- TIME COMMITMENT RATING -->
-                    <form class>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Time Commitment</label>
-                            <input type="search" class="form-control" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="Enter a rating from 1.0 to 5.0">
-                        </div>
-                    </form>
+                    <label for="timecommitmentLabel">Time Commitment</label>
+                    <input type="text" class="form-control" id="time_commitment"
+                        aria-describedby="timecommitment" placeholder="Enter a rating from 1.0 to 5.0">
+                    <br>
 
                     <!-- WORKLOAD RATING -->
-                    <form class>
-                        <div class="form-group">
-                            <label for="timeCommitmentLabel">Workload</label>
-                            <input type="search" class="form-control" id="timeCommitmentLabel"
-                                aria-describedby="emailHelp" placeholder="Enter a rating from 1.0 to 5.0">
-                        </div>
-                    </form>
+                    <label for="workloadLabel">Workload</label>
+                    <input type="text" class="form-control" id="workload"
+                        aria-describedby="workload" placeholder="Enter a rating from 1.0 to 5.0">
+                    <br>
 
                     <!-- EXPERIENCE REQUIRED RATING -->
-                    <form class>
-                        <div class="form-group">
-                            <label for="experienceRequiredLabel">Experience Required</label>
-                            <input type="search" class="form-control" id="experienceRequiredLabel"
-                                aria-describedby="emailHelp" placeholder="Enter a rating from 1.0 to 5.0">
-                        </div>
-                    </form>
+                    <label for="experienceRequiredLabel">Experience Required</label>
+                    <input type="text" class="form-control" id="experience_requirement"
+                        aria-describedby="experiencerequired" placeholder="Enter a rating from 1.0 to 5.0">
+                    <br>
+
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" name="save_button" id="save_button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
     </div>
     </div>
+    <script>  
+        $(document).ready(function(){  
+             $('#save_button').click(function(){  
+                  var clubname = $('#clubname').val();  
+                  var diversity = $('#diversity').val();
+                  var inclusivity = $('#inclusivity').val();
+                  var workload = $('#workload').val();
+                  var time_commitment = $('#time_commitment').val();
+                  var experience_requirement = $('#experience_requirement').val();
+                  if(clubname != '' && diversity != '' && inclusivity != '' && workload != '' && time_commitment != '' && experience_requirement != ''){  
+                       $.ajax({  
+                            url:"/voting",  
+                            method:"POST",  
+                            data: {clubname:clubname, diversity:diversity, inclusivity:inclusivity, workload:workload, time_commitment:time_commitment, experience_requirement:experience_requirement},  
+                            success:function(data)  
+                            {  
+                                alert(data);  
+                                $('#loginModal').hide();  
+                                location.reload();  
+                            }  
+                       });  
+                  }  
+                  else
+                  {  
+                       alert("All Fields are required");  
+                  }  
+             });    
+        });  
+       </script>  
 </body>
 
 </html>

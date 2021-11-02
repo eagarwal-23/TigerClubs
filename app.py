@@ -1,5 +1,5 @@
-from flask import Flask, request, make_response
-from flask import render_template
+from flask import Flask, request, make_response, jsonify
+from flask import render_template, Response
 from flask_sqlalchemy import SQLAlchemy
 import os
 
@@ -16,6 +16,7 @@ def login():
     try:
         html = render_template("login.html")
         response = make_response(html)
+        response.delete_cookie('netid')
         return response
     except Exception:
         print("Whoops from login")
@@ -25,6 +26,7 @@ def adminlogin():
     try:
         html = render_template("adminlogin.html")
         response = make_response(html)
+        response.delete_cookie('netid')
         return response
     except Exception:
         print("uh oh admin login issue")
@@ -63,13 +65,25 @@ def landing():
         netid = request.args.get("netid")
     
     clubname = request.args.get("clubname")
+    studentname = request.args.get("studentname")
 
-    if clubname is None:
+    if not clubname:
         clubname = ""
-    student = get_student_info(netid)
-    name = student.name
+    if not studentname:
+        studentname = ""
+    
+    user = get_student_info(netid)
+    name = user.name
     clubs = club_search(clubname)
-    html = render_template("landing.html", netid=netid, name = name, clubs = clubs, clubname = clubname)
+    students_list = student_search(studentname)
+    if not clubs and not students_list:
+        html = render_template("landing.html", netid=netid, name = name, hasClubs= False, hasStudents = False)
+    elif not clubs:
+        html = render_template("landing.html", netid=netid, name = name, hasClubs= False, hasStudents = True,students = students_list)
+    elif not students_list:
+        html = render_template("landing.html", netid=netid, name = name, clubs = clubs, clubname = clubname, hasClubs= True, hasStudents = False)
+    else:
+        html = render_template("landing.html", netid=netid, name = name, hasClubs = True, hasStudents = True, clubs = clubs, clubname = clubname, students = students_list)
     response = make_response(html)
     response.set_cookie('netid', netid)
     return response
@@ -87,15 +101,19 @@ def studentsearch():
 
     try:
         student = get_student_info(netid)
-        name = student.name
-        clubs = student.clubs
-        html = render_template("studentsearch.html", netid = netid, name= name, clubs = clubs)
-        students_list = student_search(studentname)
-        print(students_list)
-        clubs = club_search("")
-        
-        for student in students_list:
-            print(student.name)
+        if not Student:
+            html = render_template("studentsearch.html", netid = netid, hasStudents = False)
+            print("hmm")
+        else:
+            name = student.name
+            clubs = student.clubs
+            html = render_template("studentsearch.html", netid = netid, hasStudents = True, name= name, clubs = clubs)
+            students_list = student_search(studentname)
+            print(students_list)
+            clubs = club_search("")
+            
+            for student in students_list:
+                print(student.name)
 
         return response
     except Exception:
@@ -116,7 +134,7 @@ def profile():
         # print(diffperson, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
         netid = request.cookies.get("netid")
         
-        if diffperson is not None:
+        if diffperson:
             student = get_student_info(diffperson)
         else:
             student = get_student_info(netid)
@@ -176,84 +194,93 @@ def clubpage():
         print("better get to here")
 
         reviews = get_club_ratings(club.clubid)
-
-        diversity = 0.0
-        inclusivity = 0.0
-        time_commitment = 0.0
-        workload = 0.0
-        experience_requirement = 0.0
-
-        counter = 0
-        for review in reviews:
-            diversity += review.diversity
-            print("??????????")
-            inclusivity += review.inclusivity
-            print("???zzzzz???????")
-            time_commitment += review.time_commitment
-            print("????aaa??????")
-            workload += review.workload
-            print("????56456??????")
-            experience_requirement += review.experience_requirement
-            print("????MMMM??????")
-
-            counter += 1
-
-        diversity /= counter
-        inclusivity /= counter
-        time_commitment /= counter
-        workload /= counter
-        experience_requirement /= counter
-
-        print("MAMAMAAMMAMA")
-
-        html = render_template("clubpage.html", netid = netid, clubname = club.name,
+        if not reviews:
+            html = render_template("clubpage.html", netid = netid, clubname = club.name,
                                 description = club.description, members = club.members,
                                 tags = club.tags, 
-                                diversity = diversity,
-                                inclusivity = inclusivity,
-                                time_commitment = time_commitment,
-                                workload = workload,
-                                experience_requirement = experience_requirement)
+                                hasScores = False)
+        
+        else:
+
+            diversity = 0.0
+            inclusivity = 0.0
+            time_commitment = 0.0
+            workload = 0.0
+            experience_requirement = 0.0
+
+            counter = 0
+            for review in reviews:
+                diversity += review.diversity
+                print("??????????")
+                inclusivity += review.inclusivity
+                print("???zzzzz???????")
+                time_commitment += review.time_commitment
+                print("????aaa??????")
+                workload += review.workload
+                print("????56456??????")
+                experience_requirement += review.experience_requirement
+                print("????MMMM??????")
+
+                counter += 1
+
+            diversity /= counter
+            inclusivity /= counter
+            time_commitment /= counter
+            workload /= counter
+            experience_requirement /= counter
+
+            print("MAMAMAAMMAMA")
+
+            html = render_template("clubpage.html", netid = netid, clubname = club.name,
+                                    description = club.description, members = club.members,
+                                    tags = club.tags, 
+                                    hasScores = True,
+                                    diversity = diversity,
+                                    inclusivity = inclusivity,
+                                    time_commitment = time_commitment,
+                                    workload = workload,
+                                    experience_requirement = experience_requirement)
         response = make_response(html)
         return response
     except Exception:
         print("whoops from clubpage")
 
-@app.route("/myratings", methods = ["GET"])
+@app.route("/myratings", methods = ["POST", "GET"])
 def myratings():
     try:
         netid = request.cookies.get("netid")
+        name = get_student_info(netid).name
         print("this is hte netididddd", netid)
-        ratings = get_student_ratings("eagarwal")
-        html = render_template("ratings_from_student.html", netid = "eagarwal", review = ratings)
+        ratings = get_student_ratings(netid)
+        html = render_template("ratings_from_student.html", name = name, review = ratings)
         response = make_response(html)
         return response
     except Exception:
         print("whoops from ratings")
 
-@app.route("/voting", methods = ["GET"])
+@app.route("/voting", methods = ["POST","GET"])
 def vote():
     try:
         netid = request.cookies.get("netid")
         print("netid retrieved: ", netid)
-        html = render_template("voting.html", netid=netid)
-        response = make_response(html)
-        return response
+        if request.method == 'POST':
+            clubname = request.form['clubname']
+            diversity = request.form['diversity']
+            inclusivity = request.form['inclusivity']
+            workload = request.form['workload']
+            time_commitment = request.form['time_commitment']
+            experience_requirement = request.form['experience_requirement']
+            print(clubname)
+            print(diversity)
+            print(inclusivity)
+            print(workload)
+            print(time_commitment)
+            print(experience_requirement)
+            add_student_rating(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload)
+            msg = 'success'
+        else:
+            msg = 'huh we aren\'t supposed to be here'
+        
+        return jsonify(msg)
     except Exception:
         print("whoops from voting :(")
-
-@app.route("/votingcomplete", methods =["GET"])
-def votingcomplete():
-    try:
-        netid = request.args.get("netid")
-        club = request.args.get("club")
-        diversity = request.args.get("diversity")
-        inclusivity = request.args.get("inclusivity")
-        time_commitment = request.args.get("time_commitment")
-        experience_requirement = request.args.get("experience_requirement")
-        workload = request.args.get("workload")
-        add_student_rating(netid, club, diversity, inclusivity, time_commitment, experience_requirement, workload)
-        return myratings()
-    except Exception:
-        print("whoops voting complete didn't work :/")
-

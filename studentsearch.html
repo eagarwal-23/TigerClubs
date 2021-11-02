@@ -77,7 +77,9 @@
       </div>
       <div class="col-3">
           <!-- Here;s where we can print out all the students that match the input "student" -->
-        {%for student in students:%}
+      {% if hasStudents: %}
+        
+      {%for student in students:%}
         <div class = "container">
           <div class="card" style="width: 15rem;">
             <img class="card-img-top" src="..." alt="Card image cap">
@@ -94,6 +96,9 @@
           </div>
       </div>
         {% endfor %}
+      {% else: %}
+        No person found.
+      {% endif %}
       </div>
     </div>
   </div>

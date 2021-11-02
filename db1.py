@@ -1,5 +1,5 @@
 from app import db
-from models import Student, Club, Tag
+from models import Student, Club, Tag, Review
 
 def get_student_info(netid):
     student = Student.query.filter_by(netid = netid).first()
@@ -76,15 +76,22 @@ def get_student_ratings(netid):
     return reviews
 
 def add_student_rating(netid, club, div, inc, time, exp, work):
-    student = get_student_info(netid)
-    club = get_club_info(club)
+    try:
+        student = get_student_info(netid)
+        clubname = club.strip()
+        club = Club.query.filter_by(name = clubname).first()
 
-    review = Review(div, inc, time, exp, work)
-    review.student = student
-    review.club = club
+        review = Review(div, inc, time, exp, work)
+        review.club.append(club)
+        review.student.append(student)
+        db.session.add(review)
 
-    db.session.add(review)
-    db.session.commit()
+        print(review.reviewid)
+
+
+        db.session.commit()
+    except Exception as e:
+        print(e)
 
 
 def get_club_ratings(clubid):

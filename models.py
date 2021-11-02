@@ -10,8 +10,8 @@ student_tags = db.Table('student_tags',
                         db.Column('tagid', db.Integer(), db.ForeignKey('tag_info.tagid')))
 
 student_reviews = db.Table('student_reviews', 
-                        db.Column('reviewid', db.String(), db.ForeignKey('review_info.reviewid')),
-                        db.Column('netid', db.Integer(), db.ForeignKey('student_info.netid')))
+                        db.Column('reviewid', db.Integer(), db.ForeignKey('review_info.reviewid')),
+                        db.Column('netid', db.String(), db.ForeignKey('student_info.netid')))
 
 club_tags = db.Table('club_tags', 
                         db.Column('clubid', db.Integer(), db.ForeignKey('club_info.clubid')),
@@ -98,16 +98,20 @@ class Review(db.Model):
     __tablename__ = 'review_info'
 
     # auto-increment is automatic
+    print('oh god')
     reviewid = db.Column(db.Integer(), primary_key = True)
+    print('hm')
     diversity = db.Column(db.Integer())
     inclusivity = db.Column(db.Integer())
     time_commitment = db.Column(db.Integer())
     experience_requirement = db.Column(db.Integer())
     workload = db.Column(db.Integer())
     student = db.relationship("Student",
-                               secondary=student_reviews)
+                               secondary=student_reviews,
+                               post_update=True)
     club = db.relationship("Club",
-                               secondary=club_reviews)
+                               secondary=club_reviews,
+                               post_update=True)
 
     def __init__(self, diversity, inclusivity, time_commitment, experience_requirement, workload):
         self.diversity = diversity

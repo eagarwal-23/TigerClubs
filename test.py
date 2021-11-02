@@ -31,5 +31,11 @@ if __name__ == "__main__":
     for review in reviews:
         print(review)
 
+    club = Club.query.filter_by(clubid = 3).first()
+    reviews = club.reviews
+    for review in reviews:
+        print(review.diversity)
+        print(review)
+
     # search = 'a'
     # student_search('a')

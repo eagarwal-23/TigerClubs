@@ -50,7 +50,6 @@ def club_search(search):
         print(club)
     return clubs
 
-<<<<<<< Updated upstream
 def student_search(search):
     search_query = "%" + search + "%"
     students = Student.query.filter(
@@ -62,12 +61,11 @@ def student_search(search):
 
     print(students)
     return students
-=======
+
 def get_student_ratings(netid):
     student = Student.query.filter_by(netid = netid).first()
     reviews = student.reviews
     return reviews
 
-def add_student_rating(netid, clubid, div, inc, time, exp, work):
-    review = Review(netid)
->>>>>>> Stashed changes
+# def add_student_rating(netid, clubid, div, inc, time, exp, work):
+#     review = Review(netid)

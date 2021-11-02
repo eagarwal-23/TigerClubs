@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width-device-width, initial-scale-1.0">
+    <title> Tiger Clubs</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <link href="/main.css" rel="stylesheet" id="bootstrap-css">
+
+</head>
+
+
+<body data-new-gr-c-s-check-loaded="14.1036.0" data-gr-ext-installed="">
+
+    <div class="navbar navbar-inverse navbar-fixed-top"></div>
+    <div class="container">
+        <div class="hero-unit">
+            <row>
+                <h1>Hello, {{name}}!</h1>
+            </row>>
+            <p>Here, you can see how you previously rated your clubs based diversity, inclusivity, time commitment,
+                workload, and experience required.</p>
+
+        </div>
+
+        <!-- prints all reviews a student has left for their clubs -->
+        <div class="row">
+            <div class="col-sm-6">
+                {%for review in reviews: %}
+                <div class="card" href="/clubpage?clubname={{review.clubname}}">
+                    <p>{{review}}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

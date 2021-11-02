@@ -31,16 +31,14 @@ def landing():
 
     if clubname is None:
         clubname = ""
-    try:
-        student = get_student_info(netid)
-        name = student.name
-        clubs = club_search(clubname)
-        html = render_template("landing.html", netid=netid, name = name, clubs = clubs, clubname = clubname)
-        response = make_response(html)
-        response.set_cookie('netid', netid)
-        return response
-    except Exception:
-        print("whoops from landing")
+    student = get_student_info(netid)
+    name = student.name
+    clubs = club_search(clubname)
+    html = render_template("landing.html", netid=netid, name = name, clubs = clubs, clubname = clubname)
+    response = make_response(html)
+    response.set_cookie('netid', netid)
+    return response
+ 
 
 @app.route("/studentsearch", methods=["GET"])
 def studentsearch():

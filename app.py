@@ -7,7 +7,7 @@ app = Flask(__name__, template_folder=".")
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://rvwhfgtoycqubz:e0cb0aca7c7da7773f28d1905455da0f9bf5e83d1a0b98be573e86a621c168e9@ec2-23-23-199-57.compute-1.amazonaws.com:5432/d8hudjmal9i0pc"
 db = SQLAlchemy(app)
 
-from db1 import get_student_info, update_student_info, get_club_info, update_club_info, club_search
+from db1 import get_student_info, update_student_info, get_club_info, update_club_info, club_search, student_search
 
 @app.route("/", methods=["GET"])
 @app.route("/login", methods=["GET"])

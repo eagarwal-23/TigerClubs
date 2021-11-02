@@ -28,18 +28,25 @@ def get_club_info(clubname):
 
 def update_club_info(name, description = None, members = None, tags = None):
     club = Club.query.filter_by(name = name).first()
+
     if description != "" and not None:
         club.description = description
     
     if members != "" and members is not None:
-        student = Student.query.filter_by(name=members).first()
-        club.members.append(student)
-        db.session.add(club)
+        members = members.split(',')
+        for member in members:
+            member = member.strip()
+            student = Student.query.filter_by(name=member).first()
+            club.members.append(student)
+            db.session.add(club)
 
     if tags != "" and tags is not None:
-        tag = Tag.query.filter_by(name=tags).first()
-        club.tags.append(tag)
-        db.session.add(club)
+        tags = tags.split(',')
+        for tag in tags:
+            tag = tag.strip()
+            tag = Tag.query.filter_by(name=tag).first()
+            club.tags.append(tag)
+            db.session.add(club)
 
     db.session.commit()
 

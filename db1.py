@@ -26,15 +26,6 @@ def get_club_info(clubname):
     club = Club.query.filter(Club.name.like(clubname)).first()
     return club
 
-def get_clubs(input):
-    #doesn't work if not right case
-    clubs = Club.query.filter(Club.name.contains("%" + input + "%"))
-    #clubs2 = Club.query.filter(Club.tags.contains("%" + input + "%"))
-    #allclubs.append(clubs)
-    #allclubs.append(clubs2)
-    print(clubs)
-    return clubs
-
 def update_club_info(name, description = None, members = None, tags = None):
     club = Club.query.filter_by(name = name).first()
     if description != "" and not None:
@@ -53,12 +44,13 @@ def update_club_info(name, description = None, members = None, tags = None):
     db.session.commit()
 
 def club_search(search):
-    search_query = '%' + search + '%'
+    search_query = search + '%'
     clubs = Club.query.filter((Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query)))).all()
     for club in clubs:
         print(club)
     return clubs
 
+<<<<<<< Updated upstream
 def student_search(search):
     search_query = "%" + search + "%"
     students = Student.query.filter(
@@ -70,3 +62,12 @@ def student_search(search):
 
     print(students)
     return students
+=======
+def get_student_ratings(netid):
+    student = Student.query.filter_by(netid = netid).first()
+    reviews = student.reviews
+    return reviews
+
+def add_student_rating(netid, clubid, div, inc, time, exp, work):
+    review = Review(netid)
+>>>>>>> Stashed changes

@@ -182,9 +182,6 @@ def clubpage():
         response = make_response(html)
         return response
     except Exception:
-<<<<<<< HEAD
-        print("whoops from clubpage")
-=======
         print("whoops from clubpage")
 
 @app.route("/myratings", methods = ["GET"])
@@ -198,4 +195,3 @@ def myratings():
         return response
     except Exception:
         print("whoops from ratings")
->>>>>>> 56936fa9084a7b1c3696d35dcffcf4e8944ffca3

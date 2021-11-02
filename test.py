@@ -31,7 +31,6 @@ if __name__ == "__main__":
     for review in reviews:
         print(review)
 
-<<<<<<< HEAD
     club = Club.query.filter_by(clubid = "3").first()
     reviews = club.reviews
 
@@ -40,13 +39,6 @@ if __name__ == "__main__":
 
     ratings = get_student_ratings("eagarwal")
     print(ratings)
-=======
-    club = Club.query.filter_by(clubid = 3).first()
-    reviews = club.reviews
-    for review in reviews:
-        print(review.diversity)
-        print(review)
->>>>>>> b843059bcfb1144af4b828109a42c96ca1d07ba2
 
     # search = 'a'
     # student_search('a')

@@ -80,12 +80,16 @@ def profile():
    
     try:
         diffperson = request.args.get("diffperson")
+        # print(diffperson, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
         netid = request.cookies.get("netid")
         
         if diffperson is not None:
             student = get_student_info(diffperson)
         else:
             student = get_student_info(netid)
+            diffperson = netid
+
+        print(netid, "AAAAAAAAAAAAAAAAAAAAAA")
 
         name = student.name
         classyear = student.year

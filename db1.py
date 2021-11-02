@@ -58,3 +58,15 @@ def club_search(search):
     for club in clubs:
         print(club)
     return clubs
+
+def student_search(search):
+    search_query = "%" + search + "%"
+    students = Student.query.filter(
+        (Student.name.ilike(search_query)) |
+        (Student.netid.ilike(search_query)) |
+        (Student.res_college.ilike(search_query)) |
+        (Student.year.ilike(search_query))
+    ).all()
+
+    print(students)
+    return students

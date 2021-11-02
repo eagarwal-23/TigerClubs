@@ -9,9 +9,17 @@ student_tags = db.Table('student_tags',
                         db.Column('netid', db.String(), db.ForeignKey('student_info.netid')),
                         db.Column('tagid', db.Integer(), db.ForeignKey('tag_info.tagid')))
 
+student_reviews = db.Table('student_reviews', 
+                        db.Column('reviewid', db.String(), db.ForeignKey('review_info.reviewid')),
+                        db.Column('netid', db.Integer(), db.ForeignKey('student_info.netid')))
+
 club_tags = db.Table('club_tags', 
                         db.Column('clubid', db.Integer(), db.ForeignKey('club_info.clubid')),
                         db.Column('tagid', db.Integer(), db.ForeignKey('tag_info.tagid')))
+
+club_reviews = db.Table('club_reviews', 
+                        db.Column('reviewid', db.Integer(), db.ForeignKey('review_info.reviewid')),
+                        db.Column('clubid', db.Integer(), db.ForeignKey('club_info.clubid')))
 
 # models
 class Student(db.Model):
@@ -28,6 +36,9 @@ class Student(db.Model):
 
     tags = db.relationship("Tag",
                                secondary=student_tags)
+
+    reviews = db.relationship("Review",
+                                secondary=student_reviews)
 
     def __init__(self, netid, name, res_college,
             year, major, bio):
@@ -52,6 +63,8 @@ class Club(db.Model):
                                secondary=student_clubs)
     tags = db.relationship("Tag",
                                secondary=club_tags)
+    reviews = db.relationship("Review",
+                               secondary=club_reviews)
 
     def __init__(self, name, description):
         self._name = name
@@ -86,22 +99,27 @@ class Review(db.Model):
     reviewid = db.Column(db.Integer(), primary_key = True)
     diversity = db.Column(db.Integer())
     inclusivity = db.Column(db.Integer())
-    time_comm = db.Column(db.Integer())
-    experience = db.Column(db.Integer())
+    time_commitment = db.Column(db.Integer())
+    experience_requirement = db.Column(db.Integer())
     workload = db.Column(db.Integer())
+    student = db.relationship("Student",
+                               secondary=student_reviews)
+    club = db.relationship("Club",
+                               secondary=club_reviews)
 
-    def __init__(self, diversity, inclusivity, time_comm, experience, workload):
+    def __init__(self, diversity, inclusivity, time_commitment, experience_requirement, workload):
         self.diversity = diversity
         self.inclusivity = inclusivity
-        self.time_comm = time_comm
-        self.experience = experience
+        self.time_commitment = time_commitment
+        self.experience_requirement = experience_requirement
         self.workload = workload
 
     def __repr__(self):
-        str_review = 'Diversity: ' + self.diversity + '\n'
-        str_review += 'Inclusivity: ' + self.inclusivity + '\n'
-        str_review += 'Time Commitment: ' + self.time_comm + '\n'
-        str_review += 'Experience required: ' + self.experience + '\n'
-        str_review += 'Workload: ' + self.workload
+        str_review = "Club: " + str(self.club[0]) + '\n'
+        str_review += 'Diversity: ' + str(self.diversity) + '\n'
+        str_review += 'Inclusivity: ' + str(self.inclusivity) + '\n'
+        str_review += 'Time Commitment: ' + str(self.time_commitment) + '\n'
+        str_review += 'Experience required: ' + str(self.experience_requirement) + '\n'
+        str_review += 'Workload: ' + str(self.workload) + '\n'
 
         return str_review

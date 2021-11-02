@@ -61,16 +61,12 @@ def student_search(search):
 
     print(students)
     return students
-<<<<<<< HEAD
-=======
 
->>>>>>> b843059bcfb1144af4b828109a42c96ca1d07ba2
 def get_student_ratings(netid):
     student = Student.query.filter_by(netid = netid).first()
     reviews = student.reviews
     return reviews
 
-<<<<<<< HEAD
 def add_student_rating(netid, clubid, div, inc, time, exp, work):
     review = Review(netid)
 
@@ -78,7 +74,5 @@ def get_club_ratings(clubid):
     club = Club.query.filter_by(clubid = clubid).first()
     reviews = club.reviews
     return reviews
-=======
 # def add_student_rating(netid, clubid, div, inc, time, exp, work):
 #     review = Review(netid)
->>>>>>> b843059bcfb1144af4b828109a42c96ca1d07ba2

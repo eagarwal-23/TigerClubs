@@ -7,11 +7,7 @@ app = Flask(__name__, template_folder=".")
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://rvwhfgtoycqubz:e0cb0aca7c7da7773f28d1905455da0f9bf5e83d1a0b98be573e86a621c168e9@ec2-23-23-199-57.compute-1.amazonaws.com:5432/d8hudjmal9i0pc"
 db = SQLAlchemy(app)
 
-<<<<<<< HEAD
 from db1 import get_club_ratings, get_student_info, update_student_info, get_club_info, update_club_info, club_search, get_student_ratings, student_search, get_club_ratings
-=======
-from db1 import get_student_info, update_student_info, get_club_info, update_club_info, club_search, student_search, get_student_ratings
->>>>>>> b843059bcfb1144af4b828109a42c96ca1d07ba2
 
 @app.route("/", methods=["GET"])
 @app.route("/login", methods=["GET"])
@@ -188,18 +184,10 @@ def clubpage():
 @app.route("/myratings", methods = ["GET"])
 def myratings():
     try:
-<<<<<<< HEAD
         netid = request.cookies.get("netid")
         print("this is hte netididddd", netid)
         ratings = get_student_ratings("eagarwal")
         html = render_template("ratings_from_student.html", netid = "eagarwal", review = ratings)
-=======
-        netid = request.args.get("netid")
-        student = get_student_info(netid)
-        name = student.name
-        ratings = get_student_ratings(netid)
-        html = render_template("myratings.html", netid = netid, name = name, ratings = ratings)
->>>>>>> b843059bcfb1144af4b828109a42c96ca1d07ba2
         response = make_response(html)
         return response
     except Exception:

@@ -67,12 +67,19 @@ def get_student_ratings(netid):
     reviews = student.reviews
     return reviews
 
-def add_student_rating(netid, clubid, div, inc, time, exp, work):
-    review = Review(netid)
+def add_student_rating(netid, club, div, inc, time, exp, work):
+    student = get_student_info(netid)
+    club = get_club_info(club)
+
+    review = Review(div, inc, time, exp, work)
+    review.student = student
+    review.club = club
+
+    db.session.add(review)
+    db.session.commit()
+
 
 def get_club_ratings(clubid):
     club = Club.query.filter_by(clubid = clubid).first()
     reviews = club.reviews
     return reviews
-# def add_student_rating(netid, clubid, div, inc, time, exp, work):
-#     review = Review(netid)

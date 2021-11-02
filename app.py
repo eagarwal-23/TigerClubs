@@ -7,7 +7,7 @@ app = Flask(__name__, template_folder=".")
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://rvwhfgtoycqubz:e0cb0aca7c7da7773f28d1905455da0f9bf5e83d1a0b98be573e86a621c168e9@ec2-23-23-199-57.compute-1.amazonaws.com:5432/d8hudjmal9i0pc"
 db = SQLAlchemy(app)
 
-from db1 import get_club_ratings, get_student_info, update_student_info, get_club_info, update_club_info, club_search, get_student_ratings, student_search, get_club_ratings
+from db1 import get_club_ratings, get_student_info, update_student_info, get_club_info, update_club_info, club_search, add_student_rating, get_student_ratings, student_search, get_club_ratings
 
 @app.route("/", methods=["GET"])
 @app.route("/login", methods=["GET"])
@@ -18,6 +18,40 @@ def login():
         return response
     except Exception:
         print("Whoops from login")
+
+@app.route("/admin", methods=["GET"])
+def adminlogin():
+    try:
+        html = render_template("adminlogin.html")
+        response = make_response(html)
+        return response
+    except Exception:
+        print("uh oh admin login issue")
+
+@app.route("/adminportal", methods=["GET"])
+def adminportal():
+
+    netid = request.cookies.get('netid')
+
+    if netid is None:
+        netid = request.args.get("netid")
+    
+    student = get_student_info(netid)
+    adminStatus = student.admin
+    name = student.name
+    print('admin, ', adminStatus)
+
+    try:
+        if(not adminStatus):
+            html = render_template("notadmin.html", netid = netid)
+            response = make_response(html)
+        else:
+            html = render_template("adminportal.html", netid = netid, name=name)
+            response = make_response(html)
+        return response
+    except:
+        print("uh oh admin login validation issue")
+
 
 @app.route("/landing", methods=["GET"])
 def landing():
@@ -196,3 +230,30 @@ def myratings():
         return response
     except Exception:
         print("whoops from ratings")
+
+@app.route("/voting", methods = ["GET"])
+def vote():
+    try:
+        netid = request.cookies.get("netid")
+        print("netid retrieved: ", netid)
+        html = render_template("voting.html", netid=netid)
+        response = make_response(html)
+        return response
+    except Exception:
+        print("whoops from voting :(")
+
+@app.route("/votingcomplete", methods =["GET"])
+def votingcomplete():
+    try:
+        netid = request.args.get("netid")
+        club = request.args.get("club")
+        diversity = request.args.get("diversity")
+        inclusivity = request.args.get("inclusivity")
+        time_commitment = request.args.get("time_commitment")
+        experience_requirement = request.args.get("experience_requirement")
+        workload = request.args.get("workload")
+        add_student_rating(netid, club, diversity, inclusivity, time_commitment, experience_requirement, workload)
+        return myratings()
+    except Exception:
+        print("whoops voting complete didn't work :/")
+

@@ -31,23 +31,25 @@ class Student(db.Model):
     year = db.Column(db.String())
     major = db.Column(db.String())
     bio = db.Column(db.String())
+    admin = db.Column(db.Boolean())
     clubs = db.relationship("Club",
-                               secondary=student_clubs)
+                                secondary=student_clubs)
 
     tags = db.relationship("Tag",
-                               secondary=student_tags)
+                                secondary=student_tags)
 
     reviews = db.relationship("Review",
                                 secondary=student_reviews)
 
     def __init__(self, netid, name, res_college,
-            year, major, bio):
+            year, major, bio, admin=False):
         self._netid = netid
         self._name = name
         self._res_college = res_college
         self._year = year
         self._major = major
         self._bio = bio
+        self._admin= admin
 
     def __repr__(self):
         return self.netid

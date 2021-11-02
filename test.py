@@ -10,16 +10,11 @@ def club_search(search):
     for club in clubs:
         print(club)
 
-<<<<<<< Updated upstream
-=======
 def add_tag(name):
     tag = Tag(name)
     db.session.add(tag)
     db.session.commit()
 
-
-
->>>>>>> Stashed changes
 if __name__ == "__main__":
     # add_tag('Instruments')
     # add_tag('Movies')

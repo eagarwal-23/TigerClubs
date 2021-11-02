@@ -9,6 +9,7 @@ db = SQLAlchemy(app)
 
 from db1 import get_club_ratings, get_student_info, update_student_info, get_club_info, update_club_info, club_search, add_student_rating, get_student_ratings, student_search, get_club_ratings
 
+
 @app.route("/", methods=["GET"])
 @app.route("/login", methods=["GET"])
 def login():
@@ -85,22 +86,20 @@ def studentsearch():
     print(studentname)
 
     try:
+        student = get_student_info(netid)
+        name = student.name
+        clubs = student.clubs
+        html = render_template("studentsearch.html", netid = netid, name= name, clubs = clubs)
         students_list = student_search(studentname)
         print(students_list)
-        print("did i make it here")
+        clubs = club_search("")
         
         for student in students_list:
             print(student.name)
 
-        print("how about here")
-        html = render_template("studentsearch.html", students = students_list)
-        print("okay well did i make it here")
-        response = make_response(html)
-        # print("before")
-        # response.set_cookie('studentname', studentname)
-        # print("after")
         return response
     except Exception:
+        print("whoops from landing")
         print("whoops from student search")
 
 #@app.route("/profileexternal", methods=["GET"])
@@ -165,6 +164,7 @@ def editprofile():
         return response
     except Exception:
         print("whoops from editprofile")
+
 
 @app.route("/clubpage", methods=["GET"])
 def clubpage():

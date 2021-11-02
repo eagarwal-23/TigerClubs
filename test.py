@@ -1,7 +1,7 @@
 from app import db
 from models import Student, Club, Tag, Review
 
-from db1 import get_student_ratings, student_search
+from db1 import get_student_ratings, student_search, update_club_info
 
 def club_search(search):
     clubs = None
@@ -26,19 +26,21 @@ if __name__ == "__main__":
     # add_tag('Bowling')
     # add_tag('Cricket')
 
-    student = Student.query.filter_by(netid = 'eagarwal').first()
-    reviews = student.reviews
-    for review in reviews:
-        print(review)
+    # student = Student.query.filter_by(netid = 'eagarwal').first()
+    # reviews = student.reviews
+    # for review in reviews:
+    #     print(review)
 
-    club = Club.query.filter_by(clubid = "3").first()
-    reviews = club.reviews
+    # club = Club.query.filter_by(clubid = "3").first()
+    # reviews = club.reviews
 
-    for review in reviews:
-        print(review.inclusivity)
+    # for review in reviews:
+    #     print(review.inclusivity)
 
-    ratings = get_student_ratings("eagarwal")
-    print(ratings)
+    # ratings = get_student_ratings("eagarwal")
+    # print(ratings)
 
     # search = 'a'
     # student_search('a')
+
+    # update_club_info(name = 'Princeton Mock Trial', tags = 'Public-speaking, Bowling, Sports, Instruments, Dogs, Cats')

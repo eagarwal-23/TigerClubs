@@ -25,7 +25,10 @@
               <a class="nav-link" href="/profile?netid={{netid}}">Profile <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled" href="#">Voting!</a>
+              <a class="nav-link disabled" href="#">Voting</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/myratings">My Ratings</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="login">Logout</a>
@@ -36,8 +39,14 @@
     </div>
   <div class = "container-fluid">
     <div class="row">
-      <div class="col d-flex justify-content-center">
+      <div class="col-3">
         <h3> Hi {{name}} !</h3>
+      </div>
+      <div class="col-6 d-flex justify-content-center">
+        <h4> Club Rankings</h4>
+      </div>
+      <div class="col-3 d-flex justify-content-center">
+        <h4> Students</h4>
       </div>
     </div>
     <div class="row">
@@ -71,15 +80,19 @@
         {%for student in students:%}
         <div class = "container">
           <div class="card" style="width: 15rem;">
+            <img class="card-img-top" src="..." alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title">{{club}}</h5>
-              <a href="/profile?diffperson={{student.netid}}" class="card-link stretched-link">No such nonsense {{student.name}}</a>
+              <a href="/profile?diffperson={{student.netid}}" class="card-link stretched-link"></a>
+              <h5>{{student.name}}</h5>
               {{student.netid}}
+              <br>
               {{student.year}}
+              <br>
               {{student.res_college}}
             </div>
           </div>
-        </div>
+      </div>
         {% endfor %}
       </div>
     </div>

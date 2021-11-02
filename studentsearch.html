@@ -68,17 +68,19 @@
       </div>
       <div class="col-3">
           <!-- Here;s where we can print out all the students that match the input "student" -->
-        {%for club in clubs: %}
+        {%for student in students:%}
         <div class = "container">
           <div class="card" style="width: 15rem;">
             <div class="card-body">
               <h5 class="card-title">{{club}}</h5>
-              <a href="/clubpage?clubname={{club}}&netid={{netid}}" class="card-link stretched-link"></a>
-              <a href="#" class="card-link">Another link</a>
+              <a href="/profileexternal?desirednetid={{student.netid}}" class="card-link stretched-link">No such nonsense {{student.name}}</a>
+              {{student.netid}}
+              {{student.year}}
+              {{student.res_college}}
             </div>
           </div>
         </div>
-      {% endfor %}
+        {% endfor %}
       </div>
     </div>
   </div>

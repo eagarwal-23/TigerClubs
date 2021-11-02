@@ -1,17 +1,14 @@
 from app import db
 from models import Student, Club, Tag
 
+from db1 import student_search
+
 def club_search(search):
     clubs = None
     search_query = '%' + search + '%'
     clubs = Club.query.filter((Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query)))).all()
     for club in clubs:
         print(club)
-
-def add_tag(name):
-    tag = Tag(name)
-    db.session.add(tag)
-    db.session.commit()
 
 if __name__ == "__main__":
     add_tag('Instruments')

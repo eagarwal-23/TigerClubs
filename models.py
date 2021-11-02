@@ -28,7 +28,7 @@ class Student(db.Model):
     netid = db.Column(db.String(), primary_key = True)
     name = db.Column(db.String())
     res_college = db.Column(db.String())
-    year = db.Column(db.Integer())
+    year = db.Column(db.String())
     major = db.Column(db.String())
     bio = db.Column(db.String())
     clubs = db.relationship("Club",

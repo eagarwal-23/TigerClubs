@@ -50,4 +50,3 @@ class CasClient:
             return None
         first_line = lines[0].decode('utf-8')
         second_line = lines[1].decode('utf-8')
-                                                                                                   1,1           Top

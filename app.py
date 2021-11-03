@@ -17,7 +17,6 @@ def login():
     try:
         C = CASClient.CASClient()
         netid = C.Authenticate() 
-        CasClient().authenticate()
         print("netid is:", netid)
         html = render_template("login.html")
         response = make_response(html)

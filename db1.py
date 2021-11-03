@@ -54,8 +54,8 @@ def update_club_info(name, description = None, members = None, tags = None):
 def club_search(search):
     search_query = '%' + search + '%'
     clubs = Club.query.filter((Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query)))).all()
-    for club in clubs:
-        print(club)
+    # for club in clubs:
+    #     print(club)
     return clubs
 
 def student_search(search):
@@ -67,7 +67,7 @@ def student_search(search):
         (Student.year.ilike(search_query))
     ).all()
 
-    print(students)
+    # print(students)
     return students
 
 def get_student_ratings(netid):

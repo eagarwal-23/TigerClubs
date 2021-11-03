@@ -108,3 +108,23 @@
 
 
   
+  <div class="row d-flex justify-content-center">
+    <p><strong>NetID: {{student.netid}}</strong> <br>
+    <strong>Year: {{classyear}}</strong> <br>
+    <strong>Major: {{major}}</strong> <br>
+      <strong>Bio: {{bio}}</strong> <br>
+      <strong>Interests: </strong> <br>
+      {%for interest in interests: %}
+          <strong>&emsp;{{interest}}</strong> <br>
+          {% endfor %}
+      <strong>Clubs: </strong> <br>
+      {%for club in clubs: %}
+          <strong>&emsp;{{club}}</strong> <br>
+          {% endfor %}
+          <br>
+          <br>
+      {%if diffperson == netid%}    
+      <a href="/editprofile?netid={{netid}}">Edit Profile</a>
+      {%endif%}
+        </p>
+  </div>

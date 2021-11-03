@@ -3,23 +3,25 @@
  <meta charset = "UTF-8">
  <meta name= "viewport" content= "width-device-width, initial-scale-1.0">
  <title> Tiger Clubs</title>
- <link rel="stylesheet" href="style.css" >
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
  <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+
+ <link rel="stylesheet" href="style.css" >
+
  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
    <!------ Include the above in your HEAD tag ---------->
  
 </head>
 <body>
- <div class = "menu-bar">
-   <nav class="navbar navbar-expand-lg navbar-light">
-       <a class="navbar-brand" href="/landing?netid={{netid}}">TigerClubs</a>
+  <div class = "menu-bar" style = "background-color: #FFBD81;">
+    <nav class="navbar navbar-expand-lg navbar-light"  style = "font-family: Merriweather;">
+      <a class="navbar-brand" style = "padding-left: 1%; font-size: 135% " href="/landing?netid={{netid}}">Tiger Clubs</a>
        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
          <i class="fa fa-bars"></i>
        </button>
-       <div class="collapse navbar-collapse" id="navbarNav">
+       <div class="collapse navbar-collapse" style = "font-size: 110%;" id="navbarNav">
          <ul class="navbar-nav ml-auto">
            <li class="nav-item ">
              <a class="nav-link" href="/profile?netid={{netid}}">Profile <span class="sr-only">(current)</span></a>
@@ -37,37 +39,39 @@
        </div>
      </nav>
    </div>
- <div class = "container-fluid">
+ <div class = "container-fluid" style= "padding-top: 2%; padding-left: 3.75%;">
    <div class="row">
-     <div class="col-3">
+     <div class="col-3" style="font-family: Merriweather; ">
        <h3> Hi {{name}} !</h3>
      </div>
-     <div class="col-6 d-flex justify-content-center">
+     <div class="col-6 d-flex justify-content-center" style="font-family: Merriweather; ">
        <h4> Club Rankings </h4>
      </div>
+     <div class="col-3" style="font-family: Merriweather; padding-left: 7%;">
+      <h4> Students</h4>
+    </div>
    </div>
    <div class="row">
-     <div class="col-3">
-       <form class="form-inline my-2 my-lg-0" action="/landing?netid={{netid}}" method="get">
+     <div class="col-3" style= "padding-top: 1rem;" >
+       <form class="form-inline my-2 my-lg-0" action="/landing?netid={{netid}}&studentname={{studentname}}" method="get">
          <input class="form-control mr-sm-2" type="search" name = "clubname" placeholder="Search name, tag etc" value="{{clubname}}" aria-label="Search">
-         <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+         <button class="btn btn-outline my-2 my-sm-0" style= "background-color: #fac390;" type="submit">Search</button>
        </form>
-       <form class="form-inline my-2 my-lg-0" action="/landing?netid={{netid}}" method="get">
-         <input class="form-control mr-sm-2" type="search" name = "studentname" placeholder="Search Student" aria-label="Search">
-         <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+       <form class="form-inline my-2 my-lg-0" style= "padding-top: 4%;" action="/landing?netid={{netid}}&clubname={{clubname}}" method="get">
+         <input class="form-control mr-sm-2" type="search" name = "studentname" placeholder="Search Student" value="{{studentname}}" aria-label="Search">
+         <button class="btn btn-outline my-2 my-sm-0" style= "background-color: #fac390;" type="submit">Search</button>
        </form>
      </div>
      <div class="col-6">
        {%if hasClubs: %}
        {%for club in clubs: %}
-       <div class = "container">
-         <div class="card" style="width: 40rem;">
+       <div class = "container" style="padding-top: 1rem;">
+         <div class="card" style="width: 40rem; background-color: #ffe5cd;">
            <div class="card-body">
              <h5 class="card-title">{{club}}</h5>
-             <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+             <h6 class="card-subtitle mb-2 text-muted">{{club}}</h6>
+             <p class="card-text">Description: {{club.description}} Long yada yaday ydaa</p>
              <a href="/clubpage?clubname={{club}}&netid={{netid}}" class="card-link stretched-link"></a>
-             <a href="#" class="card-link">Another link</a>
            </div>
          </div>
        </div>
@@ -81,10 +85,13 @@
       {% if hasStudents: %}
         
       {%for student in students:%}
-        <div class = "container">
-          <div class="card" style="width: 15rem;">
-            <img class="card-img-top" src="..." alt="Card image cap">
-            <div class="card-body">
+        <div class = "container" style="padding-top: 1rem;">
+          <div class="card" style="width: 15rem; background-color: #fac390;">
+            <div class="card-body" style= "padding-bottom: 0rem;">
+              <img  class="rounded-circle" src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg" width="100" 
+              height="100">
+            </div>
+            <div class="card-body" style= "padding-top: 0rem;">
               <h5 class="card-title">{{club}}</h5>
               <a href="/profile?diffperson={{student.netid}}" class="card-link stretched-link"></a>
               <h5>{{student.name}}</h5>

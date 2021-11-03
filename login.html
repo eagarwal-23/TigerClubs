@@ -3,19 +3,18 @@
     <meta charset = "UTF-8">
     <meta name= "viewport" content= "width-device-width, initial-scale-1.0">
     <title> Tiger Clubs</title>
-    <link rel="stylesheet" href="style.css" >
+    <link rel="stylesheet" href="static/style.css" >
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <!------ Include the above in your HEAD tag ---------->
-    <link rel="stylesheet"href="/main.css" >
 </head>
 <body>
-    <div class = "menu-bar">
+    <div class = "menu-bar" style = "background-color: #FFBD81;">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="#">TigerClubs</a>
+            <a class="navbar-brand" style = "font-family: Merriweather; padding-left: 2.5%;" href="#"><strong>Tiger Clubs</strong></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <i class="fa fa-bars"></i>
             </button>
@@ -24,22 +23,22 @@
 
     <div id="login">
         <h3 class="text-center text-white pt-5">Login form</h3>
-        <div class="container">
+        <div class="container" style = "padding-top: 7%">
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
                         <form id="login-form" class="form" action="landing" method="get">
-                            <h3 class="text-center text-info">Login</h3>
+                            <h3 class="text-center text" style = "color: #000000;">Login</h3>
                             <div class="form-group">
-                                <label for="username" class="text-info">Netid:</label><br>
+                                <label for="username" class="text" style = "color: #000000;">Netid:</label><br>
                                 <input type="text" name="netid" id="netid" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
-                                <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                                <!--<label for="remember-me" class="text-info"><span style = "color: #000000;">Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>-->
+                                <input type="submit" name="submit" class="btn btn btn-md" value="submit" style = "background-color: #FFBD81;">
                             </div>
-                            <div id="register-link" class="text-right">
-                                <a href="#" class="text-info">Register here</a>
+                            <div id="register-link" class="text-right" >
+                                <a href="#" class="text" style = "color: #000000;">Register here</a>
                             </div>
                         </form>
                     </div>

@@ -72,18 +72,29 @@ def landing():
     if not studentname:
         studentname = ""
     
+    print(clubname)
+    print(studentname)
+    
     user = get_student_info(netid)
     name = user.name
     clubs = club_search(clubname)
     students_list = student_search(studentname)
+
+    print(clubs)
+    print(students_list)
     if not clubs and not students_list:
         html = render_template("landing.html", netid=netid, name = name, hasClubs= False, hasStudents = False)
+        print("if not clubs and not students_list:")
     elif not clubs:
         html = render_template("landing.html", netid=netid, name = name, hasClubs= False, hasStudents = True,students = students_list)
+        print("elif not clubs:")
     elif not students_list:
-        html = render_template("landing.html", netid=netid, name = name, clubs = clubs, clubname = clubname, hasClubs= True, hasStudents = False)
+        html = render_template("landing.html", netid=netid, name = name, clubs = clubs, studentname=studentname, clubname = clubname, hasClubs= True, hasStudents = False)
+        print("elif not students_list:")
     else:
-        html = render_template("landing.html", netid=netid, name = name, hasClubs = True, hasStudents = True, clubs = clubs, clubname = clubname, students = students_list)
+        html = render_template("landing.html", netid=netid, name = name, hasClubs = True, hasStudents = True, clubs = clubs, clubname = clubname, studentname=studentname, students = students_list)
+        print("else")
+        print(clubname)
     response = make_response(html)
     response.set_cookie('netid', netid)
     return response

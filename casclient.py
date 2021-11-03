@@ -39,7 +39,7 @@ class CasClient:
     # Validate a login ticket by contacting the CAS server. If
     # valid, return the user's username; otherwise, return None.
 
-        def validate(self, ticket):
+    def validate(self, ticket):
         val_url = (self.cas_url + "validate"
             + '?service=' + quote(strip_ticket(request.url))
             + '&ticket=' + quote(ticket))

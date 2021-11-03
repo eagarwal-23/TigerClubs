@@ -1,10 +1,12 @@
 from flask import Flask, request, make_response, jsonify
 from flask import render_template, Response
 from flask_sqlalchemy import SQLAlchemy
+from casclient import CasClient
 import os
 
 app = Flask(__name__, template_folder=".")
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://rvwhfgtoycqubz:e0cb0aca7c7da7773f28d1905455da0f9bf5e83d1a0b98be573e86a621c168e9@ec2-23-23-199-57.compute-1.amazonaws.com:5432/d8hudjmal9i0pc"
+app.secret_key = os.urandom(16)
 db = SQLAlchemy(app)
 
 from db1 import get_club_ratings, get_student_info, update_student_info, get_club_info, update_club_info, club_search, add_student_rating, get_student_ratings, student_search, get_club_ratings
@@ -13,13 +15,16 @@ from db1 import get_club_ratings, get_student_info, update_student_info, get_clu
 @app.route("/", methods=["GET"])
 @app.route("/login", methods=["GET"])
 def login():
-    try:
-        html = render_template("login.html")
-        response = make_response(html)
-        response.delete_cookie('netid')
-        return response
-    except Exception:
-        print("Whoops from login")
+    #try:
+    print("before")
+    username = CasClient().authenticate()
+    print("username is ", username)
+    html = render_template("login.html")
+    response = make_response(html)
+    response.delete_cookie('netid')
+    return response
+    #except Exception:
+        #print("Whoops from login")
 
 @app.route("/admin", methods=["GET"])
 def adminlogin():
@@ -58,7 +63,7 @@ def adminportal():
 
 @app.route("/landing", methods=["GET"])
 def landing():
-
+    CasClient().authenticate()
     netid = request.cookies.get('netid')
 
     if netid is None:

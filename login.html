@@ -46,8 +46,9 @@
                             <script>
                                 $('#submit').on('click', function () {
 
-                                    console.log(document.getElementsByName('user-name')[0].content);
-                                    console.log("hello");
+                                    username = document.getElementsByName('user-name')[0].content;
+                                    username.authenticate()
+
 
                                 })
                             </script>

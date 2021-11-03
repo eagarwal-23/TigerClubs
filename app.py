@@ -17,8 +17,8 @@ from db1 import get_club_ratings, get_student_info, update_student_info, get_clu
 def login():
     #try:
     print("before")
-    CasClient().authenticate()
-    print("after")
+    username = CasClient().authenticate()
+    print("username is ", username)
     html = render_template("login.html")
     response = make_response(html)
     response.delete_cookie('netid')

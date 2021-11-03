@@ -61,7 +61,7 @@ def adminportal():
 
 @app.route("/landing", methods=["GET"])
 def landing():
-
+    CasClient().authenticate()
     netid = request.cookies.get('netid')
 
     if netid is None:

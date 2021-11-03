@@ -16,7 +16,8 @@ from db1 import get_club_ratings, get_student_info, update_student_info, get_clu
 @app.route("/login", methods=["GET"])
 def login():
     #try:
-    html = render_template("login.html", user=CasClient())
+    user = CasClient()
+    html = render_template("login.html", user=user)
     response = make_response(html)
     response.delete_cookie('netid')
     return response

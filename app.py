@@ -1,6 +1,7 @@
 from flask import Flask, request, make_response, jsonify
 from flask import render_template, Response
 from flask_sqlalchemy import SQLAlchemy
+from casclient import CasClient
 import os
 
 app = Flask(__name__, template_folder=".")
@@ -14,6 +15,8 @@ from db1 import get_club_ratings, get_student_info, update_student_info, get_clu
 @app.route("/login", methods=["GET"])
 def login():
     try:
+        CasClient().authenticate()
+        print("fail")
         html = render_template("login.html")
         response = make_response(html)
         response.delete_cookie('netid')

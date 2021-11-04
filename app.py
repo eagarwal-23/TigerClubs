@@ -65,7 +65,7 @@ def landing():
     auth_user = CasClient().authenticate()
     print("user is:", auth_user)
     # netid = request.cookies.get('netid')
-    print("netid is:", netid)
+    #print("netid is:", netid)
 
     # if netid is None:
     #     netid = auth_user
@@ -87,7 +87,8 @@ def landing():
     print("user = ", auth_user)
     print("netid nadiar hello")
     print("netid",tester,"hello")
-    print("netid",u,"hello")
+
+
     user = get_student_info(netid)
     print("user after search is:", user)
     name = user.name

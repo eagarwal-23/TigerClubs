@@ -63,14 +63,11 @@ def adminportal():
 @app.route("/landing", methods=["GET"])
 def landing():
     # removes new line char (this was some weird ass formatting bug???)
-    auth_user = CasClient().authenticate()
-    auth_user = auth_user[:-1]
-
+    auth_user = CasClient().authenticate()[:-1]
     netid = request.cookies.get('netid')
 
     if netid is None:
         netid = auth_user
-        print("netid after equal to user is:", netid)
     
     clubname = request.args.get("clubname")
     studentname = request.args.get("studentname")
@@ -82,7 +79,6 @@ def landing():
     
     print(clubname)
     print(studentname)
-
 
     user = get_student_info(netid)
     name = user.name

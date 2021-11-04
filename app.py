@@ -84,7 +84,7 @@ def landing():
     print(studentname)
     
     print("user = ", auth_user)
-    print("netid = ", netid)
+    print("netid = ", netid.length)
     user = get_student_info(netid)
     print("user after search is:", user)
     name = user.name

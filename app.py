@@ -28,7 +28,7 @@ def login():
 def logout():
     cas_client = CasClient()
     cas_client.authenticate()
-    cas_client.logout('landing')
+    cas_client.logout('logout_success')
         
 
 @app.route("/admin", methods=["GET"])

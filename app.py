@@ -16,21 +16,13 @@ from db1 import get_club_ratings, get_student_info, update_student_info, get_clu
 @app.route("/login", methods=["GET"])
 def login():
     #try:
-    user = CasClient()
+    #user = CasClient()
     html = render_template("login.html")
     response = make_response(html)
     response.delete_cookie('netid')
     return response
     #except Exception:
         #print("Whoops from login")
-
-@app.route("/auth", methods=["GET"])
-def auth():
-    #try:
-    user = CasClient().authenticate()
-    print("user is:", user)
-    return
-
         
 
 @app.route("/admin", methods=["GET"])
@@ -70,11 +62,11 @@ def adminportal():
 
 @app.route("/landing", methods=["GET"])
 def landing():
-    CasClient().authenticate()
+    user = CasClient().authenticate()
     netid = request.cookies.get('netid')
 
     if netid is None:
-        netid = request.args.get("netid")
+        netid = user
     
     clubname = request.args.get("clubname")
     studentname = request.args.get("studentname")

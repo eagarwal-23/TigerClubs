@@ -28,6 +28,7 @@ def login():
 def auth():
     #try:
     CasClient().authenticate()
+    return
 
         
 

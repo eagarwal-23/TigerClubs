@@ -85,7 +85,7 @@ def landing():
     print("user = ", user)
     print("netid = ", netid)
     user = get_student_info(netid)
-    print("user name is:", user.name)
+    print("user after search is:", user)
     name = user.name
     clubs = club_search(clubname)
     students_list = student_search(studentname)

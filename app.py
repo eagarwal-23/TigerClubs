@@ -85,7 +85,7 @@ def landing():
     
     print("user = ", auth_user)
     print("netid nadiar hello")
-    print("netid",netid,"hello")
+    print("netid",str(netid),"hello")
     u = "nadiar"
     print("netid",u,"hello")
     user = get_student_info(netid)

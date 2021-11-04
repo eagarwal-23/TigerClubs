@@ -17,12 +17,19 @@ from db1 import get_club_ratings, get_student_info, update_student_info, get_clu
 def login():
     #try:
     user = CasClient()
-    html = render_template("login.html", user=user)
+    html = render_template("login.html")
     response = make_response(html)
     response.delete_cookie('netid')
     return response
     #except Exception:
         #print("Whoops from login")
+
+@app.route("/auth", methods=["GET"])
+def auth():
+    #try:
+    CasClient().authenticate()
+
+        
 
 @app.route("/admin", methods=["GET"])
 def adminlogin():

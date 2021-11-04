@@ -15,14 +15,21 @@ from db1 import get_club_ratings, get_student_info, update_student_info, get_clu
 @app.route("/", methods=["GET"])
 @app.route("/login", methods=["GET"])
 def login():
-    #try:
-    user = CasClient()
-    html = render_template("login.html", user=user)
+
+    html = render_template("login.html")
     response = make_response(html)
     response.delete_cookie('netid')
     return response
     #except Exception:
         #print("Whoops from login")
+
+
+@app.route("/logout", methods=["GET"])
+def logout():
+    cas_client = CasClient()
+    cas_client.authenticate()
+    cas_client.logout('landing')
+        
 
 @app.route("/admin", methods=["GET"])
 def adminlogin():
@@ -61,11 +68,12 @@ def adminportal():
 
 @app.route("/landing", methods=["GET"])
 def landing():
-    CasClient().authenticate()
+    # removes new line char (this was some weird ass formatting bug???)
+    auth_user = CasClient().authenticate()[:-1]
     netid = request.cookies.get('netid')
 
     if netid is None:
-        netid = request.args.get("netid")
+        netid = auth_user
     
     clubname = request.args.get("clubname")
     studentname = request.args.get("studentname")
@@ -77,7 +85,7 @@ def landing():
     
     print(clubname)
     print(studentname)
-    
+
     user = get_student_info(netid)
     name = user.name
     clubs = club_search(clubname)

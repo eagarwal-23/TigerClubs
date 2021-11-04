@@ -2,7 +2,9 @@ from app import db
 from models import Student, Club, Tag, Review
 
 def get_student_info(netid):
+    print("in function, netid =", netid)
     student = Student.query.filter_by(netid = netid).first()
+    print("stu is :", student)
     return student
 
 def update_student_info(netid, bio = None, clubs = None, tags = None):

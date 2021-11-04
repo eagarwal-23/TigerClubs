@@ -64,7 +64,7 @@ def adminportal():
 def landing():
     auth_user = CasClient().authenticate()
     print("user is:", auth_user)
-    netid = auth_user
+    netid = auth_user+""
     # netid = request.cookies.get('netid')
     print("netid is:", netid)
 

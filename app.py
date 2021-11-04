@@ -27,7 +27,8 @@ def login():
 @app.route("/auth", methods=["GET"])
 def auth():
     #try:
-    CasClient().authenticate()
+    user = CasClient().authenticate()
+    print("user is:", user)
     return
 
         

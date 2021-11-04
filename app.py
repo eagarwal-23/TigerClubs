@@ -63,10 +63,13 @@ def adminportal():
 @app.route("/landing", methods=["GET"])
 def landing():
     user = CasClient().authenticate()
+    print("user is:", user)
     netid = request.cookies.get('netid')
+    print("netid is:", netid)
 
     if netid is None:
         netid = user
+        print("netid after equal to user is:", netid)
     
     clubname = request.args.get("clubname")
     studentname = request.args.get("studentname")

@@ -100,3 +100,51 @@ def get_club_ratings(clubid):
     club = Club.query.filter_by(clubid = clubid).first()
     reviews = club.reviews
     return reviews
+
+def add_tag(name):
+    tag = Tag(name)
+    db.session.add(tag)
+    db.session.commit()
+
+def add_club(name, description):
+    club = Club(name, description)
+    db.session.add(club)
+    db.session.commit()
+
+def add_student(netid, name, res_college, year, major, bio, admin = False):
+    student = Student(netid, name, res_college, year, major, bio, admin)
+    db.session.add(student)
+    db.session.commit()
+
+def add_review(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload):
+    student = Student.query.filter_by(netid = netid).first()
+    club = Club.query.filter_by(name = clubname).first()
+    review = Review(diversity, inclusivity, time_commitment, experience_requirement, workload)
+    student.reviews.append(review)
+    club.reviews.append(review)
+    db.session.add(review)
+    db.session.commit()
+
+def delete_tag(name):
+    tag = Tag(name)
+    db.session.delete(tag)
+    db.session.commit()
+
+def delete_club(name, description):
+    club = Club(name, description)
+    db.session.delete(club)
+    db.session.commit()
+
+def delete_student(netid, name, res_college, year, major, bio, admin = False):
+    student = Student(netid, name, res_college, year, major, bio, admin)
+    db.session.delete(student)
+    db.session.commit()
+
+def delete_review(netid, clubname, reviewid):
+    student = Student.query.filter_by(netid = netid).first()
+    club = Club.query.filter_by(name = clubname).first()
+    review = Review.query.filter_by(reviewid = reviewid).delete()
+    student.reviews.remove(review)
+    club.reviews.remove(review)
+    db.session.commit()
+

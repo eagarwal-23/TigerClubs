@@ -14,21 +14,19 @@ from db1 import get_club_ratings, get_student_info, update_student_info, get_clu
 @app.route("/", methods=["GET"])
 @app.route("/login", methods=["GET"])
 def login():
-
-    html = render_template("login.html")
-    response = make_response(html)
-    response.delete_cookie('netid')
-    return response
-    #except Exception:
-        #print("Whoops from login")
-
+    try:
+        html = render_template("login.html")
+        response = make_response(html)
+        response.delete_cookie('netid')
+        return response
+    except Exception:
+        print("Whoops from login")
 
 @app.route("/logout", methods=["GET"])
 def logout():
     cas_client = CasClient()
     cas_client.authenticate()
     cas_client.logout('login')
-        
 
 @app.route("/admin", methods=["GET"])
 def adminlogin():
@@ -108,7 +106,6 @@ def landing():
     response = make_response(html)
     response.set_cookie('netid', netid)
     return response
- 
 
 @app.route("/studentsearch", methods=["GET"])
 def studentsearch():
@@ -144,7 +141,6 @@ def studentsearch():
 #@app.route("/profileexternal", methods=["GET"])
 #def profileexternal():
 #    desirednetid = request.args.get("desirednetid")
-    
 
 # rendering profile page from landing page
 @app.route("/profile", methods=["GET"])
@@ -279,29 +275,34 @@ def myratings():
     except Exception:
         print("whoops from ratings")
 
-@app.route("/voting", methods = ["POST","GET"])
-def vote():
-    try:
-        netid = request.cookies.get("netid")
-        print("netid retrieved: ", netid)
-        if request.method == 'POST':
-            clubname = request.form['clubname']
-            diversity = request.form['diversity']
-            inclusivity = request.form['inclusivity']
-            workload = request.form['workload']
-            time_commitment = request.form['time_commitment']
-            experience_requirement = request.form['experience_requirement']
-            print(clubname)
-            print(diversity)
-            print(inclusivity)
-            print(workload)
-            print(time_commitment)
-            print(experience_requirement)
-            add_student_rating(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload)
-            msg = 'success'
-        else:
-            msg = 'huh we aren\'t supposed to be here'
+@app.route("/ranking", methods = ["POST","GET"])
+def ranking():
+    html = render_template("voting.html")
+    response = make_response(html)
+    return response
+
+# def vote():
+#     try:
+#         netid = request.cookies.get("netid")
+#         print("netid retrieved: ", netid)
+#         if request.method == 'POST':
+#             clubname = request.form['clubname']
+#             diversity = request.form['diversity']
+#             inclusivity = request.form['inclusivity']
+#             workload = request.form['workload']
+#             time_commitment = request.form['time_commitment']
+#             experience_requirement = request.form['experience_requirement']
+#             print(clubname)
+#             print(diversity)
+#             print(inclusivity)
+#             print(workload)
+#             print(time_commitment)
+#             print(experience_requirement)
+#             add_student_rating(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload)
+#             msg = 'success'
+#         else:
+#             msg = 'huh we aren\'t supposed to be here'
         
-        return jsonify(msg)
-    except Exception:
-        print("whoops from voting :(")
+#         return jsonify(msg)
+#     except Exception:
+#         print("whoops from voting :(")

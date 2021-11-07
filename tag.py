@@ -14,3 +14,6 @@ class Tag:
 
     def get_tagid(self):
         return self._tagid
+
+    def __repr__(self):
+        return ("tag: " + self.name)

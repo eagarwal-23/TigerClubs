@@ -15,12 +15,52 @@ def add_tag(name):
     db.session.add(tag)
     db.session.commit()
 
+def add_club(name, description):
+    club = Club(name, description)
+    db.session.add(club)
+    db.session.commit()
+
+def add_student(netid, name, res_college, year, major, bio, admin = False):
+    student = Student(netid, name, res_college, year, major, bio, admin)
+    db.session.add(student)
+    db.session.commit()
+
+def add_review(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload):
+    student = Student.query.filter_by(netid = netid).first()
+    club = Club.query.filter_by(name = clubname).first()
+    review = Review(diversity, inclusivity, time_commitment, experience_requirement, workload)
+    student.reviews.append(review)
+    club.reviews.append(review)
+    db.session.add(review)
+    db.session.commit()
+
+def delete_tag(name):
+    tag = Tag(name)
+    db.session.delete(tag)
+    db.session.commit()
+
+def delete_club(name, description):
+    club = Club(name, description)
+    db.session.delete(club)
+    db.session.commit()
+
+def delete_student(netid, name, res_college, year, major, bio, admin = False):
+    student = Student(netid, name, res_college, year, major, bio, admin)
+    db.session.delete(student)
+    db.session.commit()
+
+def delete_review(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload):
+    student = Student.query.filter_by(netid = netid).first()
+    club = Club.query.filter_by(name = clubname).first()
+    review = Review(diversity, inclusivity, time_commitment, experience_requirement, workload)
+    student.reviews.delete(review)
+    club.reviews.remove(review)
+    db.session.remove(review)
+    db.session.commit()
+
 if __name__ == "__main__":
-    # add_tag('Instruments')
-    # add_tag('Movies')
-    # add_tag('MCU')
-    # add_tag('Baseball')
-    # add_tag('Basketball')
+    add_review("eagarwal", "Roaring 20", 5, 4, 3, 4, 5)
+
     # add_tag('Beachball')
     # add_tag('Sports')
     # add_tag('Bowling')

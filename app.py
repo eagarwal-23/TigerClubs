@@ -11,7 +11,6 @@ db = SQLAlchemy(app)
 
 from db1 import get_club_ratings, get_student_info, update_student_info, get_club_info, update_club_info, club_search, add_student_rating, get_student_ratings, student_search, get_club_ratings
 
-
 @app.route("/", methods=["GET"])
 @app.route("/login", methods=["GET"])
 def login():

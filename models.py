@@ -43,13 +43,13 @@ class Student(db.Model):
 
     def __init__(self, netid, name, res_college,
             year, major, bio, admin=False):
-        self._netid = netid
-        self._name = name
-        self._res_college = res_college
-        self._year = year
-        self._major = major
-        self._bio = bio
-        self._admin= admin
+        self.netid = netid
+        self.name = name
+        self.res_college = res_college
+        self.year = year
+        self.major = major
+        self.bio = bio
+        self.admin= admin
 
     def __repr__(self):
         return self.netid
@@ -68,8 +68,8 @@ class Club(db.Model):
     reviews = db.relationship("Review",
                                secondary=club_reviews)
 
-    def __init__(self, name, description):
-        self._name = name
+    def __init__(self, name, description = None):
+        self.name = name
         self.description = description
 
     def __repr__(self):
@@ -85,14 +85,15 @@ class Tag(db.Model):
     students = db.relationship("Student",
                                secondary=student_tags)
 
-    clubs = db.relationship("Tag",
+    clubs = db.relationship("Club",
                                secondary=club_tags)
 
     def __init__(self, name):
-        self._name = name
+        self.name = name
 
     def __repr__(self):
-        return self.name 
+        tag_str = ("Tag: " + self.name)
+        return tag_str
 
 class Review(db.Model):
     __tablename__ = 'review_info'

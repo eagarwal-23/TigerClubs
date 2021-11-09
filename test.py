@@ -47,21 +47,6 @@ def update_club_info(name, description = None, members = None, tags = None):
 
     db.session.commit()
 
-if __name__ == "__main__":
-    #add_review("eagarwal", "Roaring 20", 5, 4, 3, 4, 5)
-    # delete_review("eagarwal", "Roaring 20", 21)
-    # update_club_info("Roaring 20", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
-    # update_club_info("Nassoons", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
-    # update_club_info("eXpressions", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
-    # update_club_info("SWE", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
-    # update_club_info("PWICS", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
-
-    # clubs = filter_by_tags(["Dogs", "League of Legends", "Coding"])
-    # print(clubs)
-    # clubs = get_all_clubs()
-    # for club in clubs:
-    #     print(club)
-
     def calculate_all_club_ratings():
         clubs = get_all_clubs()
         for club in clubs:
@@ -99,6 +84,20 @@ if __name__ == "__main__":
             club.workload = workload
             db.session.commit()
 
+if __name__ == "__main__":
+    #add_review("eagarwal", "Roaring 20", 5, 4, 3, 4, 5)
+    # delete_review("eagarwal", "Roaring 20", 21)
+    # update_club_info("Roaring 20", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
+    # update_club_info("Nassoons", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
+    # update_club_info("eXpressions", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
+    # update_club_info("SWE", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
+    # update_club_info("PWICS", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
+
+    # clubs = filter_by_tags(["Dogs", "League of Legends", "Coding"])
+    # print(clubs)
+    # clubs = get_all_clubs()
+    # for club in clubs:
+    #     print(club)
 
     calculate_all_club_ratings()
 

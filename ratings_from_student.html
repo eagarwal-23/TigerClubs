@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width-device-width, initial-scale-1.0">
     <title> Tiger Clubs</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="static/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
@@ -12,7 +14,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <!------ Include the above in your HEAD tag ---------->
-    <link href="/main.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" type="text/css" href="static/jquery.raty.css">
+    <script src="static/jquery.raty.js"></script>
 
 </head>
 
@@ -78,7 +81,7 @@
                 <!-- user types in club name to add their rating -->
                 <div class="modal-body">
                     <!-- CLUB NAME -->
-                    <label for="clubNameLabel">Club Name</label>
+                    <p>Club Name</p>
                     <input type="text" class="form-control" id="clubname" aria-describedby="clubName"
                             placeholder="e.g. IgniteSTEM, Roaring 20, COS Council">
                         <!-- hmm ill fix this later
@@ -87,35 +90,31 @@
                         -->
 
                     <!-- DIVERSITY RATING -->
-                    
-                    <label for="diversityLabel">Diversity</label>
-                    <input type="text" class="form-control" id="diversity" aria-describedby="diversity"
-                        placeholder="Enter a rating from 1.0 to 5.0">
+                    <p>Diversity</p>
+                    <div id="diversity"></div>
                     <br>
 
                     <!-- INCLUSIVITY RATING -->
-                    <label for="inclusivityLabel">Inclusivity</label>
-                    <input type="text" class="form-control" id="inclusivity" aria-describedby="inclusivity"
-                        placeholder="Enter a rating from 1.0 to 5.0">
+                    <p>Inclusivity</p>
+                    <div id="inclusivity"></div>
                     <br>
 
                     <!-- TIME COMMITMENT RATING -->
-                    <label for="timecommitmentLabel">Time Commitment</label>
-                    <input type="text" class="form-control" id="time_commitment"
-                        aria-describedby="timecommitment" placeholder="Enter a rating from 1.0 to 5.0">
+                    <p>Time Commitment</p>
+                    <div id="time_commitment"></div>
                     <br>
 
                     <!-- WORKLOAD RATING -->
-                    <label for="workloadLabel">Workload</label>
-                    <input type="text" class="form-control" id="workload"
-                        aria-describedby="workload" placeholder="Enter a rating from 1.0 to 5.0">
+                    <p for="workloadLabel">Workload</p>
+                    <div id="workload"></div>
                     <br>
 
                     <!-- EXPERIENCE REQUIRED RATING -->
-                    <label for="experienceRequiredLabel">Experience Required</label>
-                    <input type="text" class="form-control" id="experience_requirement"
-                        aria-describedby="experiencerequired" placeholder="Enter a rating from 1.0 to 5.0">
+                    <p for="experienceRequiredLabel">Experience Required</p>
+                    <div id="experience_requirement"></div>
                     <br>
+
+                    
 
 
                 </div>
@@ -128,34 +127,45 @@
     </div>
     </div>
     <script>  
-        $(document).ready(function(){  
-             $('#save_button').click(function(){  
-                  var clubname = $('#clubname').val();  
-                  var diversity = $('#diversity').val();
-                  var inclusivity = $('#inclusivity').val();
-                  var workload = $('#workload').val();
-                  var time_commitment = $('#time_commitment').val();
-                  var experience_requirement = $('#experience_requirement').val();
-                  if(clubname != '' && diversity != '' && inclusivity != '' && workload != '' && time_commitment != '' && experience_requirement != ''){  
-                       $.ajax({  
-                            url:"/voting",  
-                            method:"POST",  
-                            data: {clubname:clubname, diversity:diversity, inclusivity:inclusivity, workload:workload, time_commitment:time_commitment, experience_requirement:experience_requirement},  
-                            success:function(data)  
-                            {  
-                                alert(data);  
-                                $('#loginModal').hide();  
-                                location.reload();  
-                            }  
-                       });  
-                  }  
-                  else
-                  {  
-                       alert("All Fields are required");  
-                  }  
-             });    
+     $.raty.path = 'static/images';
+    $('#diversity').raty();
+    $('#inclusivity').raty();
+    $('#workload').raty();
+    $('#time_commitment').raty();
+    $('#experience_requirement').raty();
+    $(document).ready(function(){  
+            $('#save_button').click(function(){  
+            var diversity= $('#diversity').data('raty').score();
+            var inclusivity= $('#inclusivity').data('raty').score();
+            var workload= $('#workload').data('raty').score();
+            var time_commitment= $('#time_commitment').data('raty').score();
+            var experience_requirement= $('#experience_requirement').data('raty').score();
+
+            //parseInt($('#stars li.selected').last().data('value'), 10);
+
+            var clubname = $('#clubname').val();
+                if(clubname != '' && diversity  && inclusivity && workload && time_commitment  && experience_requirement ){  
+                    $.ajax({  
+                        url:"/voting",  
+                        method:"POST",  
+                        data: {clubname:clubname, diversity:diversity, inclusivity:inclusivity, workload:workload, time_commitment:time_commitment, experience_requirement:experience_requirement},  
+                        success:function(data)  
+                        {  
+                            alert(data);  
+                            $('#loginModal').hide();  
+                            location.reload();  
+                        }  
+                    });  
+                }  
+                else
+                {  
+                    alert("All Fields are required");  
+                }  
+            });    
         });  
-       </script>  
+       </script>
+        
+  
 </body>
 
 </html>

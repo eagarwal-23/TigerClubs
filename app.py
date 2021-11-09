@@ -9,7 +9,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://rvwhfgtoycqubz:e0cb0aca7c7
 app.secret_key = os.urandom(16)
 db = SQLAlchemy(app)
 
-from db1 import get_club_ratings, get_student_info, update_student_info, get_club_info, update_club_info, club_search, add_student_rating, get_student_ratings, student_search, get_club_ratings
+from db1 import get_club_ratings, get_student_info, update_student_info, get_club_info, update_club_info, club_search, add_student_rating, get_student_ratings, student_search, get_club_ratings, add_review, get_all_tags, get_all_clubs
 
 @app.route("/", methods=["GET"])
 @app.route("/login", methods=["GET"])
@@ -193,8 +193,10 @@ def edited_profile():
 @app.route("/editprofile", methods=["GET"])
 def editprofile():
     netid = request.args.get("netid")
+    clubs = get_all_clubs()
+    tags = get_all_tags()
     try:
-        html = render_template("editprofile.html", netid=netid)
+        html = render_template("editprofile.html", netid=netid, clubs = clubs, tags = tags)
         response = make_response(html)
         return response
     except Exception:
@@ -266,10 +268,12 @@ def clubpage():
 def myratings():
     try:
         netid = request.cookies.get("netid")
-        name = get_student_info(netid).name
+        student = get_student_info(netid=netid)
+        name = student.name
+        clubs = student.clubs
         print("this is hte netididddd", netid)
         ratings = get_student_ratings(netid)
-        html = render_template("ratings_from_student.html", name = name, review = ratings)
+        html = render_template("ratings_from_student.html", name = name, review = ratings, clubs = clubs)
         response = make_response(html)
         return response
     except Exception:
@@ -281,28 +285,29 @@ def ranking():
     response = make_response(html)
     return response
 
+@app.route("/addrating", methods = ["POST","GET"])
+def addrating():
+
+    print("hahahahah we r here")
+
 @app.route("/voting", methods = ["POST","GET"])
 def vote():
     try:
         netid = request.cookies.get("netid")
         print("netid retrieved: ", netid)
         if request.method == 'POST':
+            print("did we get here")
             clubname = request.form['clubname']
             diversity = request.form['diversity']
             inclusivity = request.form['inclusivity']
             workload = request.form['workload']
             time_commitment = request.form['time_commitment']
             experience_requirement = request.form['experience_requirement']
-            print(clubname)
-            print(diversity)
-            print(inclusivity)
-            print(workload)
-            print(time_commitment)
-            print(experience_requirement)
-            add_student_rating(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload)
+            add_review(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload)
             msg = 'success'
         else:
             msg = 'huh we aren\'t supposed to be here'
+        
         return jsonify(msg)
     except Exception:
-        print("whoops from voting :(") 
+        print("whoops from voting :(")

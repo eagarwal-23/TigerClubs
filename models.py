@@ -92,8 +92,7 @@ class Tag(db.Model):
         self.name = name
 
     def __repr__(self):
-        tag_str = ("Tag: " + self.name)
-        return tag_str
+        return self.name
 
 class Review(db.Model):
     __tablename__ = 'review_info'

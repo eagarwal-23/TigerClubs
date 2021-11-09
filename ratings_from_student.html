@@ -81,16 +81,22 @@
                 <!-- user types in club name to add their rating -->
                 <div class="modal-body">
                     <!-- CLUB NAME -->
-                    <p>Club Name</p>
-                    <input type="text" class="form-control" id="clubname" aria-describedby="clubName"
-                            placeholder="e.g. IgniteSTEM, Roaring 20, COS Council">
-                        <!-- hmm ill fix this later
-                        <small id="emailHelp" class="form-text text-muted">You must be a member of this club to add
-                            a rating</small>
-                        -->
+                <form>
+                    <div class="form-group">
+                    <label for="clubname">Club Name</label>
+                    <!-- <input type="text" class="form-control" id="clubname" aria-describedby="clubName"
+                            placeholder="e.g. IgniteSTEM, Roaring 20, COS Council"> -->
+                    <select id = "clubname" aria-describedby="clubName" name = "clubname" class = "form-control">
+                        <option value="none" selected disabled hidden>
+                            Select a Club
+                        </option>
+                        {% for club in clubs: %}
+                        <option value = "{{club}}">{{club}}</option>
+                        {% endfor %}
+                    </select>
 
                     <!-- DIVERSITY RATING -->
-                    <p>Diversity</p>
+                    <label for="diversityLabel">Diversity</label>
                     <div id="diversity"></div>
                     <br>
 
@@ -114,10 +120,10 @@
                     <div id="experience_requirement"></div>
                     <br>
 
-                    
-
-
+                    </div>
+                </form>
                 </div>
+            
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" name="save_button" id="save_button" class="btn btn-primary">Save changes</button>

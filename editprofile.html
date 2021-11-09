@@ -59,16 +59,34 @@
           <input type="hidden" name="netid" value="{{netid}}">
           <table>
               <tr>
-                  <td><label style="text-align:right">Add Club:</label></td>
-                  <td><input type="text" name="clubs"></td>
+                <td><label for "clubname">Add Club: </label></td>
+                <td>
+                  <select id = "clubs" aria-describedby="clubs" name = "clubs" class = "form-control">
+                    <option value="none" selected disabled hidden>
+                      Select a Club
+                  </option>
+                  {% for club in clubs: %}
+                    <option value = "{{club}}">{{club}}</option>
+                  {% endfor %}
+                  </select>
+                </td>
               </tr>
               <tr>
                   <td><label>Change Bio:</label></td>
                   <td><input type="text" name="bio"></td>
               </tr>
               <tr>
-                  <td><label>Add Interest:</label></td>
-                  <td><input type="text" name="tags"></td>
+                <td><label for "tagname">Add Interest: </label></td>
+                <td>
+                  <select id = "tags" aria-describedby="tags" name = "tags" class = "form-control">
+                    <option value="none" selected disabled hidden>
+                      Select a Tag
+                  </option>
+                  {% for tag in tags: %}
+                    <option value = "{{tag}}">{{tag}}</option>
+                  {% endfor %}
+                  </select>
+                </td>
               </tr>
               <tr>
                   <td><input type="submit" value="Save"></td>

@@ -281,28 +281,28 @@ def ranking():
     response = make_response(html)
     return response
 
-# def vote():
-#     try:
-#         netid = request.cookies.get("netid")
-#         print("netid retrieved: ", netid)
-#         if request.method == 'POST':
-#             clubname = request.form['clubname']
-#             diversity = request.form['diversity']
-#             inclusivity = request.form['inclusivity']
-#             workload = request.form['workload']
-#             time_commitment = request.form['time_commitment']
-#             experience_requirement = request.form['experience_requirement']
-#             print(clubname)
-#             print(diversity)
-#             print(inclusivity)
-#             print(workload)
-#             print(time_commitment)
-#             print(experience_requirement)
-#             add_student_rating(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload)
-#             msg = 'success'
-#         else:
-#             msg = 'huh we aren\'t supposed to be here'
-        
-#         return jsonify(msg)
-#     except Exception:
-#         print("whoops from voting :(")
+@app.route("/voting", methods = ["POST","GET"])
+def vote():
+    try:
+        netid = request.cookies.get("netid")
+        print("netid retrieved: ", netid)
+        if request.method == 'POST':
+            clubname = request.form['clubname']
+            diversity = request.form['diversity']
+            inclusivity = request.form['inclusivity']
+            workload = request.form['workload']
+            time_commitment = request.form['time_commitment']
+            experience_requirement = request.form['experience_requirement']
+            print(clubname)
+            print(diversity)
+            print(inclusivity)
+            print(workload)
+            print(time_commitment)
+            print(experience_requirement)
+            add_student_rating(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload)
+            msg = 'success'
+        else:
+            msg = 'huh we aren\'t supposed to be here'
+        return jsonify(msg)
+    except Exception:
+        print("whoops from voting :(") 

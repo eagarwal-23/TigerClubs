@@ -32,6 +32,7 @@ class Student(db.Model):
     major = db.Column(db.String())
     bio = db.Column(db.String())
     admin = db.Column(db.Boolean())
+    blacklist = db.Column(db.Boolean())
     clubs = db.relationship("Club",
                                 secondary=student_clubs)
 
@@ -61,6 +62,11 @@ class Club(db.Model):
     clubid = db.Column(db.Integer(), primary_key = True)
     name = db.Column(db.String())
     description = db.Column(db.String())
+    diversity = db.Column(db.Float())
+    inclusivity = db.Column(db.Float())
+    time_commitment = db.Column(db.Float())
+    experience_requirement = db.Column(db.Float())
+    workload = db.Column(db.Float())
     members = db.relationship("Student",
                                secondary=student_clubs)
     tags = db.relationship("Tag",

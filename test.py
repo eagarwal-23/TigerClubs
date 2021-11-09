@@ -1,7 +1,7 @@
 from app import db
 from models import Student, Club, Tag, Review
 
-from db1 import get_student_ratings, student_search, update_club_info
+from db1 import get_student_ratings, student_search, update_club_info, get_club_ratings
 
 def club_search(search):
     clubs = None
@@ -58,9 +58,49 @@ if __name__ == "__main__":
 
     # clubs = filter_by_tags(["Dogs", "League of Legends", "Coding"])
     # print(clubs)
-    clubs = get_all_clubs()
-    for club in clubs:
-        print(club)
+    # clubs = get_all_clubs()
+    # for club in clubs:
+    #     print(club)
+
+    def calculate_all_club_ratings():
+        clubs = get_all_clubs()
+        for club in clubs:
+            reviews = get_club_ratings(club.clubid)
+            print(reviews)
+
+            diversity = 0.0
+            inclusivity = 0.0
+            time_commitment = 0.0
+            workload = 0.0
+            experience_requirement = 0.0
+            counter = 0
+
+            for review in reviews:
+                diversity += review.diversity
+                inclusivity += review.inclusivity
+                time_commitment += review.time_commitment
+                workload += review.workload
+                experience_requirement += review.experience_requirement
+                counter += 1
+            
+            if diversity != 0:
+                diversity /= counter
+                inclusivity /= counter
+                time_commitment /= counter
+                workload /= counter
+                experience_requirement /= counter
+            else:
+                diversity = inclusivity = time_commitment = workload =experience_requirement = 0
+
+            club.diversity = diversity
+            club.inclusivity = inclusivity
+            club.time_commitment = time_commitment
+            club.experience_requirement = experience_requirement
+            club.workload = workload
+            db.session.commit()
+
+
+    calculate_all_club_ratings()
 
     # add_tag('Beachball')
     # add_tag('Sports')

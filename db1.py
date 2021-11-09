@@ -1,6 +1,18 @@
 from app import db
 from models import Student, Club, Tag, Review
 
+def filter_by_tags(tags):
+    clubs = Club.query.filter(Club.tags.any(Tag.name.in_tags))
+    return clubs
+
+def get_all_clubs():
+    clubs = Club.query.all()
+    return clubs
+    
+def get_all_tags():
+    tags = Tag.query.all()
+    return tags
+
 def get_student_info(netid):
     print("in function, netid =", netid)
     student = Student.query.filter_by(netid = netid).first()

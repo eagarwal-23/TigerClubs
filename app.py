@@ -9,7 +9,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://rvwhfgtoycqubz:e0cb0aca7c7
 app.secret_key = os.urandom(16)
 db = SQLAlchemy(app)
 
-from db1 import get_club_ratings, get_student_info, update_student_info, get_club_info, update_club_info, club_search, add_student_rating, get_student_ratings, student_search, get_club_ratings, add_review
+from db1 import get_club_ratings, get_student_info, update_student_info, get_club_info, update_club_info, club_search, add_student_rating, get_student_ratings, student_search, get_club_ratings, add_review, get_all_tags, get_all_clubs
 
 @app.route("/", methods=["GET"])
 @app.route("/login", methods=["GET"])
@@ -193,8 +193,10 @@ def edited_profile():
 @app.route("/editprofile", methods=["GET"])
 def editprofile():
     netid = request.args.get("netid")
+    clubs = get_all_clubs()
+    tags = get_all_tags()
     try:
-        html = render_template("editprofile.html", netid=netid)
+        html = render_template("editprofile.html", netid=netid, clubs = clubs, tags = tags)
         response = make_response(html)
         return response
     except Exception:

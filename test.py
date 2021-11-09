@@ -10,56 +10,57 @@ def club_search(search):
     for club in clubs:
         print(club)
 
-def add_tag(name):
-    tag = Tag(name)
-    db.session.add(tag)
-    db.session.commit()
+def filter_by_tags(tags):
+    clubs = Club.query.filter(Club.tags.any(Tag.name.in_(tags))).all()
+    return clubs
 
-def add_club(name, description):
-    club = Club(name, description)
-    db.session.add(club)
-    db.session.commit()
+def get_all_clubs():
+    clubs = Club.query.all()
+    return clubs
+    
+def get_all_tags():
+    tags = Tag.query.all()
+    return tags
 
-def add_student(netid, name, res_college, year, major, bio, admin = False):
-    student = Student(netid, name, res_college, year, major, bio, admin)
-    db.session.add(student)
-    db.session.commit()
+def update_club_info(name, description = None, members = None, tags = None):
+    club = Club.query.filter_by(name = name).first()
 
-def add_review(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload):
-    student = Student.query.filter_by(netid = netid).first()
-    club = Club.query.filter_by(name = clubname).first()
-    review = Review(diversity, inclusivity, time_commitment, experience_requirement, workload)
-    student.reviews.append(review)
-    club.reviews.append(review)
-    db.session.add(review)
-    db.session.commit()
+    if description != "" and not None:
+        club.description = description
+    
+    if members != "" and members is not None:
+        members = members.split(',')
+        for member in members:
+            member = member.strip()
 
-def delete_tag(name):
-    tag = Tag(name)
-    db.session.delete(tag)
-    db.session.commit()
+            student = Student.query.filter_by(name=member).first()
+            club.members.append(student)
+            db.session.add(club)
 
-def delete_club(name, description):
-    club = Club(name, description)
-    db.session.delete(club)
-    db.session.commit()
+    if tags != "" and tags is not None:
+        #tags = tags.split(',')
+        for tag in tags:
+            tag = tag.strip()
+            tag = Tag.query.filter_by(name=tag).first()
+            club.tags.append(tag)
+            db.session.add(club)
 
-def delete_student(netid, name, res_college, year, major, bio, admin = False):
-    student = Student(netid, name, res_college, year, major, bio, admin)
-    db.session.delete(student)
-    db.session.commit()
-
-def delete_review(netid, clubname, reviewid):
-    student = Student.query.filter_by(netid = netid).first()
-    club = Club.query.filter_by(name = clubname).first()
-    review = Review.query.filter_by(reviewid = reviewid).delete()
-    student.reviews.remove(review)
-    club.reviews.remove(review)
     db.session.commit()
 
 if __name__ == "__main__":
     #add_review("eagarwal", "Roaring 20", 5, 4, 3, 4, 5)
-    delete_review("eagarwal", "Roaring 20", 21)
+    # delete_review("eagarwal", "Roaring 20", 21)
+    # update_club_info("Roaring 20", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
+    # update_club_info("Nassoons", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
+    # update_club_info("eXpressions", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
+    # update_club_info("SWE", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
+    # update_club_info("PWICS", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
+
+    # clubs = filter_by_tags(["Dogs", "League of Legends", "Coding"])
+    # print(clubs)
+    clubs = get_all_clubs()
+    for club in clubs:
+        print(club)
 
     # add_tag('Beachball')
     # add_tag('Sports')

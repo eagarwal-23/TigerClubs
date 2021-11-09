@@ -302,12 +302,6 @@ def vote():
             time_commitment = request.form['time_commitment']
             experience_requirement = request.form['experience_requirement']
             add_review(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload)
-            print(clubname)
-            print(diversity)
-            print(inclusivity)
-            print(workload)
-            print(time_commitment)
-            print(experience_requirement)
             msg = 'success'
         else:
             msg = 'huh we aren\'t supposed to be here'

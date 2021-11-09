@@ -1,23 +1,18 @@
 from app import db
 from models import Student, Club, Tag, Review
 
-def filter_by_tags(tags):
-    clubs = Club.query.filter(Club.tags.any(Tag.name.in_tags))
-    return clubs
-
-def get_all_clubs():
-    clubs = Club.query.all()
-    return clubs
-    
-def get_all_tags():
-    tags = Tag.query.all()
-    return tags
-
+# obtaining and updating student profile information
+# from the database
 def get_student_info(netid):
     print("in function, netid =", netid)
     student = Student.query.filter_by(netid = netid).first()
     print("stu is :", student)
     return student
+
+def get_student_ratings(netid):
+    student = Student.query.filter_by(netid = netid).first()
+    reviews = student.reviews
+    return reviews
 
 def update_student_info(netid, bio = None, clubs = None, tags = None):
     student = Student.query.filter_by(netid = netid).first()
@@ -35,7 +30,25 @@ def update_student_info(netid, bio = None, clubs = None, tags = None):
         db.session.add(student)
 
     db.session.commit()
+
+def add_student_rating(netid, club, div, inc, time, exp, work):
+    try:
+        student = get_student_info(netid)
+        clubname = club.strip()
+        club = Club.query.filter_by(name = clubname).first()
+
+        review = Review(div, inc, time, exp, work)
+        review.club.append(club)
+        review.student.append(student)
+        db.session.add(review)
+
+        print(review.reviewid)
+        db.session.commit()
+    except Exception as e:
+        print(e)
         
+# obtaining and updating club profile information
+# from the database
 def get_club_info(clubname):
     club = Club.query.filter(Club.name.like(clubname)).first()
     return club
@@ -64,49 +77,6 @@ def update_club_info(name, description = None, members = None, tags = None):
             db.session.add(club)
 
     db.session.commit()
-
-def club_search(search):
-    search_query = '%' + search + '%'
-    clubs = Club.query.filter((Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query)))).all()
-    # for club in clubs:
-    #     print(club)
-    return clubs
-
-def student_search(search):
-    search_query = "%" + search + "%"
-    students = Student.query.filter(
-        (Student.name.ilike(search_query)) |
-        (Student.netid.ilike(search_query)) |
-        (Student.res_college.ilike(search_query)) |
-        (Student.year.ilike(search_query))
-    ).all()
-
-    # print(students)
-    return students
-
-def get_student_ratings(netid):
-    student = Student.query.filter_by(netid = netid).first()
-    reviews = student.reviews
-    return reviews
-
-def add_student_rating(netid, club, div, inc, time, exp, work):
-    try:
-        student = get_student_info(netid)
-        clubname = club.strip()
-        club = Club.query.filter_by(name = clubname).first()
-
-        review = Review(div, inc, time, exp, work)
-        review.club.append(club)
-        review.student.append(student)
-        db.session.add(review)
-
-        print(review.reviewid)
-
-
-        db.session.commit()
-    except Exception as e:
-        print(e)
-
 
 def get_club_ratings(clubid):
     club = Club.query.filter_by(clubid = clubid).first()
@@ -160,3 +130,35 @@ def delete_review(netid, clubname, reviewid):
     club.reviews.remove(review)
     db.session.commit()
 
+def calculate_all_club_ratings():
+    clubs = get_all_clubs()
+    for club in clubs:
+        reviews = get_club_ratings(club.clubid)
+        print(reviews)
+
+        diversity = 0.0
+        inclusivity = 0.0
+        time_commitment = 0.0
+        workload = 0.0
+        experience_requirement = 0.0
+        counter = 0
+
+        for review in reviews:
+            diversity += review.diversity
+            inclusivity += review.inclusivity
+            time_commitment += review.time_commitment
+            workload += review.workload
+            experience_requirement += review.experience_requirement
+            counter += 1
+        
+        diversity /= counter
+        inclusivity /= counter
+        time_commitment /= counter
+        workload /= counter
+        experience_requirement /= counter
+
+        club.diversity = diversity
+        club.inclusivity = inclusivity
+        club.time_commitment = time_commitment
+        club.experience_requirement = experience_requirement
+        club.workload = workload

@@ -61,6 +61,11 @@ class Club(db.Model):
     clubid = db.Column(db.Integer(), primary_key = True)
     name = db.Column(db.String())
     description = db.Column(db.String())
+    diversity = db.Column(db.Float())
+    inclusivity = db.Column(db.Float())
+    time_commitment = db.Column(db.Float())
+    experience_requirement = db.Column(db.Float())
+    workload = db.Column(db.Float())
     members = db.relationship("Student",
                                secondary=student_clubs)
     tags = db.relationship("Tag",

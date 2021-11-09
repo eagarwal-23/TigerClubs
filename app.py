@@ -9,7 +9,8 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://rvwhfgtoycqubz:e0cb0aca7c7
 app.secret_key = os.urandom(16)
 db = SQLAlchemy(app)
 
-from db1 import get_club_ratings, get_student_info, update_student_info, get_club_info, update_club_info, club_search, add_student_rating, get_student_ratings, student_search, get_club_ratings, add_review, get_all_tags, get_all_clubs
+from dbsearch import get_all_clubs, get_all_tags, club_search, student_search, filter_by_tags
+from db1 import get_club_ratings, get_student_info, update_student_info, get_club_info, update_club_info, add_student_rating, get_student_ratings, get_club_ratings, add_review
 
 @app.route("/", methods=["GET"])
 @app.route("/login", methods=["GET"])
@@ -307,7 +308,7 @@ def vote():
             msg = 'success'
         else:
             msg = 'huh we aren\'t supposed to be here'
-        
         return jsonify(msg)
     except Exception:
         print("whoops from voting :(")
+

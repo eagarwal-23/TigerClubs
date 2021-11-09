@@ -32,6 +32,7 @@ class Student(db.Model):
     major = db.Column(db.String())
     bio = db.Column(db.String())
     admin = db.Column(db.Boolean())
+    blacklist = db.Column(db.Boolean())
     clubs = db.relationship("Club",
                                 secondary=student_clubs)
 

@@ -1,4 +1,5 @@
 from app import db
+from dbsearch import get_all_clubs
 from models import Student, Club, Tag, Review
 
 # obtaining and updating student profile information
@@ -128,6 +129,32 @@ def delete_review(netid, clubname, reviewid):
     review = Review.query.filter_by(reviewid = reviewid).delete()
     student.reviews.remove(review)
     club.reviews.remove(review)
+    db.session.commit()
+
+def delete_student_club(netid, clubname):
+    student = Student.query.filter_by(netid = netid).first()
+    club = Club.query.filter_by(name = clubname).first()
+    student.clubs.remove(club)
+    club.members.remove(student)
+    db.session.commit()
+
+def delete_student_tag(netid, tagname): 
+    student = Student.query.filter_by(netid = netid).first()
+    tag = Tag.query.filter_by(name = tagname).first()
+    student.tags.remove(tag)
+    tag.students.remove(student)
+    db.session.commit()
+
+def delete_club_tag(clubname, tagname):
+    club = Club.query.filter_by(name = clubname).first()
+    tag = Tag.query.filter_by(name = tagname).first()
+    club.tags.remove(tag)
+    tag.clubs.remove(club)
+    db.session.commit()
+
+def blacklist_user(netid):
+    student = Student.query.filter_by(netid = netid).first()
+    student.blacklist = True
     db.session.commit()
 
 def calculate_all_club_ratings():

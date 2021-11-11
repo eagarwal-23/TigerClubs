@@ -99,7 +99,7 @@ if __name__ == "__main__":
     # for club in clubs:
     #     print(club)
 
-    calculate_all_club_ratings()
+    #calculate_all_club_ratings()
 
     # add_tag('Beachball')
     # add_tag('Sports')

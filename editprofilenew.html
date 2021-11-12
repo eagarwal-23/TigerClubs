@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<head>
+  <meta charset = "UTF-8">
+  <meta name= "viewport" content= "width-device-width, initial-scale-1.0">
+  <title> Tiger Clubs</title>
+  <link rel="stylesheet" href="style.css" >
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+  <link href="/main.css" rel="stylesheet" id="bootstrap-css">
+
+</head>
+<body>
+  <div class = "menu-bar" style = "background-color: #FFBD81;">
+    <nav class="navbar navbar-expand-lg navbar-light"  style = "font-family: Merriweather;">
+      <a class="navbar-brand" style = "padding-left: 1%; font-size: 135% " href="/landing?netid={{netid}}">Tiger Clubs</a>
+       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+         <i class="fa fa-bars"></i>
+       </button>
+       <div class="collapse navbar-collapse" style = "font-size: 110%;" id="navbarNav">
+         <ul class="navbar-nav ml-auto">
+           <li class="nav-item active">
+             <a class="nav-link" href="/profile?netid={{netid}}">Profile <span class="sr-only">(current)</span></a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link disabled" href="#">Voting</a>
+           </li>
+           <li class="nav-item">
+            <a class="nav-link" href="/myratings">My Ratings</a>
+          </li>
+           <li class="nav-item">
+             <a class="nav-link" href="login">Logout</a>
+           </li>
+         </ul>
+       </div>
+     </nav>
+   </div>
+  <div class = "container-fluid" style= "padding-top: 2%;">
+    <!---
+    <br>
+    <div class="row d-flex justify-content-center">
+      <figure class="figure">
+        <img src="cami.jpg" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+        <figcaption class="figure-caption">Potentially picture here</figcaption>
+      </figure>
+    </div>-->
+    <div class="row justify-content-center" style = "padding-bottom: 0.5rem;">
+      <div class="col-lg-6.5 order-lg-2">
+        <div class="card-profile-image">
+          <a href="#">
+            <img src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg"  width="250" 
+            height="250" class="rounded-circle">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center" style= "font-family: Merriweather;">
+        <form action="profilefromedit" method="get">
+      <h3>{{name}}</h3>
+      </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Net ID</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{student.netid}}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Year</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{classyear}}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Major</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{major}}
+              </div>
+            </div>
+            <hr>
+            <form action="profilefromedit" method="get">
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0"><label for "clubname">Clubs</label></h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {%for club in clubs: %}
+                  {{club}} &emsp;
+                  {% endfor %}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Interests</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {%for interest in interests: %}
+                  {{interest}} &emsp;
+                {% endfor %}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Bio</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{bio}}
+              </div>
+            </div>
+        </form>
+            <div class="row">
+              <div class="col-sm-12">
+               {%if diffperson == netid%}  
+              <hr>  
+              <a class="btn btn-info" href="/editprofile?netid={{netid}}">Edit Profile</a>
+              {%endif%}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+  </div>
+</body>
+</html>

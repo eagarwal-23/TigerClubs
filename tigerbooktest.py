@@ -1,3 +1,4 @@
+'''
 from req_lib import getOneUndergrad
 
 if __name__ == "__main__":
@@ -8,3 +9,4 @@ if __name__ == "__main__":
         print(req.json())
     else:
         print(req.text)
+'''

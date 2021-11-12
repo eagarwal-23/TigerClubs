@@ -1,4 +1,10 @@
+from typing import DefaultDict
 from app import db
+DELETE_USER = 0
+BLACKLIST_USER = 1
+EDIT_USER = 2
+EDIT_CLUB = 3
+ADD_TAG = 4
 
 # association tables
 student_clubs = db.Table('student_clubs', 
@@ -104,9 +110,7 @@ class Review(db.Model):
     __tablename__ = 'review_info'
 
     # auto-increment is automatic
-    print('oh god')
     reviewid = db.Column(db.Integer(), primary_key = True)
-    print('hm')
     diversity = db.Column(db.Integer())
     inclusivity = db.Column(db.Integer())
     time_commitment = db.Column(db.Integer())
@@ -135,3 +139,44 @@ class Review(db.Model):
         str_review += 'Workload: ' + str(self.workload) + '\n'
 
         return str_review
+
+class Request(db.Model):
+    __tablename__ = 'request_info'
+
+    requestid = db.Column(db.Integer(), primary_key = True)
+    request_type = db.Column(db.Integer())
+    netid_sender = db.Column(db.String())
+    netid_about = db.Column(db.String())
+    clubid = db.Column(db.Integer())
+    tagname = db.Column(db.String())
+
+    def __init__(self, request_type, netid_sender, netid_about = None, clubname = None, tagname = None):
+        self.request_type = request_type
+        self.netid_sender = netid_sender
+        self.netid_about = netid_about
+        self.clubid = clubname
+        self.tagname = tagname
+
+    def __repr__(self):
+        if self.request_type == DELETE_USER:
+            club = Club.query.filter_by(clubid=self.clubid).first()
+            clubname = club.name
+            return ("Delete user " + str(self.netid_about) + " from " + str(clubname))
+        
+        elif self.request_type == BLACKLIST_USER:
+            return ("Blacklist user " + str(self.netid_about))
+        
+        elif self.request_type == EDIT_USER:
+            return("User " + str(self.netid_about) + " reported as inappropriate")
+
+        elif self.request_type == EDIT_CLUB:
+            club = Club.query.filter_by(clubid=self.clubid).first()
+            clubname = club.name
+            return("Club " + str(clubname) + " reported as inappropriate")
+
+        else:
+            return ("Add tag " + str(self.tagname))
+
+            print(request)
+            print(request.requestid)
+            sen

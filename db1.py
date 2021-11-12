@@ -1,6 +1,6 @@
 from app import db
 from dbsearch import get_all_clubs
-from models import Student, Club, Tag, Review
+from models import Student, Club, Tag, Review, Request
 
 # obtaining and updating student profile information
 # from the database
@@ -51,7 +51,7 @@ def add_student_rating(netid, club, div, inc, time, exp, work):
 # obtaining and updating club profile information
 # from the database
 def get_club_info(clubname):
-    club = Club.query.filter(Club.name.like(clubname)).first()
+    club = Club.query.filter_by(name = clubname).first()
     return club
 
 def update_club_info(name, description = None, members = None, tags = None):
@@ -189,3 +189,22 @@ def calculate_all_club_ratings():
         club.time_commitment = time_commitment
         club.experience_requirement = experience_requirement
         club.workload = workload
+
+def add_request(request_type, netid_sender, netid_about = None, club = None, tagname = None):
+    if request_type == "delete_user":
+        request_type = DELETE_USER
+        club = Club.query.filter_by(name = club).first()
+        club = club.clubid
+    elif request_type == "blacklist_user":
+        request_type = BLACKLIST_USER  
+    elif request_type == "edit_user":
+        request_type = EDIT_USER
+    if request_type == "edit_club":
+        club = Club.query.filter_by(name = club).first()
+        club = club.clubid
+        request_type = EDIT_CLUB
+    elif request_type == "add_tag":
+        request_type = ADD_TAG
+    request = Request(request_type, netid_sender, netid_about, club, tagname)
+    db.session.add(request)
+    db.session.commit()

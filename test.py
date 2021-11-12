@@ -1,8 +1,13 @@
 from app import db
-from models import Student, Club, Tag, Review
+from models import Student, Club, Tag, Review, Request
 
-from db1 import get_student_ratings, student_search, update_club_info, get_club_ratings
-
+from db1 import get_club_info, get_student_ratings, update_club_info, get_club_ratings
+from dbsearch import student_search
+DELETE_USER = 0
+BLACKLIST_USER = 1
+EDIT_USER = 2
+EDIT_CLUB = 3
+ADD_TAG = 4
 def club_search(search):
     clubs = None
     search_query = '%' + search + '%'
@@ -84,7 +89,31 @@ def update_club_info(name, description = None, members = None, tags = None):
             club.workload = workload
             db.session.commit()
 
+def add_request(request_type, netid_sender, netid_about = None, club = None, tagname = None):
+    if request_type == "delete_user":
+        request_type = DELETE_USER
+        club = Club.query.filter_by(name = club).first()
+        club = club.clubid
+    elif request_type == "blacklist_user":
+        request_type = BLACKLIST_USER  
+    elif request_type == "edit_user":
+        request_type = EDIT_USER
+    if request_type == "edit_club":
+        club = Club.query.filter_by(name = club).first()
+        club = club.clubid
+        request_type = EDIT_CLUB
+    elif request_type == "add_tag":
+        request_type = ADD_TAG
+    request = Request(request_type, netid_sender, netid_about, club, tagname)
+    db.session.add(request)
+    db.session.commit()
+
 if __name__ == "__main__":
+    add_request(request_type="delete_user", netid_sender="eagarwal", netid_about="ajguerra", club = "SWE")
+    add_request(request_type="edit_user", netid_sender="eagarwal", netid_about="ajguerra")
+    add_request(request_type="edit_club", netid_sender="ajguerra", club = "PWICS")
+    add_request(request_type="blacklist_user", netid_sender="ajguerra", netid_about="eagarwal")
+    add_request(request_type="add_tag", netid_sender="ajguerra", tagname="Plants")
     #add_review("eagarwal", "Roaring 20", 5, 4, 3, 4, 5)
     # delete_review("eagarwal", "Roaring 20", 21)
     # update_club_info("Roaring 20", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))

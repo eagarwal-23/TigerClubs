@@ -134,7 +134,7 @@ def studentsearch():
 
     try:
         student = get_student_info(netid)
-        if not Student:
+        if not student:
             html = render_template("studentsearch.html", netid = netid, hasStudents = False)
             print("hmm")
         else:

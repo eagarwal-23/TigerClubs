@@ -63,6 +63,20 @@ def adminportal():
     except:
         print("uh oh admin login validation issue")
 
+@app.route("/landingwhoareyou", methods=["GET"])
+def landingwhoareyou():
+    auth_user = CasClient().authenticate()[:-1]
+
+    user = get_student_info(auth_user)
+
+    if (user.admin):
+        html = render_template("studentoradmin.html")
+        response = make_response(html)
+        return response
+    else:
+        landing()
+
+
 
 @app.route("/landing", methods=["GET"])
 def landing():
@@ -311,4 +325,21 @@ def vote():
         return jsonify(msg)
     except Exception:
         print("whoops from voting :(")
+
+@app.route("/adminlanding", methods = ["GET"])
+def adminlanding():
+    try:
+        auth_user = CasClient().authenticate()[:-1]
+        user = get_student_info(auth_user)
+        if (not user.admin):
+            html = render_template("notadmin.html")
+            response = make_response(html)
+            return response
+
+        html = render_template("adminlanding.html")
+        response = make_response(html)
+        return response
+    except Exception:
+        print("whoops from adminlanding")
+
 

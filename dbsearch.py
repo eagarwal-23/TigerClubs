@@ -1,5 +1,5 @@
 from app import db
-from models import Student, Club, Tag, Review
+from models import Student, Club, Tag, Review, Request
 
 # search database functions
 def get_all_clubs():
@@ -31,3 +31,7 @@ def student_search(search):
 def filter_by_tags(tags):
     clubs = Club.query.filter(Club.tags.any(Tag.name.in_tags))
     return clubs
+
+def get_all_requests():
+    requests = Request.query.all()
+    return requests

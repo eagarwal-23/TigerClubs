@@ -9,7 +9,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://rvwhfgtoycqubz:e0cb0aca7c7
 app.secret_key = os.urandom(16)
 db = SQLAlchemy(app)
 
-from dbsearch import get_all_clubs, get_all_tags, club_search, student_search, filter_by_tags
+from dbsearch import get_all_clubs, get_all_tags, club_search, student_search, filter_by_tags, get_all_requests
 from db1 import get_club_ratings, get_student_info, update_student_info, get_club_info, update_club_info, add_student_rating, get_student_ratings, get_club_ratings, add_review
 
 @app.route("/", methods=["GET"])
@@ -336,7 +336,7 @@ def adminlanding():
             response = make_response(html)
             return response
 
-        html = render_template("adminlanding.html")
+        html = render_template("adminlanding.html", requests = get_all_requests(), hasRequests = True)
         response = make_response(html)
         return response
     except Exception:

@@ -15,7 +15,8 @@ db = SQLAlchemy(app)
 
 from db_search import *
 from db_student_profile import *
-from db1 import delete_student_club, get_club_ratings, get_club_info, update_club_info, get_club_ratings, add_review
+from db_club_profile import *
+from db_admin import *
 
 def action_requests(request_type):
     if request_type == DELETE_USER:

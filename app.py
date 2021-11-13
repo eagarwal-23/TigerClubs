@@ -366,15 +366,12 @@ def delete_user():
     clubname = request.args.get("clubname")
     delete_student_club(netid, clubname)
 
-
 @app.route("/blacklist_user")
 def blacklist_user():
     netid = request.args.get("netid")
-    student = get_student_info(student)
-    blacklist_student(student)
+    blacklist_student(netid)
     request_id = request.args.get("requestid")
-    request = get_request_info(request_id)
-    remove_request(request)
+    remove_request(request_id)
 
 @app.route("/edit_student")
 @app.route("/edit_club")
@@ -384,11 +381,9 @@ def add_tag():
     tagname = request.args.get("tagname")
     add_tag(tagname)
     request_id = request.args.get("requestid")
-    request = get_request_info(request_id)
-    remove_request(request)
+    remove_request(request_id)
 
 @app.route("/reject")
 def reject_request():
     request_id = request.args.get("requestid")
-    request = get_request_info(request_id)
-    remove_request(request)
+    remove_request(request_id)

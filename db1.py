@@ -5,9 +5,7 @@ from models import Student, Club, Tag, Review, Request
 # obtaining and updating student profile information
 # from the database
 def get_student_info(netid):
-    print("in function, netid =", netid)
     student = Student.query.filter_by(netid = netid).first()
-    print("stu is :", student)
     return student
 
 def get_student_ratings(netid):
@@ -209,3 +207,16 @@ def add_request(request_type, netid_sender, netid_about = None, club = None, tag
     db.session.add(request)
     db.session.commit()
 
+def blacklist_student(netid):
+    student = get_student_info(netid)
+    student.blacklist = True
+    db.session.commit()
+
+def get_request_info(requestid):
+    request = Request.query.filter_by(requestid = requestid).first()
+    return request
+
+def delete_request(requestid):
+    request = get_request_info(requestid)
+    db.session.delete(request)
+    db.session.commit()

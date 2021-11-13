@@ -156,6 +156,16 @@ class Request(db.Model):
         self.netid_about = netid_about
         self.clubid = clubname
         self.tagname = tagname
+        if request_type == DELETE_USER:
+            self.actions = ['/delete_user', '/review', '/reject']
+        elif request_type == BLACKLIST_USER:
+            self.actions = ['/blacklist_user', '/review', '/reject']
+        elif request_type == EDIT_USER:
+            self.actions = ['/edit_student', '/review', '/reject']
+        elif request_type == EDIT_CLUB:
+            self.actions = ['/edit_club', '/review', '/reject']
+        elif request_type == ADD_TAG:
+            self.actions = ['/add_tag', '/review', 'reject']
 
     def __repr__(self):
         if self.request_type == DELETE_USER:

@@ -3,7 +3,11 @@ from flask import render_template, Response
 from flask_sqlalchemy import SQLAlchemy
 from casclient import CasClient
 import os
-
+DELETE_USER = 0
+BLACKLIST_USER = 1
+EDIT_USER = 2
+EDIT_CLUB = 3
+ADD_TAG = 4
 app = Flask(__name__, template_folder=".")
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://rvwhfgtoycqubz:e0cb0aca7c7da7773f28d1905455da0f9bf5e83d1a0b98be573e86a621c168e9@ec2-23-23-199-57.compute-1.amazonaws.com:5432/d8hudjmal9i0pc"
 app.secret_key = os.urandom(16)
@@ -11,6 +15,20 @@ db = SQLAlchemy(app)
 
 from dbsearch import get_all_clubs, get_all_tags, club_search, student_search, filter_by_tags, get_all_requests
 from db1 import get_club_ratings, get_student_info, update_student_info, get_club_info, update_club_info, add_student_rating, get_student_ratings, get_club_ratings, add_review
+
+def action_requests(request_type):
+    if request_type == DELETE_USER:
+        actions = ['/delete_user', '/review', '/reject']
+    elif request_type == BLACKLIST_USER:
+        actions = ['/blacklist_user', '/review', '/reject']
+    elif request_type == EDIT_USER:
+        actions = ['/edit_student', '/review', '/reject']
+    elif request_type == EDIT_CLUB:
+        actions = ['/edit_club', '/review', '/reject']
+    elif request_type == ADD_TAG:
+        actions = ['/add_tag', '/review', '.reject']
+
+    return action_requests
 
 @app.route("/", methods=["GET"])
 @app.route("/login", methods=["GET"])
@@ -342,4 +360,16 @@ def adminlanding():
     except Exception:
         print("whoops from adminlanding")
 
+@app.route("/delete_user")
+@app.route("/blacklist_user")
+@app.route("/edit_student")
+@app.route("/edit_club")
+@app.route("/add_tag")
+@app.route("/review")
 
+@app.route("/reject")
+def reject_request():
+    request_id = request.args.get("requestid")
+    request = get_request_info(request_id)
+    remove_request(request)
+    

@@ -13,8 +13,9 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://rvwhfgtoycqubz:e0cb0aca7c7
 app.secret_key = os.urandom(16)
 db = SQLAlchemy(app)
 
-from dbsearch import get_all_clubs, get_all_tags, club_search, student_search, filter_by_tags, get_all_requests
-from db1 import delete_student_club, get_club_ratings, get_student_info, update_student_info, get_club_info, update_club_info, add_student_rating, get_student_ratings, get_club_ratings, add_review
+from db_search import *
+from db_student_profile import *
+from db1 import delete_student_club, get_club_ratings, get_club_info, update_club_info, get_club_ratings, add_review
 
 def action_requests(request_type):
     if request_type == DELETE_USER:
@@ -336,7 +337,7 @@ def vote():
             workload = request.form['workload']
             time_commitment = request.form['time_commitment']
             experience_requirement = request.form['experience_requirement']
-            add_review(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload)
+            add_rating(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload)
             msg = 'success'
         else:
             msg = 'huh we aren\'t supposed to be here'

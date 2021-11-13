@@ -208,3 +208,4 @@ def add_request(request_type, netid_sender, netid_about = None, club = None, tag
     request = Request(request_type, netid_sender, netid_about, club, tagname)
     db.session.add(request)
     db.session.commit()
+

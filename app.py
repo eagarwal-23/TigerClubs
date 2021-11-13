@@ -14,7 +14,7 @@ app.secret_key = os.urandom(16)
 db = SQLAlchemy(app)
 
 from dbsearch import get_all_clubs, get_all_tags, club_search, student_search, filter_by_tags, get_all_requests
-from db1 import get_club_ratings, get_student_info, update_student_info, get_club_info, update_club_info, add_student_rating, get_student_ratings, get_club_ratings, add_review
+from db1 import delete_student_club, get_club_ratings, get_student_info, update_student_info, get_club_info, update_club_info, add_student_rating, get_student_ratings, get_club_ratings, add_review
 
 def action_requests(request_type):
     if request_type == DELETE_USER:
@@ -361,15 +361,34 @@ def adminlanding():
         print("whoops from adminlanding")
 
 @app.route("/delete_user")
+def delete_user():
+    netid = request.args.get("netid")
+    clubname = request.args.get("clubname")
+    delete_student_club(netid, clubname)
+
+
 @app.route("/blacklist_user")
+def blacklist_user():
+    netid = request.args.get("netid")
+    student = get_student_info(student)
+    blacklist_student(student)
+    request_id = request.args.get("requestid")
+    request = get_request_info(request_id)
+    remove_request(request)
+
 @app.route("/edit_student")
 @app.route("/edit_club")
+
 @app.route("/add_tag")
-@app.route("/review")
+def add_tag():
+    tagname = request.args.get("tagname")
+    add_tag(tagname)
+    request_id = request.args.get("requestid")
+    request = get_request_info(request_id)
+    remove_request(request)
 
 @app.route("/reject")
 def reject_request():
     request_id = request.args.get("requestid")
     request = get_request_info(request_id)
     remove_request(request)
-    

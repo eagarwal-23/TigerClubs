@@ -44,7 +44,8 @@
                         <img class="img-fluid rounded-circle mb-4" src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg" alt="..." />
                         <h1 class="text-white fs-3 fw-bolder">{{student.name}}</h1>
                         <h2 class="text-white fs-4">{{major}} {{classyear}}</h2>
-                        <p class="text-white-50 mb-0">{{student.netid}}@princeton.edu</p>
+                        <a class="text-white-50 mb-0"
+                        href ="https://mail.google.com/mail/?view=cm&fs=1&to={{student.netid}}@princeton.edu&body=Sent%20From%20Tigerclubs">{{student.netid}}@princeton.edu</a>
                         {%if diffperson == netid%}  
                         <br>
                         <a class="btn btn-sm" style = "background-color: cornsilk; "href="/editprofile?netid={{netid}}">Edit Profile</a>

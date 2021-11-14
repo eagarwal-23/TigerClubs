@@ -1,6 +1,10 @@
 from app import db
 from models import Student, Club, Tag, Review, Request
-
+DELETE_USER = 0
+BLACKLIST_USER = 1
+EDIT_USER = 2
+EDIT_CLUB = 3
+ADD_TAG = 4
 # search database functions
 def get_all_clubs():
     clubs = Club.query.all()

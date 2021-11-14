@@ -253,7 +253,7 @@ def clubpage():
                                 description = club.description, members = club.members,
                                 tags = club.tags, 
                                 hasScores = False)
-        
+
         else:
 
             diversity = 0.0
@@ -372,30 +372,87 @@ def adminlanding():
     # except Exception:
     #     print("whoops from adminlanding")
 
-@app.route("/delete_user")
+@app.route("/delete_user", methods = ["POST","GET"])
 def delete_user():
     netid = request.args.get("netid")
-    clubname = request.args.get("clubname")
-    delete_student_club(netid, clubname)
+    clubid = request.args.get("clubid")
+    delete_student_club(netid=netid.strip(), clubid=clubid.strip())
+    requestid = request.args.get("requestid")
+    delete_request(requestid)
+    msg = 'success'
+    return jsonify(msg)
 
 @app.route("/blacklist_user")
 def blacklist_user():
     netid = request.args.get("netid")
     blacklist_student(netid)
-    request_id = request.args.get("requestid")
-    delete_request(request_id)
+    requestid = request.args.get("requestid")
+    delete_request(requestid)
+    msg = 'success'
+    return jsonify(msg)
 
 @app.route("/edit_student")
 @app.route("/edit_club")
 
-@app.route("/add_tag")
+@app.route("/add_tag", methods = ['GET', 'POST'])
 def add_tag():
     tagname = request.args.get("tagname")
-    add_tag(tagname)
-    request_id = request.args.get("requestid")
-    delete_request(request_id)
+    add_tag_db(tagname)
+    requestid = request.args.get("requestid")
+    delete_request(requestid)
+    msg = 'success'
+    return jsonify(msg)
 
-@app.route("/reject")
+@app.route("/reject_request", methods = ['GET'])
 def reject_request():
     request_id = request.args.get("requestid")
     delete_request(request_id)
+    msg = 'success'
+    return jsonify(msg)
+
+@app.route("/adminclubs", methods=["GET"])
+def adminclubs():
+    auth_user = CasClient().authenticate()[:-1]
+    user = get_student_info(auth_user)
+
+    if (not user.admin):
+        html = render_template("notadmin.html")
+        response = make_response(html)
+        return response
+
+    clubname = request.args.get("clubname")
+
+    if not clubname:
+        clubname = ""
+
+    clubs = club_search(clubname)
+
+    html = render_template("adminclubs.html", hasClubs = 1, clubs=clubs)
+    response = make_response(html)
+    return response
+
+@app.route("/editclub", methods=["GET"])
+def editclub():
+    auth_user = CasClient().authenticate()[:-1]
+    user = get_student_info(auth_user)
+
+    if (not user.admin):
+        html = render_template("notadmin.html")
+        response = make_response(html)
+        return response
+
+    clubname = request.args.get("clubname")
+    club = get_club_info(clubname)
+
+    html = render_template("editclubs.html")
+    response = make_response(html)
+    return response
+
+
+@app.route("/editclubfromedit", methods=["GET"])
+def editclubfromedit():
+    name = 
+    description = 
+    members = 
+    tags = 
+update_club_info(name, description = None, members = None, tags = None):

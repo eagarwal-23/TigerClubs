@@ -452,7 +452,6 @@ def editclub():
     response = make_response(html)
     return response
 
-
 @app.route("/editclubfromedit", methods=["GET"])
 def editclubfromedit():
     try:

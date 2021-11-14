@@ -192,17 +192,17 @@
     <div id="add-club-rating" class="modal fade" role="dialog" aria-labelledby="addClubRatingLabel"
         aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modalfonts modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="addClubRatingLabel">Add a new Rating</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> </button>
+                    <button type="button" class="btn-close close" data-dismiss="modal" aria-hidden="true"> </button>
                 </div>
                 <!-- user types in club name to add their rating -->
                 <div class="modal-body">
                     <!-- CLUB NAME -->
                 <form>
                     <div class="form-group">
-                    <label for="clubname">Club Name</label>
+                    <p class="clubname bg-light ratelabel">Club Name</p>
                     <!-- <input type="text" class="form-control" id="clubname" aria-describedby="clubName"
                             placeholder="e.g. IgniteSTEM, Roaring 20, COS Council"> -->
                     <select id = "clubname" aria-describedby="clubName" name = "clubname" class = "form-control">
@@ -213,30 +213,50 @@
                         <option value = "{{club}}">{{club}}</option>
                         {% endfor %}
                     </select>
-
-                    <!-- DIVERSITY RATING -->
-                    <label for="diversityLabel">Diversity</label>
-                    <div id="diversity"></div>
                     <br>
 
+                    <!-- DIVERSITY RATING -->
+                    <p class="ratelabel bg-light">Diversity</label>
+
+                    <div class="stars">
+                    <div id="diversity"></div>
+                </div>
+                    <br>
+
+
                     <!-- INCLUSIVITY RATING -->
-                    <p>Inclusivity</p>
+                    <p class="ratelabel bg-light">Inclusivity</p>
+
+                    <div class="stars">
+
                     <div id="inclusivity"></div>
+                </div>
                     <br>
 
                     <!-- TIME COMMITMENT RATING -->
-                    <p>Time Commitment</p>
+                    <p class="ratelabel bg-light">Time Commitment</p>
+
+                    <div class="stars">
+
                     <div id="time_commitment"></div>
+                </div>
                     <br>
 
+
                     <!-- WORKLOAD RATING -->
-                    <p for="workloadLabel">Workload</p>
+                    <p class="ratelabel bg-light">Workload</p>
+                    <div class="stars">
+
                     <div id="workload"></div>
+                </div>
                     <br>
 
                     <!-- EXPERIENCE REQUIRED RATING -->
-                    <p for="experienceRequiredLabel">Experience Required</p>
+                    <p class="ratelabel bg-light">Experience Required</p>
+                    <div class="stars">
+
                     <div id="experience_requirement"></div>
+                </div>
                     <br>
 
                     </div>

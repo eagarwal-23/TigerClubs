@@ -409,3 +409,24 @@ def reject_request():
     delete_request(request_id)
     msg = 'success'
     return jsonify(msg)
+
+@app.route("/adminclubs", methods=["GET"])
+def adminclubs():
+    auth_user = CasClient().authenticate()[:-1]
+    user = get_student_info(auth_user)
+
+    clubname = request.args.get("clubname")
+
+    if not clubname:
+        clubname = ""
+
+    clubs = club_search(clubname)
+
+    if (not user.admin):
+        html = render_template("notadmin.html")
+        response = make_response(html)
+        return response
+
+    html = render_template("adminclubs.html", hasClubs = 1, clubs=clubs)
+    response = make_response(html)
+    return response

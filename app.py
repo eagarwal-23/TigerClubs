@@ -94,7 +94,7 @@ def landingwhoareyou():
         response = make_response(html)
         return response
     else:
-        landing()
+        return landing()
 
 
 

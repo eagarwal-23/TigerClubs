@@ -92,7 +92,7 @@ def add_club(name, description):
     db.session.add(club)
     db.session.commit()
 
-def delete_club(name, description):
+def delete_club_db(name, description):
     club = Club(name, description)
     db.session.delete(club)
     db.session.commit()

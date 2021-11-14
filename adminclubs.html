@@ -6,7 +6,7 @@
     <title> Tiger Clubs</title>
     <link rel="stylesheet" href="static/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-  
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
@@ -16,7 +16,8 @@
     <!------ Include the above in your HEAD tag ---------->
     <link rel="stylesheet" type="text/css" href="static/jquery.raty.css">
     <script src="static/jquery.raty.js"></script>
- </head>
+
+</head>
   <body>
         <!--Menu bar-->
         <div class="menu-bar" style="background-color: #FFBD81;">
@@ -54,9 +55,9 @@
                   <h5 class="card-title">{{club}}</h5>
                   <h6 class="card-subtitle mb-2 text-muted">{{club}}</h6>
                   <p class="card-text">Description: {{club.description}} Long yada yaday ydaa</p>
-                  <button type = "button" id = "edit_club" class = "btn btn-primary"
+                  <button type = "button" class = "btn btn-primary edit_club"
                  data-clubname = {{ club.name }}>Edit</button>
-                 <button type = "button" id = "delete_club" class = "btn btn-primary"
+                 <button type = "button" class = "btn btn-primary delete_club"
                  data-clubid = {{ club.clubid }}>Delete</button>
                 </div>
               </div>
@@ -69,13 +70,15 @@
 
           <script>
             $(document).ready(function() {
+
               function handleResponse(response)
               {
                 $("body").html(response);
               }
             
-              $("#edit_club").click(function(){
+              $(".edit_club").click(function(){
                 var name = $(this).data('clubname');
+                alert(name)
                 $.ajax({
                   type: 'GET',
                   url: "/editclub?clubname=" + name,
@@ -83,9 +86,10 @@
                 });
               });
              
-              $("#delete_club").click(function(){
+              $(".delete_club").click(function(){
                 var clubid = $(this).data('clubid');
                 alert(clubid);
+                console.log(clubid);
                 $.ajax({
                   url: "/delete_club",
                   method: "GET",
@@ -96,6 +100,6 @@
                 });
               });
             });
-            </script>
+        </script>
   </body>
 </html>

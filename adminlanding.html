@@ -52,8 +52,13 @@
                 <div class="card-body">
                   <h5 class="card-title">Request</h5>
                   <p class="card-text">{{request}}</p>
-                  {% set acceptVal = "accept_" + "delete_user"%}
-                  <button type="button" id = {{ acceptVal }} class="btn btn-success">Accept</a>
+                  <button type="button" id = {{ request.request_type }} class="btn btn-success" 
+                          data-request-type= {{ request.request_type }} 
+                          data-netid-sender = {{ request.netid_sender }}
+                          data-netid-about = {{ request.netid_about }}
+                          data-clubid = {{ request.clubid }}
+                          data-tagname = {{ request.tagname }}
+                          data-requestid = {{ request.requestid }}>Accept</a>
                   <button type="button" id = "review" class="btn btn-warning">Review</a>
                   <button type="button" id = "reject" class="btn btn-danger">Reject</a>
                 </div>
@@ -66,8 +71,20 @@
           </div>
     <script>
       $(document).ready(function() { 
-        $("#accept_delete_user").click(function(){ 
-          alert("button"); }); });
+        $("#0").click(function(){ 
+          alert(($(this).data('netid-sender'))); }) 
+
+        $("#1").click(function(){ 
+          alert(($(this).data('evalz'))); }) 
+
+        $("#2").click(function(){ 
+          alert("button_2"); }) 
+
+        $("#3").click(function(){ 
+          alert("button_3"); }) 
+
+        $("#4").click(function(){ 
+          alert("button_4"); });});
     </script>
 	</body>
 </html>

@@ -485,4 +485,3 @@ def delete_club():
    delete_club_db(clubid)
    msg = 'success'
    return jsonify(msg)
-   

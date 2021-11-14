@@ -60,6 +60,7 @@
                           data-netid-sender = "{{ request.netid_sender }}"
                           data-netid-about = "{{ request.netid_about }}"
                           data-clubid = "{{ request.clubid }}"
+                          data-clubname = "{{ request.clubname }}"
                           data-tagname = "{{ request.tagname }}"
                           data-requestid = "{{ request.requestid }}">Accept</a>
                   <button type="button" class="btn btn-warning review">Review</a>
@@ -112,9 +113,20 @@
 
         $(".2").click(function(){
           var netid = $(this).data('netid-about');
+          url = "/editprofile?netid=" + encodeURIComponent(netid)
           $.ajax({
             type: 'GET',
-            url: "/editprofile?netid=" + netid,
+            url: url,
+            success: handleResponse
+          });
+        });
+
+        $(".3").click(function(){
+          var clubname = $(this).data('clubname');
+          url = "/editclub?clubname=" + encodeURIComponent(clubname)
+          $.ajax({
+            type: 'GET',
+            url: url,
             success: handleResponse
           });
         });

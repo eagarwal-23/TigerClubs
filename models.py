@@ -1,5 +1,7 @@
 from typing import DefaultDict
 from app import db
+from sqlalchemy.ext.hybrid import hybrid_property
+
 DELETE_USER = 0
 BLACKLIST_USER = 1
 EDIT_USER = 2
@@ -150,11 +152,16 @@ class Request(db.Model):
     clubid = db.Column(db.Integer())
     tagname = db.Column(db.String())
 
-    def __init__(self, request_type, netid_sender, netid_about = None, clubname = None, tagname = None):
+    @hybrid_property
+    def clubname(self):
+        club = Club.query.filter_by(clubid=self.clubid).first()
+        return club.name
+
+    def __init__(self, request_type, netid_sender, netid_about = None, clubid = None, tagname = None):
         self.request_type = request_type
         self.netid_sender = netid_sender
         self.netid_about = netid_about
-        self.clubid = clubname
+        self.clubid = clubid
         self.tagname = tagname
         self.action = 'lalala'
         if request_type == DELETE_USER:
@@ -167,6 +174,8 @@ class Request(db.Model):
             self.action = "/edit_club"
         elif request_type == ADD_TAG:
             self.action = "/add_tag"
+        
+    
 
     def __repr__(self):
         if self.request_type == DELETE_USER:

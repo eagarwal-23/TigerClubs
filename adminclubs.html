@@ -79,7 +79,6 @@
             
               $(".edit_club").click(function(){
                 var clubname = ($(this).data('clubname'));
-                alert(clubname)
                 url = "/editclub?clubname=" + encodeURIComponent(clubname)
                 $.ajax({
                   type: 'GET',

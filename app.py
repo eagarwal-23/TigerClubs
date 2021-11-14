@@ -458,6 +458,7 @@ def editclub():
         return response
 
     clubname = request.args.get("clubname")
+    print(clubname)
     club = get_club_info(clubname)
 
     html = render_template("editclubs.html",

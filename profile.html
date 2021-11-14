@@ -9,46 +9,54 @@
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+        <!--ours-->
         <link href="static/styles.css" rel="stylesheet" />
     </head>
-    <body>
-        <!-- Responsive navbar-->
-        <div class="menu-bar">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="container px-lg-5">
-                    <a class="navbar-brand" href="/landing?netid={{netid}}">TigerClubs</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item ">
-                                <a class="nav-link" href="/profile?netid={{netid}}">Profile</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="/studentsearch"> Students</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="/myratings">My Ratings</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="/logout">Logout</a>
-                              </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
+    <body style = "background-color: rgb(255, 237, 215);">
+      <!-- Responsive navbar-->
+      <div class="menu-bar">
+          <nav class="navbar navbar-expand-lg navbar-dark" style = "background-color: #e8804c;">
+              <div class="container px-lg-5">
+                  <a class="navbar-brand" href="/landing?netid={{netid}}">TigerClubs</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                              <a class="nav-link" href="/studentsearch"> Students</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="/myratings">My Ratings</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Account</a>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/profile?netid={{netid}}">View Profile</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/logout">Logout</a>
+                              </div>
+                            </li>
+                      </ul>
+                  </div>
+              </div>
+          </nav>
+      </div>
         <!-- Header - set the background image for the header in the line below-->
         <header class="py-5">
             <div class="container px-lg-5">
-                <div class="p-4 p-lg-5 rounded-3 text-center" style="background-color: #f3953e;">
+                <div class="p-4 p-lg-5 rounded-3 text-center bg-light" style="">
                         <img class="img-fluid rounded-circle mb-4" src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg" alt="..." />
-                        <h1 class="text-white fs-3 fw-bolder">{{student.name}}</h1>
-                        <h2 class="text-white fs-4">{{major}} {{classyear}}</h2>
-                        <a class="text-white-50 mb-0"
+                        <h1 class="text-black fs-3 fw-bolder">{{student.name}}</h1>
+                        <h2 class="text-black fs-4">{{major}} {{classyear}}</h2>
+                        <a class="text-black-50 mb-0"
                         href ="https://mail.google.com/mail/?view=cm&fs=1&to={{student.netid}}@princeton.edu&body=Sent%20From%20Tigerclubs">{{student.netid}}@princeton.edu</a>
                         {%if diffperson == netid%}  
                         <br>
-                        <a class="btn btn-sm" style = "background-color: cornsilk; "href="/editprofile?netid={{netid}}">Edit Profile</a>
+                        <br>
+                        <a class="btn btn-sm" style = "background-color: #e8804c; "href="/editprofile?netid={{netid}}">Edit Profile</a>
                         {%endif%}
                 </div>
 

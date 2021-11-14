@@ -1,9 +1,9 @@
-*{
+/* *{
     margin: 0px;
     padding: 0x;
-}
+} */
 
-.menu-bar{
+/* .menu-bar{
     background-color: #FFBD81;
 }
 
@@ -21,4 +21,10 @@
 
 .tag-buttons{
     background-color: red;
+} */
+
+.tag {
+    display: inline-block;
+    padding-right: 0.25rem;
+    padding-left: 0.25rem;
 }

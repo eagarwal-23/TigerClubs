@@ -466,3 +466,9 @@ def editclubfromedit():
     except Exception:
         print("whoops from editclubfromedit")
 
+@app.route("/delete_club", methods = ["GET"])
+def delete_club():
+   clubid = request.args.get("clubid")
+   delete_club_db(clubid)
+   msg = 'success'
+   return jsonify(msg)

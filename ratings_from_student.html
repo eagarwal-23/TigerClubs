@@ -268,24 +268,26 @@
     </div>
     </div>
     <script>  
-     $.raty.path = 'static/images';
-    $('#diversity').raty();
-    $('#inclusivity').raty();
-    $('#workload').raty();
-    $('#time_commitment').raty();
-    $('#experience_requirement').raty();
-    $(document).on('click', '#deleterating', function() { 
+        $.raty.path = 'static/images';
+        $('#diversity').raty();
+        $('#inclusivity').raty();
+        $('#workload').raty();
+        $('#time_commitment').raty();
+        $('#experience_requirement').raty();
+
+        $(document).on('click', '#deleterating', function() { 
             var reviewid = $(this).attr("value");
             $.ajax({  
-                        url:"/removingvote",  
-                        method:"POST",  
-                        data: {reviewid: reviewid},  
-                        success:function(data)  
-                        {  
-                            location.reload();  
-                        }  
-                    }); 
+                url:"/removingvote",  
+                method:"POST",  
+                data: {reviewid: reviewid},  
+                success:function(data)  
+                {  
+                    location.reload();  
+                }  
+            }); 
         });
+
     $(document).ready(function(){ 
         
             $('#save_button').click(function(){  

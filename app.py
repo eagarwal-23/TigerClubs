@@ -346,6 +346,20 @@ def vote():
     except Exception:
         print("whoops from voting :(")
 
+@app.route("/removingvote", methods= ["POST", "GET"])
+def removingvote():
+    try:
+        if request.method == 'POST':
+            reviewid = request.form['reviewid']
+            print(reviewid)
+            delete_rating(reviewid)
+            msg = 'success'
+        else:
+            msg = "uh oh"
+        return jsonify(msg)
+    except Exception:
+        print("whoops from student removing review")
+
 @app.route("/adminlanding", methods = ["GET"])
 def adminlanding():
     auth_user = CasClient().authenticate()[:-1]

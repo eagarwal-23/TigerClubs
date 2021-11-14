@@ -42,3 +42,8 @@ def add_rating(netid, clubname, diversity, inclusivity, time_commitment, experie
     club.reviews.append(review)
     db.session.add(review)
     db.session.commit()
+
+def delete_rating(reviewid):
+    review = Review.query.filter_by(reviewid = reviewid).first()
+    db.session.delete(review)
+    db.session.commit()

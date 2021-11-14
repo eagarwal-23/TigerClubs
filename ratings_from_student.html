@@ -91,13 +91,9 @@
         <div class="flex row">
                 {%for r in review: %}
                 <div class="flex-item clubcard card" href="/clubpage?clubname={{review.clubname}}" style="width: 24rem;">
-                    <meta id="diversity_data" data="{{r.diversity}}">
-                    <meta id="inclusivity_data" data-name="{{r.diversity}}">
-                    <meta id="timec_ommitment_data" data-name="{{r.diversity}}">
-                    <meta id="experience_requirement_data" data-name="{{r.diversity}}">
-                    <meta id="workload_data" data-name="{{r.diversity}}">
-                    <div id="display_diversity"></div>
-                    <header class="card-header">{{r.club[0]}}</header>
+                    <header class="card-header">{{r.club[0]}}
+                        <button type="button" class="btn-sm btn-close float-right" id="deleterating" aria-hidden="true" value="{{r.reviewid}}"> </button>
+                    </header>
                     
                     <br>
                     <br>
@@ -272,13 +268,28 @@
     </div>
     </div>
     <script>  
-     $.raty.path = 'static/images';
-    $('#diversity').raty();
-    $('#inclusivity').raty();
-    $('#workload').raty();
-    $('#time_commitment').raty();
-    $('#experience_requirement').raty();
-    $(document).ready(function(){  
+        $.raty.path = 'static/images';
+        $('#diversity').raty();
+        $('#inclusivity').raty();
+        $('#workload').raty();
+        $('#time_commitment').raty();
+        $('#experience_requirement').raty();
+
+        $(document).on('click', '#deleterating', function() { 
+            var reviewid = $(this).attr("value");
+            $.ajax({  
+                url:"/removingvote",  
+                method:"POST",  
+                data: {reviewid: reviewid},  
+                success:function(data)  
+                {  
+                    location.reload();  
+                }  
+            }); 
+        });
+
+    $(document).ready(function(){ 
+        
             $('#save_button').click(function(){  
             var diversity= $('#diversity').data('raty').score();
             var inclusivity= $('#inclusivity').data('raty').score();

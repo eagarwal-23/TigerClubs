@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+    <meta charset = "UTF-8">
+    <meta name= "viewport" content= "width-device-width, initial-scale-1.0">
+    <title> Tiger Clubs</title>
+    <link rel="stylesheet" href="style.css" >
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+      <!------ Include the above in your HEAD tag ---------->
+    <link href="/main.css" rel="stylesheet" id="bootstrap-css">
+</head>
+<body>
+    <!--Menu bar-->
+    <div class="menu-bar" style="background-color: #FFBD81;">
+        <nav class="navbar navbar-expand-lg navbar-light" style="font-family: Merriweather;">
+            <a class="navbar-brand" style="padding-left: 1%; font-size: 135% " href="/landing?netid={{netid}}">Student View</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" style="font-size: 110%;" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item ">
+                <a class="nav-link" href="/adminlanding">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/adminstudent">Student</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/adminclubs">Clubs</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+            </div>
+        </nav>
+        </div>
+
+    <h2>Editting Club: {{clubname}}</h2>
+</body>
+</html>

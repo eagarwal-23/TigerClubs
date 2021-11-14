@@ -253,7 +253,7 @@ def clubpage():
                                 description = club.description, members = club.members,
                                 tags = club.tags, 
                                 hasScores = False)
-        
+
         else:
 
             diversity = 0.0
@@ -415,6 +415,11 @@ def adminclubs():
     auth_user = CasClient().authenticate()[:-1]
     user = get_student_info(auth_user)
 
+    if (not user.admin):
+        html = render_template("notadmin.html")
+        response = make_response(html)
+        return response
+
     clubname = request.args.get("clubname")
 
     if not clubname:
@@ -422,11 +427,32 @@ def adminclubs():
 
     clubs = club_search(clubname)
 
+    html = render_template("adminclubs.html", hasClubs = 1, clubs=clubs)
+    response = make_response(html)
+    return response
+
+@app.route("/editclub", methods=["GET"])
+def editclub():
+    auth_user = CasClient().authenticate()[:-1]
+    user = get_student_info(auth_user)
+
     if (not user.admin):
         html = render_template("notadmin.html")
         response = make_response(html)
         return response
 
-    html = render_template("adminclubs.html", hasClubs = 1, clubs=clubs)
+    clubname = request.args.get("clubname")
+    club = get_club_info(clubname)
+
+    html = render_template("editclubs.html")
     response = make_response(html)
     return response
+
+
+@app.route("/editclubfromedit", methods=["GET"])
+def editclubfromedit():
+    name = 
+    description = 
+    members = 
+    tags = 
+update_club_info(name, description = None, members = None, tags = None):

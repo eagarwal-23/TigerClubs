@@ -9,18 +9,20 @@ def get_student_info(netid):
 # edit Student's information given their netid
 def update_student_info(netid, bio = None, clubs = None, tags = None):
     student = Student.query.filter_by(netid = netid).first()
-    if bio != "" and bio is not None:
+    if bio != "" and bio:
         student.bio = bio
 
-    if clubs != "" and clubs is not None:
+    if clubs != "" and clubs:
         club = Club.query.filter_by(name=clubs).first()
         student.clubs.append(club)
         db.session.add(student)
 
-    if tags != "" and tags is not None:
-        tag = Tag.query.filter_by(name=tags).first()
-        student.tags.append(tag)
-        db.session.add(student)
+    if tags != "" and tags:
+        for oneTag in tags:
+            tag = Tag.query.filter_by(name=oneTag).first()
+            print(tag)
+            student.tags.append(tag)
+            db.session.add(student)
 
     db.session.commit()
 

@@ -218,7 +218,8 @@ def edited_profile():
         netid = request.args.get("netid")
         bio = request.args.get("bio")
         clubs = request.args.get("clubs")
-        tags = request.args.get("tags")
+        tags = request.args.getlist("tags")
+        print(tags)
         update_student_info(netid, bio, clubs, tags)
         return profile()
     except Exception:
@@ -228,10 +229,17 @@ def edited_profile():
 @app.route("/editprofile", methods=["GET"])
 def editprofile():
     netid = request.args.get("netid")
+    student = get_student_info(netid)
+    name = student.name
+    classyear = student.year
+    major = student.major
+    bio = student.bio
     clubs = get_all_clubs()
     tags = get_all_tags()
     try:
-        html = render_template("editprofile.html", netid=netid, clubs = clubs, tags = tags)
+        html = render_template("editprofile.html", name=name, netid=netid, student = student, clubs = clubs, tags = tags,
+        classyear=classyear, major=major,
+        bio=bio)
         response = make_response(html)
         return response
     except Exception:

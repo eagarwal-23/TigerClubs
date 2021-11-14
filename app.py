@@ -448,7 +448,7 @@ def editclub():
     response = make_response(html)
     return response
 
-
+'''
 @app.route("/editclubfromedit", methods=["GET"])
 def editclubfromedit():
     name = 
@@ -456,3 +456,5 @@ def editclubfromedit():
     members = 
     tags = 
 update_club_info(name, description = None, members = None, tags = None):
+
+'''

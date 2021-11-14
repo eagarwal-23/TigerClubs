@@ -92,8 +92,8 @@ def add_club(name, description):
     db.session.add(club)
     db.session.commit()
 
-def delete_club_db(name, description):
-    club = Club(name, description)
+def delete_club_db(clubid):
+    club = Club.query.filter_by(clubid = clubid).first()
     db.session.delete(club)
     db.session.commit()
 

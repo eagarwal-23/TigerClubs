@@ -17,7 +17,6 @@ from db_search import *
 from db_student_profile import *
 from db_club_profile import *
 from db_admin import *
-from db1 import delete_review
 
 def action_requests(request_type):
     if request_type == DELETE_USER:
@@ -353,7 +352,7 @@ def removingvote():
         if request.method == 'POST':
             reviewid = request.form['reviewid']
             print(reviewid)
-            delete_review(reviewid)
+            delete_rating(reviewid)
             msg = 'success'
         else:
             msg = "uh oh"

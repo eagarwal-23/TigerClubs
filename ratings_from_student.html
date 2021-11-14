@@ -15,8 +15,22 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <!------ Include the above in your HEAD tag ---------->
     <link rel="stylesheet" type="text/css" href="static/jquery.raty.css">
-    <script src="static/jquery.raty.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <script src="static/jquery.raty.js"></script>
+<style>
+    .fa-star,.fa-star-o,.fa-star-half-o{
+        display:inline-block;
+color:#FDC91B;
+font-size:25px !important;
+    }
+#inlinereview{
+    display:inline-block;
+
+}
+
+
+</style>
 </head>
 
 
@@ -55,20 +69,93 @@
                 workload, and experience required.</p>
 
         </div>
-
         <!-- prints all reviews a student has left for their clubs -->
         <div class="row">
             <div class="col-sm-6">
                 {%for r in review: %}
                 <div class="card" href="/clubpage?clubname={{review.clubname}}">
-                    <p>{{r}}</p>
+                    <meta id="diversity_data" data="{{r.diversity}}">
+                    <meta id="inclusivity_data" data-name="{{r.diversity}}">
+                    <meta id="timec_ommitment_data" data-name="{{r.diversity}}">
+                    <meta id="experience_requirement_data" data-name="{{r.diversity}}">
+                    <meta id="workload_data" data-name="{{r.diversity}}">
+                    <div id="display_diversity"></div>
+                    {{r.club[0]}}
+                    <br>
+                    <br>
+
+                    {% set unselected = 5 - (r.diversity|int)%}
+                    <div id ="inlinereivew">
+                        Diversity: 
+                    {% for i in range(r.diversity|int) %}
+                    <i aria-hidden="true" class="fa fa-star"></i>
+                    {%endfor%}
+                    {% for i in range(unselected)%}
+                    <i aria-hidden="true" class="fa fa-star-o"></i>
+                    {%endfor%}
+                    </div>
+                    <br>
+
+                    {% set unselected = 5 - (r.inclusivity|int)%}
+                    <div id ="inlinereivew">
+                        Inclusivity: 
+                    {% for i in range(r.inclusivity|int) %}
+                    <i aria-hidden="true" class="fa fa-star"></i>
+                    {%endfor%}
+                    {% for i in range(unselected)%}
+                    <i aria-hidden="true" class="fa fa-star-o"></i>
+                    {%endfor%}
+                    </div>
+                    <br>
+
+                    {% set unselected = 5 - (r.time_commitment|int)%}
+                    <div id ="inlinereivew">
+                        Time  Commitment: 
+                    {% for i in range(r.time_commitment|int) %}
+                    <i aria-hidden="true" class="fa fa-star"></i>
+                    {%endfor%}
+                    {% for i in range(unselected)%}
+                    <i aria-hidden="true" class="fa fa-star-o"></i>
+                    {%endfor%}
+                    </div>
+                    <br>
+
+                    {% set unselected = 5 - (r.experience_requirement|int)%}
+                    <div id ="inlinereivew">
+                        Experience Requirement: 
+                    {% for i in range(r.experience_requirement|int) %}
+                    <i aria-hidden="true" class="fa fa-star"></i>
+                    {%endfor%}
+                    {% for i in range(unselected)%}
+                    <i aria-hidden="true" class="fa fa-star-o"></i>
+                    {%endfor%}
+                    </div>
+<br>
+                    {% set unselected = 5 - (r.workload|int)%}
+                    <div id ="inlinereivew">
+                        Workload: 
+                    {% for i in range(r.workload|int) %}
+                    <i aria-hidden="true" class="fa fa-star"></i>
+                    {%endfor%}
+                    {% for i in range(unselected)%}
+                    <i aria-hidden="true" class="fa fa-star-o"></i>
+                    {%endfor%}
+                    </div>
+                    <br>
+
+
+                
                 </div>
+                <br>
+
                 {% endfor %}
             </div>
         </div>
 
         <button type="button" data-toggle="modal" class="btn btn-primary" data-target="#add-club-rating">Rate club
     </div>
+    <br>
+
 
     <div id="add-club-rating" class="modal fade" role="dialog" aria-labelledby="addClubRatingLabel"
         aria-hidden="true">
@@ -147,8 +234,6 @@
             var time_commitment= $('#time_commitment').data('raty').score();
             var experience_requirement= $('#experience_requirement').data('raty').score();
 
-            //parseInt($('#stars li.selected').last().data('value'), 10);
-
             var clubname = $('#clubname').val();
                 if(clubname != '' && diversity  && inclusivity && workload && time_commitment  && experience_requirement ){  
                     $.ajax({  
@@ -157,7 +242,6 @@
                         data: {clubname:clubname, diversity:diversity, inclusivity:inclusivity, workload:workload, time_commitment:time_commitment, experience_requirement:experience_requirement},  
                         success:function(data)  
                         {  
-                            alert(data);  
                             $('#loginModal').hide();  
                             location.reload();  
                         }  
@@ -168,7 +252,7 @@
                     alert("All Fields are required");  
                 }  
             });    
-        });  
+        });
        </script>
         
   

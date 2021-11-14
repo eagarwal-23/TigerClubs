@@ -17,6 +17,7 @@ from db_search import *
 from db_student_profile import *
 from db_club_profile import *
 from db_admin import *
+from db1 import delete_review
 
 def action_requests(request_type):
     if request_type == DELETE_USER:
@@ -345,6 +346,20 @@ def vote():
         return jsonify(msg)
     except Exception:
         print("whoops from voting :(")
+
+@app.route("/removingvote", methods= ["POST", "GET"])
+def removingvote():
+    try:
+        if request.method == 'POST':
+            reviewid = request.form['reviewid']
+            print(reviewid)
+            delete_review(reviewid)
+            msg = 'success'
+        else:
+            msg = "uh oh"
+        return jsonify(msg)
+    except Exception:
+        print("whoops from student removing review")
 
 @app.route("/adminlanding", methods = ["GET"])
 def adminlanding():

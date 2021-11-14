@@ -403,7 +403,9 @@ def add_tag():
     msg = 'success'
     return jsonify(msg)
 
-@app.route("/reject")
+@app.route("/reject_request", methods = ['GET'])
 def reject_request():
     request_id = request.args.get("requestid")
     delete_request(request_id)
+    msg = 'success'
+    return jsonify(msg)

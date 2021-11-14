@@ -63,7 +63,8 @@
                           data-tagname = {{ request.tagname }}
                           data-requestid = {{ request.requestid }}>Accept</a>
                   <button type="button" id = "review" class="btn btn-warning">Review</a>
-                  <button type="button" id = "reject" class="btn btn-danger">Reject</a>
+                  <button type="button" id = "reject" class="btn btn-danger"
+                          data-requestid = {{ request.requestid }}>Reject</a>
                 </div>
               </div>
             </div>
@@ -128,6 +129,19 @@
             }
           });
         });
+
+        $("#reject").click(function(){
+          var requestid = $(this).data('requestid');
+          $.ajax({
+            url: "/reject_request",
+            method: "GET",
+            data: {requestid: requestid},
+            success:function(data) {
+              alert('success');
+            }
+          });
+        });
+
       });
     </script>
 	</body>

@@ -59,49 +59,76 @@
                         <a class="btn btn-sm" style = "background-color: #e8804c; "href="/editprofile?netid={{netid}}">Edit Profile</a>
                         {%endif%}
                 </div>
-
             </div>
         </header>
         <!-- Content section-->
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-5">
-                            <div class="card-body">
-                              <div class="row">
-                                <div class="col-sm-3">
-                                  <h6 class="mb-0">Clubs</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    {%for club in clubs: %}
-                                    {{club}}  &emsp;
-                                  {% endfor %}
-                                </div>
-                              </div>
-                              <hr>
-                              <div class="row">
-                                <div class="col-sm-3">
-                                  <h6 class="mb-0">Interests</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                  {%for interest in interests: %}
-                                    {{interest}} &emsp;
-                                  {% endfor %}
-                                </div>
-                              </div>
-                              <hr>
-                              <div class="row">
-                                <div class="col-sm-3">
-                                  <h6 class="mb-0">Bio</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                  {{bio}}
-                                </div>
-                              </div>
-                              <br>
-                              <br>
-                            </div>
+            <div class="container px-lg-5">
+              <div class="row">
+                <div class="col">
+                    {%for club in clubs: %}
+                    <div class="container" style="padding-bottom: 1rem;">
+                      <div class="card" style="width: 35rem; background-color: white; outline-style:double;">
+                          <div class="card-body">
+                          <h5 class="card-title">{{club}}</h5>
+                          <h6 class="card-subtitle mb-2 text-muted">Description: {{club.description}} Long yada yaday ydaa</h6>
+                          
+                          
+                          {%for tag in club.tags: %}
+                          <div class = "tag">
+                              <div class = "badge text-white" style = "background-color: #e8804c;">{{tag}}</div>
                           </div>
+                          <style> 
+                              .tag {
+                                  display: inline-block;
+                                  padding-right: 0.25rem;
+                                  padding-left: 0.25rem;
+                              }
+                          </style>
+                          {% endfor %}
+
+
+                          <a href="/clubpage?clubname={{club}}&netid={{netid}}" class="card-link stretched-link"></a>
+                          </div>
+                      </div>
+                      </div>
+                  {% endfor %}
                 </div>
+                <div class="col">
+                  <div class="card-body">
+                    <div class="row py-3 align-items-center">
+                        <h4 class="mb-0">Bio</h4>
+                        </div>
+                        <div class = "row">
+                      <div class="col-sm-9 text-secondary">
+                        {{bio}}
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row py-3 align-items-center">
+                        <h4 class="mb-0">Interests</h4>
+                      </div>
+                      <div class = "row">
+                      <div class="col-sm-9 text-secondary">
+                        {%for interest in interests: %}
+                        <div class = "tag">
+                          <div class = "badge text-white" style = "background-color: #e8804c;">{{interest}}</div>
+                        </div>
+                        <style> 
+                            .tag {
+                                display: inline-block;
+                                padding-right: 0.25rem;
+                                padding-left: 0.25rem;
+                            }
+                        </style>
+                        {% endfor %}
+                      </div>
+                    </div>
+                    <hr>
+                    <br>
+                    <br>
+                  </div>
+                </div>
+              </div>
             </div>
         <!-- Footer-->
         <footer class="py-5 bg-dark">

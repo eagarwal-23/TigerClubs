@@ -52,6 +52,10 @@
                 <div class="card-body">
                   <h5 class="card-title">Request</h5>
                   <p class="card-text">{{request}}</p>
+                  {% set acceptVal = "accept_" + "delete_user"%}
+                  <button type="button" id = {{ acceptVal }} class="btn btn-success">Accept</a>
+                  <button type="button" id = "review" class="btn btn-warning">Review</a>
+                  <button type="button" id = "reject" class="btn btn-danger">Reject</a>
                 </div>
               </div>
             </div>
@@ -60,12 +64,10 @@
             No requests to look at right now.
             {%endif%}
           </div>
-
-
-
-
-
-
-
+    <script>
+      $(document).ready(function() { 
+        $("#accept_delete_user").click(function(){ 
+          alert("button"); }); });
+    </script>
 	</body>
 </html>

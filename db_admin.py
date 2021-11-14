@@ -53,7 +53,7 @@ def delete_student_club(netid, clubname):
     db.session.commit()
 
 # for BLACKLIST_USER type request
-def blacklist_user(netid):
+def blacklist_student(netid):
     student = Student.query.filter_by(netid = netid).first()
     student.blacklist = True
     db.session.commit()

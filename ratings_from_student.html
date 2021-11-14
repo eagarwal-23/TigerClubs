@@ -288,34 +288,43 @@
             }); 
         });
 
-    $(document).ready(function(){ 
-        
-            $('#save_button').click(function(){  
-            var diversity= $('#diversity').data('raty').score();
-            var inclusivity= $('#inclusivity').data('raty').score();
-            var workload= $('#workload').data('raty').score();
-            var time_commitment= $('#time_commitment').data('raty').score();
-            var experience_requirement= $('#experience_requirement').data('raty').score();
+        $(document).ready(function(){ 
 
-            var clubname = $('#clubname').val();
-                if(clubname != '' && diversity  && inclusivity && workload && time_commitment  && experience_requirement ){  
-                    $.ajax({  
-                        url:"/voting",  
-                        method:"POST",  
-                        data: {clubname:clubname, diversity:diversity, inclusivity:inclusivity, workload:workload, time_commitment:time_commitment, experience_requirement:experience_requirement},  
-                        success:function(data)  
-                        {  
-                            $('#loginModal').hide();  
-                            location.reload();  
-                        }  
-                    });  
+            $('#save_button').click(function(){  
+
+                var clubname = $('#clubname').val();
+
+                var diversity= $('#diversity').data('raty').score();
+                var inclusivity= $('#inclusivity').data('raty').score();
+                var workload= $('#workload').data('raty').score();
+                var time_commitment= $('#time_commitment').data('raty').score();
+                var experience_requirement= $('#experience_requirement').data('raty').score();
+
+                if (clubname != '' && diversity  && inclusivity && workload && time_commitment 
+                    && experience_requirement) {  
+
+                        $.ajax({  
+                            url:"/voting",  
+                            method:"POST",  
+                            data: {
+                                clubname:clubname, 
+                                diversity:diversity, 
+                                inclusivity:inclusivity, workload:workload, 
+                                time_commitment:time_commitment, 
+                                experience_requirement:experience_requirement
+                            },  
+                            success:function(data) {  
+                                $('#loginModal').hide();  
+                                location.reload();  
+                            }  
+                        });  
                 }  
-                else
-                {  
+                else {  
                     alert("All Fields are required");  
                 }  
             });    
         });
+
        </script>
         
   

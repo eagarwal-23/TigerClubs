@@ -348,19 +348,29 @@ def vote():
 
 @app.route("/adminlanding", methods = ["GET"])
 def adminlanding():
-    try:
-        auth_user = CasClient().authenticate()[:-1]
-        user = get_student_info(auth_user)
-        if (not user.admin):
-            html = render_template("notadmin.html")
-            response = make_response(html)
-            return response
-
-        html = render_template("adminlanding.html", requests = get_all_requests(), hasRequests = True)
+    auth_user = CasClient().authenticate()[:-1]
+    user = get_student_info(auth_user)
+    if (not user.admin):
+        html = render_template("notadmin.html")
         response = make_response(html)
         return response
-    except Exception:
-        print("whoops from adminlanding")
+
+    html = render_template("adminlanding.html", requests = get_all_requests(), hasRequests = True)
+    response = make_response(html)
+    return response
+    # try:
+    #     auth_user = CasClient().authenticate()[:-1]
+    #     user = get_student_info(auth_user)
+    #     if (not user.admin):
+    #         html = render_template("notadmin.html")
+    #         response = make_response(html)
+    #         return response
+
+    #     html = render_template("adminlanding.html", requests = get_all_requests(), hasRequests = True)
+    #     response = make_response(html)
+    #     return response
+    # except Exception:
+    #     print("whoops from adminlanding")
 
 @app.route("/delete_user")
 def delete_user():
@@ -373,7 +383,7 @@ def blacklist_user():
     netid = request.args.get("netid")
     blacklist_student(netid)
     request_id = request.args.get("requestid")
-    remove_request(request_id)
+    delete_request(request_id)
 
 @app.route("/edit_student")
 @app.route("/edit_club")
@@ -383,9 +393,9 @@ def add_tag():
     tagname = request.args.get("tagname")
     add_tag(tagname)
     request_id = request.args.get("requestid")
-    remove_request(request_id)
+    delete_request(request_id)
 
 @app.route("/reject")
 def reject_request():
     request_id = request.args.get("requestid")
-    remove_request(request_id)
+    delete_request(request_id)

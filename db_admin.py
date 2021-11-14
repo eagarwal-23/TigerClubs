@@ -45,25 +45,26 @@ def delete_request(requestid):
     db.session.commit()
 
 # for DELETE_USER type request
-def delete_student_club(netid, clubname):
+def delete_student_club(netid, clubid):
     student = Student.query.filter_by(netid = netid).first()
-    club = Club.query.filter_by(name = clubname).first()
+    club = Club.query.filter_by(clubid = clubid).first()
     student.clubs.remove(club)
-    club.members.remove(student)
+    print(student.clubs)
     db.session.commit()
 
 # for BLACKLIST_USER type request
 def blacklist_student(netid):
     student = Student.query.filter_by(netid = netid).first()
     student.blacklist = True
+    print(student)
     db.session.commit()
 
 # for EDIT_USER type request => db functions in db_student_profile.py
 # for EDIT_CLUB type request => db functions in db_club_profile.py
 
 # for ADD_TAG type request
-def add_tag(name):
-    tag = Tag(name)
+def add_tag_db(tagname):
+    tag = Tag(tagname)
     db.session.add(tag)
     db.session.commit()
 

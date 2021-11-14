@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>TigerClubs</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width-device-width, initial-scale-1.0">
-        <title> Tiger Clubs</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
-      
-        <link rel="stylesheet" href="style.css">
-      
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <!------ Include the above in your HEAD tag ---------->
-	</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width-device-width, initial-scale-1.0">
+    <title> Tiger Clubs</title>
+    <link rel="stylesheet" href="static/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <link rel="stylesheet" type="text/css" href="static/jquery.raty.css">
+    <script src="static/jquery.raty.js"></script>
+
+</head>
 	<body>
         <!--Menu bar-->
         <div class="menu-bar" style="background-color: #FFBD81;">
@@ -71,20 +74,61 @@
           </div>
     <script>
       $(document).ready(function() { 
-        $("#0").click(function(){ 
-          alert(($(this).data('netid-sender'))); }) 
 
-        $("#1").click(function(){ 
-          alert(($(this).data('evalz'))); }) 
+        function handleResponse(response)
+        {
+          $("body").html(response);
+        }
 
-        $("#2").click(function(){ 
-          alert("button_2"); }) 
+        $("#0").click(function(){
+          var netid = $(this).data('netid-about');
+          var clubid = $(this).data('clubid');
+          var requestid = $(this).data('requestid');
+          $.ajax({
+            url: "/delete_user",
+            method: "GET",
+            data: {netid: netid, clubid: clubid, requestid: requestid},
+            success:function(data) {
+              alert('success');
+            }
+          });
+        });
+        
+        $("#1").click(function(){
+          var netid = $(this).data('netid-about');
+          var requestid = $(this).data('requestid');
+          $.ajax({
+            url: "/blacklist_user",
+            method: "GET",
+            data: {netid: netid, requestid: requestid},
+            success:function(data) {
+              alert('success');
+            }
+          });
+        });
 
-        $("#3").click(function(){ 
-          alert("button_3"); }) 
+        $("#2").click(function(){
+          var netid = $(this).data('netid-about');
+          $.ajax({
+            type: 'GET',
+            url: "/editprofile?netid=" + netid,
+            success: handleResponse
+          });
+        });
 
-        $("#4").click(function(){ 
-          alert("button_4"); });});
+        $("#4").click(function(){
+          var tagname = $(this).data('tagname');
+          var requestid = $(this).data('requestid');
+          $.ajax({
+            url: "/add_tag",
+            method: "GET",
+            data: {tagname: tagname, requestid: requestid},
+            success:function(data) {
+              alert('success');
+            }
+          });
+        });
+      });
     </script>
 	</body>
 </html>

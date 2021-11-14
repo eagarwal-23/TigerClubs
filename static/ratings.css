@@ -36,3 +36,14 @@ header {
 .ratelabel{
     padding: 10px;
 }
+.fa-star,.fa-star-o,.fa-star-half-o{
+    display:inline-block;
+    color:#FDC91B;
+    font-size:25px !important;
+}
+#inlinereview{
+    display:inline-block;
+}
+.fa-trash-o {
+    color:lightcoral;
+}

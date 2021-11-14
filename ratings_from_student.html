@@ -22,19 +22,6 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script src="static/jquery.raty.js"></script>
-<style>
-    .fa-star,.fa-star-o,.fa-star-half-o{
-                display:inline-block;
-        color:#FDC91B;
-        font-size:25px !important;
-    }
-#inlinereview{
-    display:inline-block;
-
-}
-
-
-</style>
 </head>
 
 
@@ -92,7 +79,9 @@
                 {%for r in review: %}
                 <div class="flex-item clubcard card" href="/clubpage?clubname={{review.clubname}}" style="width: 24rem;">
                     <header class="card-header">{{r.club[0]}}
-                        <button type="button" class="btn-sm btn-close float-right" id="deleterating" aria-hidden="true" value="{{r.reviewid}}"> </button>
+                        <button class="btn btn-outline-danger btn-sm rounded-0 float-right" type="button" id="deleterating" title="Delete" value="{{r.reviewid}}">
+                            <i class="fa fa-trash"></i>
+                        </button>
                     </header>
                     
                     <br>

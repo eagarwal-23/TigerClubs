@@ -1,90 +1,112 @@
 <!DOCTYPE html>
-<head>
-  <meta charset = "UTF-8">
-  <meta name= "viewport" content= "width-device-width, initial-scale-1.0">
-  <title> Tiger Clubs</title>
-  <link rel="stylesheet" href="style.css" >
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <!------ Include the above in your HEAD tag ---------->
-  <link href="/main.css" rel="stylesheet" id="bootstrap-css">
-
-</head>
-<body>
-  <div class = "menu-bar" style = "background-color: #FFBD81;">
-    <nav class="navbar navbar-expand-lg navbar-light"  style = "font-family: Merriweather;">
-      <a class="navbar-brand" style = "padding-left: 1%; font-size: 135% " href="/landing?netid={{netid}}">Tiger Clubs</a>
-       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-         <i class="fa fa-bars"></i>
-       </button>
-       <div class="collapse navbar-collapse" style = "font-size: 110%;" id="navbarNav">
-         <ul class="navbar-nav ml-auto">
-           <li class="nav-item">
-             <a class="nav-link" href="/profile?netid={{netid}}">Profile <span class="sr-only">(current)</span></a>
-           </li>
-           <li class="nav-item">
-             <a class="nav-link disabled" href="#">Voting</a>
-           </li>
-           <li class="nav-item">
-            <a class="nav-link" href="/myratings">My Ratings</a>
-          </li>
-           <li class="nav-item">
-             <a class="nav-link" href="login">Logout</a>
-           </li>
-         </ul>
-       </div>
-     </nav>
-   </div>
-  <div class = "container-fluid">
-    <br>
-    <div class="row d-flex justify-content-center">
-      <h2>{{clubname}}</h2>
-      </div>
-    <br>
-    <br>
-    <div class="row d-flex justify-content-center">
-      <figure class="figure">
-        <img src=".../400x300" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
-        <figcaption class="figure-caption">Potentially picture here</figcaption>
-      </figure>
-    </div>
-    <div class="row d-flex justify-content-center">
-        <h3>Basic Info </h3>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Small Business - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="static/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Responsive navbar-->
+        <div class="menu-bar">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container px-lg-5">
+                    <a class="navbar-brand" href="/landing?netid={{netid}}">TigerClubs</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item ">
+                                <a class="nav-link" href="/profile?netid={{netid}}">Profile</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="/studentsearch"> Students</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="/myratings">My Ratings</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="/logout">Logout</a>
+                              </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
         </div>
-    <div class="row d-flex justify-content-center">
-        <p> <strong>Description: {{description}}</strong> <br>
-        <strong>Members: </strong> <br>
-        {%for member in members: %}
-          <strong>&emsp;{{member}}</strong>
-          {% endfor %}
-        <br> <strong>Tags: </strong> <br>
-        {%for tag in tags: %}
-          <strong>&emsp;{{tag}}</strong>
-          {% endfor %}
-        <br>
-        <br>
-        <a href="#">Link to club website</a>
-          </p>
-          
-    </div>
-    {%if hasScores: %}
-    <div class="row d-flex justify-content-center">
-      <div class="card" style="width: 18rem;">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item"><strong>Diversity score: </strong> {{diversity}}</li>
-          <li class="list-group-item"><strong>Inclusivity score: </strong>{{inclusivity}}</li>
-          <li class="list-group-item"> <strong>Time Commitment score: </strong>{{time_commitment}}</li>
-          <li class="list-group-item"> <strong>Workload score:</strong> {{workload}}</li>
-          <li class="list-group-item"> <strong>Experience Requirement score: </strong> {{experience_requirement}}</li>
-        </ul>
-      </div>
-    </div>
-    {%else: %}
-      No reviews yet. 
-    {%endif%}
-  </div>
-</body>
+        <!-- Page Content-->
+        <div class="container px-4 px-lg-5">
+            <!-- Heading Row-->
+            <div class="row gx-4 gx-lg-5 align-items-center my-5">
+                <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..." /></div>
+                <div class="col-lg-5">
+                    <h1 class="font-weight-light">{{clubname}}</h1>
+                    <p>Description: {{description}}</p>
+                    {%for tag in tags: %}
+                    <strong>{{tag}}&emsp;</strong>
+                    {% endfor %}
+                    <br>
+                    <br>
+                    <a class="btn btn-primary" href="#!">Website</a>
+                </div>
+            </div>
+            <!-- Call to Action-->
+            <div class="card text-white my-5 py-4 text-center" style="background-color: coral;">
+                <div class="card-body">
+                    <ul class="row justify-content-center">
+                        <div class = "col-2">
+                            <li class="list-group-item"><strong>Diversity: </strong> {{diversity}}</li>
+                        </div>
+                        <div class = "col-2">
+                            <li class="list-group-item"><strong>Inclusivity: </strong>{{inclusivity}}</li>
+                        </div>
+                        <div class = "col-2">
+                            <li class="list-group-item"> <strong>Time Commitment: </strong>{{time_commitment}}</li>
+                        </div>
+                        <div class = "col-2">
+                            <li class="list-group-item"> <strong>Workload:</strong> {{workload}}</li>
+                        </div>
+                        <div class = "col-2">
+                            <li class="list-group-item"> <strong>Experience Requirement: </strong> {{experience_requirement}}</li>
+                        </div>
+                      </ul>
+                </div>
+            </div>
+            <!-- Content Row-->
+            <div class="row gx-4 gx-lg-5">
+                <h4><strong>Club Members:</strong></h4>
+                <br>
+                <br>
+                {%for member in members: %}
+                        <div class="col-lg-6 col-xxl-3 mb-5">
+                            <div class="card border-0 h-100" style="background-color: #fac390;">
+                                <div class="card-body text-center">
+                                    <img class="rounded-circle"
+                                    src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg" width="100"
+                                    height="100">
+                                    <a href="/profile?diffperson={{member.netid}}" class="card-link stretched-link"></a>
+                                    <h2 class="fs-4 fw-bold">{{member}}</h2>
+                                    {{member.netid}}
+                                    <br>
+                                    {{member.year}}
+                                    <br>
+                                    {{member.res_college}}
+                                </div>
+                            </div>
+                        </div>
+                {% endfor %}  
+            </div>
+        </div>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container px-4 px-lg-5"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
 </html>

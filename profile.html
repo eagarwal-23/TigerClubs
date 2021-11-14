@@ -1,139 +1,109 @@
 <!DOCTYPE html>
-<head>
-  <meta charset = "UTF-8">
-  <meta name= "viewport" content= "width-device-width, initial-scale-1.0">
-  <title> Tiger Clubs</title>
-  <link rel="stylesheet" href="style.css" >
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <!------ Include the above in your HEAD tag ---------->
-  <link href="/main.css" rel="stylesheet" id="bootstrap-css">
-
-</head>
-<body>
-  <div class = "menu-bar" style = "background-color: #FFBD81;">
-    <nav class="navbar navbar-expand-lg navbar-light"  style = "font-family: Merriweather;">
-      <a class="navbar-brand" style = "padding-left: 1%; font-size: 135% " href="/landing?netid={{netid}}">Tiger Clubs</a>
-       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-         <i class="fa fa-bars"></i>
-       </button>
-       <div class="collapse navbar-collapse" style = "font-size: 110%;" id="navbarNav">
-         <ul class="navbar-nav ml-auto">
-           <li class="nav-item active">
-             <a class="nav-link" href="/profile?netid={{netid}}">Profile <span class="sr-only">(current)</span></a>
-           </li>
-           <li class="nav-item">
-             <a class="nav-link disabled" href="#">Voting</a>
-           </li>
-           <li class="nav-item">
-            <a class="nav-link" href="/myratings">My Ratings</a>
-          </li>
-           <li class="nav-item">
-             <a class="nav-link" href="login">Logout</a>
-           </li>
-         </ul>
-       </div>
-     </nav>
-   </div>
-  <div class = "container-fluid"style= "padding-top: 2%;">
-    <!---
-    <br>
-    <div class="row d-flex justify-content-center">
-      <figure class="figure">
-        <img src="cami.jpg" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
-        <figcaption class="figure-caption">Potentially picture here</figcaption>
-      </figure>
-    </div>-->
-    <div class="row justify-content-center" style = "padding-bottom: 0.5rem;">
-      <div class="col-lg-6.5 order-lg-2">
-        <div class="card-profile-image">
-          <a href="#">
-            <img src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg"  width="250" 
-            height="250" class="rounded-circle">
-          </a>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Full Width Pics - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="static/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Responsive navbar-->
+        <div class="menu-bar">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container px-lg-5">
+                    <a class="navbar-brand" href="/landing?netid={{netid}}">TigerClubs</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item ">
+                                <a class="nav-link" href="/profile?netid={{netid}}">Profile</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="/studentsearch"> Students</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="/myratings">My Ratings</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="/logout">Logout</a>
+                              </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
         </div>
-      </div>
-    </div>
-    <div class="row d-flex justify-content-center" style= "font-family: Merriweather;">
-      <h3>{{name}}</h3>
-      </div>
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card mb-3">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-sm-3">
-                <h6 class="mb-0">Net ID</h6>
-              </div>
-              <div class="col-sm-9 text-secondary">
-                {{student.netid}}
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <h6 class="mb-0">Year</h6>
-              </div>
-              <div class="col-sm-9 text-secondary">
-                {{classyear}}
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <h6 class="mb-0">Major</h6>
-              </div>
-              <div class="col-sm-9 text-secondary">
-                {{major}}
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <h6 class="mb-0">Clubs</h6>
-              </div>
-              <div class="col-sm-9 text-secondary">
-                {%for club in clubs: %}
-                  {{club}} &emsp;
-                  {% endfor %}
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <h6 class="mb-0">Interests</h6>
-              </div>
-              <div class="col-sm-9 text-secondary">
-                {%for interest in interests: %}
-                  {{interest}} &emsp;
-                {% endfor %}
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <h6 class="mb-0">Bio</h6>
-              </div>
-              <div class="col-sm-9 text-secondary">
-                {{bio}}
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
-               {%if diffperson == netid%}  
-              <hr>  
-              <a class="btn btn-info" href="/editprofile?netid={{netid}}">Edit Profile</a>
-              {%endif%}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        <!-- Header - set the background image for the header in the line below-->
+        <header class="py-5">
+            <div class="container px-lg-5">
+                <div class="p-4 p-lg-5 rounded-3 text-center" style="background-color: #f3953e;">
+                        <img class="img-fluid rounded-circle mb-4" src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg" alt="..." />
+                        <h1 class="text-white fs-3 fw-bolder">{{student.name}}</h1>
+                        <h2 class="text-white fs-4">{{major}} {{classyear}}</h2>
+                        <p class="text-white-50 mb-0">{{student.netid}}@princeton.edu</p>
+                        {%if diffperson == netid%}  
+                        <br>
+                        <a class="btn btn-sm" style = "background-color: cornsilk; "href="/editprofile?netid={{netid}}">Edit Profile</a>
+                        {%endif%}
+                </div>
 
-
-  </div>
-</body>
+            </div>
+        </header>
+        <!-- Content section-->
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5">
+                            <div class="card-body">
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <h6 class="mb-0">Clubs</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {%for club in clubs: %}
+                                    {{club}}  &emsp;
+                                  {% endfor %}
+                                </div>
+                              </div>
+                              <hr>
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <h6 class="mb-0">Interests</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                  {%for interest in interests: %}
+                                    {{interest}} &emsp;
+                                  {% endfor %}
+                                </div>
+                              </div>
+                              <hr>
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <h6 class="mb-0">Bio</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                  {{bio}}
+                                </div>
+                              </div>
+                              <br>
+                              <br>
+                            </div>
+                          </div>
+                </div>
+            </div>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
 </html>
+
+
+ <!-- I called this newprofile-->

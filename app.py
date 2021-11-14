@@ -145,33 +145,30 @@ def landing():
 @app.route("/studentsearch", methods=["GET"])
 def studentsearch():
 
-    netid = request.cookies.get('netid')
-    print("HERE IS THE NETID RIGHT HERE", netid)
-    studentname = request.args.get("studentname") 
+    netid =  request.cookies.get('netid')
+    
+    studentname = request.args.get("studentname")
 
-    #print(netid)
+    if not studentname:
+        studentname = ""
+    
     print(studentname)
 
-    try:
-        student = get_student_info(netid)
-        if not student:
-            html = render_template("studentsearch.html", netid = netid, hasStudents = False)
-            print("hmm")
-        else:
-            name = student.name
-            clubs = student.clubs
-            html = render_template("studentsearch.html", netid = netid, hasStudents = True, name= name, clubs = clubs)
-            students_list = student_search(studentname)
-            print(students_list)
-            clubs = club_search("")
-            
-            for student in students_list:
-                print(student.name)
+    user = get_student_info(netid)
+    name = user.name
+    students_list = student_search(studentname)
 
-        return response
-    except Exception:
-        print("whoops from landing")
-        print("whoops from student search")
+    print(students_list)
+    
+    if not students_list:
+        html = render_template("student.html", netid=netid, name = name, studentname=studentname, hasClubs= True, hasStudents = False)
+        print("elif not students_list:")
+    else:
+        html = render_template("student.html", netid=netid, name = name, hasClubs = True, hasStudents = True, studentname=studentname, students = students_list)
+        print("else")
+    response = make_response(html)
+    response.set_cookie('netid', netid)
+    return response
 
 #@app.route("/profileexternal", methods=["GET"])
 #def profileexternal():
@@ -201,7 +198,10 @@ def profile():
         bio = student.bio
         interests = student.tags
 
-        html = render_template("profile.html", student = student, netid=netid, name=name,
+        if clubs:
+            hasClubs = True
+
+        html = render_template("profile.html", student = student, netid=netid, name=name, hasClubs = hasClubs,
         classyear=classyear, major=major, clubs=clubs,
         bio=bio, interests=interests, diffperson = diffperson)
 

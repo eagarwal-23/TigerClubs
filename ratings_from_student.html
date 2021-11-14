@@ -276,7 +276,6 @@
     $('#experience_requirement').raty();
     $(document).on('click', '#deleterating', function() { 
             var reviewid = $(this).attr("value");
-            alert(reviewid);
             $.ajax({  
                         url:"/removingvote",  
                         method:"POST",  

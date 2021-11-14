@@ -22,12 +22,28 @@ def rev_blacklist_student(netid):
     db.session.commit()
 
 if __name__ == "__main__":
+    add_student_club('ajguerra', 'SWE')
+    add_student_club('ajguerra', 'PWICS')
+    add_student_club('ajguerra', 'DiSiaC')
+    rev_blacklist_student('eagarwal')
+    rev_blacklist_student('jbez')
+    rev_blacklist_student('nadiar')
+
     add_request(request_type="delete_user", netid_sender="eagarwal", netid_about="ajguerra", club = "SWE")
     add_request(request_type="edit_user", netid_sender="eagarwal", netid_about="ajguerra")
     add_request(request_type="edit_club", netid_sender="ajguerra", club = "PWICS")
     add_request(request_type="blacklist_user", netid_sender="ajguerra", netid_about="eagarwal")
+    add_request(request_type="blacklist_user", netid_sender="ajguerra", netid_about="jbez")
+    add_request(request_type="blacklist_user", netid_sender="ajguerra", netid_about="nadiar")
     add_request(request_type="add_tag", netid_sender="ajguerra", tagname="Plants")
+    add_request(request_type="add_tag", netid_sender="ajguerra", tagname="SQLAlchemy")
+    add_request(request_type="add_tag", netid_sender="ajguerra", tagname="Acapella Music")
+    add_request(request_type="add_tag", netid_sender="ajguerra", tagname="Hip-Hop")
+    add_request(request_type="add_tag", netid_sender="ajguerra", tagname="Harry Styles")
 
-    add_student_club('ajguerra', 'SWE')
-    rev_blacklist_student('eagarwal')
+
+
+
+
+    
     

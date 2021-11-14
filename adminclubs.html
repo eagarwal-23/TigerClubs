@@ -56,7 +56,7 @@
                   <h6 class="card-subtitle mb-2 text-muted">{{club}}</h6>
                   <p class="card-text">Description: {{club.description}} Long yada yaday ydaa</p>
                   <button type = "button" class = "btn btn-primary edit_club"
-                 data-clubname = {{ club.name }}>Edit</button>
+                 data-clubname = "{{ club.name }}">Edit</button>
                  <button type = "button" class = "btn btn-primary delete_club"
                  data-clubid = {{ club.clubid }}>Delete</button>
                 </div>
@@ -77,11 +77,12 @@
               }
             
               $(".edit_club").click(function(){
-                var name = $(this).data('clubname');
-                alert(name)
+                var clubname = ($(this).data('clubname'));
+                alert(clubname)
+                url = "/editclub?clubname=" + encodeURIComponent(clubname)
                 $.ajax({
                   type: 'GET',
-                  url: "/editclub?clubname=" + name,
+                  url: url,
                   success: handleResponse
                 });
               });
@@ -89,12 +90,11 @@
               $(".delete_club").click(function(){
                 var clubid = $(this).data('clubid');
                 alert(clubid);
-                console.log(clubid);
+                url = "/delete_club?clubid=" + encodeURIComponent(clubid)
                 $.ajax({
-                  url: "/delete_club",
+                  url: url,
                   method: "GET",
-                  data: {clubid: clubid},
-                  success:function(data) {
+                  success:function() {
                     alert('success');
                   }
                 });

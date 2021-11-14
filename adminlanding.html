@@ -55,15 +55,15 @@
                 <div class="card-body">
                   <h5 class="card-title">Request</h5>
                   <p class="card-text">{{request}}</p>
-                  <button type="button" id = {{ request.request_type }} class="btn btn-success" 
+                  <button type="button" class = "btn btn-success {{ request.request_type }}"
                           data-request-type= {{ request.request_type }} 
                           data-netid-sender = {{ request.netid_sender }}
                           data-netid-about = {{ request.netid_about }}
                           data-clubid = {{ request.clubid }}
                           data-tagname = {{ request.tagname }}
                           data-requestid = {{ request.requestid }}>Accept</a>
-                  <button type="button" id = "review" class="btn btn-warning">Review</a>
-                  <button type="button" id = "reject" class="btn btn-danger"
+                  <button type="button" class="btn btn-warning review">Review</a>
+                  <button type="button" class="btn btn-danger reject"
                           data-requestid = {{ request.requestid }}>Reject</a>
                 </div>
               </div>
@@ -81,34 +81,36 @@
           $("body").html(response);
         }
 
-        $("#0").click(function(){
+        $(".0").click(function(){
           var netid = $(this).data('netid-about');
           var clubid = $(this).data('clubid');
           var requestid = $(this).data('requestid');
+          var $parentCard = $(this).closest(".card")
           $.ajax({
             url: "/delete_user",
             method: "GET",
             data: {netid: netid, clubid: clubid, requestid: requestid},
             success:function() {
-              alert('success');
+              $parentCard.slideUp();
             }
           });
         });
         
-        $("#1").click(function(){
+        $(".1").click(function(){
           var netid = $(this).data('netid-about');
           var requestid = $(this).data('requestid');
+          var $parentCard = $(this).closest(".card")
           $.ajax({
             url: "/blacklist_user",
             method: "GET",
             data: {netid: netid, requestid: requestid},
             success:function(data) {
-              alert('success');
+              $parentCard.slideUp();
             }
           });
         });
 
-        $("#2").click(function(){
+        $(".2").click(function(){
           var netid = $(this).data('netid-about');
           $.ajax({
             type: 'GET',
@@ -117,27 +119,30 @@
           });
         });
 
-        $("#4").click(function(){
+        $(".4").click(function(){
           var tagname = $(this).data('tagname');
           var requestid = $(this).data('requestid');
+          var $parentCard = $(this).closest(".card")
           $.ajax({
             url: "/add_tag",
             method: "GET",
             data: {tagname: tagname, requestid: requestid},
             success:function(data) {
-              alert('success');
+              $parentCard.slideUp();
             }
           });
         });
 
-        $("#reject").click(function(){
+        $(".reject").click(function(){
+          var $parentCard = $(this).closest(".card")
           var requestid = $(this).data('requestid');
           $.ajax({
+            
             url: "/reject_request",
             method: "GET",
             data: {requestid: requestid},
             success:function(data) {
-              alert('success');
+              $parentCard.slideUp();
             }
           });
         });

@@ -74,6 +74,12 @@
           </div>
     <script>
       $(document).ready(function() { 
+
+        function handleResponse(response)
+        {
+          $("body").html(response);
+        }
+
         $("#0").click(function(){
           var netid = $(this).data('netid-about');
           var clubid = $(this).data('clubid');
@@ -98,6 +104,15 @@
             success:function(data) {
               alert('success');
             }
+          });
+        });
+
+        $("#2").click(function(){
+          var netid = $(this).data('netid-about');
+          $.ajax({
+            type: 'GET',
+            url: "/editprofile?netid=" + netid,
+            success: handleResponse
           });
         });
 

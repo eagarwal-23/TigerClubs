@@ -180,7 +180,6 @@ def profile():
    
     try:
         diffperson = request.args.get("diffperson")
-        # print(diffperson, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
         netid = request.cookies.get("netid")
         
         if diffperson:
@@ -189,8 +188,6 @@ def profile():
             student = get_student_info(netid)
             diffperson = netid
 
-        print(netid, "AAAAAAAAAAAAAAAAAAAAAA")
-
         name = student.name
         classyear = student.year
         major = student.major
@@ -198,10 +195,7 @@ def profile():
         bio = student.bio
         interests = student.tags
 
-        if clubs:
-            hasClubs = True
-
-        html = render_template("profile.html", student = student, netid=netid, name=name, hasClubs = hasClubs,
+        html = render_template("profile.html", student = student, netid=netid, name=name,
         classyear=classyear, major=major, clubs=clubs,
         bio=bio, interests=interests, diffperson = diffperson)
 

@@ -444,15 +444,25 @@ def editclub():
     clubname = request.args.get("clubname")
     club = get_club_info(clubname)
 
-    html = render_template("editclubs.html")
+    html = render_template("editclubs.html",
+                            name = club.name,
+                            description = club.description,
+                            members = club.members,
+                            tags = club.tags)
     response = make_response(html)
     return response
 
 
 @app.route("/editclubfromedit", methods=["GET"])
 def editclubfromedit():
-    name = 
-    description = 
-    members = 
-    tags = 
-update_club_info(name, description = None, members = None, tags = None):
+    try:
+        name = request.args.get("name")
+        description = request.args.get("description")
+        members = request.args.get("members")
+        tags = request.args.get("tags")
+
+        update_club_info(name, description, members, tags)
+        return editclub()
+    except Exception:
+        print("whoops from editclubfromedit")
+

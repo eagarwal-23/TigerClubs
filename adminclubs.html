@@ -33,7 +33,7 @@
                     <a class="nav-link" href="/adminlanding">Home<span class="sr-only">(current)</span></a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/adminstudent">Student</a>
+                    <a class="nav-link" href="/adminstudents">Student</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="/adminclubs">Clubs</a>
@@ -55,7 +55,9 @@
                   <h5 class="card-title">{{club}}</h5>
                   <h6 class="card-subtitle mb-2 text-muted">{{club}}</h6>
                   <p class="card-text">Description: {{club.description}} Long yada yaday ydaa</p>
-                  <a href="/clubpage?clubname={{club}}&netid={{netid}}" class="card-link stretched-link"></a>
+                  <button type = "button" class = "btn btn-primary view_club"
+                 data-clubname = "{{ club.name }}"
+                 data-netid = "{{ netid }}">View</button>
                   <button type = "button" class = "btn btn-primary edit_club"
                  data-clubname = "{{ club.name }}">Edit</button>
                  <button type = "button" class = "btn btn-primary delete_club"
@@ -80,6 +82,17 @@
               $(".edit_club").click(function(){
                 var clubname = ($(this).data('clubname'));
                 url = "/editclub?clubname=" + encodeURIComponent(clubname)
+                $.ajax({
+                  type: 'GET',
+                  url: url,
+                  success: handleResponse
+                });
+              });
+
+              $(".view_club").click(function(){
+                var clubname = ($(this).data('clubname'));
+                var netid = ($(this).data('netid'));
+                url = "/clubpage?clubname=" + encodeURIComponent(clubname) + "&netid=" + encodeURIComponent(netid)
                 $.ajax({
                   type: 'GET',
                   url: url,

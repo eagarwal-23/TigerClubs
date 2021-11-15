@@ -82,6 +82,14 @@ class Club(db.Model):
     reviews = db.relationship("Review",
                                secondary=club_reviews)
 
+    @hybrid_property
+    def combined(self):
+        weighted = (0.2 * self.diversity + 0.2 * self.inclusivity + 
+                    0.2 * self.time_commitment + 0.2 * self.workload + 
+                    0.2 * self.experience_requirement)
+
+        return (weighted * 5)
+
     def __init__(self, name, description = None):
         self.name = name
         self.description = description

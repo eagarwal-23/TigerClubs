@@ -96,8 +96,6 @@ def landingwhoareyou():
     else:
         return landing()
 
-
-
 @app.route("/landing", methods=["GET"])
 def landing():
     # removes new line char (this was some weird ass formatting bug???)
@@ -106,6 +104,10 @@ def landing():
 
     if netid is None:
         netid = auth_user
+
+    sort_criteria = request.args.get('sort_club')
+    if not sort_criteria:
+        sort_criteria = 'combined'
     
     clubname = request.args.get("clubname")
     studentname = request.args.get("studentname")
@@ -120,7 +122,7 @@ def landing():
 
     user = get_student_info(netid)
     name = user.name
-    clubs = club_search(clubname)
+    clubs = club_search(search = clubname, query = sort_criteria)
     students_list = student_search(studentname)
 
     print(clubs)
@@ -481,3 +483,9 @@ def delete_club():
    delete_club_db(clubid)
    msg = 'success'
    return jsonify(msg)
+
+@app.route("/sort_clubs", methods = ["GET"])
+def sort_clubs():
+    sort_criteria = request.args.get('sort_club')
+    clubs = club_search("", query = sort_criteria)
+    print(clubs)

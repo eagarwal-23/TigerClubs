@@ -10,7 +10,7 @@ def get_all_students():
 def get_all_clubs():
     clubs = Club.query.all()
     return clubs
- 
+
 # get list of all Tag objects in tag_info table  
 def get_all_tags():
     tags = Tag.query.all()
@@ -43,5 +43,21 @@ def filter_by_tags(tags):
     return clubs
 
 # sort list of Clubs on page by chosen criteria
-def sort_by(clubs, query):
-    pass
+def club_search(search, query = 'combined'):
+    search_query = '%' + search + '%'
+    clubs = Club.query.filter((Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query))))
+    if query == 'combined':
+        clubs = clubs.order_by(Club.combined.desc()).all()
+    elif query == 'diversity':
+        clubs = clubs.order_by(Club.diversity.desc()).all()
+    elif query == 'inclusivity':
+        clubs = clubs.order_by(Club.inclusivity.desc()).all()
+    elif query == 'time_commitment':
+        clubs = clubs.order_by(Club.time_commitment.desc()).all()
+    elif query == 'workload':
+        clubs = clubs.order_by(Club.workload.desc()).all()
+    elif query == 'experience_requirement':
+        clubs = clubs.order_by(Club.experience_requirement.desc()).all()
+    elif query == 'alphabetical':
+        clubs = clubs.order_by(Club.namez).all()
+    return clubs

@@ -82,6 +82,14 @@ class Club(db.Model):
     reviews = db.relationship("Review",
                                secondary=club_reviews)
 
+    @hybrid_property
+    def combined(self):
+        weighted = (0.2 * self.diversity + 0.2 * self.inclusivity + 
+                    0.2 * self.time_commitment + 0.2 * self.workload + 
+                    0.2 * self.experience_requirement)
+
+        return (weighted * 5)
+
     def __init__(self, name, description = None):
         self.name = name
         self.description = description
@@ -151,31 +159,20 @@ class Request(db.Model):
     netid_about = db.Column(db.String())
     clubid = db.Column(db.Integer())
     tagname = db.Column(db.String())
+    description = db.Column(db.String())
 
     @hybrid_property
     def clubname(self):
         club = Club.query.filter_by(clubid=self.clubid).first()
         return club.name
 
-    def __init__(self, request_type, netid_sender, netid_about = None, clubid = None, tagname = None):
+    def __init__(self, request_type, netid_sender, netid_about = None, clubid = None, tagname = None, description = None):
         self.request_type = request_type
         self.netid_sender = netid_sender
         self.netid_about = netid_about
         self.clubid = clubid
         self.tagname = tagname
-        self.action = 'lalala'
-        if request_type == DELETE_USER:
-            self.action = "/delete_user"
-        elif request_type == BLACKLIST_USER:
-            self.action = "/blacklist_user"
-        elif request_type == EDIT_USER:
-            self.action = "/edit_student"
-        elif request_type == EDIT_CLUB:
-            self.action = "/edit_club"
-        elif request_type == ADD_TAG:
-            self.action = "/add_tag"
-        
-    
+        self.description = description
 
     def __repr__(self):
         if self.request_type == DELETE_USER:

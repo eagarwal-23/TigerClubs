@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <head>
+  <link rel="shortcut icon" href="static/tigerclubsicon.ico"/>
+
+  <link rel="shortcut icon" href="static/tigerclubsicon.ico"/>
+
     <meta charset = "UTF-8">
     <meta name= "viewport" content= "width-device-width, initial-scale-1.0">
     <title> Tiger Clubs</title>
@@ -16,33 +20,7 @@
       <link href="static/styles.css" rel="stylesheet" />
 </head>
 <body style = "background-color: rgb(255, 237, 215);">
-    <!-- Responsive navbar-->
-    <div class="menu-bar">
-        <nav class="navbar navbar-expand-lg navbar-dark" style = "background-color: #e8804c;">
-            <div class="container px-lg-5">
-                <a class="navbar-brand" href="/landing?netid={{netid}}">TigerClubs</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                          <li class="nav-item">
-                            <a class="nav-link" href="/studentsearch"> Students</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="/myratings">My Ratings</a>
-                          </li>
-                          <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Account</a>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="/profile?netid={{netid}}">View Profile</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="/logout">Logout</a>
-                            </div>
-                          </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
+  {% include "navbar.html" %}
 
       <header class="py-5">
         <div class="container px-lg-5">
@@ -63,15 +41,13 @@
       <div class="card mb-3">
         <div class="card-body">
         <input type="hidden" name="netid" value="{{netid}}">
+          <hr>
           <div class="row">
             <div class="col-sm-3">
               <h6 class="mb-0">Clubs</h6>
             </div>
-            <div class="col-sm-9 text-secondary">
-              <select id = "clubs" aria-describedby="clubs" name = "clubs" class = "form-control">
-                <option value="none" selected disabled hidden>
-                  Select a Club
-              </option>
+            <div class="col-md-6">
+              <select id="clubs" name = "clubs" class = "form-control" placeholder="Select up to 5 clubs" multiple>
               {% for club in clubs: %}
                 <option value = "{{club}}">{{club}}</option>
               {% endfor %}
@@ -120,13 +96,19 @@
 <script>
 $(document).ready(function(){
 
-  var multipleCancelButton = new Choices('#tags', {
+  var multipleCancelButton = new Choices('#tags' , {
   removeItemButton: true,
   maxItemCount:5,
   searchResultLimit:5,
   renderChoiceLimit:5
   });
   
+  var multipleCancelButton = new Choices('#clubs' , {
+  removeItemButton: true,
+  maxItemCount:5,
+  searchResultLimit:5,
+  renderChoiceLimit:5
+  });
   
   });
 </script>

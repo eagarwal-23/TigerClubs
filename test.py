@@ -115,9 +115,16 @@ def add_student_club(netid, clubname):
     db.session.add(student)
     db.session.commit()
 
+# get list of all Club objects in club_info table
+def get_all_clubs(bool = False):
+    clubs = Club.query.all()
+    if bool:
+        clubs = Club.query.order_by(Club.inclusivity).all()
+    return clubs
+
 if __name__ == "__main__":
-    add_student_club('ajguerra', 'SWE')
-    add_student_club('eagarwal', 'PWICS')
+    print(get_all_clubs(True))
+    print(get_all_clubs())
     #print(get_all_requests())
     # add_request(request_type="delete_user", netid_sender="eagarwal", netid_about="ajguerra", club = "SWE")
     # add_request(request_type="edit_user", netid_sender="eagarwal", netid_about="ajguerra")

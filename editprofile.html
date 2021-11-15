@@ -63,15 +63,13 @@
       <div class="card mb-3">
         <div class="card-body">
         <input type="hidden" name="netid" value="{{netid}}">
+          <hr>
           <div class="row">
             <div class="col-sm-3">
               <h6 class="mb-0">Clubs</h6>
             </div>
-            <div class="col-sm-9 text-secondary">
-              <select id = "clubs" aria-describedby="clubs" name = "clubs" class = "form-control">
-                <option value="none" selected disabled hidden>
-                  Select a Club
-              </option>
+            <div class="col-md-6">
+              <select id="clubs" name = "clubs" class = "form-control" placeholder="Select up to 5 clubs" multiple>
               {% for club in clubs: %}
                 <option value = "{{club}}">{{club}}</option>
               {% endfor %}
@@ -120,13 +118,19 @@
 <script>
 $(document).ready(function(){
 
-  var multipleCancelButton = new Choices('#tags', {
+  var multipleCancelButton = new Choices('#tags' , {
   removeItemButton: true,
   maxItemCount:5,
   searchResultLimit:5,
   renderChoiceLimit:5
   });
   
+  var multipleCancelButton = new Choices('#clubs' , {
+  removeItemButton: true,
+  maxItemCount:5,
+  searchResultLimit:5,
+  renderChoiceLimit:5
+  });
   
   });
 </script>

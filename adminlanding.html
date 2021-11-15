@@ -50,34 +50,36 @@
       </div>
     </nav>
   </div>
-  <div class="container table-wrapper-scroll-y my-custom-scrollbar" style="padding-top: 1rem;">
-    <table class="table table-hover table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Request</th>
-          <th scope="col">Description</th>
-          <th scope="col">Sent by</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {%if hasRequests: %}
-        {%for request in requests: %}
-        <tr>
-          <th scope="row">{{ request.requestid }}</th>
-          <td>{{request}}</td>
-          <td>{{ request.description }}</td>
-          <td>{{ request.netid_sender }}</td>
-          <td>
-            <button type="button" class="btn btn-warning review" data-toggle="modal"
-              data-target="#reviewModal_{{ request.requestid }}">Review</a>
-          </td>
-        </tr>
-        {% endfor %}
-        {%endif%}
-      </tbody>
-    </table>
+  <div class="container" style="padding-top: 1rem;">
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Request</th>
+            <th scope="col">Description</th>
+            <th scope="col">Sent by</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%if hasRequests: %}
+          {%for request in requests: %}
+          <tr>
+            <th scope="row">{{ request.requestid }}</th>
+            <td>{{request}}</td>
+            <td>{{ request.description }}</td>
+            <td>{{ request.netid_sender }}</td>
+            <td>
+              <button type="button" class="btn btn-warning review" data-toggle="modal"
+                data-target="#reviewModal_{{ request.requestid }}">Review</a>
+            </td>
+          </tr>
+          {% endfor %}
+          {%endif%}
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <!--The requests-->

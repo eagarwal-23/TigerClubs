@@ -79,43 +79,43 @@
                         <button class="btn btn-outline my-2 my-sm-0" style="background-color: #fac390;" type="submit">Search</button>
                     </form> -->
                 </div>
-                <div class="col-lg-5">
-                    <div class="card-columns" style="display: inline-block">
-                        {%if hasClubs: %}
-                        {%for club in clubs: %}
-                        <div class="container" style="padding-bottom: 1rem;">
-                            <div class="card" style="background-color: white;">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{club}}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">Description: {{club.description}} Long
-                                        yada yaday ydaa</h6>
-                                    {%for tag in club.tags: %}
-                                    <div class="tag">
-                                        <div class="badge text-white" style="background-color: #e8804c;">{{tag}}
-                                        </div>
+                <!-- <div class="col-lg-5"> -->
+                <div class="card-columns" style="display: inline-block">
+                    {%if hasClubs: %}
+                    {%for club in clubs: %}
+                    <div class="container" style="padding-bottom: 1rem;">
+                        <div class="card" style="background-color: white;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{club}}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Description: {{club.description}} Long
+                                    yada yaday ydaa</h6>
+                                {%for tag in club.tags: %}
+                                <div class="tag">
+                                    <div class="badge text-white" style="background-color: #e8804c;">{{tag}}
                                     </div>
-                                    <style>
-                                        .tag {
-                                            display: inline-block;
-                                            padding-right: 0.25rem;
-                                            padding-left: 0.25rem;
-                                        }
-                                    </style>
-                                    {% endfor %}
-
-
-                                    <a href="/clubpage?clubname={{club.name}}&netid={{netid}}"
-                                        class="card-link stretched-link"></a>
                                 </div>
-                            </div>
+                                <style>
+                                    .tag {
+                                        display: inline-block;
+                                        padding-right: 0.25rem;
+                                        padding-left: 0.25rem;
+                                    }
+                                </style>
+                                {% endfor %}
 
+
+                                <a href="/clubpage?clubname={{club.name}}&netid={{netid}}"
+                                    class="card-link stretched-link"></a>
+                            </div>
                         </div>
-                        {% endfor %}
-                        {%else: %}
-                        No clubs found.
-                        {%endif%}
+
                     </div>
+                    {% endfor %}
+                    {%else: %}
+                    No clubs found.
+                    {%endif%}
                 </div>
+                <!-- </div> -->
             </div>
     </section>
     <!-- Footer-->

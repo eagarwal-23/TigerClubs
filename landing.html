@@ -44,49 +44,6 @@
         </div>
     </header>
     <!-- Page Content-->
-
-    <div class="row">
-        <div class="card" style="width: 20rem;">
-            <img class="card-img-top" src=".../100px180/" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                    additional
-                    content. This content is a little bit longer.</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
-        </div>
-        <div class="card" style="width: 20rem;">
-            <img class="card-img-top" src=".../100px180/" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This card has supporting text below as a natural lead-in to additional
-                    content.
-                </p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
-        </div>
-        <div class="card" style="width: 20rem;">
-            <img class="card-img-top" src=".../100px180/" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                    additional
-                    content. This card has even longer content than the first to show that equal height action.
-                </p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
-        </div>
-
-    </div>
-
-
     <section class="pt-1" style="padding-left: 5%;">
         <div class="container px-lg-5">
             <!-- Page Features-->
@@ -122,8 +79,8 @@
                         <button class="btn btn-outline my-2 my-sm-0" style="background-color: #fac390;" type="submit">Search</button>
                     </form> -->
                 </div>
-                <div class="col-lg-5 row">
-                    <div class="card-deck">
+                <div class="col-lg-5">
+                    <div class="row">
                         {%if hasClubs: %}
                         {%for club in clubs: %}
                         <div class="card" style="background-color: white; width:20rem;">

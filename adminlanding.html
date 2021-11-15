@@ -1,190 +1,217 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="shortcut icon" href="static/tigerclubsicon.ico"/>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width-device-width, initial-scale-1.0">
-    <title> Tiger Clubs</title>
-    <link rel="stylesheet" href="static/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<head>
+  <link rel="shortcut icon" href="static/tigerclubsicon.ico" />
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <!------ Include the above in your HEAD tag ---------->
-    <link rel="stylesheet" type="text/css" href="static/jquery.raty.css">
-    <script src="static/jquery.raty.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width-device-width, initial-scale-1.0">
+  <title> Tiger Clubs</title>
+  <link rel="stylesheet" href="static/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <!------ Include the above in your HEAD tag ---------->
+  <link rel="stylesheet" type="text/css" href="static/jquery.raty.css">
+  <script src="static/jquery.raty.js"></script>
 
 </head>
-	<body>
-        <!--Menu bar-->
-        <div class="menu-bar" style="background-color: #FFBD81;">
-            <nav class="navbar navbar-expand-lg navbar-light" style="font-family: Merriweather;">
-              <a class="navbar-brand" style="padding-left: 1%; font-size: 135% " href="/landing?netid={{netid}}">Student View</a>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fa fa-bars"></i>
-              </button>
-              <div class="collapse navbar-collapse" style="font-size: 110%;" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                  <li class="nav-item ">
-                    <a class="nav-link" href="/adminlanding">Home<span class="sr-only">(current)</span></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/adminstudents">Student</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/adminclubs">Clubs</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
-                  </li>
-                </ul>
-              </div>
-            </nav>
+
+<body>
+  <!--Menu bar-->
+  <div class="menu-bar" style="background-color: #FFBD81;">
+    <nav class="navbar navbar-expand-lg navbar-light" style="font-family: Merriweather;">
+      <a class="navbar-brand" style="padding-left: 1%; font-size: 135% " href="/landing?netid={{netid}}">Student
+        View</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" style="font-size: 110%;" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item ">
+            <a class="nav-link" href="/adminlanding">Home<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/adminstudents">Student</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/adminclubs">Clubs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+      </tr>
+    </tbody>
+  </table>
+  <!--The requests-->
+  <div class="col-6">
+    {%if hasRequests: %}
+    {%for request in requests: %}
+    <div class="container" style="padding-top: 1rem;">
+      <div class="card" style="width: 40rem; background-color: #ffe5cd;">
+        <div class="card-body">
+          <h5 class="card-title">Request</h5>
+          <p class="card-text">{{request}}</p>
+          <button type="button" class="btn btn-success {{ request.request_type }}"
+            data-request-type="{{ request.request_type }}" data-netid-sender="{{ request.netid_sender }}"
+            data-netid-about="{{ request.netid_about }}" data-clubid="{{ request.clubid }}"
+            data-clubname="{{ request.clubname }}" data-tagname="{{ request.tagname }}"
+            data-requestid="{{ request.requestid }}">Accept</a>
+            <button type="button" class="btn btn-warning review" data-toggle="modal"
+              data-target="#reviewModal_{{ request.requestid }}">Review</a>
+              <button type="button" class="btn btn-danger reject" data-requestid="{{ request.requestid }}">Reject</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="reviewModal_{{ request.requestid }}" role="dialog" aria-labelledby="reviewRequestModal"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modalfonts modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Review Request {{ request.requestid }}</h5>
           </div>
-
-          <!--The requests-->
-          <div class="col-6">
-            {%if hasRequests: %}
-            {%for request in requests: %}
-            <div class="container" style="padding-top: 1rem;">
-              <div class="card" style="width: 40rem; background-color: #ffe5cd;">
-                <div class="card-body">
-                  <h5 class="card-title">Request</h5>
-                  <p class="card-text">{{request}}</p>
-                  <button type="button" class = "btn btn-success {{ request.request_type }}"
-                          data-request-type= "{{ request.request_type }}"
-                          data-netid-sender = "{{ request.netid_sender }}"
-                          data-netid-about = "{{ request.netid_about }}"
-                          data-clubid = "{{ request.clubid }}"
-                          data-clubname = "{{ request.clubname }}"
-                          data-tagname = "{{ request.tagname }}"
-                          data-requestid = "{{ request.requestid }}">Accept</a>
-                  <button type="button" class="btn btn-warning review"
-                          data-toggle="modal" data-target="#reviewModal_{{ request.requestid }}">Review</a>
-                  <button type="button" class="btn btn-danger reject"
-                          data-requestid = "{{ request.requestid }}">Reject</a>
-                </div>
-              </div>
-            </div>
-
-            <!-- Modal -->
-          <div class="modal fade" id="reviewModal_{{ request.requestid }}" role="dialog" aria-labelledby="reviewRequestModal"
-          aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modalfonts modal-content">
-              <div class ="modal-header">
-                <h5 class = "modal-title">Review Request {{ request.requestid }}</h5>
-                </div>
-                <div class = "modal-body">
-                  <h6><strong>Request: </strong>{{ request }}</h6>
-                  <h6><strong>Sent by: </strong>{{ request.netid_sender }}</h6>
-                  <h6><strong>Description: </strong>{{ request.description }}</h6>                
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="button" name="save_button" id="save_button" class="btn btn-primary">Save changes</button>
-              </div>
-              </div>
-            </div>
+          <div class="modal-body">
+            <h6><strong>Request: </strong>{{ request }}</h6>
+            <h6><strong>Sent by: </strong>{{ request.netid_sender }}</h6>
+            <h6><strong>Description: </strong>{{ request.description }}</h6>
           </div>
-            {% endfor %}
-            {%else: %}
-            No requests to look at right now.
-            {%endif%}
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" name="save_button" id="save_button" class="btn btn-primary">Save changes</button>
           </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    {%else: %}
+    No requests to look at right now.
+    {%endif%}
+  </div>
 
-    <script>
-      $(document).ready(function() { 
+  <script>
+    $(document).ready(function () {
 
-        function handleResponse(response)
-        {
-          $("body").html(response);
-        }
+      function handleResponse(response) {
+        $("body").html(response);
+      }
 
-        $(".0").click(function(){
-          var netid = $(this).data('netid-about');
-          var clubid = $(this).data('clubid');
-          var requestid = $(this).data('requestid');
-          var $parentCard = $(this).closest(".card")
-          $.ajax({
-            url: "/delete_user",
-            method: "GET",
-            data: {netid: netid, clubid: clubid, requestid: requestid},
-            success:function() {
-              $parentCard.slideUp();
-            }
-          });
+      $(".0").click(function () {
+        var netid = $(this).data('netid-about');
+        var clubid = $(this).data('clubid');
+        var requestid = $(this).data('requestid');
+        var $parentCard = $(this).closest(".card")
+        $.ajax({
+          url: "/delete_user",
+          method: "GET",
+          data: { netid: netid, clubid: clubid, requestid: requestid },
+          success: function () {
+            $parentCard.slideUp();
+          }
         });
-        
-        $(".1").click(function(){
-          var netid = $(this).data('netid-about');
-          var requestid = $(this).data('requestid');
-          var $parentCard = $(this).closest(".card")
-          $.ajax({
-            url: "/blacklist_user",
-            method: "GET",
-            data: {netid: netid, requestid: requestid},
-            success:function(data) {
-              $parentCard.slideUp();
-            }
-          });
-        });
-
-        $(".2").click(function(){
-          var netid = $(this).data('netid-about');
-          url = "/editprofile?netid=" + encodeURIComponent(netid)
-          $.ajax({
-            type: 'GET',
-            url: url,
-            success: handleResponse
-          });
-        });
-
-        $(".3").click(function(){
-          var clubname = $(this).data('clubname');
-          url = "/editclub?clubname=" + encodeURIComponent(clubname)
-          $.ajax({
-            type: 'GET',
-            url: url,
-            success: handleResponse
-          });
-        });
-
-        $(".4").click(function(){
-          var tagname = $(this).data('tagname');
-          var requestid = $(this).data('requestid');
-          var $parentCard = $(this).closest(".card")
-          $.ajax({
-            url: "/add_tag",
-            method: "GET",
-            data: {tagname: tagname, requestid: requestid},
-            success:function(data) {
-              $parentCard.slideUp();
-            }
-          });
-        });
-
-        $(".reject").click(function(){
-          var $parentCard = $(this).closest(".card")
-          var requestid = $(this).data('requestid');
-          $.ajax({
-            
-            url: "/reject_request",
-            method: "GET",
-            data: {requestid: requestid},
-            success:function(data) {
-              $parentCard.slideUp();
-            }
-          });
-        });
-
       });
-    </script>
-	</body>
+
+      $(".1").click(function () {
+        var netid = $(this).data('netid-about');
+        var requestid = $(this).data('requestid');
+        var $parentCard = $(this).closest(".card")
+        $.ajax({
+          url: "/blacklist_user",
+          method: "GET",
+          data: { netid: netid, requestid: requestid },
+          success: function (data) {
+            $parentCard.slideUp();
+          }
+        });
+      });
+
+      $(".2").click(function () {
+        var netid = $(this).data('netid-about');
+        url = "/editprofile?netid=" + encodeURIComponent(netid)
+        $.ajax({
+          type: 'GET',
+          url: url,
+          success: handleResponse
+        });
+      });
+
+      $(".3").click(function () {
+        var clubname = $(this).data('clubname');
+        url = "/editclub?clubname=" + encodeURIComponent(clubname)
+        $.ajax({
+          type: 'GET',
+          url: url,
+          success: handleResponse
+        });
+      });
+
+      $(".4").click(function () {
+        var tagname = $(this).data('tagname');
+        var requestid = $(this).data('requestid');
+        var $parentCard = $(this).closest(".card")
+        $.ajax({
+          url: "/add_tag",
+          method: "GET",
+          data: { tagname: tagname, requestid: requestid },
+          success: function (data) {
+            $parentCard.slideUp();
+          }
+        });
+      });
+
+      $(".reject").click(function () {
+        var $parentCard = $(this).closest(".card")
+        var requestid = $(this).data('requestid');
+        $.ajax({
+
+          url: "/reject_request",
+          method: "GET",
+          data: { requestid: requestid },
+          success: function (data) {
+            $parentCard.slideUp();
+          }
+        });
+      });
+
+    });
+  </script>
+</body>
+
 </html>

@@ -65,17 +65,40 @@
                           data-clubname = "{{ request.clubname }}"
                           data-tagname = "{{ request.tagname }}"
                           data-requestid = "{{ request.requestid }}">Accept</a>
-                  <button type="button" class="btn btn-warning review">Review</a>
+                  <button type="button" class="btn btn-warning review"
+                          data-toggle="modal" data-target="#reviewModal_{{ request.requestid }}">Review</a>
                   <button type="button" class="btn btn-danger reject"
                           data-requestid = "{{ request.requestid }}">Reject</a>
                 </div>
               </div>
             </div>
+
+            <!-- Modal -->
+          <div class="modal fade" id="reviewModal_{{ request.requestid }}" role="dialog" aria-labelledby="reviewRequestModal"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modalfonts modal-content">
+              <div class ="modal-header">
+                <h5 class = "modal-title">Review Request {{ request.requestid }}</h5>
+                </div>
+                <div class = "modal-body">
+                  <h6><strong>Request: </strong>{{ request }}</h6>
+                  <h6><strong>Sent by: </strong>{{ request.netid_sender }}</h6>
+                  <h6><strong>Description: </strong>{{ request.description }}</h6>                
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" name="save_button" id="save_button" class="btn btn-primary">Save changes</button>
+              </div>
+              </div>
+            </div>
+          </div>
             {% endfor %}
             {%else: %}
             No requests to look at right now.
             {%endif%}
           </div>
+
     <script>
       $(document).ready(function() { 
 

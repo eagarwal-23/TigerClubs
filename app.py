@@ -247,57 +247,18 @@ def clubpage():
         netid = request.args.get("netid")
         club = get_club_info(clubname)
 
-        print("better get to here")
-
-        reviews = get_club_ratings(club.clubid)
-        if not reviews:
-            html = render_template("clubpage.html", netid = netid, clubname = club.name,
-                                description = club.description, members = club.members,
-                                tags = club.tags, 
-                                hasScores = False)
-
-        else:
-
-            diversity = 0.0
-            inclusivity = 0.0
-            time_commitment = 0.0
-            workload = 0.0
-            experience_requirement = 0.0
-
-            counter = 0
-            for review in reviews:
-                diversity += review.diversity
-                print("??????????")
-                inclusivity += review.inclusivity
-                print("???zzzzz???????")
-                time_commitment += review.time_commitment
-                print("????aaa??????")
-                workload += review.workload
-                print("????56456??????")
-                experience_requirement += review.experience_requirement
-                print("????MMMM??????")
-
-                counter += 1
-
-            diversity /= counter
-            inclusivity /= counter
-            time_commitment /= counter
-            workload /= counter
-            experience_requirement /= counter
-
-            print("MAMAMAAMMAMA")
-
-            html = render_template("clubpage.html", netid = netid, clubname = club.name,
+        html = render_template("clubpage.html", netid = netid, clubname = club.name,
                                     description = club.description, members = club.members,
                                     tags = club.tags, 
                                     hasScores = True,
-                                    diversity = diversity,
-                                    inclusivity = inclusivity,
-                                    time_commitment = time_commitment,
-                                    workload = workload,
-                                    experience_requirement = experience_requirement)
+                                    diversity = club.diversity,
+                                    inclusivity = club.inclusivity,
+                                    time_commitment = club.time_commitment,
+                                    workload = club.workload,
+                                    experience_requirement = club.experience_requirement)
         response = make_response(html)
         return response
+
     except Exception:
         print("whoops from clubpage")
 
@@ -445,6 +406,38 @@ def adminclubs():
 
     html = render_template("adminclubs.html", hasClubs = 1, clubs=clubs)
     response = make_response(html)
+    return response
+
+@app.route("/adminstudents", methods=["GET"])
+def adminstudents():
+    netid = CasClient().authenticate()[:-1]
+    user = get_student_info(netid)
+
+    if (not user.admin):
+        html = render_template("notadmin.html")
+        response = make_response(html)
+        return response
+
+    studentname = request.args.get("studentname")
+
+    if not studentname:
+        studentname = ""
+    
+    print(studentname)
+
+    name = user.name
+    students_list = student_search(studentname)
+
+    print(students_list)
+    
+    if not students_list:
+        html = render_template("adminstudents.html", netid=netid, name = name, studentname=studentname, hasClubs= True, hasStudents = False)
+        print("elif not students_list:")
+    else:
+        html = render_template("adminstudents.html", netid=netid, name = name, hasClubs = True, hasStudents = True, studentname=studentname, students = students_list)
+        print("else")
+    response = make_response(html)
+    response.set_cookie('netid', netid)
     return response
 
 @app.route("/editclub", methods=["GET"])

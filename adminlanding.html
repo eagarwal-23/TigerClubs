@@ -60,22 +60,20 @@
       </tr>
     </thead>
     <tbody>
+      {%if hasRequests: %}
+      {%for request in requests: %}
       <tr>
         <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
+        <td>{{request.request_type}}</td>
+        <td>{{ request.netid_sender }}</td>
+        <td>{{ request.description }}</td>
       </tr>
+
       <tr>
         <th scope="row">2</th>
         <td>Jacob</td>
         <td>Thornton</td>
         <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
       </tr>
     </tbody>
   </table>

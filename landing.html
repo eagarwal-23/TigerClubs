@@ -87,13 +87,11 @@
                         {%for club in clubs: %}
                         <!-- <div class="card-deck" style="padding: 50px;"> -->
                         <div class="container" style="padding-bottom: 1rem;">
-                            <div class="card" style="width: 50rem; background-color: white; outline-style:double;">
+                            <div class="card" style="background-color: white;">
                                 <div class="card-body">
                                     <h5 class="card-title">{{club}}</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">Description: {{club.description}} Long
                                         yada yaday ydaa</h6>
-
-
                                     {%for tag in club.tags: %}
                                     <div class="tag">
                                         <div class="badge text-white" style="background-color: #e8804c;">{{tag}}

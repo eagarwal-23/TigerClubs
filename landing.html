@@ -81,46 +81,44 @@
 
 
                 </div>
-                <div class="col-lg-5 col-xxl-4 mb-5">
-                    <div class="card-deck">
-                        {%if hasClubs: %}
-                        {%for club in clubs: %}
-                        <!-- <div class="card-deck" style="padding: 50px;"> -->
-                        <div class="container" style="padding-bottom: 1rem;">
 
-                            <div class="card" style="width: 50rem; background-color: white; outline-style:double;">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{club}}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">Description: {{club.description}} Long
-                                        yada yaday ydaa</h6>
+                <div class="card-deck">
+                    {%if hasClubs: %}
+                    {%for club in clubs: %}
+                    <!-- <div class="card-deck" style="padding: 50px;"> -->
+                    <div class="container" style="padding-bottom: 1rem;">
+                        <div class="card" style="width: 50rem; background-color: white; outline-style:double;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{club}}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Description: {{club.description}} Long
+                                    yada yaday ydaa</h6>
 
 
-                                    {%for tag in club.tags: %}
-                                    <div class="tag">
-                                        <div class="badge text-white" style="background-color: #e8804c;">{{tag}}
-                                        </div>
+                                {%for tag in club.tags: %}
+                                <div class="tag">
+                                    <div class="badge text-white" style="background-color: #e8804c;">{{tag}}
                                     </div>
-                                    <style>
-                                        .tag {
-                                            display: inline-block;
-                                            padding-right: 0.25rem;
-                                            padding-left: 0.25rem;
-                                        }
-                                    </style>
-                                    {% endfor %}
-
-
-                                    <a href="/clubpage?clubname={{club.name}}&netid={{netid}}"
-                                        class="card-link stretched-link"></a>
                                 </div>
-                            </div>
+                                <style>
+                                    .tag {
+                                        display: inline-block;
+                                        padding-right: 0.25rem;
+                                        padding-left: 0.25rem;
+                                    }
+                                </style>
+                                {% endfor %}
 
+
+                                <a href="/clubpage?clubname={{club.name}}&netid={{netid}}"
+                                    class="card-link stretched-link"></a>
+                            </div>
                         </div>
-                        {% endfor %}
-                        {%else: %}
-                        No clubs found.
-                        {%endif%}
+
                     </div>
+                    {% endfor %}
+                    {%else: %}
+                    No clubs found.
+                    {%endif%}
                 </div>
             </div>
     </section>

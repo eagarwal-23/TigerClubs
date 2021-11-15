@@ -57,6 +57,7 @@
         <th scope="col">Request</th>
         <th scope="col">Description</th>
         <th scope="col">Sent by</th>
+        <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -67,6 +68,10 @@
         <td>{{request}}</td>
         <td>{{ request.description }}</td>
         <td>{{ request.netid_sender }}</td>
+        <td>
+          <button type="button" class="btn btn-warning review" data-toggle="modal"
+            data-target="#reviewModal_{{ request.requestid }}">Review</a>
+        </td>
       </tr>
       {% endfor %}
       {%endif%}

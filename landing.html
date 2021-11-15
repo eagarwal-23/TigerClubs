@@ -59,33 +59,19 @@
 
                     <br>
 
-<<<<<<< HEAD
-                    <div class="form-floating">
-                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                            <option selected>Overall</option>
-                            <option value="1">Diversity</option>
-                            <option value="2">Inclusivity</option>
-                            <option value="3">Time Commitment</option>
-                            <option value="4">Workload</option>
-                            <option value="5">Experieince Required</option>
-                        </select>
-                        <label for="floatingSelect">Rank clubs by</label>
-                    </div>
-=======
-                      <form class="form-floating" action = "/landing?netid={{netid}}&studentname={{studentname}}">
+                    <form class="form-floating" action="/landing?netid={{netid}}&studentname={{studentname}}">
                         <select class="form-select" name="sort_club" aria-label="Floating label select example"
-                        onchange="this.form.submit();">
-                          <option value = "combined">Overall</option>
-                          <option value="diversity">Diversity</option>
-                          <option value="inclusivity">Inclusivity</option>
-                          <option value="time_commitment">Time Commitment</option>
-                          <option value="workload">Workload</option>
-                          <option value="experience_requirement">Experieince Required</option>
-                          <option value="alphabetical">Club Name</option>
+                            onchange="this.form.submit();">
+                            <option value="combined">Overall</option>
+                            <option value="diversity">Diversity</option>
+                            <option value="inclusivity">Inclusivity</option>
+                            <option value="time_commitment">Time Commitment</option>
+                            <option value="workload">Workload</option>
+                            <option value="experience_requirement">Experieince Required</option>
+                            <option value="alphabetical">Club Name</option>
                         </select>
                         <label for="floatingSelect">Rank clubs by</label>
                     </form>
->>>>>>> e2f700cbc5e39b49cb6d9b932c774f9c9b74649a
 
                     <!-- <form class="form-floating mb-3" action="/landing?netid={{netid}}&studentname={{studentname}}"
                       method="get">
@@ -132,8 +118,6 @@
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
-
     </section>
     <!-- Footer-->
     <footer class="py-5 bg-dark">
@@ -146,24 +130,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
+    <script>
+        $("#myDiv").click(function () {
+            $("#myForm").submit();
+        });
+    </script>
 </body>
 
 </html>
-=======
-        </section>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Tiger Clubs. Created by Anthony Guerra, Camila Vasquez, Eesha Agarwal, Nadia Rodriguez and Natalie Reptak.</p></div>
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-        <script>
-            $("#myDiv").click(function() {
-                $("#myForm").submit();
-            });
-        </script>
-    </body>
-</html>
->>>>>>> e2f700cbc5e39b49cb6d9b932c774f9c9b74649a

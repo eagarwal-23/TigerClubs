@@ -55,27 +55,21 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Request</th>
-        <th scope="col">Sent by</th>
         <th scope="col">Description</th>
+        <th scope="col">Sent by</th>
       </tr>
     </thead>
     <tbody>
       {%if hasRequests: %}
       {%for request in requests: %}
       <tr>
-        <th scope="row">1</th>
-        <td>{{request.request_type}}</td>
-        <td>{{ request.netid_sender }}</td>
+        <th scope="row">{{ request.requestid }}</th>
+        <td>{{request}}</td>
         <td>{{ request.description }}</td>
+        <td>{{ request.netid_sender }}</td>
       </tr>
       {% endfor %}
       {%endif%}
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
     </tbody>
   </table>
   <!--The requests-->

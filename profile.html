@@ -52,7 +52,9 @@
                         <h1 class="text-black fs-3 fw-bolder">{{student.name}}</h1>
                         <h2 class="text-black fs-4">{{major}} {{classyear}}</h2>
                         <a class="text-black-50 mb-0"
-                        href ="https://mail.google.com/mail/?view=cm&fs=1&to={{student.netid}}@princeton.edu&body=Sent%20From%20Tigerclubs">{{student.netid}}@princeton.edu</a>
+                        href ="https://mail.google.com/mail/?view=cm&fs=1&to={{student.netid}}@princeton.edu&body=Sent%20From%20Tigerclubs" target="_blank">
+                          {{student.netid}}@princeton.edu
+                        </a>
                         {%if diffperson == netid%}  
                         <br>
                         <br>

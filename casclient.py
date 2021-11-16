@@ -25,6 +25,7 @@ class CASClient:
     # Return True if user is logged in
 
     def is_logged_in(self):
+        print"here? in is logged in?"
         return "username" in session
 
     # Validate a login ticket by contacting the CAS server. If
@@ -55,6 +56,7 @@ class CASClient:
 
         # If the user's username is in the session, then the user was
         # authenticated previously.  So return the user's username.
+        print("why are we crashing")
         if "username" in session:
             print('hello')
             return session.get("username").lower().strip()

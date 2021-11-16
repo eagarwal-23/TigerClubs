@@ -51,7 +51,7 @@ def filter_by_tags(tags):
     return clubs
 
 # sort list of Clubs on page by chosen criteria
-def club_search(search, query, tags):
+def club_search(search, query = 'combined', tags = get_all_tagnames()):
     search_query = '%' + search + '%'
     clubs = Club.query.filter(Club.tags.any(Tag.name.in_(tags)),
                              (Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query))))

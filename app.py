@@ -20,6 +20,14 @@ from db_admin import *
 
 _cas = CASClient()
 
+@app.before_request
+def enforceHttpsInHeroku():
+    # always force redirect to HTTPS (secure connection)
+    if request.headers.get("X-Forwarded-Proto") == "http":
+        url = request.url.replace("http://", "https://", 1)
+        code = 301
+        return redirect(url, code=code)
+
 def action_requests(request_type):
     if request_type == DELETE_USER:
         actions = ['/delete_user', '/review', '/reject']

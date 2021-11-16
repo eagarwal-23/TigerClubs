@@ -410,7 +410,7 @@ def adminstudents():
 
 @app.route("/adminrequests", methods=["GET"])
 def adminrequests():
-    auth_user = CasClient().authenticate()[:-1]
+    auth_user = _cas.authenticate()
     user = get_student_info(auth_user)
     if (not user.admin):
         html = render_template("notadmin.html")

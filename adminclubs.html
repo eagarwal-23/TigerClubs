@@ -245,8 +245,7 @@
         <div class="row justify-content-center" style="width: 100%;">
           {%if hasClubs: %}
           {%for club in clubs: %}
-          <div class="card-deck border-dark mb-3"
-            style="background-color: white; width:12rem; margin: 10px; border-color: #e8804c;">
+          <div class="card" style="background-color: white; width:12rem; margin: 5px;">
             <div class="card-body" style="text-align: center;">
               <h5 class="card-title" style="color: #e8804c;">{{club}}</h5>
               <h6 class="card-subtitle mb-2 text-muted" style="font-style: italic; font-size: small;">
@@ -265,7 +264,7 @@
               </style>
               {% endfor %}
               <div class="card-footer text-muted">
-                <div class="btn">Hello</div>
+                <!-- <div class="btn">Hello</div> -->
               </div>
               <a href="/clubpage?clubname={{club.name}}&netid={{netid}}" class="card-link stretched-link"></a>
             </div>

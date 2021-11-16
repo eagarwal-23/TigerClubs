@@ -21,62 +21,47 @@
 </head>
 <body style = "background-color: rgb(255, 237, 215);">
     {% include "navbar.html" %}
-    <form class="p-3">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" class="form-control" id="name" placeholder="Joe Smith">
+    <header class="py-5">
+        <div class="container px-lg-5">
+            <div class="row g-2">
+                <div class="p-4 p-lg-3 bg-light rounded-3 text-center">
+                    <h3> Request Submission </h3>
+                    <p class="fs-4"> The admins will review your request shortly, and determine what actions should be made. Thank you for your help!</p>
+                </div>
+            </div>
         </div>
-        
+    </header>
+    <form class="p-3" action="submittedrequest" method="get">
+
         <div class="form-group">
           <label for="requestReason">Request Reason</label>
-          <select class="form-control" id="requestReason">
-                <option value="deleteUser">Remove User From Club</option>
-                <option value="blacklistUser">Blacklist User</option>
-                <option value="reportUser">Report User</option>
-                <option value="reportClub">Report Club</option>
-                <option value="addTag">Add Tag</option>
+          <select class="form-control" id="requestReason" name="reason">
+                <option value="delete_user">Remove User From Club</option>
+                <option value="blacklist_user">Blacklist User</option>
+                <option value="edit_user">Report User</option>
+                <option value="edit_club">Report Club</option>
+                <option value= "add_tag">Add Tag</option>
           </select>
         </div>
         
         <div class="form-group" id="reportedUser">
           <label for="reportedUser">Which user? (Enter NetID)</label>
-          <input type="text" class="form-control w-100" id="reportedUser">
+          <input type="text" class="form-control w-100" id="reportedUser" name="reporteduser">
         </div>
 
         <div class="form-group" id="clubName">
             <label for="clubName">Which club? (Enter Club Name) </label>
-            <input type="text" class="form-control w-100" id="clubName">
+            <input type="text" class="form-control w-100" id="clubName" name="clubname">
         </div>
 
         <div class="form-group" id="tag">
             <label for="tag">What tag would you like?</label>
-            <input type="text" class="form-control w-100" id="tag">
-        </div>
-        
-        <div class="form-group">
-          <label for="seeAnotherFieldGroup">Do You Want To See Another Group of Fields?</label>
-          <select class="form-control" id="seeAnotherFieldGroup">
-                <option value="no">Not Particularly.</option>
-                <option value="yes">I Guess!</option>
-          </select>
-        </div>
-        
-        <div class="form-group" id="otherFieldGroupDiv">
-          <div class="row">
-            <div class="col-6">
-              <label for="otherField1">Group: Heres One!</label>
-              <input type="text" class="form-control w-100" id="otherField1">
-            </div>
-            <div class="col-6">
-              <label for="otherField2">Group: Another One!</label>
-              <input type="text" class="form-control w-100" id="otherField2">
-            </div>
-          </div>
+            <input type="text" class="form-control w-100" id="tag" name="tag">
         </div>
         
         <div class="form-group">
           <label for="comments">Please provide an explanation for this request.</label>
-          <textarea class="form-control" id="comments" rows="3"></textarea>
+          <textarea class="form-control" id="comments" rows="3" name="explanation"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
@@ -85,10 +70,11 @@
 {% include "footer.html" %}
 <script>
     $("#requestReason").change(function() {
-  if ($(this).val() == "deleteUser") {
+  if ($(this).val() == "delete_user") {
     $('#tag').hide();
     $('#tag').removeAttr('required');
     $('#tag').removeAttr('data-error');
+    $('#tag').val('')
     $('#reportedUser').show();
     $('#reportedUser').attr('required', '');
     $('#reportedUser').attr('data-error', 'This field is required.');
@@ -96,46 +82,54 @@
     $('#clubName').attr('required', '');
     $('#clubName').attr('data-error', 'This field is required.');
   }
-  else if($(this).val() == "blacklistUser") {
+  else if($(this).val() == "blacklist_user") {
     $('#clubName').hide();
     $('#tag').hide();
     $('#clubName').removeAttr('required');
     $('#clubName').removeAttr('data-error');
+    $('#clubname').val('')
     $('#tag').removeAttr('required');
     $('#tag').removeAttr('data-error');
+    $('#tag').val('')
     $('#reportedUser').show();
     $('#reportedUser').attr('required', '');
     $('#reportedUser').attr('data-error', 'This field is required.');
   }
-  else if($(this).val() == "reportUser") {
+  else if($(this).val() == "edit_user") {
     $('#clubName').hide();
     $('#tag').hide();
     $('#clubName').removeAttr('required');
     $('#clubName').removeAttr('data-error');
+    $('#clubname').val('')
     $('#tag').removeAttr('required');
     $('#tag').removeAttr('data-error');
+    $('#tag').val('')
     $('#reportedUser').show();
     $('#reportedUser').attr('required', '');
     $('#reportedUser').attr('data-error', 'This field is required.');
   }
-  else if($(this).val() == "reportClub") {
+  else if($(this).val() == "edit_club") {
     $('#reportedUser').hide();
     $('#tag').hide();
     $('#reportedUser').removeAttr('required');
     $('#reportedUser').removeAttr('data-error');
+    $('#reportedUser').val('')
     $('#tag').removeAttr('required');
     $('#tag').removeAttr('data-error');
+    $('#tag').val('')
     $('#clubName').show();
     $('#clubName').attr('required', '');
     $('#clubName').attr('data-error', 'This field is required.');
   }
-  else if($(this).val() == "addTag") {
+  else if($(this).val() == "add_tag") {
     $('#reportedUser').hide();
     $('#clubName').hide();
     $('#reportedUser').removeAttr('required');
     $('#reportedUser').removeAttr('data-error');
+    $('#reportedUser').val('')
     $('#clubName').removeAttr('required');
     $('#clubName').removeAttr('data-error');
+    $('#clubname').val('')
     $('#tag').show();
     $('#tag').attr('required', '');
     $('#tag').attr('data-error', 'This field is required.');
@@ -145,10 +139,13 @@
     $('#tag').hide();
     $('#reportedUser').removeAttr('required');
     $('#reportedUser').removeAttr('data-error');
+    $('#reportedUser').val('')
     $('#clubName').removeAttr('required');
     $('#clubName').removeAttr('data-error');
+    $('#clubname').val('')
     $('#tag').removeAttr('required');
     $('#tag').removeAttr('data-error');
+    $('#tag').val('')
   }
 });
 $("#requestReason").trigger("change");

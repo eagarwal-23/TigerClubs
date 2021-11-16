@@ -124,7 +124,8 @@ def get_all_clubs(bool = False):
 
 if __name__ == "__main__":
     print(get_all_clubs(True))
-    print(get_all_clubs())
+    print(get_all_clubs(), "??")
+    print("HERE ARE ALL THE TAGS", get_all_tags())
     #print(get_all_requests())
     # add_request(request_type="delete_user", netid_sender="eagarwal", netid_about="ajguerra", club = "SWE")
     # add_request(request_type="edit_user", netid_sender="eagarwal", netid_about="ajguerra")

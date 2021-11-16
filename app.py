@@ -276,8 +276,8 @@ def myratings():
         html = render_template("ratings_from_student.html", name = name, review = ratings, clubs = clubs)
         response = make_response(html)
         return response
-    except Exception:
-        print("whoops from ratings")
+    except Exception as e:
+        print(e, "whoops from ratings")
 
 @app.route("/voting", methods = ["POST","GET"])
 def vote():

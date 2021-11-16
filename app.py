@@ -43,11 +43,11 @@ def login():
     except Exception:
         print("Whoops from login")
 
-@app.route("/logout", methods=["GET"])
-def logout():
-    cas_client = CasClient()
-    cas_client.authenticate()
-    cas_client.logout('login')
+# @app.route("/logout", methods=["GET"])
+# def logout():
+#     cas_client = CasClient()
+#     cas_client.authenticate()
+#     cas_client.logout('login')
 
 @app.route("/admin", methods=["GET"])
 def adminlogin():
@@ -99,11 +99,12 @@ def landingwhoareyou():
 @app.route("/landing", methods=["GET"])
 def landing():
     # removes new line char (this was some weird ass formatting bug???)
-    auth_user = CasClient().authenticate()[:-1]
-    netid = request.cookies.get('netid')
+    # auth_user = CasClient().authenticate()[:-1]
+    # netid = request.cookies.get('netid')
 
-    if netid is None:
-        netid = auth_user
+    # if netid is None:
+    #     netid = auth_user
+    netid ="camilanv"
 
     sort_criteria = request.args.get('sort_club')
     if not sort_criteria:

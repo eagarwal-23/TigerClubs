@@ -198,142 +198,64 @@
   <section class="pt-4">
     <div class="container px-lg-5">
       <!-- Page Features-->
-      <!-- <div class="row gx-lg-5"> -->
-      <!-- {%for student in students:%}
+      <div class="row gx-lg-5">
+        {%for club in clubs:%}
         <div class="col-lg-6 col-xxl-4 mb-5">
           <div class="card border-0 h-100" style="background-color: white; outline-style: double;">
             <div class="card-body text-center">
               <img class="rounded-circle"
                 src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg" width="100"
                 height="100">
-              <a href="/profile?diffperson={{student.netid}}" class="card-link stretched-link"></a>
-              <h2 class="fs-4 fw-bold">{{student.name}}</h2>
-              {{student.netid}}
-              <br>
-              {{student.year}}
-              <br>
-              {{student.res_college}}
-            </div>
-          </div>
-        </div>
-        {% endfor %} -->
+              <h2 class="fs-4 fw-bold">{{club.name}}</h2>
 
-      <!-- <div class="row gx-lg-5">
-        {%if hasClubs: %}
-        {%for club in clubs: %}
-        <div class="col-lg-6 col-xxl-4 mb-5">
-          <div class="card border-0 h-100" style="background-color: #ffe5cd;">
-            <div class="card-body text-center">
-              <h5 class="card-title">{{club}}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">{{club}}</h6>
-              <p class="card-text">Description: {{club.description}} Long yada yaday ydaa</p>
-              <button type="button" class="btn btn-primary view_club" data-clubname="{{ club.name }}"
-                data-netid="{{ netid }}">View</button>
-              <button type="button" class="btn btn-primary edit_club" data-clubname="{{ club.name }}">Edit</button>
-              <button type="button" class="btn btn-primary delete_club" data-clubid={{ club.clubid }}>Delete</button>
+              <form action = "/clubpage">
+              <button type = "submit" class = "btn btn-primary view_club"
+                 data-clubname = "{{ club.name }}">View</button>
+              <input type="hidden" name="clubname" value="{{club.name}}"/>
+              </form>
+
+              <form action = "/editclub">
+              <button type = "submit" class = "btn btn-primary edit_club"
+              data-clubname = "{{ club.name }}">Edit</button>
+              <input type="hidden" name="clubname" value="{{club.name}}"/>
+              </form>
+
+              <button type = "button" class = "btn btn-primary delete_club"
+              data-clubid = "{{ club.clubid }}">Delete</button>
             </div>
           </div>
         </div>
         {% endfor %}
-        {%else: %}
-        No clubs found.
-        {%endif%}
-      </div> -->
 
-
-      <div class="col gx-lg-5">
-        <div class="row justify-content-center" style="width: 100%;">
-          <style>
-            .card-img {
-              opacity: 0.2;
-            }
-
-            .btn-primary {
-              position: relative;
-              width: 50%;
-            }
-          </style>
-          <!-- <div class="card bg-dark text-white">
-    <img class="card-img" src="https://pic -->
-          {%if hasClubs: %}
-          {%for club in clubs: %}
-          <div class="card bg-dark" style="background-color: white; width:12rem; margin: 5px;">
-            <img class="card-img" src="https://picsum.photos/200" alt="Card image">
-            <div class="card-img-overlay">
-              <div class="card-body" style="text-align: center;">
-                <h5 class="card-title" style="color: #e8804c;">{{club}}</h5>
-                <h6 class="card-subtitle mb-2" style="font-style: italic; font-size: small; color: white">
-                  Description:
-                  {{club.description}} Long
-                  yada yaday ydaa</h6>
-                
-              </div>
-            </div>
-            <div class="card-footer text-center">
-              <button class="btn btn-primary btn-sm float-left edit_club" type="button" id="left" style="color:white"
-                data-clubname="{{ club.name }}">
-                Edit
-              </button>
-              <button class="btn btn-danger btn-sm float-right delete_club" type="button" id="right" style="color:white"
-                data-clubid="{{club.clubid}}">
-                Delete
-              </button>
-            </div>
-          </div>
-
-          {% endfor %}
-          {%else: %}
-          No clubs found.
-          {%endif%}
-        </div>
       </div>
     </div>
-    <script>
-      $(document).ready(function () {
+  </section>
 
-        function handleResponse(response) {
-          $("body").html(response);
-        }
+  <script>
+    $(document).ready(function () {
 
-        $(".edit_club").click(function () {
-          var clubname = ($(this).data('clubname'));
-          url = "/editclub?clubname=" + encodeURIComponent(clubname)
-          $.ajax({
-            type: 'GET',
-            url: url,
-            success: handleResponse
-          });
-        });
+      function handleResponse(response) {
+        console.log("Response");
+        $("body").html(response);
+      }
 
-        $(".view_club").click(function () {
-          var clubname = ($(this).data('clubname'));
-          var netid = ($(this).data('netid'));
-          url = "/clubpage?clubname=" + encodeURIComponent(clubname) + "&netid=" + encodeURIComponent(netid)
-          $.ajax({
-            type: 'GET',
-            url: url,
-            success: handleResponse
-          });
-        });
-
-        $(".delete_club").click(function () {
-          var clubid = $(this).data('clubid');
-          alert(clubid);
-          url = "/delete_club?clubid=" + encodeURIComponent(clubid)
-          $.ajax({
-            url: url,
-            method: "GET",
-            success: function () {
-              alert('success');
-            }
-          });
+      $(".delete_club").click(function () {
+        var clubid = $(this).data('clubid');
+        url = "/delete_club?clubid=" + encodeURIComponent(clubid)
+        $.ajax({
+          url: url,
+          method: "GET",
+          success: function(){
+                        location.reload();
+                    }
         });
       });
-    </script>
+    });
+  </script>
 
-    </div>
-    </div>
-  </section>
+
+
+
   <!-- Footer-->
   <footer class="py-5 bg-dark">
     <div class="container">

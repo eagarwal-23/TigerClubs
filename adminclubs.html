@@ -266,18 +266,20 @@
                   Description:
                   {{club.description}} Long
                   yada yaday ydaa</h6>
-                <button type="button" class="btn btn-primary edit_club float-left"
+                <!-- <button type="button" class="btn btn-primary edit_club float-left"
                   data-clubname="{{ club.name }}">Edit</button>
                 <button type="button" class="btn btn-primary delete_club float-right"
-                  data-clubid={{ club.clubid }}>Delete</button>
+                  data-clubid={{ club.clubid }}>Delete</button> -->
                 <a href="/clubpage?clubname={{club.name}}&netid={{netid}}" class="card-link stretched-link"></a>
               </div>
             </div>
             <div class="card-footer text-center">
-              <button class="btn btn-primary btn-sm float-left" id="left" style="color:white">
+              <button class="btn btn-primary btn-sm float-left edit_club" id="left" style="color:white"
+                data-clubname="{{ club.name }}">
                 Edit
               </button>
-              <button class="btn btn-danger btn-sm float-right" id="right" style="color:white">
+              <button class="btn btn-danger btn-sm float-right delete_club" id="right" style="color:white"
+                data-clubname="{{ club.name }}">
                 Delete
               </button>
             </div>

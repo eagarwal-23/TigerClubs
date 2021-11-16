@@ -25,7 +25,7 @@ class CASClient:
     # Return True if user is logged in
 
     def is_logged_in(self):
-        print"here? in is logged in?"
+        print("here? in is logged in?")
         return "username" in session
 
     # Validate a login ticket by contacting the CAS server. If

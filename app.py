@@ -492,3 +492,6 @@ def sort_clubs():
 @app.route("/report", methods = ["GET"])
 def file_report():
     netid = _cas.authenticate()
+    html = render_template("requestform.html")
+    response = make_response(html)
+    return response

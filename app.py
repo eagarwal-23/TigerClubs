@@ -316,7 +316,7 @@ def removingvote():
 
 @app.route("/adminlanding", methods = ["GET"])
 def adminlanding():
-    auth_user = CasClient().authenticate()[:-1]
+    auth_user = _cas.authenticate()
     user = get_student_info(auth_user)
     if (not user.admin):
         html = render_template("notadmin.html")
@@ -380,7 +380,7 @@ def reject_request():
 
 @app.route("/adminclubs", methods=["GET"])
 def adminclubs():
-    auth_user = CasClient().authenticate()[:-1]
+    auth_user = _cas.authenticate()
     user = get_student_info(auth_user)
 
     if (not user.admin):
@@ -432,7 +432,7 @@ def adminstudents():
 
 @app.route("/editclub", methods=["GET"])
 def editclub():
-    auth_user = CasClient().authenticate()[:-1]
+    auth_user = _cas.authenticate()
     user = get_student_info(auth_user)
 
     if (not user.admin):

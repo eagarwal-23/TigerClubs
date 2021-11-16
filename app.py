@@ -540,7 +540,7 @@ def submitted_request():
     club = request.args.get("clubname")
     tag = request.args.get("tag")
     success = add_request(request_reason, netid, about_user, club, tag)
-    if (not success):
+    if success == None:
         html = render_template("wrongrequestinput.html")
     else:
         html = render_template("requestsubmitted.html")

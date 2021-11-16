@@ -437,7 +437,7 @@ def editclub():
 
 @app.route("/editclubfromedit", methods=["GET"])
 def editclubfromedit():
-#try:
+#try: bob
     name = request.args.get("name")
     description = request.args.get("description")
     members = request.args.get("members")

@@ -23,7 +23,7 @@
 </head>
 
 <body>
-  <!--Menu bar-->
+  <!--MENU HEADER BAR-->
   <div class="menu-bar" style="background-color: #FFBD81;">
     <nav class="navbar navbar-expand-lg navbar-light" style="font-family: Merriweather;">
       <a class="navbar-brand" style="padding-left: 1%; font-size: 135% " href="/landing?netid={{netid}}">Student
@@ -64,24 +64,26 @@
           box-shadow: 0px 0px 10px 2px #FFBD81;
         }
       </style>
-      <!-- STUDENT SEARCH -->
-      <div class="card" href="/adminstudents">
-        <div class="card-body" style="text-align: center;">
-          <div class="row justify-content-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
-              class="bi bi-person-badge" viewBox="0 0 16 16">
-              <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-              <path
-                d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0h-7zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492V2.5z" />
-            </svg>
-          </div>
+      <!-- MANAGE STUDENTS -->
+      <div class="card">
+        <a class="stretched-link" href="/adminstudents">
+          <div class="card-body" style="text-align: center;">
+            <div class="row justify-content-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                class="bi bi-person-badge" viewBox="0 0 16 16">
+                <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                <path
+                  d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0h-7zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492V2.5z" />
+              </svg>
+            </div>
 
-          <h5 class="card-title">Manage Students</h5>
-          <p class="card-text">Search students by name, year, major, etc.</p>
-        </div>
+            <h5 class="card-title">Manage Students</h5>
+            <p class="card-text">Search students by name, year, major, etc.</p>
+          </div>
+        </a>
       </div>
 
-      <!-- CLUB SEARCH -->
+      <!-- MANAGE CLUBS -->
       <div class="card" href="/adminclubs">
         <div class="card-body" style="text-align: center;">
           <div class="justify-content-center">
@@ -98,8 +100,7 @@
         </div>
       </div>
 
-      <!-- ACTIVE REQUESTS -->
-
+      <!-- MANAGE REQUESTS -->
       <div class="card">
         <div class="card-body" style="text-align: center;">
           <div class="row justify-content-center">
@@ -115,6 +116,7 @@
       </div>
     </div>
 
+    <!-- TABLE WITH ALL ACTIVE REQUESTS -->
     <h3>Active Requests</h3>
     <div class=" table-wrapper-scroll-y" style="position: relative;
      overflow: auto; display: block; height: 500px">

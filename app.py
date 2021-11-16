@@ -269,7 +269,9 @@ def myratings():
     try:
         netid = _cas.authenticate()
         netid = netid.rstrip()
+        print(netid)
         student = get_student_info(netid=netid)
+        print(student)
         name = student.name
         clubs = student.clubs
         ratings = get_student_ratings(netid)

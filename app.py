@@ -44,11 +44,9 @@ def login():
     except Exception:
         print("Whoops from login")
 
-# @app.route("/logout", methods=["GET"])
-# def logout():
-#     cas_client = CasClient()
-#     cas_client.authenticate()
-#     cas_client.logout('login')
+@app.route("/logout", methods=["GET"])
+def logout():
+    _cas.logout('login')
 
 @app.route("/admin", methods=["GET"])
 def adminlogin():

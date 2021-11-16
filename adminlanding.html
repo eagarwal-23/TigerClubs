@@ -106,7 +106,7 @@
       </div>
 
       <!-- MANAGE REQUESTS -->
-      <div class="card">
+      <div class="card" href="/adminclubs">
         <a class="stretched-link text-decoration-none" href="/adminrequests" style="color: black">
           <div class="card-body" style="text-align: center;">
             <div class="row justify-content-center">
@@ -148,7 +148,7 @@
         <tbody>
           {%if hasRequests: %}
           {%for request in requests: %}
-          <tr id = 'reviewRow_{{ request.requestid }}'>
+          <tr id='reviewRow_{{ request.requestid }}'>
             <th scope="row">{{ request.requestid }}</th>
             <td>{{request}}</td>
             <td>{{ request.description }}</td>
@@ -275,7 +275,7 @@
           method: "GET",
           data: { netid: netid, requestid: requestid },
           success: function (data) {
-            
+
             $('.modal').hide();
             $('.modal-backdrop').remove();
             $(rowName).slideToggle();

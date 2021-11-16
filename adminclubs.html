@@ -261,8 +261,12 @@
                   Description:
                   {{club.description}} Long
                   yada yaday ydaa</h6>
-                <button type="button" class="btn btn-primary edit_club" data-clubname="{{ club.name }}">Edit</button>
-                <button type="button" class="btn btn-primary delete_club" data-clubid={{ club.clubid }}>Delete</button>
+                <div class="justify-content-center">
+                  <button type="button" class="btn btn-primary edit_club" data-clubname="{{ club.name }}">Edit</button>
+                  <button type="button" class="btn btn-primary delete_club"
+                    data-clubid={{ club.clubid }}>Delete</button>
+                </div>
+
                 <a href="/clubpage?clubname={{club.name}}&netid={{netid}}" class="card-link stretched-link"></a>
               </div>
             </div>

@@ -16,7 +16,7 @@ def update_student_info(netid, bio = None, clubs = None, tags = None):
         for oneClub in clubs:
             club = Club.query.filter_by(name=oneClub).first()
             print(club)
-            student.tags.append(club)
+            student.clubs.append(club)
             db.session.add(student)
 
     if tags != "" and tags:

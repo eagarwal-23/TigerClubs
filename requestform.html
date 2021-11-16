@@ -28,10 +28,13 @@
         </div>
         
         <div class="form-group">
-          <label for="seeAnotherField">Do You Want To See Another Field?</label>
-          <select class="form-control" id="seeAnotherField">
-                <option value="no">No Way.</option>
-                <option value="yes">Absolutely!</option>
+          <label for="requestReason">Request Reason</label>
+          <select class="form-control" id="requestReason">
+                <option value="deleteUser">Remove User From Club</option>
+                <option value="blacklistUser">Blacklist User</option>
+                <option value="reportUser">Report User</option>
+                <option value="reportClub">Report Club</option>
+                <option value="addTag">Add Tag</option>
           </select>
         </div>
         
@@ -77,8 +80,8 @@
 </div>
 {% include "footer.html" %}
 <script>
-    $("#seeAnotherField").change(function() {
-  if ($(this).val() == "yes") {
+    $("#requestReason").change(function() {
+  if ($(this).val() == "deleteUser") {
     $('#otherFieldDiv').show();
     $('#otherField').attr('required', '');
     $('#otherField').attr('data-error', 'This field is required.');

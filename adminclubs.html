@@ -262,10 +262,12 @@
                   display: inline-block;
                 }
               </style>
+              <button type="button" class="btn btn-primary view_club" data-clubname="{{ club.name }}"
+                data-netid="{{ netid }}">View</button>
+              <button type="button" class="btn btn-primary edit_club" data-clubname="{{ club.name }}">Edit</button>
+              <button type="button" class="btn btn-primary delete_club" data-clubid={{ club.clubid }}>Delete</button>
               {% endfor %}
-              <div class="card-footer text-muted">
-                <!-- <div class="btn">Hello</div> -->
-              </div>
+
               <a href="/clubpage?clubname={{club.name}}&netid={{netid}}" class="card-link stretched-link"></a>
             </div>
           </div>

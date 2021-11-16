@@ -507,3 +507,15 @@ def file_report():
     html = render_template("requestform.html")
     response = make_response(html)
     return response
+
+@app.route("/submittedrequest", methods = ["GET"])
+def submitted_request():
+    netid = _cas.authenticate()
+    request_reason = request.args.get("reason")
+    about_user = request.args.get("reporteduser")
+    club = request.args.get("clubname")
+    tag = request.args.get("tag")
+    add_request(request_reason, netid, about_user, club, tag)
+    html = render_template("requestsubmitted.html")
+    response = make_response(html)
+    return response

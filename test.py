@@ -123,6 +123,35 @@ def filter_by_tags(tags):
 #     return clubs
 
 if __name__ == "__main__":
+    def update_club_info(name, description = None, members = None, tags = None):
+        club = Club.query.filter_by(name = name).first()
+
+        if description != "" and not None:
+            club.description = description
+        
+        if members != "" and members is not None:
+            members = members[1:-1]
+            members = members.split(',')
+            for member in members:
+                member = member.strip()
+                student = Student.query.filter_by(netid=member).first()
+                print(student)
+                club.members.append(student)
+                db.session.add(club)
+
+        if tags != "" and tags is not None:
+            tags = tags[1:-1]
+            tags = tags.split(',')
+            for tag in tags:
+                tag = tag.strip()
+                tag = Tag.query.filter_by(name=tag).first()
+                print(tag)
+                club.tags.append(tag)
+                db.session.add(club)
+
+        db.session.commit()
+
+    update_club_info("TWN", 'the womens network!!!!', '[ajguerra, camilanv, nadiar]', '[Baseball, Basketball]')
     # delete_student_club('camilanv', 1)
     # delete_student_club('camilanv', 21)
     # delete_student_club('camilanv', 20)
@@ -144,11 +173,11 @@ if __name__ == "__main__":
     # update_club_info("SWE", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
     # update_club_info("PWICS", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
 
-    clubs = filter_by_tags(["Dogs", "League of Legends", "Coding"])
-    print(clubs)
-    clubs = get_all_clubs()
-    for club in clubs:
-        print(club)
+    # clubs = filter_by_tags(["Dogs", "League of Legends", "Coding"])
+    # print(clubs)
+    # clubs = get_all_clubs()
+    # for club in clubs:
+    #     print(club)
 
     #calculate_all_club_ratings()
 

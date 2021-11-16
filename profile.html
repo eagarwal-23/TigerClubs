@@ -42,7 +42,7 @@
                         {%if diffperson == netid%}  
                         <br>
                         <br>
-                        <a class="btn btn-sm" style = "background-color: #e8804c; "href="/editprofile?netid={{netid}}">Edit Profile</a>
+                        <a class="btn btn-sm" style = "background-color: #e8804c; "href="/editprofile">Edit Profile</a>
                         {%endif%}
                 </div>
             </div>
@@ -130,7 +130,7 @@
                           {% endfor %}
 
 
-                          <a href="/clubpage?clubname={{club}}&netid={{netid}}" class="card-link stretched-link"></a>
+                          <a href="/clubpage?clubname={{club}}" class="card-link stretched-link"></a>
                           </div>
                       </div>
                   {% endfor %}

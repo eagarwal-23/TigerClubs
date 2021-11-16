@@ -1,7 +1,7 @@
 from flask import Flask, request, make_response, jsonify
 from flask import render_template, Response
 from flask_sqlalchemy import SQLAlchemy
-from casclient import CasClient
+from casclient import CASClient
 import os
 DELETE_USER = 0
 BLACKLIST_USER = 1
@@ -17,6 +17,8 @@ from db_search import *
 from db_student_profile import *
 from db_club_profile import *
 from db_admin import *
+
+_cas = CASClient()
 
 def action_requests(request_type):
     if request_type == DELETE_USER:
@@ -38,7 +40,6 @@ def login():
     try:
         html = render_template("login.html")
         response = make_response(html)
-        response.delete_cookie('netid')
         return response
     except Exception:
         print("Whoops from login")
@@ -54,7 +55,6 @@ def adminlogin():
     try:
         html = render_template("adminlogin.html")
         response = make_response(html)
-        response.delete_cookie('netid')
         return response
     except Exception:
         print("uh oh admin login issue")
@@ -62,10 +62,7 @@ def adminlogin():
 @app.route("/adminportal", methods=["GET"])
 def adminportal():
 
-    netid = request.cookies.get('netid')
-
-    if netid is None:
-        netid = request.args.get("netid")
+    netid = _cas.authenticate()
     
     student = get_student_info(netid)
     adminStatus = student.admin
@@ -85,7 +82,7 @@ def adminportal():
 
 @app.route("/landingwhoareyou", methods=["GET"])
 def landingwhoareyou():
-    auth_user = CasClient().authenticate()[:-1]
+    auth_user = _cas.authenticate()
 
     user = get_student_info(auth_user)
 
@@ -102,9 +99,7 @@ def landing():
     # auth_user = CasClient().authenticate()[:-1]
     # netid = request.cookies.get('netid')
 
-    # if netid is None:
-    #     netid = auth_user
-    netid ="camilanv"
+    netid = _cas.authenticate()
 
     sort_criteria = request.args.get('sort_club')
     if not sort_criteria:
@@ -142,14 +137,12 @@ def landing():
         print("else")
         print(clubname)
     response = make_response(html)
-    response.set_cookie('netid', netid)
     return response
 
 @app.route("/studentsearch", methods=["GET"])
 def studentsearch():
 
-    netid =  request.cookies.get('netid')
-    
+    netid = _cas.authenticate()    
     studentname = request.args.get("studentname")
 
     if not studentname:
@@ -170,7 +163,6 @@ def studentsearch():
         html = render_template("student.html", netid=netid, name = name, hasClubs = True, hasStudents = True, studentname=studentname, students = students_list)
         print("else")
     response = make_response(html)
-    response.set_cookie('netid', netid)
     return response
 
 #@app.route("/profileexternal", methods=["GET"])
@@ -183,13 +175,13 @@ def profile():
    
     try:
         diffperson = request.args.get("diffperson")
-        netid = request.cookies.get("netid")
-        
         if diffperson:
             student = get_student_info(diffperson)
         else:
+            netid = _cas.authenticate()
             student = get_student_info(netid)
             diffperson = netid
+        
 
         name = student.name
         classyear = student.year
@@ -198,7 +190,7 @@ def profile():
         bio = student.bio
         interests = student.tags
 
-        html = render_template("profile.html", student = student, netid=netid, name=name,
+        html = render_template("profile.html", student = student,  name=name,
         classyear=classyear, major=major, clubs=clubs,
         bio=bio, interests=interests, diffperson = diffperson)
 
@@ -212,7 +204,7 @@ def profile():
 def edited_profile():
 
     try:
-        netid = request.args.get("netid")
+        netid = _cas.authenticate()
         bio = request.args.get("bio")
         clubs = request.args.getlist("clubs")
         tags = request.args.getlist("tags")
@@ -224,7 +216,7 @@ def edited_profile():
 # rendering edit profile page from the profile page
 @app.route("/editprofile", methods=["GET"])
 def editprofile():
-    netid = request.args.get("netid")
+    netid = _cas.authenticate()
     student = get_student_info(netid)
     name = student.name
     classyear = student.year
@@ -246,10 +238,9 @@ def editprofile():
 def clubpage():
     try:
         clubname = request.args.get("clubname")
-        netid = request.args.get("netid")
         club = get_club_info(clubname)
 
-        html = render_template("clubpage.html", netid = netid, clubname = club.name,
+        html = render_template("clubpage.html", clubname = club.name,
                                     description = club.description, members = club.members,
                                     tags = club.tags, 
                                     hasScores = True,
@@ -267,11 +258,10 @@ def clubpage():
 @app.route("/myratings", methods = ["POST", "GET"])
 def myratings():
     try:
-        netid = request.cookies.get("netid")
+        netid = _cas.authenticate()
         student = get_student_info(netid=netid)
         name = student.name
         clubs = student.clubs
-        print("this is hte netididddd", netid)
         ratings = get_student_ratings(netid)
         html = render_template("ratings_from_student.html", name = name, review = ratings, clubs = clubs)
         response = make_response(html)
@@ -293,8 +283,7 @@ def addrating():
 @app.route("/voting", methods = ["POST","GET"])
 def vote():
     try:
-        netid = request.cookies.get("netid")
-        print("netid retrieved: ", netid)
+        netid = _cas.authenticate()
         if request.method == 'POST':
             print("did we get here")
             clubname = request.form['clubname']
@@ -412,7 +401,7 @@ def adminclubs():
 
 @app.route("/adminstudents", methods=["GET"])
 def adminstudents():
-    netid = CasClient().authenticate()[:-1]
+    netid = _cas.authenticate()
     user = get_student_info(netid)
 
     if (not user.admin):
@@ -439,7 +428,6 @@ def adminstudents():
         html = render_template("adminstudents.html", netid=netid, name = name, hasClubs = True, hasStudents = True, studentname=studentname, students = students_list)
         print("else")
     response = make_response(html)
-    response.set_cookie('netid', netid)
     return response
 
 @app.route("/editclub", methods=["GET"])
@@ -522,3 +510,7 @@ def sort_clubs():
     sort_criteria = request.args.get('sort_club')
     clubs = club_search("", query = sort_criteria)
     print(clubs)
+
+@app.route("/report", methods = ["GET"])
+def file_report():
+    netid = _cas.authenticate()

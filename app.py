@@ -44,11 +44,9 @@ def login():
     except Exception:
         print("Whoops from login")
 
-# @app.route("/logout", methods=["GET"])
-# def logout():
-#     cas_client = CasClient()
-#     cas_client.authenticate()
-#     cas_client.logout('login')
+@app.route("/logout", methods=["GET"])
+def logout():
+    _cas.logout('login')
 
 @app.route("/admin", methods=["GET"])
 def adminlogin():
@@ -95,9 +93,6 @@ def landingwhoareyou():
 
 @app.route("/landing", methods=["GET"])
 def landing():
-    # removes new line char (this was some weird ass formatting bug???)
-    # auth_user = CasClient().authenticate()[:-1]
-    # netid = request.cookies.get('netid')
 
     netid = _cas.authenticate()
 
@@ -165,20 +160,15 @@ def studentsearch():
     response = make_response(html)
     return response
 
-#@app.route("/profileexternal", methods=["GET"])
-#def profileexternal():
-#    desirednetid = request.args.get("desirednetid")
-
-# rendering profile page from landing page
 @app.route("/profile", methods=["GET"])
 def profile():
    
     try:
         diffperson = request.args.get("diffperson")
+        netid = _cas.authenticate()
         if diffperson:
             student = get_student_info(diffperson)
         else:
-            netid = _cas.authenticate()
             student = get_student_info(netid)
             diffperson = netid
         
@@ -190,7 +180,7 @@ def profile():
         bio = student.bio
         interests = student.tags
 
-        html = render_template("profile.html", student = student,  name=name,
+        html = render_template("profile.html", student = student,  name=name, netid= netid,
         classyear=classyear, major=major, clubs=clubs,
         bio=bio, interests=interests, diffperson = diffperson)
 
@@ -269,23 +259,11 @@ def myratings():
     except Exception:
         print("whoops from ratings")
 
-@app.route("/ranking", methods = ["POST","GET"])
-def ranking():
-    html = render_template("voting.html")
-    response = make_response(html)
-    return response
-
-@app.route("/addrating", methods = ["POST","GET"])
-def addrating():
-
-    print("hahahahah we r here")
-
 @app.route("/voting", methods = ["POST","GET"])
 def vote():
     try:
         netid = _cas.authenticate()
         if request.method == 'POST':
-            print("did we get here")
             clubname = request.form['clubname']
             diversity = request.form['diversity']
             inclusivity = request.form['inclusivity']

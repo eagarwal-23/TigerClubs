@@ -57,6 +57,7 @@ class CASClient:
         # If the user's username is in the session, then the user was
         # authenticated previously.  So return the user's username.
         print("why are we crashing")
+        print(session)
         if "username" in session:
             print('hello')
             return session.get("username").lower().strip()

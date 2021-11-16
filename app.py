@@ -484,6 +484,39 @@ def delete_club():
    msg = 'success'
    return jsonify(msg)
 
+@app.route("/admintags", methods=["GET"])
+def admintags():
+    auth_user = CasClient().authenticate()[:-1]
+    user = get_student_info(auth_user)
+    if (not user.admin):
+        html = render_template("notadmin.html")
+        response = make_response(html)
+        return response
+
+    tags = get_all_tags()
+
+    html = render_template("admintags.html", tags=tags)
+    response = make_response(html)
+    return response
+
+@app.route("/updatingtags", methods=["POST","GET"])
+def updatingtags():
+    print("IVE GOTT")
+    newtagname = request.form["newtagname"]
+    id = request.form["tagid"]
+    print("THE ID AND THE NAMEEEE", newtagname, id)
+    edit_tag_db(id, newtagname)
+    msg = "Editted!"
+    return jsonify(msg)
+
+@app.route("/deletetag", methods=["GET"])
+def deletetag():
+    tagid = request.args.get("tagid")
+    print("WHAT IS THE TAG??", tagid)
+    delete_tag_db_id(tagid)
+    msg = "Deleted!"
+    return jsonify(msg)
+
 @app.route("/sort_clubs", methods = ["GET"])
 def sort_clubs():
     sort_criteria = request.args.get('sort_club')

@@ -44,8 +44,10 @@ def add_request(request_type, netid_sender, netid_about = None,
     elif request_type == "add_tag":
         request_type = ADD_TAG
         request = Request(request_type, netid_sender, None, None, tagname)
+    
     db.session.add(request)
     db.session.commit()
+    return 0
 
 # get Request object given requestid
 def get_request_info(requestid):

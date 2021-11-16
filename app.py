@@ -442,6 +442,20 @@ def adminstudents():
     response.set_cookie('netid', netid)
     return response
 
+@app.route("/adminrequests", methods=["GET"])
+def adminrequests():
+    auth_user = CasClient().authenticate()[:-1]
+    user = get_student_info(auth_user)
+    if (not user.admin):
+        html = render_template("notadmin.html")
+        response = make_response(html)
+        return response
+
+    html = render_template("adminrequests.html", requests = get_all_requests(), hasRequests = True)
+    response = make_response(html)
+    return response
+
+
 @app.route("/editclub", methods=["GET"])
 def editclub():
     auth_user = CasClient().authenticate()[:-1]

@@ -180,9 +180,12 @@ def studentsearch():
 def profile():
    
     try:
+        print('we made it to profile')
         diffperson = request.args.get("diffperson")
+        print("no diff person")
         netid = _cas.authenticate()
         netid = netid.rstrip()
+        print("net id found?")
         if diffperson:
             student = get_student_info(diffperson)
         else:

@@ -166,7 +166,6 @@
                   <h6><strong>Description: </strong>{{ request.description }}</h6>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                   <button type="button" class="btn btn-success {{ request.request_type }}"
                     data-request-type="{{ request.request_type }}" data-netid-sender="{{ request.netid_sender }}"
                     data-netid-about="{{ request.netid_about }}" data-clubid="{{ request.clubid }}"
@@ -178,36 +177,12 @@
               </div>
             </div>
           </div>
-
-
-
           {% endfor %}
           {%endif%}
         </tbody>
       </table>
     </div>
   </div>
-
-  <!--The requests-->
-  <!-- <div class="col-6">
-    {%if hasRequests: %}
-    {%for request in requests: %}
-    <div class="container" style="padding-top: 1rem;">
-      <div class="card" style="width: 40rem; background-color: #ffe5cd;">
-        <div class="card-body">
-          <h5 class="card-title">Request</h5>
-          <p class="card-text">{{request}}</p>
-          <button type="button" class="btn btn-success {{ request.request_type }}"
-            data-request-type="{{ request.request_type }}" data-netid-sender="{{ request.netid_sender }}"
-            data-netid-about="{{ request.netid_about }}" data-clubid="{{ request.clubid }}"
-            data-clubname="{{ request.clubname }}" data-tagname="{{ request.tagname }}"
-            data-requestid="{{ request.requestid }}">Accept</a>
-            <button type="button" class="btn btn-warning review" data-toggle="modal"
-              data-target="#reviewModal_{{ request.requestid }}">Review</a>
-              <button type="button" class="btn btn-danger reject" data-requestid="{{ request.requestid }}">Reject</a>
-        </div>
-      </div>
-    </div> -->
 
   <!-- Modal -->
   <!-- <div class="modal fade" id="reviewModal_{{ request.requestid }}" role="dialog" aria-labelledby="reviewRequestModal"

@@ -214,9 +214,8 @@ def edited_profile():
     try:
         netid = request.args.get("netid")
         bio = request.args.get("bio")
-        clubs = request.args.get("clubs")
+        clubs = request.args.getlist("clubs")
         tags = request.args.getlist("tags")
-        print(tags)
         update_student_info(netid, bio, clubs, tags)
         return profile()
     except Exception:

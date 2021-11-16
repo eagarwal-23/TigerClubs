@@ -19,8 +19,8 @@ def update_club_info(name, description = None, members = None, tags = None):
         members = members.split(',')
         for member in members:
             member = member.strip()
-
-            student = Student.query.filter_by(name=member).first()
+            student = Student.query.filter_by(netid=member).first()
+            print(student)
             club.members.append(student)
             db.session.add(club)
 
@@ -30,10 +30,12 @@ def update_club_info(name, description = None, members = None, tags = None):
         for tag in tags:
             tag = tag.strip()
             tag = Tag.query.filter_by(name=tag).first()
+            print(tag)
             club.tags.append(tag)
             db.session.add(club)
 
     db.session.commit()
+
 
 # get all ratings for a Club given clubid
 def get_club_ratings(clubid):

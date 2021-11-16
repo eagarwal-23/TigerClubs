@@ -170,6 +170,9 @@
             <a class="nav-link" href="/adminclubs">Manage Clubs</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="/admintags">Manage Tags</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="/logout">Logout</a>
           </li>
         </ul>
@@ -184,9 +187,9 @@
           <h2><strong>Look up a club here</strong></h2>
           <p class="fs-4">Add, edit, and delete club pages.</p>
           <form class="form-inline my-2 my-lg-0 justify-content-center" style="padding-top: 2%;"
-            action="/studentsearch?netid={{netid}}&clubname={{clubname}}" method="get">
-            <input class="form-control mr-sm-2 justify-content-center" type="search" name="studentname"
-              placeholder="Search Club" value="{{studentname}}" aria-label="Search">
+            action="/adminclubs" method="get">
+            <input class="form-control mr-sm-2 justify-content-center" type="search" name="clubname"
+              placeholder="Search Club" value="" aria-label="Search">
             <button class="btn btn-outline my-2 my-sm-0" style="background-color: #e8804c;"
               type="submit">Search</button>
           </form>

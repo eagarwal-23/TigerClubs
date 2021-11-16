@@ -424,6 +424,10 @@ def editclub():
         return response
 
     clubname = request.args.get("clubname")
+    if clubname is None:
+        clubname = ""
+    
+    print("clubnameeeeeeeeeeee", clubname)
     print(clubname)
     club = get_club_info(clubname)
 
@@ -447,7 +451,7 @@ def editclubfromedit():
 
     update_club_info(name, description, members, tags)
     print("whooping hereeeeee???")
-    return editclub()
+    return adminclubs()
 #except Exception:
     print("whoops from editclubfromedit")
 

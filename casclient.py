@@ -56,6 +56,7 @@ class CASClient:
         # If the user's username is in the session, then the user was
         # authenticated previously.  So return the user's username.
         if "username" in session:
+            print('hello')
             return session.get("username").lower().strip()
 
         # If the request contains a login ticket, then try to

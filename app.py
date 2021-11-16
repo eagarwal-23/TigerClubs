@@ -96,6 +96,9 @@ def landing():
 
     netid = _cas.authenticate()
 
+    filter_tags = request.args.getlist("tags")
+    if not filter_tags:
+        filter_tags = get_all_tagnames()
     sort_criteria = request.args.get('sort_club')
     if not sort_criteria:
         sort_criteria = 'combined'
@@ -113,22 +116,24 @@ def landing():
 
     user = get_student_info(netid)
     name = user.name
-    clubs = club_search(search = clubname, query = sort_criteria)
+    clubs = club_search(search = clubname, query = sort_criteria, tags = filter_tags)
     students_list = student_search(studentname)
+
+    tags = get_all_tags()
 
     print(clubs)
     print(students_list)
     if not clubs and not students_list:
-        html = render_template("landing.html", netid=netid, name = name, hasClubs= False, hasStudents = False)
+        html = render_template("landing.html", netid=netid, name = name, hasClubs= False, hasStudents = False, tags = tags)
         print("if not clubs and not students_list:")
     elif not clubs:
-        html = render_template("landing.html", netid=netid, name = name, hasClubs= False, hasStudents = True,students = students_list)
+        html = render_template("landing.html", netid=netid, name = name, hasClubs= False, hasStudents = True,students = students_list, tags = tags)
         print("elif not clubs:")
     elif not students_list:
-        html = render_template("landing.html", netid=netid, name = name, clubs = clubs, studentname=studentname, clubname = clubname, hasClubs= True, hasStudents = False)
+        html = render_template("landing.html", netid=netid, name = name, clubs = clubs, studentname=studentname, clubname = clubname, hasClubs= True, hasStudents = False, tags = tags)
         print("elif not students_list:")
     else:
-        html = render_template("landing.html", netid=netid, name = name, hasClubs = True, hasStudents = True, clubs = clubs, clubname = clubname, studentname=studentname, students = students_list)
+        html = render_template("landing.html", netid=netid, name = name, hasClubs = True, hasStudents = True, clubs = clubs, clubname = clubname, studentname=studentname, students = students_list, tags = tags)
         print("else")
         print(clubname)
     response = make_response(html)
@@ -373,7 +378,7 @@ def adminclubs():
 
     clubs = club_search(clubname)
 
-    html = render_template("adminclubs.html", hasClubs = 1, clubs=clubs)
+    html = render_template("adminclubs.html", clubs=clubs)
     response = make_response(html)
     return response
 
@@ -432,16 +437,19 @@ def editclub():
 
 @app.route("/editclubfromedit", methods=["GET"])
 def editclubfromedit():
-    try:
-        name = request.args.get("name")
-        description = request.args.get("description")
-        members = request.args.get("members")
-        tags = request.args.get("tags")
+#try: bob
+    name = request.args.get("name")
+    description = request.args.get("description")
+    members = request.args.get("members")
+    tags = request.args.get("tags")
 
-        update_club_info(name, description, members, tags)
-        return editclub()
-    except Exception:
-        print("whoops from editclubfromedit")
+    print("am i whooping here before?????", name, description, members, tags)
+
+    update_club_info(name, description, members, tags)
+    print("whooping hereeeeee???")
+    return editclub()
+#except Exception:
+    print("whoops from editclubfromedit")
 
 @app.route("/delete_club", methods = ["GET"])
 def delete_club():

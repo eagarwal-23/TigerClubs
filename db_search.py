@@ -16,6 +16,14 @@ def get_all_tags():
     tags = Tag.query.order_by(Tag.tagid).all()
     return tags
 
+# get list of all tag names in tag_info table  
+def get_all_tagnames():
+    tags = Tag.query.order_by(Tag.tagid).all()
+    final = list()
+    for tag in tags:
+        final.append(tag.name)
+    return final
+
 # get list of all Club objects whose name or tags
 # match search query
 def club_search(search):
@@ -39,13 +47,14 @@ def student_search(search):
 # get all Club objects associated with any tag in 
 # input list of tags
 def filter_by_tags(tags):
-    clubs = Club.query.filter(Club.tags.any(Tag.name.in_tags))
+    clubs = Club.query.filter(Club.tags.any(Tag.name.in_(tags))).all()
     return clubs
 
 # sort list of Clubs on page by chosen criteria
-def club_search(search, query = 'combined'):
+def club_search(search, query = 'combined', tags = get_all_tagnames()):
     search_query = '%' + search + '%'
-    clubs = Club.query.filter((Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query))))
+    clubs = Club.query.filter(Club.tags.any(Tag.name.in_(tags)),
+                             (Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query))))
     if query == 'combined':
         clubs = clubs.order_by(Club.combined.desc()).all()
     elif query == 'diversity':

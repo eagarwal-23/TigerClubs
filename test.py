@@ -14,9 +14,9 @@ ADD_TAG = 4
 #     for club in clubs:
 #         print(club)
 
-# def filter_by_tags(tags):
-#     clubs = Club.query.filter(Club.tags.any(Tag.name.in_(tags))).all()
-#     return clubs
+def filter_by_tags(tags):
+    clubs = Club.query.filter(Club.tags.any(Tag.name.in_(tags))).all()
+    return clubs
 
 # def get_all_clubs():
 #     clubs = Club.query.all()
@@ -123,10 +123,10 @@ ADD_TAG = 4
 #     return clubs
 
 if __name__ == "__main__":
-    delete_student_club('camilanv', 1)
-    delete_student_club('camilanv', 21)
-    delete_student_club('camilanv', 20)
-    delete_student_club('camilanv', 13)
+    # delete_student_club('camilanv', 1)
+    # delete_student_club('camilanv', 21)
+    # delete_student_club('camilanv', 20)
+    # delete_student_club('camilanv', 13)
     # delete_student_club('camilanv', 20)
     # delete_student_club('camilanv', 21)
     # delete_student_club('camilanv', 1)
@@ -144,11 +144,11 @@ if __name__ == "__main__":
     # update_club_info("SWE", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
     # update_club_info("PWICS", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
 
-    # clubs = filter_by_tags(["Dogs", "League of Legends", "Coding"])
-    # print(clubs)
-    # clubs = get_all_clubs()
-    # for club in clubs:
-    #     print(club)
+    clubs = filter_by_tags(["Dogs", "League of Legends", "Coding"])
+    print(clubs)
+    clubs = get_all_clubs()
+    for club in clubs:
+        print(club)
 
     #calculate_all_club_ratings()
 

@@ -247,6 +247,11 @@
             .card-img {
               opacity: 0.2;
             }
+
+            .btn {
+              position: relative;
+              width: 50%;
+            }
           </style>
           <!-- <div class="card bg-dark text-white">
     <img class="card-img" src="https://pic -->
@@ -261,13 +266,11 @@
                   Description:
                   {{club.description}} Long
                   yada yaday ydaa</h6>
+                <button type="button" class="btn btn-primary edit_club" data-clubname="{{ club.name }}">Edit</button>
+                <button type="button" class="btn btn-primary delete_club" data-clubid={{ club.clubid }}>Delete</button>
                 <a href="/clubpage?clubname={{club.name}}&netid={{netid}}" class="card-link stretched-link"></a>
               </div>
             </div>
-
-            <button type="button" class="btn btn-primary edit_club" data-clubname="{{ club.name }}">Edit</button>
-            <button type="button" class="btn btn-primary delete_club" data-clubid={{ club.clubid }}>Delete</button>
-
           </div>
 
           {% endfor %}

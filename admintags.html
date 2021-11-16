@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="shortcut icon" href="static/tigerclubsicon.ico"/>
+    
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width-device-width, initial-scale-1.0">
+        <title> Tiger Clubs</title>
+        <link rel ="stylesheet" href="static/ratings.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+        <!------ Include the above in your HEAD tag ---------->
+        <link rel="stylesheet" type="text/css" href="static/jquery.raty.css">
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    
+        <link href="static/styles.css" rel="stylesheet" />
+    
+        <script src="static/jquery.raty.js"></script>
+    </head>
+  <body>
+        <!--Menu bar-->
+        <div class="menu-bar" style="background-color: #FFBD81;">
+            <nav class="navbar navbar-expand-lg navbar-light" style="font-family: Merriweather;">
+              <a class="navbar-brand" style="padding-left: 1%; font-size: 135% " href="/landing?netid={{netid}}">Student View</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+              </button>
+              <div class="collapse navbar-collapse" style="font-size: 110%;" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                  <li class="nav-item ">
+                    <a class="nav-link" href="/adminlanding">Home<span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/adminstudents">Student</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/adminclubs">Clubs</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/admintags">Tags</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+
+          <div class="col-6">
+            
+            {%for tag in tags: %}
+            <div class="container" style="padding-top: 1rem;">
+              <div class="card" style="width: 40rem; background-color: #ffe5cd;">
+                <div class="card-body">
+                  <h5 class="card-title">{{tag.name}}</h5>
+                  
+                  <p class="card-text">Tag ID: {{tag.tagid}}</p>
+                  <button type = "button" class = "btn btn-primary edit_tag"
+                 data-tagname = "{{ tag.name }}" data-tagid = "{{tag.tagid}}" data-toggle="modal" data-target="#change-name">Edit</button>
+                 <button type = "button" class = "btn btn-primary delete_tag"
+                 data-tagid = "{{ tag.tagid }}">Delete</button>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+            
+            
+          </div>
+
+
+
+
+
+
+
+          <div id="change-name" class="modal fade" role="dialog" aria-labelledby="addClubRatingLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modalfonts modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addClubRatingLabel">Edit Tag</h4>
+                    <button type="button" class="btn-close close" data-dismiss="modal" aria-hidden="true"> </button>
+                </div>
+                <!-- user types in club name to add their rating -->
+                <div class="modal-body">
+                    <!-- CLUB NAME -->
+                <form>
+                    <div class="form-group">
+
+                    <br>
+
+                    <!-- DIVERSITY RATING -->
+                    <p class="ratelabel bg-light">New Name:</label>
+                    <input type="text" id="newtagname" value=""></input>
+
+                    <br>
+
+                    </div>
+                </form>
+                </div>
+            
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" name="save_button" data-tagid="" id="save_button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>  
+        $(document).on('click', '.edit_tag', function() { 
+            var tagname = $(this).data("tagname");
+            var tagid = $(this).data("tagid");
+            
+            $("#newtagname").val(tagname);
+            $("#save_button").data("tagid", tagid)
+        });
+
+        $(document).ready(function(){ 
+
+            $('#save_button').click(function(){  
+                console.log("that's it..");
+
+                var newtagname = $('#newtagname').val();
+                var tagid = $(this).data("tagid");
+
+                if (newtagname != '') {  
+
+                        $.ajax({  
+                            url:"/updatingtags",  
+                            method:"POST",  
+                            data: {
+                                newtagname:newtagname,
+                                tagid:tagid
+                            },  
+                            success:function(data) {  
+                                location.reload();  
+                            }  
+                        });  
+                }  
+                else {  
+                    alert("All Fields are required");  
+                }  
+            });  
+            
+            $(".delete_tag").click(function(){
+                var tagid = $(this).data("tagid");
+                var $parentCard = $(this).closest(".card")
+
+                url = "/deletetag?tagid=" + encodeURIComponent(tagid)
+                $.ajax({
+                    method: 'GET',
+                    url: url,
+                    success: function(){
+                        $parentCard.slideUp();
+                    }
+                });
+            });
+        });
+
+       </script>
+  </body>
+</html>

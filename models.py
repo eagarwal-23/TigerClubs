@@ -88,7 +88,7 @@ class Club(db.Model):
                     0.2 * self.time_commitment + 0.2 * self.workload + 
                     0.2 * self.experience_requirement)
 
-        return (weighted * 5)
+        return (weighted)
 
     def __init__(self, name, description = None):
         self.name = name

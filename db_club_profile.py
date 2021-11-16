@@ -15,6 +15,7 @@ def update_club_info(name, description = None, members = None, tags = None):
         club.description = description
     
     if members != "" and members is not None:
+        members = members[1:-1]
         members = members.split(',')
         for member in members:
             member = member.strip()
@@ -24,6 +25,7 @@ def update_club_info(name, description = None, members = None, tags = None):
             db.session.add(club)
 
     if tags != "" and tags is not None:
+        tags = tags[1:-1]
         tags = tags.split(',')
         for tag in tags:
             tag = tag.strip()

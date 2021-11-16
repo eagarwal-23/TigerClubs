@@ -96,6 +96,9 @@ def landing():
 
     netid = _cas.authenticate()
 
+    filter_tags = request.args.getlist("tags")
+    if not filter_tags:
+        filter_tags = get_all_tagnames()
     sort_criteria = request.args.get('sort_club')
     if not sort_criteria:
         sort_criteria = 'combined'
@@ -113,22 +116,24 @@ def landing():
 
     user = get_student_info(netid)
     name = user.name
-    clubs = club_search(search = clubname, query = sort_criteria)
+    clubs = club_search(search = clubname, query = sort_criteria, tags = filter_tags)
     students_list = student_search(studentname)
+
+    tags = get_all_tags()
 
     print(clubs)
     print(students_list)
     if not clubs and not students_list:
-        html = render_template("landing.html", netid=netid, name = name, hasClubs= False, hasStudents = False)
+        html = render_template("landing.html", netid=netid, name = name, hasClubs= False, hasStudents = False, tags = tags)
         print("if not clubs and not students_list:")
     elif not clubs:
-        html = render_template("landing.html", netid=netid, name = name, hasClubs= False, hasStudents = True,students = students_list)
+        html = render_template("landing.html", netid=netid, name = name, hasClubs= False, hasStudents = True,students = students_list, tags = tags)
         print("elif not clubs:")
     elif not students_list:
-        html = render_template("landing.html", netid=netid, name = name, clubs = clubs, studentname=studentname, clubname = clubname, hasClubs= True, hasStudents = False)
+        html = render_template("landing.html", netid=netid, name = name, clubs = clubs, studentname=studentname, clubname = clubname, hasClubs= True, hasStudents = False, tags = tags)
         print("elif not students_list:")
     else:
-        html = render_template("landing.html", netid=netid, name = name, hasClubs = True, hasStudents = True, clubs = clubs, clubname = clubname, studentname=studentname, students = students_list)
+        html = render_template("landing.html", netid=netid, name = name, hasClubs = True, hasStudents = True, clubs = clubs, clubname = clubname, studentname=studentname, students = students_list, tags = tags)
         print("else")
         print(clubname)
     response = make_response(html)
@@ -495,3 +500,6 @@ def sort_clubs():
 @app.route("/report", methods = ["GET"])
 def file_report():
     netid = _cas.authenticate()
+    html = render_template("requestform.html")
+    response = make_response(html)
+    return response

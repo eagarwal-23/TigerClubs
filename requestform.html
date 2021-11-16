@@ -28,22 +28,29 @@
         </div>
         
         <div class="form-group">
-          <label for="seeAnotherField">Do You Want To See Another Field?</label>
-          <select class="form-control" id="seeAnotherField">
-                <option value="no">No Way.</option>
-                <option value="yes">Absolutely!</option>
+          <label for="requestReason">Request Reason</label>
+          <select class="form-control" id="requestReason">
+                <option value="deleteUser">Remove User From Club</option>
+                <option value="blacklistUser">Blacklist User</option>
+                <option value="reportUser">Report User</option>
+                <option value="reportClub">Report Club</option>
+                <option value="addTag">Add Tag</option>
           </select>
         </div>
         
-        <div class="form-group" id="otherFieldDiv">
-          <label for="otherField">Here you go!</label>
-          <select class="form-control" id="otherField">
-            <option>Yay</option>
-            <option>Woo</option>
-            <option>Hazah</option>
-            <option>Yipee</option>
-            <option>Hoorah</option>
-          </select>
+        <div class="form-group" id="reportedUser">
+          <label for="reportedUser">Which user? (Enter NetID)</label>
+          <input type="text" class="form-control w-100" id="reportedUser">
+        </div>
+
+        <div class="form-group" id="clubName">
+            <label for="clubName">Which club? (Enter Club Name) </label>
+            <input type="text" class="form-control w-100" id="clubName">
+        </div>
+
+        <div class="form-group" id="tag">
+            <label for="tag">What tag would you like?</label>
+            <input type="text" class="form-control w-100" id="tag">
         </div>
         
         <div class="form-group">
@@ -68,7 +75,7 @@
         </div>
         
         <div class="form-group">
-          <label for="comments">Comments/Questions</label>
+          <label for="comments">Please provide an explanation for this request.</label>
           <textarea class="form-control" id="comments" rows="3"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
@@ -76,6 +83,92 @@
 
 </div>
 {% include "footer.html" %}
+<script>
+    $("#requestReason").change(function() {
+  if ($(this).val() == "deleteUser") {
+    $('#tag').hide();
+    $('#tag').removeAttr('required');
+    $('#tag').removeAttr('data-error');
+    $('#reportedUser').show();
+    $('#reportedUser').attr('required', '');
+    $('#reportedUser').attr('data-error', 'This field is required.');
+    $('#clubName').show();
+    $('#clubName').attr('required', '');
+    $('#clubName').attr('data-error', 'This field is required.');
+  }
+  else if($(this).val() == "blacklistUser") {
+    $('#clubName').hide();
+    $('#tag').hide();
+    $('#clubName').removeAttr('required');
+    $('#clubName').removeAttr('data-error');
+    $('#tag').removeAttr('required');
+    $('#tag').removeAttr('data-error');
+    $('#reportedUser').show();
+    $('#reportedUser').attr('required', '');
+    $('#reportedUser').attr('data-error', 'This field is required.');
+  }
+  else if($(this).val() == "reportUser") {
+    $('#clubName').hide();
+    $('#tag').hide();
+    $('#clubName').removeAttr('required');
+    $('#clubName').removeAttr('data-error');
+    $('#tag').removeAttr('required');
+    $('#tag').removeAttr('data-error');
+    $('#reportedUser').show();
+    $('#reportedUser').attr('required', '');
+    $('#reportedUser').attr('data-error', 'This field is required.');
+  }
+  else if($(this).val() == "reportClub") {
+    $('#reportedUser').hide();
+    $('#tag').hide();
+    $('#reportedUser').removeAttr('required');
+    $('#reportedUser').removeAttr('data-error');
+    $('#tag').removeAttr('required');
+    $('#tag').removeAttr('data-error');
+    $('#clubName').show();
+    $('#clubName').attr('required', '');
+    $('#clubName').attr('data-error', 'This field is required.');
+  }
+  else if($(this).val() == "addTag") {
+    $('#reportedUser').hide();
+    $('#clubName').hide();
+    $('#reportedUser').removeAttr('required');
+    $('#reportedUser').removeAttr('data-error');
+    $('#clubName').removeAttr('required');
+    $('#clubName').removeAttr('data-error');
+    $('#tag').show();
+    $('#tag').attr('required', '');
+    $('#tag').attr('data-error', 'This field is required.');
+  } else {
+    $('#reportedUser').hide();
+    $('#clubName').hide();
+    $('#tag').hide();
+    $('#reportedUser').removeAttr('required');
+    $('#reportedUser').removeAttr('data-error');
+    $('#clubName').removeAttr('required');
+    $('#clubName').removeAttr('data-error');
+    $('#tag').removeAttr('required');
+    $('#tag').removeAttr('data-error');
+  }
+});
+$("#requestReason").trigger("change");
 
+$("#seeAnotherFieldGroup").change(function() {
+  if ($(this).val() == "yes") {
+    $('#otherFieldGroupDiv').show();
+    $('#otherField1').attr('required', '');
+    $('#otherField1').attr('data-error', 'This field is required.');
+    $('#otherField2').attr('required', '');
+    $('#otherField2').attr('data-error', 'This field is required.');
+  } else {
+    $('#otherFieldGroupDiv').hide();
+    $('#otherField1').removeAttr('required');
+    $('#otherField1').removeAttr('data-error');
+    $('#otherField2').removeAttr('required');
+    $('#otherField2').removeAttr('data-error');
+  }
+});
+$("#seeAnotherFieldGroup").trigger("change");
+</script>
 </body>
 </html>

@@ -51,7 +51,7 @@
             <div class="row mx-auto gx-lg-5">
                 <div class="col-lg-4 col-xxl-4">
                     <div class="row" style="width: 20rem; margin-bottom: 3%;">
-                        <form class="input-group" action="/landing?netid={{netid}}&studentname={{studentname}}"
+                        <form class="input-group" action="/landing"
                         method="get">
                             <input type="search" class="form-control rounded" name="clubname"
                             placeholder="Search name, tag etc" value="{{clubname}}" aria-label="Search"/>
@@ -61,7 +61,7 @@
                         </form>
                     </div>
                         
-                    <form class="form-floating" action="/landing?netid={{netid}}&studentname={{studentname}}" style = "width: 14rem;">
+                    <form class="form-floating" action="/landing" style = "width: 14rem;">
                         <select class="form-select" name="sort_club" aria-label="Floating label select example"
                             onchange="this.form.submit();">
                             <option value="combined">Overall</option>
@@ -138,7 +138,7 @@
                                 {% endfor %}
 
 
-                                <a href="/clubpage?clubname={{club.name}}&netid={{netid}}"
+                                <a href="/clubpage?clubname={{club.name}}"
                                     class="card-link stretched-link"></a>
                             </div>
                         </div>

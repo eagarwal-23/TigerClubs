@@ -44,6 +44,9 @@
             <a class="nav-link" href="/adminclubs">Manage Clubs</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="/admintags">Manage Tags</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="/logout">Logout</a>
           </li>
         </ul>
@@ -78,7 +81,7 @@
             </div>
 
             <h5 class="card-title">Manage Students</h5>
-            <p class="card-text">Search students by name, year, major, etc.</p>
+            <p class="card-text">Edit and view student information</p>
           </div>
         </a>
       </div>
@@ -145,7 +148,7 @@
         <tbody>
           {%if hasRequests: %}
           {%for request in requests: %}
-          <tr>
+          <tr id = 'reviewRow_{{ request.requestid }}'>
             <th scope="row">{{ request.requestid }}</th>
             <td>{{request}}</td>
             <td>{{ request.description }}</td>
@@ -248,13 +251,16 @@
         var netid = $(this).data('netid-about');
         var clubid = $(this).data('clubid');
         var requestid = $(this).data('requestid');
-        var $parentCard = $(this).closest(".card")
+        var modalName = '#reviewModal_' + requestid
+        var rowName = '#reviewRow_' + requestid
         $.ajax({
           url: "/delete_user",
           method: "GET",
           data: { netid: netid, clubid: clubid, requestid: requestid },
           success: function () {
-            $parentCard.slideUp();
+            $('.modal').hide();
+            $('.modal-backdrop').remove();
+            $(rowName).slideToggle();
           }
         });
       });
@@ -262,13 +268,17 @@
       $(".1").click(function () {
         var netid = $(this).data('netid-about');
         var requestid = $(this).data('requestid');
-        var $parentCard = $(this).closest(".card")
+        var modalName = '#reviewModal_' + requestid
+        var rowName = '#reviewRow_' + requestid
         $.ajax({
           url: "/blacklist_user",
           method: "GET",
           data: { netid: netid, requestid: requestid },
           success: function (data) {
-            $parentCard.slideUp();
+            
+            $('.modal').hide();
+            $('.modal-backdrop').remove();
+            $(rowName).slideToggle();
           }
         });
       });
@@ -296,33 +306,41 @@
       $(".4").click(function () {
         var tagname = $(this).data('tagname');
         var requestid = $(this).data('requestid');
-        var $parentCard = $(this).closest(".card")
+        var modalName = '#reviewModal_' + requestid
+        var rowName = '#reviewRow_' + requestid
         $.ajax({
           url: "/add_tag",
           method: "GET",
           data: { tagname: tagname, requestid: requestid },
           success: function (data) {
-            $parentCard.slideUp();
+            $('.modal').hide();
+            $('.modal-backdrop').remove();
+            $(rowName).slideToggle();
           }
         });
       });
 
       $(".reject").click(function () {
-        var $parentCard = $(this).closest(".card")
         var requestid = $(this).data('requestid');
+        var modalName = '#reviewModal_' + requestid
+        var rowName = '#reviewRow_' + requestid
         $.ajax({
 
           url: "/reject_request",
           method: "GET",
           data: { requestid: requestid },
           success: function (data) {
-            $parentCard.slideUp();
+            $('.modal').hide();
+            $('.modal-backdrop').remove();
+            $(rowName).slideToggle();
           }
         });
       });
 
     });
   </script>
+  {% include "footer.html" %}
+
 </body>
 
 </html>

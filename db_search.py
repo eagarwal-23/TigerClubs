@@ -13,7 +13,7 @@ def get_all_clubs():
 
 # get list of all Tag objects in tag_info table  
 def get_all_tags():
-    tags = Tag.query.all()
+    tags = Tag.query.order_by(Tag.tagid).all()
     return tags
 
 # get list of all Club objects whose name or tags

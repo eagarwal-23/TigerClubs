@@ -109,3 +109,15 @@ def delete_tag_db(tagname):
     tag = Tag.query.filter_by(name = tagname).first()
     db.session.delete(tag)
     db.session.commit()
+
+def edit_tag_db(tagid, newtagname):
+    tag = Tag.query.filter_by(tagid = tagid).first()
+    tag.name = newtagname
+    db.session.commit()
+
+def delete_tag_db_id(tagid):
+    tag = Tag.query.filter_by(tagid = tagid).first()
+    db.session.delete(tag)
+    db.session.commit()
+
+    

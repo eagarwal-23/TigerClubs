@@ -24,7 +24,7 @@ def strip_ticket(url):
 
 #-----------------------------------------------------------------------
 
-class CasClient:
+class CASClient:
 
     #-------------------------------------------------------------------
 
@@ -64,7 +64,7 @@ class CasClient:
         # If the username is in the session, then the user was
         # authenticated previously.  So return the username.
         if 'username' in session:
-            return session.get('username')
+            return session.get('username').lower().strip()
 
         # If the request does not contain a login ticket, then redirect
         # the browser to the login page to get one.
@@ -85,7 +85,7 @@ class CasClient:
         # The user is authenticated, so store the username in
         # the session.
         session['username'] = username
-        return username
+        return username.lower().strip()
 
     #-------------------------------------------------------------------
     # Logout the user.

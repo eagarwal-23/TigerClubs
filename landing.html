@@ -73,7 +73,8 @@
                         </select>
                         <label for="floatingSelect">Rank clubs by</label>
                     </form>
-
+                    <br>
+                    <br>
                     <!-- <form class="form-floating mb-3" action="/landing?netid={{netid}}&studentname={{studentname}}"
                       method="get">
                         <input type="search" name="clubname" class="form-control" id="floatingInput" placeholder= "Clubname"
@@ -87,9 +88,10 @@
                         {%if hasClubs: %}
                         {%for club in clubs: %}
                         <div class="card" style="background-color: white; width:45rem; margin: 5px; margin-top:0">
-                            <div class="card-body" style="text-align: center;">
+                            <div class="card-body">
                                 <h5 class="card-title" style="color: #e8804c;">{{club}}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted" style="font-style: italic; font-size: small;">
+                                    Rank? : {{(club.combined|int)}}
                                     Description:
                                     {{club.description}} Long
                                     yada yaday ydaa</h6>

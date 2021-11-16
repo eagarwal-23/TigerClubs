@@ -44,7 +44,7 @@
 
     <h2>Editing Club: {{clubname}}</h2>
 
-    <form>
+    <form action="/editclubfromedit">
         <table>
             <tr>
                 <td><label>Change Name:</label></td>
@@ -61,6 +61,9 @@
             <tr>
                 <td><label>Change Tags:</label></td>
                 <td><input type="text" name="tags" value="{{tags}}"></td>
+            </tr>
+            <tr>
+                <button type = "submit" class = "btn btn-primary edit_club">Save</button>
             </tr>
         </table>
     </form>

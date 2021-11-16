@@ -373,7 +373,7 @@ def adminclubs():
 
     clubs = club_search(clubname)
 
-    html = render_template("adminclubs.html", hasClubs = 1, clubs=clubs)
+    html = render_template("adminclubs.html", clubs=clubs)
     response = make_response(html)
     return response
 
@@ -432,16 +432,19 @@ def editclub():
 
 @app.route("/editclubfromedit", methods=["GET"])
 def editclubfromedit():
-    try:
-        name = request.args.get("name")
-        description = request.args.get("description")
-        members = request.args.get("members")
-        tags = request.args.get("tags")
+#try:
+    name = request.args.get("name")
+    description = request.args.get("description")
+    members = request.args.get("members")
+    tags = request.args.get("tags")
 
-        update_club_info(name, description, members, tags)
-        return editclub()
-    except Exception:
-        print("whoops from editclubfromedit")
+    print("am i whooping here before?????", name, description, members, tags)
+
+    update_club_info(name, description, members, tags)
+    print("whooping hereeeeee???")
+    return editclub()
+#except Exception:
+    print("whoops from editclubfromedit")
 
 @app.route("/delete_club", methods = ["GET"])
 def delete_club():

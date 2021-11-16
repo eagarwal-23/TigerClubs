@@ -252,17 +252,7 @@
                 Description:
                 {{club.description}} Long
                 yada yaday ydaa</h6>
-              {%for tag in club.tags: %}
-              <div class="tag">
-                <div class="badge text-white" style="background-color: #e8804c;">{{tag}}
-                </div>
-              </div>
-              <style>
-                .tag {
-                  display: inline-block;
-                }
-              </style>
-              {% endfor %}
+
               <button type="button" class="btn btn-primary edit_club" data-clubname="{{ club.name }}">Edit</button>
               <button type="button" class="btn btn-primary delete_club" data-clubid={{ club.clubid }}>Delete</button>
               <a href="/clubpage?clubname={{club.name}}&netid={{netid}}" class="card-link stretched-link"></a>

@@ -539,7 +539,10 @@ def submitted_request():
     about_user = request.args.get("reporteduser")
     club = request.args.get("clubname")
     tag = request.args.get("tag")
-    add_request(request_reason, netid, about_user, club, tag)
-    html = render_template("requestsubmitted.html")
+    success = add_request(request_reason, netid, about_user, club, tag)
+    if (not success):
+        html = render_template("wrongrequestinput.html")
+    else:
+        html = render_template("requestsubmitted.html")
     response = make_response(html)
     return response

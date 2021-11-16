@@ -1,5 +1,6 @@
 from app import db
 from db_search import get_all_clubs
+from db_student_profile import get_student_info
 from models import Student, Club, Tag, Review, Request
 
 DELETE_USER = 0
@@ -19,16 +20,24 @@ def add_request(request_type, netid_sender, netid_about = None,
     if request_type == "delete_user":
         request_type = DELETE_USER
         club = Club.query.filter_by(name = club).first()
+        if (club == None or get_student_info(netid_about) == None):
+            return None
         club = club.clubid
         request = Request(request_type, netid_sender, netid_about, club, None)
     elif request_type == "blacklist_user":
         request_type = BLACKLIST_USER
+        if (get_student_info(netid_about) == None):
+            return None
         request = Request(request_type, netid_sender, netid_about, None, None)
     elif request_type == "edit_user":
         request_type = EDIT_USER
+        if (get_student_info(netid_about) == None):
+            return None
         request = Request(request_type, netid_sender, netid_about, None, None)
     if request_type == "edit_club":
         club = Club.query.filter_by(name = club).first()
+        if (club == None):
+            return None
         club = club.clubid
         request_type = EDIT_CLUB
         request = Request(request_type, netid_sender, None, club, None)

@@ -44,22 +44,23 @@
         </div>
     </header>
     <!-- Page Content-->
-    <section class="pt-1" style="padding-left: 5%;">
+    <section class="pt-1" style = "align-content: center;">
         <div class="container px-lg-5">
             <!-- Page Features-->
-            <div class="row gx-lg-5">
-                <div class="col-lg-4 col-xxl-3 mb-4">
-                    <form class="form-inline my-2 my-lg-0" action="/landing?netid={{netid}}&studentname={{studentname}}"
+            <div class="row mx-auto gx-lg-5">
+                <div class="col-lg-4 col-xxl-4">
+                    <div class="row" style="width: 20rem; margin-bottom: 3%;">
+                        <form class="input-group" action="/landing?netid={{netid}}&studentname={{studentname}}"
                         method="get">
-                        <input class="form-control mr-sm-2" type="search" name="clubname"
-                            placeholder="Search name, tag etc" value="{{clubname}}" aria-label="Search">
-                        <button class="btn btn-outline my-2 my-sm-0" style="background-color: #e8804c;"
-                            type="submit">Search</button>
+                            <input type="search" class="form-control rounded" name="clubname"
+                            placeholder="Search name, tag etc" value="{{clubname}}" aria-label="Search"/>
+                            <button type="submit" class="btn text-black" style = "background-color: #e8804c;">search</button>
+                            <br>
+                            <br>
                     </form>
-
-                    <br>
-
-                    <form class="form-floating" action="/landing?netid={{netid}}&studentname={{studentname}}">
+                    </div>
+                        
+                    <form class="form-floating" action="/landing?netid={{netid}}&studentname={{studentname}}" style = "width: 14rem;">
                         <select class="form-select" name="sort_club" aria-label="Floating label select example"
                             onchange="this.form.submit();">
                             <option value="combined">Overall</option>
@@ -82,10 +83,10 @@
                     </form> -->
                 </div>
                 <div class="col gx-lg-5">
-                    <div class="row" style="width: 100%;">
+                    <div class="row mx-auto" style="width: 100%;">
                         {%if hasClubs: %}
                         {%for club in clubs: %}
-                        <div class="card" style="background-color: white; width:12rem; margin: 5px; margin-top:0">
+                        <div class="card" style="background-color: white; width:45rem; margin: 5px; margin-top:0">
                             <div class="card-body" style="text-align: center;">
                                 <h5 class="card-title" style="color: #e8804c;">{{club}}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted" style="font-style: italic; font-size: small;">
@@ -118,6 +119,8 @@
                     </div>
                 </div>
             </div>
+            <br>
+            <br>
     </section>
     <!-- Footer-->
     <footer class="py-5 bg-dark">

@@ -123,8 +123,10 @@ ADD_TAG = 4
 #     return clubs
 
 if __name__ == "__main__":
-    delete_student_club('camilanv', 10)
+    delete_student_club('camilanv', 1)
     delete_student_club('camilanv', 21)
+    delete_student_club('camilanv', 20)
+    delete_student_club('camilanv', 13)
     # delete_student_club('camilanv', 20)
     # delete_student_club('camilanv', 21)
     # delete_student_club('camilanv', 1)

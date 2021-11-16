@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<head>
+  <link rel="shortcut icon" href="static/tigerclubsicon.ico"/>
+
+  <link rel="shortcut icon" href="static/tigerclubsicon.ico"/>
+
+    <meta charset = "UTF-8">
+    <meta name= "viewport" content= "width-device-width, initial-scale-1.0">
+    <title> Tiger Clubs</title>
+    <link rel="stylesheet" href="style.css" >
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+
+      <!------ Include the above in your HEAD tag ---------->
+      <link href="static/styles.css" rel="stylesheet" />
+</head>
+<body style = "background-color: rgb(255, 237, 215);">
+  {% include "navbar.html" %}
+
+      <header class="py-5">
+        <div class="container px-lg-5">
+            <div class="p-4 p-lg-5 rounded-3 text-center bg-light">
+                    <img class="img-fluid rounded-circle mb-4" src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg" alt="..." />
+                    <h1 class="text-black fs-3 fw-bolder">{{student.name}}</h1>
+                    <h2 class="text-black fs-4">{{student.major}} {{student.year}}</h2>
+                    <p class="text-black-50 mb-0">{{student.netid}}@princeton.edu</p>
+            </div>
+        </div>
+    </header>
+
+  <div class = "container-fluid">
+    <form action="profilefromedit" method="get">
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card mb-3">
+        <div class="card-body">
+        <input type="hidden" name="netid" value="{{netid}}">
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Clubs</h6>
+            </div>
+            <div class="col-md-6">
+              <select id="clubs" name = "clubs" class = "form-control" placeholder="Select up to 5 clubs" multiple>
+              {% for club in clubs: %}
+                <option value = "{{club}}">{{club}}</option>
+              {% endfor %}
+              </select>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Interests</h6>
+            </div>
+            <div class="col-md-6">
+              <select id="tags" name = "tags" class = "form-control" placeholder="Select up to 5 tags" multiple>
+              {% for tag in tags: %}
+                <option value = "{{tag}}">{{tag}}</option>
+              {% endfor %}
+              </select>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Bio</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              <input type="text" name="bio" value="{{bio}}">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12"> 
+            <hr>  
+            <input type="submit" value="Save">
+            <a href="/profile?netid={{netid}}">Cancel</a>
+
+            </div>
+          </div>
+          </div>
+          </div>
+          </div>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+    <!-- Footer-->
+    {% include "footer.html" %}
+</body>
+<script>
+$(document).ready(function(){
+
+  var multipleCancelButton = new Choices('#tags' , {
+  removeItemButton: true,
+  maxItemCount:5,
+  searchResultLimit:5,
+  renderChoiceLimit:5
+  });
+  
+  var multipleCancelButton = new Choices('#clubs' , {
+  removeItemButton: true,
+  maxItemCount:5,
+  searchResultLimit:5,
+  renderChoiceLimit:5
+  });
+  
+  });
+</script>
+</html>

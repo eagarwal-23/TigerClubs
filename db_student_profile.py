@@ -13,9 +13,11 @@ def update_student_info(netid, bio = None, clubs = None, tags = None):
         student.bio = bio
 
     if clubs != "" and clubs:
-        club = Club.query.filter_by(name=clubs).first()
-        student.clubs.append(club)
-        db.session.add(student)
+        for oneClub in clubs:
+            club = Club.query.filter_by(name=oneClub).first()
+            print(club)
+            student.tags.append(club)
+            db.session.add(student)
 
     if tags != "" and tags:
         for oneTag in tags:

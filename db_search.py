@@ -59,5 +59,5 @@ def club_search(search, query = 'combined'):
     elif query == 'experience_requirement':
         clubs = clubs.order_by(Club.experience_requirement.desc()).all()
     elif query == 'alphabetical':
-        clubs = clubs.order_by(Club.namez).all()
+        clubs = clubs.order_by(Club.name).all()
     return clubs

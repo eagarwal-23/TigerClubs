@@ -95,9 +95,7 @@ def add_club(name, description):
 
 def delete_club_db(clubid):
     club = Club.query.filter_by(clubid = clubid).first()
-    print(club)
     db.session.delete(club)
-    print(get_all_clubs)
     db.session.commit()
 
 def delete_club_tag(clubname, tagname):
@@ -105,4 +103,9 @@ def delete_club_tag(clubname, tagname):
     tag = Tag.query.filter_by(name = tagname).first()
     club.tags.remove(tag)
     tag.clubs.remove(club)
+    db.session.commit()
+
+def delete_tag_db(tagname):
+    tag = Tag.query.filter_by(name = tagname).first()
+    db.session.delete(tag)
     db.session.commit()

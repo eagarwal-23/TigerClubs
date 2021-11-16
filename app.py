@@ -61,6 +61,7 @@ def adminlogin():
 def adminportal():
 
     netid = _cas.authenticate()
+    netid = netid.rstrip()
     
     student = get_student_info(netid)
     adminStatus = student.admin
@@ -95,6 +96,7 @@ def landingwhoareyou():
 def landing():
 
     netid = _cas.authenticate()
+    netid = netid.rstrip()
 
     filter_tags = request.args.getlist("tags")
     if not filter_tags:
@@ -142,7 +144,8 @@ def landing():
 @app.route("/studentsearch", methods=["GET"])
 def studentsearch():
 
-    netid = _cas.authenticate()    
+    netid = _cas.authenticate()
+    netid = netid.rstrip()
     studentname = request.args.get("studentname")
 
     if not studentname:
@@ -171,6 +174,7 @@ def profile():
     try:
         diffperson = request.args.get("diffperson")
         netid = _cas.authenticate()
+        netid = netid.rstrip()
         if diffperson:
             student = get_student_info(diffperson)
         else:
@@ -200,6 +204,7 @@ def edited_profile():
 
     try:
         netid = _cas.authenticate()
+        netid = netid.rstrip()
         bio = request.args.get("bio")
         clubs = request.args.getlist("clubs")
         tags = request.args.getlist("tags")
@@ -212,6 +217,7 @@ def edited_profile():
 @app.route("/editprofile", methods=["GET"])
 def editprofile():
     netid = _cas.authenticate()
+    netid = netid.rstrip()
     student = get_student_info(netid)
     name = student.name
     classyear = student.year
@@ -254,6 +260,7 @@ def clubpage():
 def myratings():
     try:
         netid = _cas.authenticate()
+        netid = netid.rstrip()
         student = get_student_info(netid=netid)
         name = student.name
         clubs = student.clubs
@@ -268,6 +275,7 @@ def myratings():
 def vote():
     try:
         netid = _cas.authenticate()
+        netid = netid.rstrip()
         if request.method == 'POST':
             clubname = request.form['clubname']
             diversity = request.form['diversity']
@@ -385,6 +393,7 @@ def adminclubs():
 @app.route("/adminstudents", methods=["GET"])
 def adminstudents():
     netid = _cas.authenticate()
+    netid = netid.rstrip()
     user = get_student_info(netid)
 
     if (not user.admin):
@@ -504,6 +513,7 @@ def sort_clubs():
 @app.route("/report", methods = ["GET"])
 def file_report():
     netid = _cas.authenticate()
+    netid = netid.rstrip()
     html = render_template("requestform.html")
     response = make_response(html)
     return response
@@ -511,6 +521,7 @@ def file_report():
 @app.route("/submittedrequest", methods = ["GET"])
 def submitted_request():
     netid = _cas.authenticate()
+    netid = netid.rstrip()
     request_reason = request.args.get("reason")
     about_user = request.args.get("reporteduser")
     club = request.args.get("clubname")

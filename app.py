@@ -474,7 +474,7 @@ def delete_club():
 
 @app.route("/admintags", methods=["GET"])
 def admintags():
-    auth_user = CasClient().authenticate()[:-1]
+    auth_user = _cas.authenticate()
     user = get_student_info(auth_user)
     if (not user.admin):
         html = render_template("notadmin.html")

@@ -199,7 +199,7 @@
     <div class="container px-lg-5">
       <!-- Page Features-->
       <div class="row gx-lg-5">
-        {%for student in students:%}
+        <!-- {%for student in students:%}
         <div class="col-lg-6 col-xxl-4 mb-5">
           <div class="card border-0 h-100" style="background-color: white; outline-style: double;">
             <div class="card-body text-center">
@@ -216,7 +216,29 @@
             </div>
           </div>
         </div>
-        {% endfor %}
+        {% endfor %} -->
+
+        <div class="col-6">
+          {%if hasClubs: %}
+          {%for club in clubs: %}
+          <div class="container" style="padding-top: 1rem;">
+            <div class="card" style="width: 40rem; background-color: #ffe5cd;">
+              <div class="card-body">
+                <h5 class="card-title">{{club}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{club}}</h6>
+                <p class="card-text">Description: {{club.description}} Long yada yaday ydaa</p>
+                <button type="button" class="btn btn-primary view_club" data-clubname="{{ club.name }}"
+                  data-netid="{{ netid }}">View</button>
+                <button type="button" class="btn btn-primary edit_club" data-clubname="{{ club.name }}">Edit</button>
+                <button type="button" class="btn btn-primary delete_club" data-clubid={{ club.clubid }}>Delete</button>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          {%else: %}
+          No clubs found.
+          {%endif%}
+        </div>
 
       </div>
     </div>

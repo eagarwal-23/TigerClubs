@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Full Width Pics - Start Bootstrap Template</title>
+        <title>Profile Page</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -14,9 +14,18 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!-- Favicon-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
         <!--ours-->
         <link href="static/styles.css" rel="stylesheet" />
     </head>
+
     <body style = "background-color: rgb(255, 237, 215);">
     {% include "navbar.html" %}
         <!-- Header - set the background image for the header in the line below-->
@@ -39,38 +48,11 @@
             </div>
         </header>
         <!-- Content section-->
-            <div class="container px-lg-5">
-              <div class="row">
-                <div class="col">
-                    {%for club in clubs: %}
-                    <div class="container" style="padding-bottom: 1rem;">
-                      <div class="card" style="width: 35rem; background-color: white; outline-style:double;">
-                          <div class="card-body">
-                          <h5 class="card-title">{{club}}</h5>
-                          <h6 class="card-subtitle mb-2 text-muted">Description: {{club.description}} Long yada yaday ydaa</h6>
-                          
-                          
-                          {%for tag in club.tags: %}
-                          <div class = "tag">
-                              <div class = "badge text-white" style = "background-color: #e8804c;">{{tag}}</div>
-                          </div>
-                          <style> 
-                              .tag {
-                                  display: inline-block;
-                                  padding-right: 0.25rem;
-                                  padding-left: 0.25rem;
-                              }
-                          </style>
-                          {% endfor %}
-
-
-                          <a href="/clubpage?clubname={{club}}&netid={{netid}}" class="card-link stretched-link"></a>
-                          </div>
-                      </div>
-                      </div>
-                  {% endfor %}
-                </div>
-                <div class="col">
+        <section class="pt-1" style = "align-content: center;">
+          <div class="container px-lg-5">
+              <!-- Page Features-->
+              <div class="row mx-auto gx-lg-5">
+                <div class="col gx-lg-5">
                   <div class="card-body">
                     <div class="row py-3 align-items-center">
                         <h4 class="mb-0">Bio</h4>
@@ -87,11 +69,11 @@
                       <div class = "row">
                       <div class="col-sm-9 text-secondary">
                         {%for interest in interests: %}
-                        <div class = "tag">
+                        <div class = "tag2">
                           <div class = "badge text-white" style = "background-color: #e8804c;">{{interest}}</div>
                         </div>
                         <style> 
-                            .tag {
+                            .tag2 {
                                 display: inline-block;
                                 padding-right: 0.25rem;
                                 padding-left: 0.25rem;
@@ -105,12 +87,62 @@
                     <br>
                   </div>
                 </div>
+                <div class="col gx-lg-5">
+                    <div class="row mx-auto" style="width: 100%;">
+                    {%for club in clubs: %}
+                      <div class="card" style="width: 35rem; background-color: white; margin: 5px; margin-top:0">
+                          <div class="card-body">
+                          <h5 class="card-title" style="color: #e8804c;">{{club}}
+                            {% set unselected = 5 - (club.combined|int)%}
+                            <div id ="inlinereview">
+                                {% for i in range(club.combined|int) %}
+                                <i aria-hidden="true" class="fa fa-star"></i>
+                                {% endfor %}  
+                                {% for i in range(unselected) %}
+                                <i aria-hidden="true" class="fa fa-star-o"></i>
+                                {% endfor %} 
+                            </div></h5>
+
+                            <style>
+                                .fa-star,.fa-star-o,.fa-star-half-o{
+                                display:inline-block;
+                                color:#FDC91B;
+                                font-size:25px !important;
+                                }
+                                #inlinereview{
+                                    display:inline-block;
+                                }
+                            </style></h5>
+                          <h6 class="card-subtitle mb-2 text-muted">Description: {{club.description}} Long yada yaday ydaa</h6>
+                          
+                          
+                          {%for tag in club.tags: %}
+                          <div class = "tag">
+                              <div class = "badge text-white" style = "background-color: #e8804c;">{{tag}}</div>
+                          </div>
+                          <style> 
+                              .tag {
+                                display: inline-block;
+                                font-size: small;
+                                padding-right: 0.25rem;
+                              }
+                          </style>
+                          {% endfor %}
+
+
+                          <a href="/clubpage?clubname={{club}}&netid={{netid}}" class="card-link stretched-link"></a>
+                          </div>
+                      </div>
+                  {% endfor %}
+                </div>
+                </div>
               </div>
             </div>
+            </section>
+            <br>
+            <br>
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
-        </footer>
+        {% include "footer.html" %}
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

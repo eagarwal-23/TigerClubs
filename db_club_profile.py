@@ -19,7 +19,6 @@ def update_club_info(name, description = None, members = None, tags = None):
         members = members.split(',')
         for member in members:
             member = member.strip()
-
             student = Student.query.filter_by(name=member).first()
             club.members.append(student)
             db.session.add(club)

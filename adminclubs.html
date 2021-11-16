@@ -243,44 +243,28 @@
 
       <div class="col gx-lg-5">
         <div class="row justify-content-center" style="width: 100%;">
-
-
-
           <style>
             .card-img {
               opacity: 0.2;
             }
           </style>
 
-
-          <div class="card bg-dark text-white">
-            <img class="card-img" src="https://picsum.photos/200" alt="Card image">
-            <div class="card-img-overlay">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                content. This content is a little bit longer.</p>
-              <p class="card-text">Last updated 3 mins ago</p>
-            </div>
-          </div>
-
-
-
-
-
-
           {%if hasClubs: %}
           {%for club in clubs: %}
           <div class="card" style="background-color: white; width:12rem; margin: 5px;">
-            <div class="card-body" style="text-align: center;">
-              <h5 class="card-title" style="color: #e8804c;">{{club}}</h5>
-              <h6 class="card-subtitle mb-2 text-muted" style="font-style: italic; font-size: small;">
-                Description:
-                {{club.description}} Long
-                yada yaday ydaa</h6>
+            <img class="card-img" src="https://picsum.photos/200" alt="Card image">
+            <div class="card-img-overlay">
+              <div class="card-body" style="text-align: center;">
+                <h5 class="card-title" style="color: #e8804c;">{{club}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted" style="font-style: italic; font-size: small;">
+                  Description:
+                  {{club.description}} Long
+                  yada yaday ydaa</h6>
 
-              <button type="button" class="btn btn-primary edit_club" data-clubname="{{ club.name }}">Edit</button>
-              <button type="button" class="btn btn-primary delete_club" data-clubid={{ club.clubid }}>Delete</button>
-              <a href="/clubpage?clubname={{club.name}}&netid={{netid}}" class="card-link stretched-link"></a>
+                <button type="button" class="btn btn-primary edit_club" data-clubname="{{ club.name }}">Edit</button>
+                <button type="button" class="btn btn-primary delete_club" data-clubid={{ club.clubid }}>Delete</button>
+                <a href="/clubpage?clubname={{club.name}}&netid={{netid}}" class="card-link stretched-link"></a>
+              </div>
             </div>
           </div>
 

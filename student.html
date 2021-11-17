@@ -1,78 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link rel="shortcut icon" href="static/tigerclubsicon.ico"/>
+  <head>
+    <link rel="shortcut icon" href="static/tigerclubsicon.ico" />
 
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Student Search</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Student Search</title>
 
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Bootstrap icons-->
-        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"
+    ></script>
 
-        <!--ours-->
-        <link href="static/styles.css" rel="stylesheet" />
-        
-    </head>
-    <body style = "background-color: rgb(255, 237, 215);">
-        {% include "navbar.html" %}
-        <!-- Header-->
-        <header class="py-5">
-            <div class="container px-lg-5">
-                <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
-                    <div class="m-4 m-lg-5">
-                        <h2><strong>Look up a friend!</strong></h2>
-                        <p class="fs-4">Find out which clubs your friends are in!</p>
-                        <form class= "form-inline my-2 my-lg-0" style="padding-top: 2%;" action="/studentsearch" method="get">
-                            <input class="form-control mr-sm-2" type="search" name="studentname" placeholder="Search Student"
-                              value="{{studentname}}" aria-label="Search">
-                            <button class="btn btn-outline my-2 my-sm-0" style="background-color: #e8804c;" type="submit">Search</button>
-                        </form>
-                    </div>
-                </div>
+    <!--ours-->
+    <link href="static/styles.css" rel="stylesheet" />
+  </head>
+  <body style="background-color: rgb(255, 237, 215)">
+    {% include "navbar.html" %}
+    <!-- Header-->
+    <header class="py-5">
+      <div class="container px-lg-5">
+        <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+          <div class="m-4 m-lg-5">
+            <h2><strong>Look up a friend!</strong></h2>
+            <p class="fs-4">Find out which clubs your friends are in!</p>
+            <form
+              class="form-inline my-2 my-lg-0"
+              style="padding-top: 2%"
+              action="/studentsearch"
+              method="get"
+            >
+              <input
+                class="form-control mr-sm-2"
+                type="search"
+                name="studentname"
+                placeholder="Search Student"
+                value="{{studentname}}"
+                aria-label="Search"
+              />
+              <button
+                class="btn btn-outline my-2 my-sm-0"
+                style="background-color: #e8804c"
+                type="submit"
+              >
+                Search
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Page Content-->
+    <section class="pt-4">
+      <div class="container px-lg-5">
+        <!-- Page Features-->
+        <div class="row gx-lg-5">
+          {%for student in students:%}
+          <div class="col-lg-6 col-xxl-4 mb-5">
+            <div
+              class="card"
+              style="
+                background-color: white;
+                outline: black;
+                outline-style: initial;
+              "
+            >
+              <div class="card-body text-center">
+                <img
+                  class="rounded-circle"
+                  src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg"
+                  width="100"
+                  height="100"
+                />
+                <a
+                  href="/profile?diffperson={{student.netid}}"
+                  class="card-link stretched-link"
+                ></a>
+                <h2 class="fs-4 fw-bold">{{student.name}}</h2>
+                {{student.netid}}
+                <br />
+                {{student.year}}
+                <br />
+                {{student.res_college}}
+              </div>
             </div>
-        </header>
-        <!-- Page Content-->
-        <section class="pt-4">
-            <div class="container px-lg-5">
-                <!-- Page Features-->
-                <div class="row gx-lg-5">
-                    {%for student in students:%}
-                        <div class="col-lg-6 col-xxl-4 mb-5">
-                            <div class="card" style="background-color: white; outline: black;outline-style:initial;">
-                                <div class="card-body text-center">
-                                    <img class="rounded-circle"
-                                    src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg" width="100"
-                                    height="100">
-                                    <a href="/profile?diffperson={{student.netid}}" class="card-link stretched-link"></a>
-                                    <h2 class="fs-4 fw-bold" >{{student.name}}</h2>
-                                    {{student.netid}}
-                                    <br>
-                                    {{student.year}}
-                                    <br>
-                                    {{student.res_college}}
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}   
-                    
-                </div>
-            </div>
-        </section>
-        <!-- Footer-->
-        {% include "footer.html" %}
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-    </body>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    <!-- Footer-->
+    {% include "footer.html" %}
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+  </body>
 </html>

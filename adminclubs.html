@@ -1,3 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="shortcut icon" href="static/tigerclubsicon.ico" />
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width-device-width, initial-scale-1.0" />
+    <title>Tiger Clubs</title>
+    <link rel="stylesheet" href="static/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <link rel="stylesheet" type="text/css" href="static/jquery.raty.css" />
+    <script src="static/jquery.raty.js"></script>
+  </head>
+
+  <body>
+    <!--Menu bar-->
+    <div class="menu-bar" style="background-color: #ffbd81">
+      <nav
+        class="navbar navbar-expand-lg navbar-light"
+        style="font-family: Merriweather"
+      >
+        <a
+          class="navbar-brand"
+          style="padding-left: 1%; font-size: 135%"
+          href="/landing?netid={{netid}}"
+          >Student View</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="fa fa-bars"></i>
+        </button>
+        <div
+          class="collapse navbar-collapse"
+          style="font-size: 110%"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/adminlanding"
+                >Home<span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/adminstudents">Manage Students</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/adminclubs">Manage Clubs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admintags">Manage Tags</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <!-- Header-->
+    <header class="py-5">
+      <div class="container px-lg-5">
+        <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+          <div class="m-4 m-lg-5">
+            <h2><strong>Look up a club here</strong></h2>
+            <p class="fs-4">Add, edit, and delete club pages.</p>
+            <form
+              class="form-inline my-2 my-lg-0 justify-content-center"
+              style="padding-top: 2%"
+              action="/adminclubs"
+              method="get"
+            >
+              <input
+                class="form-control mr-sm-2 justify-content-center"
+                type="search"
+                name="clubname"
+                placeholder="Search Club"
+                value=""
+                aria-label="Search"
+              />
+              <button
+                class="btn btn-outline my-2 my-sm-0"
+                style="background-color: #e8804c"
+                type="submit"
+              >
+                Search
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Page Content-->
+    <section class="pt-4">
+      <div class="container px-lg-5">
+        <!-- Page Features-->
+        <div class="row gx-lg-5">
+          {%for club in clubs:%}
+          <div class="col-lg-6 col-xxl-4 mb-5">
+            <div
+              class="card border-0 h-100"
+              style="background-color: white; outline-style: double"
+            >
+              <div class="card-body text-center">
+                <img
+                  class="rounded-circle"
+                  src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg"
+                  width="100"
+                  height="100"
+                />
+                <h2 class="fs-4 fw-bold">{{club.name}}</h2>
+
+                <form action="/clubpage">
+                  <button
+                    type="submit"
+                    class="btn btn-primary view_club"
+                    data-clubname="{{ club.name }}"
+                  >
+                    View
+                  </button>
+                  <input type="hidden" name="clubname" value="{{club.name}}" />
+                </form>
+
+                <form action="/editclub">
+                  <button
+                    type="submit"
+                    class="btn btn-primary edit_club"
+                    data-clubname="{{ club.name }}"
+                  >
+                    Edit
+                  </button>
+                  <input type="hidden" name="clubname" value="{{club.name}}" />
+                </form>
+
+                <button
+                  type="button"
+                  class="btn btn-primary delete_club"
+                  data-clubid="{{ club.clubid }}"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <script>
+      $(document).ready(function () {
+        function handleResponse(response) {
+          console.log("Response");
+          $("body").html(response);
+        }
+
+        $(".delete_club").click(function () {
+          var clubid = $(this).data("clubid");
+          url = "/delete_club?clubid=" + encodeURIComponent(clubid);
+          $.ajax({
+            url: url,
+            method: "GET",
+            success: function () {
+              location.reload();
+            },
+          });
+        });
+      });
+    </script>
+
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">
+          Copyright &copy; Tiger Clubs. Created by Anthony Guerra, Camila
+          Vasquez, Eesha Agarwal, Nadia Rodriguez and Natalie Reptak.
+        </p>
+      </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+  </body>
+</html>
+
 <!-- <!DOCTYPE html>
 <html>
   <head>
@@ -120,156 +334,3 @@
         </script>
   </body>
 </html> -->
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <link rel="shortcut icon" href="static/tigerclubsicon.ico" />
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width-device-width, initial-scale-1.0">
-  <title> Tiger Clubs</title>
-  <link rel="stylesheet" href="static/style.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <!------ Include the above in your HEAD tag ---------->
-  <link rel="stylesheet" type="text/css" href="static/jquery.raty.css">
-  <script src="static/jquery.raty.js"></script>
-
-</head>
-
-<body>
-  <!--Menu bar-->
-  <div class="menu-bar" style="background-color: #FFBD81;">
-    <nav class="navbar navbar-expand-lg navbar-light" style="font-family: Merriweather;">
-      <a class="navbar-brand" style="padding-left: 1%; font-size: 135% " href="/landing?netid={{netid}}">Student
-        View</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fa fa-bars"></i>
-      </button>
-      <div class="collapse navbar-collapse" style="font-size: 110%;" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item ">
-            <a class="nav-link" href="/adminlanding">Home<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/adminstudents">Manage Students</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/adminclubs">Manage Clubs</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/admintags">Manage Tags</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/logout">Logout</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </div>
-  <!-- Header-->
-  <header class="py-5">
-    <div class="container px-lg-5">
-      <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
-        <div class="m-4 m-lg-5">
-          <h2><strong>Look up a club here</strong></h2>
-          <p class="fs-4">Add, edit, and delete club pages.</p>
-          <form class="form-inline my-2 my-lg-0 justify-content-center" style="padding-top: 2%;"
-            action="/adminclubs" method="get">
-            <input class="form-control mr-sm-2 justify-content-center" type="search" name="clubname"
-              placeholder="Search Club" value="" aria-label="Search">
-            <button class="btn btn-outline my-2 my-sm-0" style="background-color: #e8804c;"
-              type="submit">Search</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </header>
-  <!-- Page Content-->
-  <section class="pt-4">
-    <div class="container px-lg-5">
-      <!-- Page Features-->
-      <div class="row gx-lg-5">
-        {%for club in clubs:%}
-        <div class="col-lg-6 col-xxl-4 mb-5">
-          <div class="card border-0 h-100" style="background-color: white; outline-style: double;">
-            <div class="card-body text-center">
-              <img class="rounded-circle"
-                src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg" width="100"
-                height="100">
-              <h2 class="fs-4 fw-bold">{{club.name}}</h2>
-
-              <form action = "/clubpage">
-              <button type = "submit" class = "btn btn-primary view_club"
-                 data-clubname = "{{ club.name }}">View</button>
-              <input type="hidden" name="clubname" value="{{club.name}}"/>
-              </form>
-
-              <form action = "/editclub">
-              <button type = "submit" class = "btn btn-primary edit_club"
-              data-clubname = "{{ club.name }}">Edit</button>
-              <input type="hidden" name="clubname" value="{{club.name}}"/>
-              </form>
-
-              <button type = "button" class = "btn btn-primary delete_club"
-              data-clubid = "{{ club.clubid }}">Delete</button>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-
-      </div>
-    </div>
-  </section>
-
-  <script>
-    $(document).ready(function () {
-
-      function handleResponse(response) {
-        console.log("Response");
-        $("body").html(response);
-      }
-
-      $(".delete_club").click(function () {
-        var clubid = $(this).data('clubid');
-        url = "/delete_club?clubid=" + encodeURIComponent(clubid)
-        $.ajax({
-          url: url,
-          method: "GET",
-          success: function(){
-                        location.reload();
-                    }
-        });
-      });
-    });
-  </script>
-
-
-
-
-  <!-- Footer-->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Tiger Clubs. Created by Anthony Guerra, Camila Vasquez,
-        Eesha Agarwal, Nadia Rodriguez and Natalie Reptak.</p>
-    </div>
-  </footer>
-  <!-- Bootstrap core JS-->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Core theme JS-->
-  <script src="js/scripts.js"></script>
-</body>
-
-</html>

@@ -1,8 +1,9 @@
-html, body {
-    height: 100%;
+html,
+body {
+  height: 100%;
 }
 
-.container{
+.container {
   width: 100%;
   height: 100%;
   display: flex;
@@ -13,18 +14,18 @@ html, body {
 }
 
 .flex {
-    display: flex;
-    justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .flex-item + .flex-item {
-    margin-left: 10px;
-  }
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-  header {
-    padding: 30px;
-    text-align: center;
-    font-size: 35px;
-  }
+.flex-item + .flex-item {
+  margin-left: 10px;
+}
+
+header {
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+}

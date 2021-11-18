@@ -86,6 +86,9 @@ def add_tag_db(tagname):
 
 # for admin students tab
 def add_student(netid, name, res_college, year, major, bio = "", admin = False):
+    # what should we do if we delete student and then we want to repopulate 
+    # our users, probably keep list of users we deleted so we can make
+    # sure we don't recreate them
     if (get_student_info(netid) != None):
         print(netid, " already exists")
         return

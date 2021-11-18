@@ -85,7 +85,10 @@ def add_tag_db(tagname):
     db.session.commit()
 
 # for admin students tab
-def add_student(netid, name, res_college, year, major, bio, admin = False):
+def add_student(netid, name, res_college, year, major, bio = "", admin = False):
+    if (get_student_info(netid) != None):
+        print(netid, " already exists")
+        return
     student = Student(netid, name, res_college, year, major, bio, admin)
     db.session.add(student)
     db.session.commit()

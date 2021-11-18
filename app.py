@@ -272,9 +272,7 @@ def myratings():
     try:
         netid = _cas.authenticate()
         netid = netid.rstrip()
-        print(netid)
         student = get_student_info(netid=netid)
-        print(student)
         name = student.name
         clubs = student.clubs
         ratings = get_student_ratings(netid)
@@ -309,7 +307,6 @@ def removingvote():
     try:
         if request.method == 'POST':
             reviewid = request.form['reviewid']
-            print(reviewid)
             delete_rating(reviewid)
             msg = 'success'
         else:
@@ -418,13 +415,10 @@ def adminstudents():
 
     if not studentname:
         studentname = ""
-    
-    print(studentname)
 
     name = user.name
     students_list = student_search(studentname)
 
-    print(students_list)
     
     if not students_list:
         html = render_template("adminstudents.html", netid=netid, name = name, studentname=studentname, hasClubs= True, hasStudents = False)
@@ -449,8 +443,7 @@ def editclub():
     if clubname is None:
         clubname = ""
     
-    print("clubnameeeeeeeeeeee", clubname)
-    print(clubname)
+    print("clubname:", clubname)
     club = get_club_info(clubname)
 
     html = render_template("editclubs.html",

@@ -52,34 +52,30 @@
                             <button type="submit" class="btn text-black rounded" style = "background-color: #e8804c;">search</button>
                             <br>
                             <br>
-                        </form>
-                    </div>
-                    <br>
-                    <h4>Choose a Rank then filter by Tags:</h4>
-                    <div class="col-lg-4 col-xxl-4">
-                        <form class="form-floating" action="/landing" style = "width: 14rem;">
-                            <select class="form-select" name="sort_club" aria-label="Floating label select example"
-                            >
-                                <option value="combined">Overall</option>
-                                <option value="diversity">Diversity</option>
-                                <option value="inclusivity">Inclusivity</option>
-                                <option value="time_commitment">Time Commitment</option>
-                                <option value="workload">Workload</option>
-                                <option value="experience_requirement">Experieince Required</option>
-                                <option value="alphabetical">Club Name</option>
-                            </select>
-                            <label for="floatingSelect">Rank clubs by</label>
-                            <br>
-                            <select id="tags" name = "tags" class = "form-control" placeholder="Filter by tags" multiple>
-                                {% for tag in tags: %}
-                                <option value = "{{tag}}">{{tag}}</option>
-                                {% endfor %}
-                            </select>
-                            <input type="submit" value="Apply">
-                        </form>
-                </div>
-
-                    <br>                    
+                        </div>
+                            <div class="col-lg-4 col-xxl-4">
+                                <div class="form-floating" style = "width: 14rem;">
+                                    <select class="form-select" id="sort_club" aria-label="Floating label select example"
+                                    data-select = "{{ sort_by }}">
+                                        <option value = "lalala">{{ sort_by }}</option>
+                                        <option value="combined">Overall</option>
+                                        <option value="diversity">Diversity</option>
+                                        <option value="inclusivity">Inclusivity</option>
+                                        <option value="time_commitment">Time Commitment</option>
+                                        <option value="workload">Workload</option>
+                                        <option value="experience_requirement">Experieince Required</option>
+                                        <option value="alphabetical">Club Name</option>
+                                    </select>
+                                    <label for="floatingSelect">Rank clubs by</label>
+                                    <select id="tags" name = "tags" class = "form-control" placeholder="Filter by tags" multiple>
+                                        {% for tag in tags: %}
+                                        <option value = "{{tag}}">{{tag}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <input type="submit" value="Apply">
+                                </div>
+                        </div>
+                        </form>     
                     <br>
                     <!-- <form class="form-floating mb-3" action="/landing?netid={{netid}}&studentname={{studentname}}"
                       method="get">
@@ -171,14 +167,16 @@
     </script>
         <script>
             $(document).ready(function(){
-            
-              var multipleCancelButton = new Choices('#tags' , {
-              removeItemButton: true,
-              maxItemCount:5,
-              searchResultLimit:5,
-              renderChoiceLimit:5
-              });
-              });
+                var multipleCancelButton = new Choices('#tags' , {
+                    removeItemButton: true,
+                    maxItemCount:5,
+                    searchResultLimit:5,
+                    renderChoiceLimit:5
+                });
+
+                var sort_by = $("#sort_club").data('select')
+                $("#sort_club").val(sort_by)
+            });
             </script>
 </body>
 

@@ -26,15 +26,15 @@ def get_all_tagnames():
 
 # get list of all Club objects whose name or tags
 # match search query
-def club_search(search):
-    search_query = '%' + search + '%'
-    clubs = Club.query.filter((Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query)))).all()
-    return clubs
+# def club_search(search):
+#     search_query = search + '%'
+#     clubs = Club.query.filter((Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query)))).all()
+#     return clubs
 
 # get a list of all Student objects whose name, netid, 
 # res college, or year matches search query
 def student_search(search):
-    search_query = "%" + search + "%"
+    search_query = '%' + search + "%"
     students = Student.query.filter(
         (Student.name.ilike(search_query)) |
         (Student.netid.ilike(search_query)) |

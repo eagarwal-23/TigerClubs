@@ -112,6 +112,8 @@ def landing():
     sort_criteria = request.args.get('sort_club')
     if not sort_criteria:
         sort_criteria = 'combined'
+    else:
+        print(sort_criteria)
     
     clubname = request.args.get("clubname")
     studentname = request.args.get("studentname")
@@ -134,16 +136,16 @@ def landing():
     print(clubs)
     print(students_list)
     if not clubs and not students_list:
-        html = render_template("landing.html", netid=netid, name = name, hasClubs= False, hasStudents = False, tags = tags)
+        html = render_template("landing.html", netid=netid, name = name, hasClubs= False, hasStudents = False, tags = tags, sort_by = sort_criteria)
         print("if not clubs and not students_list:")
     elif not clubs:
-        html = render_template("landing.html", netid=netid, name = name, hasClubs= False, hasStudents = True,students = students_list, tags = tags)
+        html = render_template("landing.html", netid=netid, name = name, hasClubs= False, hasStudents = True,students = students_list, tags = tags, sort_by = sort_criteria)
         print("elif not clubs:")
     elif not students_list:
-        html = render_template("landing.html", netid=netid, name = name, clubs = clubs, studentname=studentname, clubname = clubname, hasClubs= True, hasStudents = False, tags = tags)
+        html = render_template("landing.html", netid=netid, name = name, clubs = clubs, studentname=studentname, clubname = clubname, hasClubs= True, hasStudents = False, tags = tags, sort_by = sort_criteria)
         print("elif not students_list:")
     else:
-        html = render_template("landing.html", netid=netid, name = name, hasClubs = True, hasStudents = True, clubs = clubs, clubname = clubname, studentname=studentname, students = students_list, tags = tags)
+        html = render_template("landing.html", netid=netid, name = name, hasClubs = True, hasStudents = True, clubs = clubs, clubname = clubname, studentname=studentname, students = students_list, tags = tags, sort_by = sort_criteria)
         print("else")
         print(clubname)
     response = make_response(html)

@@ -203,6 +203,9 @@ def profile():
             student = get_student_info(netid)
             diffperson = netid
         
+        isAdmin = 0
+        if student.admin:
+            isAdmin = 1
 
         name = student.name
         classyear = student.year
@@ -213,7 +216,7 @@ def profile():
 
         html = render_template("profile.html", student = student,  name=name, netid= netid,
         classyear=classyear, major=major, clubs=clubs,
-        bio=bio, interests=interests, diffperson = diffperson)
+        bio=bio, interests=interests, diffperson = diffperson, isAdmin = isAdmin)
 
         response = make_response(html)
         return response
@@ -241,6 +244,11 @@ def editprofile():
     netid = _cas.authenticate()
     netid = netid.rstrip()
     student = get_student_info(netid)
+
+    isAdmin = 0
+    if student.admin:
+        isAdmin = 1
+    
     name = student.name
     classyear = student.year
     major = student.major
@@ -250,7 +258,7 @@ def editprofile():
     try:
         html = render_template("editprofile.html", name=name, netid=netid, student = student, clubs = clubs, tags = tags,
         classyear=classyear, major=major,
-        bio=bio)
+        bio=bio, isAdmin = isAdmin)
         response = make_response(html)
         return response
     except Exception:
@@ -260,6 +268,14 @@ def editprofile():
 @app.route("/clubpage", methods=["GET"])
 def clubpage():
     try:
+        netid = _cas.authenticate()
+        netid = netid.rstrip()
+        student = get_student_info(netid)
+
+        isAdmin = 0
+        if student.admin:
+            isAdmin = 1
+        
         clubname = request.args.get("clubname")
         club = get_club_info(clubname)
 
@@ -271,7 +287,8 @@ def clubpage():
                                     inclusivity = club.inclusivity,
                                     time_commitment = club.time_commitment,
                                     workload = club.workload,
-                                    experience_requirement = club.experience_requirement)
+                                    experience_requirement = club.experience_requirement,
+                                    isAdmin = isAdmin)
         response = make_response(html)
         return response
 
@@ -284,10 +301,15 @@ def myratings():
         netid = _cas.authenticate()
         netid = netid.rstrip()
         student = get_student_info(netid=netid)
+
+        isAdmin = 0
+        if student.admin:
+            isAdmin = 1
+        
         name = student.name
         clubs = student.clubs
         ratings = get_student_ratings(netid)
-        html = render_template("ratings_from_student.html", name = name, review = ratings, clubs = clubs)
+        html = render_template("ratings_from_student.html", name = name, review = ratings, clubs = clubs, isAdmin = isAdmin)
         response = make_response(html)
         return response
     except Exception as e:
@@ -539,6 +561,12 @@ def file_report():
 def submitted_request():
     netid = _cas.authenticate()
     netid = netid.rstrip()
+
+    # student = get_student_info(netid)
+    # isAdmin = 0
+    #if student.admin:
+    #    isAdmin = 1
+
     request_reason = request.args.get("reason")
     about_user = request.args.get("reporteduser")
     club = request.args.get("clubname")

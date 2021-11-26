@@ -103,9 +103,8 @@ def landingwhoareyou():
 @app.route("/landing", methods=["GET"])
 def landing():
 
-    # netid = _cas.authenticate()
-    # netid = netid.rstrip()
-    netid = "camilanv"
+    netid = _cas.authenticate()
+    netid = netid.rstrip()
 
 
     filter_tags = request.args.getlist("tags")
@@ -196,9 +195,9 @@ def profile():
         print('we made it to profile')
         diffperson = request.args.get("diffperson")
         print("no diff person")
-        # netid = _cas.authenticate()
-        # netid = netid.rstrip()
-        netid = "camilanv"
+        netid = _cas.authenticate()
+        netid = netid.rstrip()
+
         print("net id found?")
         if diffperson:
             student = get_student_info(diffperson)
@@ -231,9 +230,8 @@ def profile():
 def edited_profile():
 
     try:
-        # netid = _cas.authenticate()
-        # netid = netid.rstrip()
-        netid = "camilanv"
+        netid = _cas.authenticate()
+        netid = netid.rstrip()
         bio = request.args.get("bio")
         clubs = request.args.getlist("clubs")
         tags = request.args.getlist("tags")
@@ -245,9 +243,9 @@ def edited_profile():
 # rendering edit profile page from the profile page
 @app.route("/editprofile", methods=["GET"])
 def editprofile():
-    # netid = _cas.authenticate()
-    # netid = netid.rstrip()
-    netid = "camilanv"
+    netid = _cas.authenticate()
+    netid = netid.rstrip()
+    
     student = get_student_info(netid)
 
     isAdmin = 0
@@ -273,9 +271,9 @@ def editprofile():
 @app.route("/clubpage", methods=["GET"])
 def clubpage():
     try:
-        # netid = _cas.authenticate()
-        # netid = netid.rstrip()
-        netid = "camilanv"
+        netid = _cas.authenticate()
+        netid = netid.rstrip()
+       
         student = get_student_info(netid)
 
         isAdmin = 0
@@ -304,9 +302,9 @@ def clubpage():
 @app.route("/myratings", methods = ["POST", "GET"])
 def myratings():
     try:
-        # netid = _cas.authenticate()
-        # netid = netid.rstrip()
-        netid = "camilanv"
+        netid = _cas.authenticate()
+        netid = netid.rstrip()
+       
         student = get_student_info(netid=netid)
 
         isAdmin = 0

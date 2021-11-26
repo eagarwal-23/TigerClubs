@@ -103,8 +103,9 @@ def landingwhoareyou():
 @app.route("/landing", methods=["GET"])
 def landing():
 
-    netid = _cas.authenticate()
-    netid = netid.rstrip()
+    # netid = _cas.authenticate()
+    # netid = netid.rstrip()
+    netid = "camilanv"
 
 
     filter_tags = request.args.getlist("tags")
@@ -141,16 +142,16 @@ def landing():
     print(clubs)
     print(students_list)
     if not clubs and not students_list:
-        html = render_template("landing.html", netid=netid, name = name, hasClubs= False, hasStudents = False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
+        html = render_template("mylanding.html", netid=netid, name = name, hasClubs= False, hasStudents = False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
         print("if not clubs and not students_list:")
     elif not clubs:
-        html = render_template("landing.html", netid=netid, name = name, hasClubs= False, hasStudents = True,students = students_list, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
+        html = render_template("mylanding.html", netid=netid, name = name, hasClubs= False, hasStudents = True,students = students_list, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
         print("elif not clubs:")
     elif not students_list:
-        html = render_template("landing.html", netid=netid, name = name, clubs = clubs, studentname=studentname, clubname = clubname, hasClubs= True, hasStudents = False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
+        html = render_template("mylanding.html", netid=netid, name = name, clubs = clubs, studentname=studentname, clubname = clubname, hasClubs= True, hasStudents = False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
         print("elif not students_list:")
     else:
-        html = render_template("landing.html", netid=netid, name = name, hasClubs = True, hasStudents = True, clubs = clubs, clubname = clubname, studentname=studentname, students = students_list, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
+        html = render_template("mylanding.html", netid=netid, name = name, hasClubs = True, hasStudents = True, clubs = clubs, clubname = clubname, studentname=studentname, students = students_list, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
         print("else")
         print(clubname)
     response = make_response(html)
@@ -159,8 +160,9 @@ def landing():
 @app.route("/studentsearch", methods=["GET"])
 def studentsearch():
 
-    netid = _cas.authenticate()
-    netid = netid.rstrip()
+    # netid = _cas.authenticate()
+    # netid = netid.rstrip()
+    netid = "camilanv"
     studentname = request.args.get("studentname")
 
     if not studentname:
@@ -194,8 +196,9 @@ def profile():
         print('we made it to profile')
         diffperson = request.args.get("diffperson")
         print("no diff person")
-        netid = _cas.authenticate()
-        netid = netid.rstrip()
+        # netid = _cas.authenticate()
+        # netid = netid.rstrip()
+        netid = "camilanv"
         print("net id found?")
         if diffperson:
             student = get_student_info(diffperson)
@@ -228,8 +231,9 @@ def profile():
 def edited_profile():
 
     try:
-        netid = _cas.authenticate()
-        netid = netid.rstrip()
+        # netid = _cas.authenticate()
+        # netid = netid.rstrip()
+        netid = "camilanv"
         bio = request.args.get("bio")
         clubs = request.args.getlist("clubs")
         tags = request.args.getlist("tags")
@@ -241,8 +245,9 @@ def edited_profile():
 # rendering edit profile page from the profile page
 @app.route("/editprofile", methods=["GET"])
 def editprofile():
-    netid = _cas.authenticate()
-    netid = netid.rstrip()
+    # netid = _cas.authenticate()
+    # netid = netid.rstrip()
+    netid = "camilanv"
     student = get_student_info(netid)
 
     isAdmin = 0
@@ -268,8 +273,9 @@ def editprofile():
 @app.route("/clubpage", methods=["GET"])
 def clubpage():
     try:
-        netid = _cas.authenticate()
-        netid = netid.rstrip()
+        # netid = _cas.authenticate()
+        # netid = netid.rstrip()
+        netid = "camilanv"
         student = get_student_info(netid)
 
         isAdmin = 0
@@ -298,8 +304,9 @@ def clubpage():
 @app.route("/myratings", methods = ["POST", "GET"])
 def myratings():
     try:
-        netid = _cas.authenticate()
-        netid = netid.rstrip()
+        # netid = _cas.authenticate()
+        # netid = netid.rstrip()
+        netid = "camilanv"
         student = get_student_info(netid=netid)
 
         isAdmin = 0
@@ -309,7 +316,7 @@ def myratings():
         name = student.name
         clubs = student.clubs
         ratings = get_student_ratings(netid)
-        html = render_template("ratings_from_student.html", name = name, review = ratings, clubs = clubs, isAdmin = isAdmin)
+        html = render_template("myratings.html", name = name, review = ratings, clubs = clubs, isAdmin = isAdmin)
         response = make_response(html)
         return response
     except Exception as e:

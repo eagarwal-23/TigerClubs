@@ -1,29 +1,55 @@
-    <!-- Responsive navbar-->
-    <div class="menu-bar">
-        <nav class="navbar navbar-expand-lg navbar-dark" style = "background-color: #e8804c;">
-            <div class="container px-lg-5">
-                <a class="navbar-brand" href="/landing">TigerClubs</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                          <li class="nav-item">
-                            <a class="nav-link" href="/studentsearch"> Students</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="/myratings">My Ratings</a>
-                          </li>
-                          <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Account</a>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="/profile">View Profile</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="/logout">Logout</a>
-                              <div class ="dropdown-divider"></div>
-                              <a class="dropdown-item" href="/report">Report a User or Club:</a>
-                            </div>
-                          </li>
-                    </ul>
-                </div>
+<!-- Responsive navbar-->
+<div class="menu-bar">
+  <nav
+    class="navbar navbar-expand-lg navbar-dark"
+    style="background-color: #e8804c; position: fixed; top: 0; width: 100%;  z-index:1;"
+  >
+    <div class="container px-lg-5">
+      <a class="navbar-brand" href="/landing">TigerClubs</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          {%if isAdmin: %}
+          <li class="nav-item">
+            <a class="nav-link" href="/adminlanding">Admin Portal</a>
+          </li>
+          {%endif%}
+          <li class="nav-item">
+            <a class="nav-link" href="/studentsearch"> Students</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/myratings">My Ratings</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              data-toggle="dropdown"
+              href="#"
+              role="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              >My Account</a
+            >
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="/profile">View Profile</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/report">Reports and Requests</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/logout">Logout</a>
             </div>
-        </nav>
+          </li>
+        </ul>
+      </div>
     </div>
+  </nav>
+</div>

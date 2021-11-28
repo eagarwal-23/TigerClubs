@@ -29,38 +29,48 @@
 </head>
 
 
-<body style = "background-color: rgb(255, 237, 215);">
+<body style = "background-color: white">
     {% include "navbar.html" %}
 
-        <div class="container px-lg-5 py-5">
-        <div class="p-4 p-lg-5 jumbotron jumbotron-fluid bg-light text-center text-black">
-            <div class="container introheader">
-                <h3> <strong>{{name}}, rank your clubs !</strong></h3>
-                <br>
-                <p class="lead">Here, you can see how you previously rated your clubs based diversity, inclusivity, time commitment,
-                    workload, and experience required.</p>
-                <br>
-                <hr class="my-4">
-
-                <p class="lead">
-                    <div class="container">
-                        <div class="row">
-                          <div class="col text-center">
-                            <button type="button" data-toggle="modal" class="ratebtn btn btn-secondary btn-lg btn-block" data-target="#add-club-rating">Rate club </button>
-                        </div>
-                        </div>
-                      </div>
-                  </p>
-            </div>            
-
+     <style>
+        .parallax {
+          /* The image used */
+          background-image: url("/static/darkprinceton.jpeg");
+        
+          /* Set a specific height */
+          min-height: 200px;
+        
+          /* Create the parallax scrolling effect */
+          background-attachment: fixed;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+        </style>
+        
+        <!-- Container element -->
+    <div class="parallax" style = "padding-top: 5rem; padding-bottom: 2rem;">
+        <div class = "container bg-dark" style = "height: 16rem;">
+            <div class="text-center pt-5 pb-2" style = "color: white">
+                <h3> <strong>Rank your clubs !</strong></h3>
+                <p class="lead">Here, you can see how you previously rated your clubs.</p>
+            </div>
+            <div class="container text-center" >
+                <div class = "row mx-auto">
+                <div class = "col mx-auto">
+                    <button type="button" data-toggle="modal" class="ratebtn btn-light btn-lg btn-block" data-target="#add-club-rating">Rate club </button>
+                </div>
+            </div>
+            </div>
+        
         </div>
     </div>
 
-    <div class="container md">
+    <div class="container md py-5">
         <!-- prints all reviews a student has left for their clubs -->
-        <div class="flex row">
+        <div class="flex row mx-auto">
                 {%for r in review: %}
-                <div class="flex-item clubcard card" href="/clubpage?clubname={{review.clubname}}" style="width: 24rem;">
+                <div class="flex-item clubcard card bg-light" href="/clubpage?clubname={{review.clubname}}" style="width: 24rem;">
                     <header class="card-header">{{r.club[0]}}
                         <button class="btn btn-outline-danger btn-sm rounded-0 float-right" type="button" id="deleterating" title="Delete" value="{{r.reviewid}}">
                             <i class="fa fa-trash"></i>

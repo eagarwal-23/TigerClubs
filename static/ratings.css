@@ -1,48 +1,50 @@
 header {
-    padding: 10px;
-    text-align: center;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 20px;
+  padding: 10px;
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 20px;
 }
 #card {
-    background-color:black;
+  background-color: black;
 }
-.flex{
-    margin-top: 0%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+.flex {
+  margin-top: 0%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
-.flex-item{
-    text-align: center;
-    margin: 20px;
-    margin-bottom: 35px;
+.flex-item {
+  text-align: center;
+  margin: 20px;
+  margin-bottom: 35px;
 }
-.introheader{
-    padding-bottom: 0px;
+.introheader {
+  padding-bottom: 0px;
 }
-.ratebtn{
-    text-align: center;
-    padding-left: 20px;
+.ratebtn {
+  text-align: center;
+  padding-left: 20px;
 }
-.stars{
-    text-align: center;
-    margin-bottom: 10px;
+.stars {
+  text-align: center;
+  margin-bottom: 10px;
 }
-.modalfonts{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+.modalfonts {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-.ratelabel{
-    padding: 10px;
+.ratelabel {
+  padding: 10px;
 }
-.fa-star,.fa-star-o,.fa-star-half-o{
-    display:inline-block;
-    color:#FDC91B;
-    font-size:25px !important;
+.fa-star,
+.fa-star-o,
+.fa-star-half-o {
+  display: inline-block;
+  color: #fdc91b;
+  font-size: 25px !important;
 }
-#inlinereview{
-    display:inline-block;
+#inlinereview {
+  display: inline-block;
 }
 .fa-trash-o {
-    color:lightcoral;
+  color: lightcoral;
 }

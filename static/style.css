@@ -1,28 +1,3 @@
-/* *{
-    margin: 0px;
-    padding: 0x;
-} */
-
-/* .menu-bar{
-    background-color: #FFBD81;
-}
-
-.navbar-brand{
-    font-family: Merriweather; 
-    padding-left: 1%;
-}
-
-.navcam{
-    font-weight:500;
-    color: black;
-    font-family: Merriweather; 
-    font-size: 110%;
-}
-
-.tag-buttons{
-    background-color: red;
-} */
-
 .tag {
     display: inline-block;
     padding-right: 0.25rem;

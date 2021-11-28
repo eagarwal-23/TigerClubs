@@ -188,7 +188,7 @@ def studentsearch():
     response = make_response(html)
     return response
 
-@app.route("/profile-test", methods=["GET"])
+@app.route("/profile", methods=["GET"])
 def profile():
    
     try:
@@ -216,7 +216,7 @@ def profile():
         bio = student.bio
         interests = student.tags
 
-        html = render_template("profile-test.html", student = student,  name=name, netid= netid,
+        html = render_template("profile.html", student = student,  name=name, netid= netid,
         classyear=classyear, major=major, clubs=clubs,
         bio=bio, interests=interests, diffperson = diffperson, isAdmin = isAdmin)
 

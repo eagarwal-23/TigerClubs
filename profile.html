@@ -101,13 +101,13 @@
 
                     <div class>
                       <label for="message-text" class="col-form-label">Choose interests:</label>
-
-                      <select id="tags" name="tags" class="form-control" placeholder="Select up to 5 interests"
-                        multiple>
-                        {% for tag in tags: %}
-                        <option value="{{tag}}">{{tag}}</option>
-                        {% endfor %}
-                      </select>
+                      <div class="col-md-6">
+                        <select id="tags" name="tags" class="form-control" placeholder="Select up to 5 tags" multiple>
+                          {% for tag in tags: %}
+                          <option value="{{tag}}">{{tag}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
                     </div>
                   </form>
                 </div>

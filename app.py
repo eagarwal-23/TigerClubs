@@ -218,7 +218,7 @@ def profile():
         tags = get_all_tags()
 
         html = render_template("profile.html", student = student,  name=name, netid= netid,
-        classyear=classyear, major=major, clubs=clubs, tags=tags
+        classyear=classyear, major=major, clubs=clubs, tags=tags,
         bio=bio, interests=interests, diffperson = diffperson, isAdmin = isAdmin)
 
         response = make_response(html)

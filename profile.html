@@ -1,224 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
-<div class="container">
-  <div class="row my-2">
-    <div class="col-lg-8 order-lg-2">
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
-        </li>
-        <li class="nav-item">
-          <a href="" data-target="#messages" data-toggle="tab" class="nav-link">Messages</a>
-        </li>
-        <li class="nav-item">
-          <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Edit</a>
-        </li>
-      </ul>
-      <div class="tab-content py-4">
-        <div class="tab-pane active" id="profile">
-          <h5 class="mb-3">User Profile</h5>
-          <div class="row">
-            <div class="col-md-6">
-              <h6>About</h6>
-              <p>
-                Web Designer, UI/UX Engineer
-              </p>
-              <h6>Hobbies</h6>
-              <p>
-                Indie music, skiing and hiking. I love the great outdoors.
-              </p>
-            </div>
-            <div class="col-md-6">
-              <h6>Recent badges</h6>
-              <a href="#" class="badge badge-dark badge-pill">html5</a>
-              <a href="#" class="badge badge-dark badge-pill">react</a>
-              <a href="#" class="badge badge-dark badge-pill">codeply</a>
-              <a href="#" class="badge badge-dark badge-pill">angularjs</a>
-              <a href="#" class="badge badge-dark badge-pill">css3</a>
-              <a href="#" class="badge badge-dark badge-pill">jquery</a>
-              <a href="#" class="badge badge-dark badge-pill">bootstrap</a>
-              <a href="#" class="badge badge-dark badge-pill">responsive-design</a>
-              <hr>
-              <span class="badge badge-primary"><i class="fa fa-user"></i> 900 Followers</span>
-              <span class="badge badge-success"><i class="fa fa-cog"></i> 43 Forks</span>
-              <span class="badge badge-danger"><i class="fa fa-eye"></i> 245 Views</span>
-            </div>
-            <div class="col-md-12">
-              <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span> Recent Activity</h5>
-              <table class="table table-sm table-hover table-striped">
-                <tbody>
-                  <tr>
-                    <td>
-                      <strong>Abby</strong> joined ACME Project Team in <strong>`Collaboration`</strong>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>Gary</strong> deleted My Board1 in <strong>`Discussions`</strong>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>Kensington</strong> deleted MyBoard3 in <strong>`Discussions`</strong>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>John</strong> deleted My Board1 in <strong>`Discussions`</strong>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>Skell</strong> deleted his post Look at Why this is.. in <strong>`Discussions`</strong>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <!--/row-->
+
+<head>
+  <link rel="shortcut icon" href="static/tigerclubsicon.ico" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>Profile Page</title>
+  <!-- Favicon-->
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Favicon-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+  <!--ours-->
+  <link href="static/styles.css" rel="stylesheet" />
+</head>
+
+<!-- style = "background-color: rgb(255, 237, 215);"-->
+
+<body>
+  {% include "navbar.html" %}
+  <style>
+    .parallax {
+      /* The image used */
+      background-image: url("/static/darkprinceton.jpeg");
+
+      /* Set a specific height */
+      min-height: 200px;
+
+      /* Create the parallax scrolling effect */
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  </style>
+  <!-- Header - set the background image for the header in the line below-->
+  <div class="parallax" style="padding-top: 5rem; padding-bottom: 2rem;">
+    <div class="row mx-auto py-5">
+      <div class="col-5 mx-auto">
+        <div class="container mx-auto p-4 bg-light rounded-3 text-center">
+          <img class="img-fluid rounded-circle mb-4" src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg" alt="..." />
+          <h1 class="text-black fs-3 fw-bolder">{{student.name}}</h1>
+          <h2 class="text-black fs-4">{{major}} {{classyear}}</h2>
+          <a class="text-black-50 mb-0"
+            href="https://mail.google.com/mail/?view=cm&fs=1&to={{student.netid}}@princeton.edu&body=Sent%20From%20Tigerclubs"
+            target="_blank">
+            {{student.netid}}@princeton.edu
+          </a>
+          {%if diffperson == netid%}
+          <br>
+          <br>
+          <a class="btn btn-sm" style="background-color: #e8804c; " href="/editprofile">Edit Profile</a>
+          {%endif%}
         </div>
-        <div class="tab-pane" id="messages">
-          <div class="alert alert-info alert-dismissable">
-            <a class="panel-close close" data-dismiss="alert">×</a> This is an <strong>.alert</strong>. Use this to show
-            important messages to the user.
+      </div>
+
+      <div class="col-5 mr-auto">
+        <div class="card mx-auto bg-light pl-4" style="margin-top: 2rem;">
+          <div class="card-body">
+            <div class="row py-3 align-items-center">
+              <h4 class="mb-0">Bio</h4>
+            </div>
+            <div class="row">
+              <div class="col-sm-9 text-secondary">
+                {{bio}}
+              </div>
+            </div>
+            <hr>
+            <div class="row py-3 align-items-center">
+              <h4 class="mb-0">Interests</h4>
+            </div>
+            <div class="row">
+              <div class="col-sm-9 text-secondary">
+                {%for interest in interests: %}
+                <div class="tag2">
+                  <div class="badge text-white bg-dark">{{interest}}</div>
+                </div>
+                <style>
+                  .tag2 {
+                    display: inline-block;
+                    padding-right: 0.25rem;
+                    padding-left: 0.25rem;
+                  }
+                </style>
+                {% endfor %}
+              </div>
+            </div>
+            <hr>
           </div>
-          <table class="table table-hover table-striped">
-            <tbody>
-              <tr>
-                <td>
-                  <span class="float-right font-weight-bold">3 hrs ago</span> Here is your a link to the latest summary
-                  report from the..
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span class="float-right font-weight-bold">Yesterday</span> There has been a request on your account
-                  since that was..
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span class="float-right font-weight-bold">9/10</span> Porttitor vitae ultrices quis, dapibus id
-                  dolor. Morbi venenatis lacinia rhoncus.
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span class="float-right font-weight-bold">9/4</span> Vestibulum tincidunt ullamcorper eros eget
-                  luctus.
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span class="float-right font-weight-bold">9/4</span> Maxamillion ais the fix for tibulum tincidunt
-                  ullamcorper eros.
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="tab-pane" id="edit">
-          <form role="form">
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label form-control-label">First name</label>
-              <div class="col-lg-9">
-                <input class="form-control" type="text" value="Jane">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label form-control-label">Last name</label>
-              <div class="col-lg-9">
-                <input class="form-control" type="text" value="Bishop">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label form-control-label">Email</label>
-              <div class="col-lg-9">
-                <input class="form-control" type="email" value="email@gmail.com">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label form-control-label">Company</label>
-              <div class="col-lg-9">
-                <input class="form-control" type="text" value="">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label form-control-label">Website</label>
-              <div class="col-lg-9">
-                <input class="form-control" type="url" value="">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label form-control-label">Address</label>
-              <div class="col-lg-9">
-                <input class="form-control" type="text" value="" placeholder="Street">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label form-control-label"></label>
-              <div class="col-lg-6">
-                <input class="form-control" type="text" value="" placeholder="City">
-              </div>
-              <div class="col-lg-3">
-                <input class="form-control" type="text" value="" placeholder="State">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label form-control-label">Time Zone</label>
-              <div class="col-lg-9">
-                <select id="user_time_zone" class="form-control" size="0">
-                  <option value="Hawaii">(GMT-10:00) Hawaii</option>
-                  <option value="Alaska">(GMT-09:00) Alaska</option>
-                  <option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>
-                  <option value="Arizona">(GMT-07:00) Arizona</option>
-                  <option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>
-                  <option value="Central Time (US &amp; Canada)" selected="selected">(GMT-06:00) Central Time (US &amp;
-                    Canada)</option>
-                  <option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>
-                  <option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label form-control-label">Username</label>
-              <div class="col-lg-9">
-                <input class="form-control" type="text" value="janeuser">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label form-control-label">Password</label>
-              <div class="col-lg-9">
-                <input class="form-control" type="password" value="11111122333">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label form-control-label">Confirm password</label>
-              <div class="col-lg-9">
-                <input class="form-control" type="password" value="11111122333">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label form-control-label"></label>
-              <div class="col-lg-9">
-                <input type="reset" class="btn btn-secondary" value="Cancel">
-                <input type="button" class="btn btn-primary" value="Save Changes">
-              </div>
-            </div>
-          </form>
         </div>
       </div>
     </div>
-    <div class="col-lg-4 order-lg-1 text-center">
-      <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
-      <h6 class="mt-2">Upload a different photo</h6>
-      <label class="custom-file">
-        <input type="file" id="file" class="custom-file-input">
-        <span class="custom-file-control">Choose file</span>
-      </label>
-    </div>
   </div>
-</div>
+  <!-- Content section-->
+  <section class="py-5" style="align-content: center;">
+    <div class="container-fluid">
+      <!-- Page Features-->
+      <div class="row mx-auto gx-lg-5">
+        <div class="col mx-auto gx-lg-5">
+          <div class="row mx-auto" style="width: 100%;">
+            {%for club in clubs: %}
+            <div class="card card-1 mx-auto" style="width: 38rem; background-color: white; margin: 15px; margin-top:0">
+              <div class="card-body">
+                <h5 class="card-title" style="color: #e8804c;">{{club}}
+                  {% set unselected = 5 - (club.combined|int)%}
+                  <div id="inlinereview">
+                    {% for i in range(club.combined|int) %}
+                    <i aria-hidden="true" class="fa fa-star"></i>
+                    {% endfor %}
+                    {% for i in range(unselected) %}
+                    <i aria-hidden="true" class="fa fa-star-o"></i>
+                    {% endfor %}
+                  </div>
+                </h5>
+
+                <style>
+                  .fa-star,
+                  .fa-star-o,
+                  .fa-star-half-o {
+                    display: inline-block;
+                    color: #FDC91B;
+                    font-size: 25px !important;
+                  }
+
+                  #inlinereview {
+                    display: inline-block;
+                  }
+                </style>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">Description: {{club.description}} Long yada
+                  yaday ydaa</h6>
+
+
+                {%for tag in club.tags: %}
+                <div class="tag">
+                  <div class="badge text-white" style="background-color: #e8804c;">{{tag}}</div>
+                </div>
+                <style>
+                  .tag {
+                    display: inline-block;
+                    font-size: small;
+                    padding-right: 0.25rem;
+                  }
+                </style>
+                {% endfor %}
+
+
+                <a href="/clubpage?clubname={{club}}" class="card-link stretched-link"></a>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <style>
+            .card-1:hover {
+              box-shadow: 1px 8px 15px grey;
+              -webkit-transition: box-shadow 0.05s ease-in;
+            }
+          </style>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!-- Footer-->
+  {% include "footer.html" %}
+  <!-- Bootstrap core JS-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Core theme JS-->
+  <script src="js/scripts.js"></script>
+</body>
 
 </html>
+
+
+<!-- I called this newprofile-->

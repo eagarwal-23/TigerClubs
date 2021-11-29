@@ -215,9 +215,10 @@ def profile():
         clubs = student.clubs
         bio = student.bio
         interests = student.tags
+        tags = get_all_tags()
 
         html = render_template("profile.html", student = student,  name=name, netid= netid,
-        classyear=classyear, major=major, clubs=clubs,
+        classyear=classyear, major=major, clubs=clubs, tags=tags
         bio=bio, interests=interests, diffperson = diffperson, isAdmin = isAdmin)
 
         response = make_response(html)

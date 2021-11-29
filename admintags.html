@@ -58,6 +58,9 @@
             </nav>
           </div>
 
+          <button type = "button" class = "btn btn-primary edit_tag"
+                  data-toggle="modal" data-target="#add-tag">Create Tag</button>
+
           <div class="col-6">
             
             {%for tag in tags: %}
@@ -78,6 +81,42 @@
             
             
           </div>
+
+
+
+          <div id="add-tag" class="modal fade" role="dialog" aria-labelledby="addClubRatingLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modalfonts modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addClubRatingLabel">Create Tag</h4>
+                    <button type="button" class="btn-close close" data-dismiss="modal" aria-hidden="true"> </button>
+                </div>
+                <!-- user types in club name to add their rating -->
+                <div class="modal-body">
+                    <!-- CLUB NAME -->
+                <form>
+                    <div class="form-group">
+
+                    <br>
+
+                    <!-- DIVERSITY RATING -->
+                    <p class="ratelabel bg-light">Name:</label>
+                    <input type="text" id="newtag" value=""></input>
+
+                    <br>
+
+                    </div>
+                </form>
+                </div>
+            
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" name="newtagsave_button" data-tagid="" id="newtagsave_button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -154,6 +193,29 @@
                     alert("All Fields are required");  
                 }  
             });  
+
+            $('#newtagsave_button').click(function(){  
+                console.log("that's it..");
+
+                var newtag = $('#newtag').val();
+
+                if (newtagname != '') {  
+
+                        $.ajax({  
+                            url:"/creatingtags",  
+                            method:"POST",  
+                            data: {
+                                newtag:newtag,
+                            },  
+                            success:function(data) {  
+                                location.reload();  
+                            }  
+                        });  
+                }  
+                else {  
+                    alert("All Fields are required");  
+                }  
+            });
             
             $(".delete_tag").click(function(){
                 var tagid = $(this).data("tagid");

@@ -189,12 +189,13 @@ def studentsearch():
     return response
 
 @app.route("/profile", methods=["GET"])
-def profile():
+def profile(diffperson=None):
    
     try:
         print('we made it to profile')
-        diffperson = request.args.get("diffperson")
-        print("no diff person")
+        if diffperson is None:
+            diffperson = request.args.get("diffperson")
+        print("no diff person", diffperson)
         netid = _cas.authenticate()
         netid = netid.rstrip()
 
@@ -233,11 +234,13 @@ def edited_profile():
     try:
         netid = _cas.authenticate()
         netid = netid.rstrip()
+
+        realnetid = request.args.get("netid")
         bio = request.args.get("bio")
         clubs = request.args.getlist("clubs")
         tags = request.args.getlist("tags")
-        update_student_info(netid, bio, clubs, tags)
-        return profile()
+        update_student_info(realnetid, bio, clubs, tags)
+        return profile(diffperson=realnetid)
     except Exception:
         print("whoops profile from edit")
 
@@ -598,3 +601,51 @@ def submitted_request():
         html = render_template("requestsubmitted.html")
     response = make_response(html)
     return response
+
+@app.route("/creatingtags", methods=["POST"])
+def creatingtags():
+    newtag = request.form["newtag"]
+    add_tag_db(newtag)
+    msg = "Added!"
+    return jsonify(msg)
+
+# rendering edit profile page from the profile page
+@app.route("/admineditprofile", methods=["GET"])
+def admineditprofile():
+    adminnetid = _cas.authenticate()
+    adminnetid = adminnetid.rstrip()
+    
+    studentnetid = request.args.get("netid")
+    
+    student = get_student_info(studentnetid)
+    admin = get_student_info(adminnetid)
+
+    isAdmin = 0
+    if admin.admin:
+        isAdmin = 1
+    
+    name = student.name
+    classyear = student.year
+    major = student.major
+    bio = student.bio
+    clubs = get_all_clubs()
+    tags = get_all_tags()
+    try:
+        html = render_template("editprofile.html", name=name, netid=studentnetid, student = student, clubs = clubs, tags = tags,
+        classyear=classyear, major=major,
+        bio=bio, isAdmin = isAdmin)
+        response = make_response(html)
+        return response
+    except Exception:
+        print("whoops from admineditprofile")
+
+@app.route("/blackliststudent", methods=["GET"])
+def blackliststudent():
+    adminnetid = _cas.authenticate()
+    adminnetid = adminnetid.rstrip()
+    
+    studentnetid = request.args.get("netid")
+
+    blacklist_student(studentnetid)
+    msg = "Blacklisted"
+    return jsonify(msg)

@@ -102,6 +102,12 @@
                     <div class="form-group">
                       <label for="message-text" class="col-form-label">Choose interests:</label>
                       <textarea class="form-control" id="edited-interests"></textarea>
+
+                      <select id="tags" name="tags" class="form-control" placeholder="Select up to 5 tags" multiple>
+                        {% for tag in tags: %}
+                        <option value="{{tag}}">{{tag}}</option>
+                        {% endfor %}
+                      </select>
                     </div>
                   </form>
                 </div>

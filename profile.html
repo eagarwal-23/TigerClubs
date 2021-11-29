@@ -99,7 +99,7 @@
                       <textarea class="form-control" id="edited-clubs"></textarea>
                     </div>
 
-                    <div class>
+                    <div class="form-group">
                       <label for="message-text" class="col-form-label">Choose interests:</label>
                       <div class="col-md-6">
                         <select id="tags" name="tags" class="form-control" placeholder="Select up to 5 tags" multiple>
@@ -107,6 +107,11 @@
                           <option value="{{tag}}">{{tag}}</option>
                           {% endfor %}
                         </select>
+                        <script>
+                          $('#tags').select({
+                            dropdownParent: $('#exampleModal')
+                          });
+                        </script>
                       </div>
                     </div>
                   </form>

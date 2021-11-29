@@ -105,7 +105,7 @@
                       <textarea class="form-control" id="message-text"></textarea>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group choices" data-type="select-multiple">
                       <label for="message-text" class="col-form-label">Manage clubs:</label>
                       <div class="col-md-6">
                         <select id="clubs" name="clubs" class="form-control" placeholder="Select up to 5 clubs"
@@ -119,7 +119,6 @@
 
                     <div class="form-group choices" data-type="select-multiple">
                       <label for="message-text" class="col-form-label">Choose interests:</label>
-
                       <select id="tags" name="tags" class="form-control" placeholder="Select up to 5 interests"
                         multiple>
                         {% for tag in tags: %}

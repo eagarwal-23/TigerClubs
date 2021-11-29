@@ -583,3 +583,10 @@ def submitted_request():
         html = render_template("requestsubmitted.html")
     response = make_response(html)
     return response
+
+@app.route("/creatingtags", methods=["POST"])
+def creatingtags():
+    newtag = request.form["newtag"]
+    add_tag_db(newtag)
+    msg = "Added!"
+    return jsonify(msg)

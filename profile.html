@@ -110,7 +110,7 @@
                     <div class="form-group choices" data-type="select-multiple">
                       <label for="message-text" class="col-form-label">Choose interests:</label>
 
-                      <select id="tags" name="tags" class="form-control" placeholder="Select up to 5 tags">
+                      <select id="tags" name="tags" class="form-control" placeholder="Select up to 5 tags" multiple>
                         {% for tag in tags: %}
                         <option value="{{tag}}">{{tag}}</option>
                         {% endfor %}

@@ -257,8 +257,21 @@
   <!-- Core theme JS-->
   <script src="js/scripts.js"></script>
 </body>
+<script>
+  $(document).ready(function () {
+    var multipleCancelButton = new Choices("#tags", {
+      removeItemButton: true,
+      maxItemCount: 5,
+      searchResultLimit: 5,
+      renderChoiceLimit: 5,
+    });
+    var multipleCancelButton = new Choices("#clubs", {
+      removeItemButton: true,
+      maxItemCount: 5,
+      searchResultLimit: 5,
+      renderChoiceLimit: 5,
+    });
+  });
+</script>
 
 </html>
-
-
-<!-- I called this newprofile-->

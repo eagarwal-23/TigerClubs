@@ -630,8 +630,18 @@ def blackliststudent():
     adminnetid = adminnetid.rstrip()
     
     studentnetid = request.args.get("studentnetid")
-    print("blacklisting", studentnetid)
 
     blacklist_student(studentnetid)
     msg = "Blacklisted"
+    return jsonify(msg)
+
+@app.route("/whiteliststudent", methods=["GET"])
+def whiteliststudent():
+    adminnetid = _cas.authenticate()
+    adminnetid = adminnetid.rstrip()
+    
+    studentnetid = request.args.get("studentnetid")
+
+    whitelist_student(studentnetid)
+    msg = "Whitelisted"
     return jsonify(msg)

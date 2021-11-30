@@ -629,7 +629,8 @@ def blackliststudent():
     adminnetid = _cas.authenticate()
     adminnetid = adminnetid.rstrip()
     
-    studentnetid = request.args.get("netid")
+    studentnetid = request.args.get("studentnetid")
+    print("blacklisting", studentnetid)
 
     blacklist_student(studentnetid)
     msg = "Blacklisted"

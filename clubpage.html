@@ -181,6 +181,7 @@
           <br />
           {%for member in members: %}
           <div class="col-lg-6 col-xxl-3 mb-5">
+            <div class = "card">
             <div class="card border-0 h-100" style="background-color: white">
               <div class="card-body text-center">
                 <img
@@ -201,6 +202,13 @@
                 {{member.res_college}}
               </div>
             </div>
+          </div>
+            <style>
+              .card:hover{
+                  box-shadow: 1px 8px 15px grey;
+                  -webkit-transition: box-shadow 0.05s ease-in;
+              }
+          </style>
           </div>
           {% endfor %}
         </div>

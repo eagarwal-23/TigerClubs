@@ -213,10 +213,9 @@
 
       <div class="row mx-auto gx-lg-5">
         <div class="col mx-auto gx-lg-5">
-          <div class="row mx-auto" style="width: 100%;">
+          <div class="row mx-auto" style="width: 100%; margin: 15px;">
             {%for club in clubs: %}
-            <div class="card card-1 mx-auto"
-              style="padding: 20px; width: 20%; background-color: white; margin: 15px; margin-top:0">
+            <div class="card card-1 mx-auto" style="width: 20%; background-color: white; margin: 15px; margin-top:0">
               <div class="card-body">
                 <h5 class="card-title" style="color: #e8804c;">{{club}}
                   {% set unselected = 5 - (club.combined|int)%}

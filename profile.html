@@ -236,20 +236,6 @@
                 </h5>
                 <h6 class="card-subtitle mb-2 text-muted">Description: {{club.description}} Long yada
                   yaday ydaa</h6>
-
-
-                {%for tag in club.tags: %}
-                <div class="tag">
-                  <div class="badge text-white" style="background-color: #e8804c;">{{tag}}</div>
-                </div>
-                <style>
-                  .tag {
-                    display: inline-block;
-                    font-size: small;
-                    padding-right: 0.25rem;
-                  }
-                </style>
-                {% endfor %}
                 <a href="/clubpage?clubname={{club}}" class="card-link stretched-link"></a>
               </div>
             </div>

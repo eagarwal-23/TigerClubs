@@ -216,7 +216,15 @@
           <div class="row mx-auto" style="width: 100%; margin: 15px;">
             {%for club in clubs: %}
 
-            <div class="card card-1" style="width: 20%; background-color: white; margin: 15px; margin-top:0">
+            <div class="card" style="width: 18rem;">
+              <img class="card-img-top" src="..." alt="Card image cap">
+              <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                  card's content.</p>
+              </div>
+            </div>
+
+            <!-- <div class="card card-1" style="width: 20%; background-color: white; margin: 15px; margin-top:0">
               <div class="card-body">
                 <h5 class="card-title" style="color: #e8804c;">{{club}}
                   {% set unselected = 5 - (club.combined|int)%}
@@ -258,24 +266,22 @@
                     font-size: small;
                     padding-right: 0.25rem;
                   }
-                </style>
-                {% endfor %}
-
-
-                <a href="/clubpage?clubname={{club}}" class="card-link stretched-link"></a>
-              </div>
-            </div>
-
-            {% endfor %}
+                </style> -->
+            <!-- {% endfor %}
+                <a href="/clubpage?clubname={{club}}" class="card-link stretched-link"></a> -->
           </div>
-          <style>
-            .card-1:hover {
-              box-shadow: 1px 8px 15px grey;
-              -webkit-transition: box-shadow 0.05s ease-in;
-            }
-          </style>
         </div>
+
+        {% endfor %}
       </div>
+      <style>
+        .card-1:hover {
+          box-shadow: 1px 8px 15px grey;
+          -webkit-transition: box-shadow 0.05s ease-in;
+        }
+      </style>
+    </div>
+    </div>
     </div>
 
   </section>

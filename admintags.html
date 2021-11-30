@@ -58,6 +58,40 @@
             </nav>
           </div>
 
+    <!-- Header-->
+    <header class="py-5">
+      <div class="container px-lg-5">
+        <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+          <div class="m-4 m-lg-5">
+            <h2><strong>Look up tags here</strong></h2>
+            <p class="fs-4">View, edit, and create tags.</p>
+            <form
+              class="form-inline my-2 my-lg-0 justify-content-center"
+              style="padding-top: 2%"
+              action="/admintags?netid={{netid}}&clubname={{clubname}}"
+              method="get"
+            >
+              <input
+                class="form-control mr-sm-2 justify-content-center"
+                type="search"
+                name="tag"
+                placeholder="Search Tag"
+                value="{{tag}}"
+                aria-label="Search"
+              />
+              <button
+                class="btn btn-outline my-2 my-sm-0"
+                style="background-color: #e8804c"
+                type="submit"
+              >
+                Search
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </header>
+
           <button type = "button" class = "btn btn-primary edit_tag"
                   data-toggle="modal" data-target="#add-tag">Create Tag</button>
 

@@ -1,4 +1,5 @@
 from flask import Flask, request, make_response, jsonify
+import datetime as dt
 from flask import render_template, Response
 from flask_sqlalchemy import SQLAlchemy
 from casclient import CASClient
@@ -19,6 +20,8 @@ from db_club_profile import *
 from db_admin import *
 
 _cas = CASClient()
+
+ratings_period = dt.date(2021, 12, 21)
 
 @app.before_request
 def enforceHttpsInHeroku():
@@ -313,13 +316,18 @@ def myratings():
         isAdmin = 0
         if student.admin:
             isAdmin = 1
-        
-        name = student.name
-        clubs = student.clubs
-        ratings = get_student_ratings(netid)
-        html = render_template("myratings.html", name = name, review = ratings, clubs = clubs, isAdmin = isAdmin)
-        response = make_response(html)
-        return response
+        today = dt.date.today()
+        if today == ratings_period:
+            name = student.name
+            clubs = student.clubs
+            ratings = get_student_ratings(netid)
+            html = render_template("myratings.html", name = name, review = ratings, clubs = clubs, isAdmin = isAdmin)
+            response = make_response(html)
+            return response
+        else:
+            html = render_template("notmyratings.html", ratings_period=ratings_period, today=today, isAdmin = isAdmin)
+            response = make_response(html)
+            return response
     except Exception as e:
         print(e, "whoops from ratings")
 
@@ -527,7 +535,11 @@ def admintags():
         response = make_response(html)
         return response
 
-    tags = get_all_tags()
+    tagsearch = request.args.get("tag")
+    if tagsearch is None:
+        tagsearch = ""
+    
+    tags = tag_search(tagsearch)
 
     html = render_template("admintags.html", tags=tags)
     response = make_response(html)

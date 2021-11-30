@@ -44,6 +44,14 @@ def student_search(search):
 
     return students
 
+def tag_search(search):
+    search_query = '%' + search + "%"
+    tags = Tag.query.filter(
+        (Tag.name.ilike(search_query))
+    ).all()
+
+    return tags
+
 # get all Club objects associated with any tag in 
 # input list of tags
 def filter_by_tags(tags):

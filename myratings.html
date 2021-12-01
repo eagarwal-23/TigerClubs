@@ -26,6 +26,7 @@
     <link href="static/styles.css" rel="stylesheet" />
 
     <script src="static/jquery.raty.js"></script>
+    
 </head>
 
 
@@ -71,7 +72,7 @@
         <div class="flex row mx-auto">
                 {%for r in review: %}
                 <div class="flex-item clubcard card bg-light" href="/clubpage?clubname={{review.clubname}}" style="width: 24rem;">
-                    <header class="card-header">{{r.club[0]}}
+                    <header class="card-header">
                         <button class="btn btn-outline-danger btn-sm rounded-0 float-right" type="button" id="deleterating" title="Delete" value="{{r.reviewid}}">
                             <i class="fa fa-trash"></i>
                         </button>

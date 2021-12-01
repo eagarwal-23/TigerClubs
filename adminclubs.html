@@ -29,47 +29,65 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
     <!------ Include the above in your HEAD tag ---------->
     <link rel="stylesheet" type="text/css" href="static/jquery.raty.css" />
     <script src="static/jquery.raty.js"></script>
+    <link rel = "stylesheet" href = "static/button-hover-admin.css">
+
   </head>
 
   <body>
     <!--Menu bar-->
     {% include "admin-navbar.html" %}
     <!-- Header-->
-    <header class="py-5">
-      <div class="container px-lg-5">
-        <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
-          <div class="m-4 m-lg-5">
-            <h2><strong>Look up a club here</strong></h2>
-            <p class="fs-4">Add, edit, and delete club pages.</p>
-            <form
-              class="form-inline my-2 my-lg-0 justify-content-center"
-              style="padding-top: 2%"
-              action="/adminclubs"
-              method="get"
-            >
-              <input
-                class="form-control mr-sm-2 justify-content-center"
-                type="search"
-                name="clubname"
-                placeholder="Search Club"
-                value=""
-                aria-label="Search"
-              />
-              <button
-                class="btn btn-outline my-2 my-sm-0"
-                style="background-color: #e8804c"
-                type="submit"
-              >
-                Search
-              </button>
-            </form>
+    <div class="container" style="padding-top: 1rem;">
+      <h3 style="text-align: center;">Admin Dashboard</h3>
+      <div class="card-deck" style="padding: 2rem;">
+        <style>
+          .card {
+            transition: border-color 1s, box-shadow 0.5s;
+            background-color: #ffbd81
+          }
+
+          .fa-edit:hover {
+            color: #ffffff;
+            background-color: #e8804c;
+          }
+
+          .fa-eye:hover {
+            color: #ffffff;
+            background-color: #e8804c;
+          }
+
+          .fa-trash:hover {
+            color: #ffffff;
+            background-color: #e8804c;
+          }
+
+          .viewclubpage, .editclubpage, .delete_club {
+            display:inline-block;
+          }
+          </style>
+
+    <div class="card" >
+      <a class="stretched-link text-decoration-none" href="/adminclubs" style="color: black">
+        <div class="card-body" style="text-align: center;">
+          <div class="justify-content-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                class="bi bi-people-fill" viewBox="0 0 16 16">
+                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                <path fill-rule="evenodd"
+                  d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
+                <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+              </svg>
           </div>
+          <h2 class="card-title">Manage Clubs</h2>
+          <h4 class="card-text">View, edit, and delete clubs</h4>
         </div>
-      </div>
-    </header>
+      </a>
+    </div>
     <!-- Page Content-->
     <section class="pt-4">
       <div class="container px-lg-5">
@@ -79,7 +97,7 @@
           <div class="col-lg-6 col-xxl-4 mb-5">
             <div
               class="card border-0 h-100"
-              style="background-color: white; outline-style: double"
+              style="background-color: white; outline-style: solid"
             >
               <div class="card-body text-center">
                 <img
@@ -89,36 +107,24 @@
                   height="100"
                 />
                 <h2 class="fs-4 fw-bold">{{club.name}}</h2>
-
-                <form action="/clubpage">
-                  <button
-                    type="submit"
-                    class="btn btn-primary view_club"
-                    data-clubname="{{ club.name }}"
-                  >
-                    View
-                  </button>
-                  <input type="hidden" name="clubname" value="{{club.name}}" />
-                </form>
-
-                <form action="/editclub">
-                  <button
-                    type="submit"
-                    class="btn btn-primary edit_club"
-                    data-clubname="{{ club.name }}"
-                  >
-                    Edit
-                  </button>
-                  <input type="hidden" name="clubname" value="{{club.name}}" />
-                </form>
-
-                <button
-                  type="button"
-                  class="btn btn-primary delete_club"
-                  data-clubid="{{ club.clubid }}"
-                >
-                  Delete
-                </button>
+                {{ club.description }}
+                <section class="wow fadeIn animated" style="visibility: visible; animation-name: fadeIn;">
+                  <div class = "container">
+                    <div class = "row">
+                          <div class="col-md-12 col-sm-10 center-col text-right"> 
+                            <div class = "viewclubpage" data-clubname = "{{club.name}}">
+                            <i class="fas fa-eye i-extra-small-box"></i> 
+                          </div>
+                          <div class = "editclubpage" data-clubname = "{{club.name}}">
+                              <i class="fas fa-edit i-extra-small-box"></i>
+                          </div>
+                          <div class = "delete_club" data-clubid = "{{club.clubid}}">
+                            <i class="fas fa-trash i-extra-small-box"></i>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+              </section>
               </div>
             </div>
           </div>
@@ -133,6 +139,30 @@
           console.log("Response");
           $("body").html(response);
         }
+
+        $(".viewclubpage").click(function () {
+          var clubname = $(this).data("clubname");
+          url = "/clubpage?clubname=" + encodeURIComponent(clubname);
+          $.ajax({
+            url: url,
+            method: "GET",
+            success: function () {
+              window.location.href=url;
+            },
+          });
+        });
+
+        $(".editclubpage").click(function () {
+          var clubname = $(this).data("clubname");
+          url = "/editclub?clubname=" + encodeURIComponent(clubname);
+          $.ajax({
+            url: url,
+            method: "GET",
+            success: function () {
+              window.location.href=url;
+            },
+          });
+        });
 
         $(".delete_club").click(function () {
           var clubid = $(this).data("clubid");

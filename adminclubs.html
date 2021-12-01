@@ -36,55 +36,7 @@
 
   <body>
     <!--Menu bar-->
-    <div class="menu-bar" style="background-color: #ffbd81">
-      <nav
-        class="navbar navbar-expand-lg navbar-light"
-        style="font-family: Merriweather"
-      >
-        <a
-          class="navbar-brand"
-          style="padding-left: 1%; font-size: 135%"
-          href="/landing?netid={{netid}}"
-          >Student View</a
-        >
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <i class="fa fa-bars"></i>
-        </button>
-        <div
-          class="collapse navbar-collapse"
-          style="font-size: 110%"
-          id="navbarNav"
-        >
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/adminlanding"
-                >Home<span class="sr-only">(current)</span></a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/adminstudents">Manage Students</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/adminclubs">Manage Clubs</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/admintags">Manage Tags</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/logout">Logout</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </div>
+    {% include "admin-navbar.html" %}
     <!-- Header-->
     <header class="py-5">
       <div class="container px-lg-5">

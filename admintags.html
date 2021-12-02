@@ -16,12 +16,15 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     
         <!------ Include the above in your HEAD tag ---------->
         <link rel="stylesheet" type="text/css" href="static/jquery.raty.css">
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+        <link rel = "stylesheet" href = "static/button-hover-admin.css">
+
     
         <link href="static/styles.css" rel="stylesheet" />
     
@@ -30,61 +33,90 @@
   <body>
         <!--Menu bar-->
         {% include "admin-navbar.html" %}
+        div class="container" style="padding-top: 1rem;">
+        <h3 style="text-align: center;">Admin Dashboard</h3>
+        <div class="card-deck" style="padding: 2rem;">
+          <style>
+            .card {
+              transition: border-color 1s, box-shadow 0.5s;
+              background-color: #ffbd81
+            }
+            .fas:hover {
+            color: #ffffff;
+            background-color: #e8804c;
+          }
+            
+            .edit_tag, .delete_tag {
+              display:inline-block;
+            }
+  
+          </style>
 
-    <!-- Header-->
-    <header class="py-5">
-      <div class="container px-lg-5">
-        <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
-          <div class="m-4 m-lg-5">
-            <h2><strong>Look up tags here</strong></h2>
-            <p class="fs-4">View, edit, and create tags.</p>
-            <form
-              class="form-inline my-2 my-lg-0 justify-content-center"
-              style="padding-top: 2%"
-              action="/admintags?netid={{netid}}&clubname={{clubname}}"
-              method="get"
-            >
-              <input
-                class="form-control mr-sm-2 justify-content-center"
-                type="search"
-                name="tag"
-                placeholder="Search Tag"
-                value="{{tag}}"
-                aria-label="Search"
-              />
-              <button
-                class="btn btn-outline my-2 my-sm-0"
-                style="background-color: #e8804c"
-                type="submit"
-              >
-                Search
-              </button>
-            </form>
-          </div>
-        </div>
+<div class="card" >
+    <div class="card-body" style="text-align: center;">
+      <div class="justify-content-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+            class="bi bi-person-badge" viewBox="0 0 16 16">
+            <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+            <path
+              d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0h-7zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492V2.5z" />
+          </svg>
       </div>
-    </header>
+      <h2 class="card-title">Manage Tags</h2>
+      <h4 class="card-text">View, edit, and add tags</h4>
+    </div>
+  <div class="col-sm-12 col-md-12" style="margin-top:5px">
+    <form action="/admintags?netid={{netid}}&clubname={{clubname}}"
+            method="get">
+        <div class="form-group">
+            <input type="text" name="tag" id="searchbar" class="form-control input-lg" placeholder="Search tags by name" />
+        </div>
+    </form>
+    </div>
+</div>
+</div>
+    <!-- Page Content-->
+    <section class="pt-4">
+        <div class="container px-lg-5">
+          <!-- Page Features-->
+            <div class="flex row mx-auto">
+            {%for tag in tags:%}
+            <div class="col-lg-6 col-xxl-4 mb-5">
+              <div
+                class="card border-0 h-100"
+                style="background-color: white; outline-style: solid"
+              >
+                <div class="card-body text-center">
+                  <section class="wow fadeIn animated" style="visibility: visible; animation-name: fadeIn;">
+                    <div class = "container">
+                      <div class = "row">
+                            <div class="col-md-12 col-sm-10 center-col text-right"> 
+                            <div class = "edit_tag" data-tagname = "{{tag.name}}" data-tagid = "{{tag.tagid}}" data-toggle="modal" data-target="#change-name">
+                              <i class="fas fa-edit i-extra-small-box"></i> 
+                            </div>
+                            <div class = "delete_tag" data-tagid = "{{ tag.tagid }}">
+                                <i class="fas fa-trash i-extra-small-box"></i>
+                            </div>
+                            </div>
+                          </div>
+                          </div>
+                </section>
+                  <h2 class="fs-4 fw-bold">{{tag.name}}</h2>
+                  <br />
+                  <strong>Tag ID: </strong>{{tag.tagid}}
+                  <br/>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          </div>
+        </section>
 
           <button type = "button" class = "btn btn-primary edit_tag"
                   data-toggle="modal" data-target="#add-tag">Create Tag</button>
 
           <div class="col-6">
-            
-            {%for tag in tags: %}
-            <div class="container" style="padding-top: 1rem;">
-              <div class="card" style="width: 40rem; background-color: #ffe5cd;">
-                <div class="card-body">
-                  <h5 class="card-title">{{tag.name}}</h5>
-                  
-                  <p class="card-text">Tag ID: {{tag.tagid}}</p>
-                  <button type = "button" class = "btn btn-primary edit_tag"
-                 data-tagname = "{{ tag.name }}" data-tagid = "{{tag.tagid}}" data-toggle="modal" data-target="#change-name">Edit</button>
-                 <button type = "button" class = "btn btn-primary delete_tag"
-                 data-tagid = "{{ tag.tagid }}">Delete</button>
-                </div>
-              </div>
-            </div>
-            {% endfor %}
             
             
           </div>
@@ -226,14 +258,16 @@
             
             $(".delete_tag").click(function(){
                 var tagid = $(this).data("tagid");
-                var $parentCard = $(this).closest(".card")
+                var $target = $(this).parents(".card")
 
                 url = "/deletetag?tagid=" + encodeURIComponent(tagid)
                 $.ajax({
                     method: 'GET',
                     url: url,
                     success: function(){
-                        $parentCard.slideUp();
+                        $target.fadeOut("slow", function () {
+                            location.reload(true);
+                        });
                     }
                 });
             });

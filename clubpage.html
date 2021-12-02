@@ -42,39 +42,41 @@
   <!-- Page Content-->
   <div class="container px-4 px-lg-5 my-5 py-5">
     <!-- CLUB NAME HEADING CARD -->
-    <div class="card">
-      <div class="col-lg-5">
-        <img src="https://picsum.photos/100" style="float: left; padding: 10px; padding-left: 0">
-        <h1 class="font-weight-bold" style="padding: 20px; padding-bottom: 0;">{{clubname}}</h1>
-        {%for tag in tags: %}
-        <div class="tag">
-          <div class="rounded-pill" style="background-color: #fcc397; color: #db6225; padding: .25rem; margin:
-            10px; margin-top: 0">
-            {{tag}}
+    <div class="col-8">
+      <div class="card">
+        <div class="col-lg-5">
+          <img src="https://picsum.photos/100" style="float: left; padding: 10px; padding-left: 0">
+          <h1 class="font-weight-bold" style="padding: 20px; padding-bottom: 0;">{{clubname}}</h1>
+          {%for tag in tags: %}
+          <div class="tag">
+            <div class="rounded-pill" style="background-color: #fcc397; color: #db6225; padding: .25rem; margin:
+              10px; margin-top: 0">
+              {{tag}}
+            </div>
           </div>
+          <style>
+            .tag {
+              display: inline-block;
+              padding-right: 0.25rem;
+              padding-left: 0.25rem;
+            }
+          </style>
+          {% endfor %}
         </div>
-        <style>
-          .tag {
-            display: inline-block;
-            padding-right: 0.25rem;
-            padding-left: 0.25rem;
-          }
-        </style>
-        {% endfor %}
       </div>
-    </div>
-    <br>
-    <!-- DESCRIPTION CARD -->
-    <div class="card">
-      <h3 class="font-weight-bold" style="padding: 20px;">Description</h3>
-      <div class="col-lg-5">
-        <p>IgniteSTEM is an international platform for the STEM revolution in K-12 education. Through conferences,
-          resources, and more grassroots efforts we aspire to help educators and students build the classroom of the
-          future.</p>
+      <br>
+      <div class="card">
+        <h3 class="font-weight-bold" style="padding: 20px;">Description</h3>
+        <div class="col-lg-5">
+          <p>IgniteSTEM is an international platform for the STEM revolution in K-12 education. Through conferences,
+            resources, and more grassroots efforts we aspire to help educators and students build the classroom of the
+            future.</p>
+        </div>
       </div>
     </div>
 
-    <div class="col-sm-4">
+    <!-- DESCRIPTION CARD -->
+    <div class="col-4">
       <div class="card text-white my-5 py-4 text-center" style="background-color: #e8804c">
         <div class="card-body">
           <ul class="row justify-content-center">
@@ -148,104 +150,98 @@
         </div>
       </div>
     </div>
-<<<<<<< HEAD
-  </div>
+    <<<<<<< HEAD </div>
 
-  <a class="btn btn-primary" href="#!">Website</a>
+      <a class="btn btn-primary" href="#!">Website</a>
 
-  <!-- Content Row-->
+      <!-- Content Row-->
 
-  <section style="background-color: white">
-    <div class="container py-5 px-4 px-lg-5">
-      <nav>
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
-            aria-controls="nav-home" aria-selected="true">Home</a>
-          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
-            aria-controls="nav-membership" aria-selected="false">Membership</a>
-          <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
-            aria-controls="nav-contact" aria-selected="false">Contact</a>
-        </div>
-      </nav>
-      <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">...</div>
-        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
-        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
-      </div>
-      <div class="row gx-4 gx-lg-5">
-        <h4><strong>Club Members:</strong></h4>
-        <br />
-        <br />
-        {%for member in members: %}
-        <div class="col-lg-6 col-xxl-3 mb-5">
-          <div class="card border-0 h-100" style="background-color: white">
-            <div class="card-body text-center">
-              <img class="rounded-circle"
-                src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg" width="100"
-                height="100" />
-              <a href="/profile?diffperson={{member.netid}}" class="card-link stretched-link"></a>
-              <h2 class="fs-4 fw-bold">{{member.name}}</h2>
-              {{member.netid}}
-              <br />
-              {{member.year}}
-              <br />
-              {{member.res_college}}
+      <section style="background-color: white">
+        <div class="container py-5 px-4 px-lg-5">
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                aria-controls="nav-home" aria-selected="true">Home</a>
+              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                aria-controls="nav-membership" aria-selected="false">Membership</a>
+              <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
+                aria-controls="nav-contact" aria-selected="false">Contact</a>
             </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">...
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
           </div>
-=======
-    <!-- Content Row-->
-    <section style="background-color: white">
-      <div class="container py-5 px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5">
-          <h4><strong>Club Members:</strong></h4>
-          <br />
-          <br />
-          {%for member in members: %}
-          <div class="col-lg-6 col-xxl-3 mb-5">
-            <div class = "card">
-            <div class="card border-0 h-100" style="background-color: white">
-              <div class="card-body text-center">
-                <img
-                  class="rounded-circle"
-                  src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg"
-                  width="100"
-                  height="100"
-                />
-                <a
-                  href="/profile?diffperson={{member.netid}}"
-                  class="card-link stretched-link"
-                ></a>
-                <h2 class="fs-4 fw-bold">{{member.name}}</h2>
-                {{member.netid}}
-                <br />
-                {{member.year}}
-                <br />
-                {{member.res_college}}
+          <div class="row gx-4 gx-lg-5">
+            <h4><strong>Club Members:</strong></h4>
+            <br />
+            <br />
+            {%for member in members: %}
+            <div class="col-lg-6 col-xxl-3 mb-5">
+              <div class="card border-0 h-100" style="background-color: white">
+                <div class="card-body text-center">
+                  <img class="rounded-circle"
+                    src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg" width="100"
+                    height="100" />
+                  <a href="/profile?diffperson={{member.netid}}" class="card-link stretched-link"></a>
+                  <h2 class="fs-4 fw-bold">{{member.name}}</h2>
+                  {{member.netid}}
+                  <br />
+                  {{member.year}}
+                  <br />
+                  {{member.res_college}}
+                </div>
               </div>
+              =======
+              <!-- Content Row-->
+              <section style="background-color: white">
+                <div class="container py-5 px-4 px-lg-5">
+                  <div class="row gx-4 gx-lg-5">
+                    <h4><strong>Club Members:</strong></h4>
+                    <br />
+                    <br />
+                    {%for member in members: %}
+                    <div class="col-lg-6 col-xxl-3 mb-5">
+                      <div class="card">
+                        <div class="card border-0 h-100" style="background-color: white">
+                          <div class="card-body text-center">
+                            <img class="rounded-circle"
+                              src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg"
+                              width="100" height="100" />
+                            <a href="/profile?diffperson={{member.netid}}" class="card-link stretched-link"></a>
+                            <h2 class="fs-4 fw-bold">{{member.name}}</h2>
+                            {{member.netid}}
+                            <br />
+                            {{member.year}}
+                            <br />
+                            {{member.res_college}}
+                          </div>
+                        </div>
+                      </div>
+                      <style>
+                        .card:hover {
+                          box-shadow: 1px 8px 15px grey;
+                          -webkit-transition: box-shadow 0.05s ease-in;
+                        }
+                      </style>
+                    </div>
+                    {% endfor %}
+                    >>>>>>> 08143a6421d50151de2da169bb260338bfd53ba0
+                  </div>
+                  {% endfor %}
+                </div>
             </div>
-          </div>
-            <style>
-              .card:hover{
-                  box-shadow: 1px 8px 15px grey;
-                  -webkit-transition: box-shadow 0.05s ease-in;
-              }
-          </style>
-          </div>
-          {% endfor %}
->>>>>>> 08143a6421d50151de2da169bb260338bfd53ba0
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <!-- Footer-->
-  {% include "footer.html" %}
+      <!-- Footer-->
+      {% include "footer.html" %}
 
-  <!-- Bootstrap core JS-->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Core theme JS-->
-  <script src="js/scripts.js"></script>
+      <!-- Bootstrap core JS-->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+      <!-- Core theme JS-->
+      <script src="js/scripts.js"></script>
 </body>
 
 </html>

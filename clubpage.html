@@ -107,6 +107,7 @@
                   <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                     aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
                 </div>
+                <!-- DIVERSITY -->
                 <strong>Diversity: </strong> {{diversity}} <br />
                 {% set unselected = 5 - (diversity|int)%}
                 <div id="inlinereview">
@@ -118,6 +119,7 @@
                 </div>
               </li>
             </div>
+            <!-- INCLUSIVITY -->
             <div class="row" style="width: 100%;">
               <li class="list-group-item">
                 <strong>Inclusivity: </strong>{{inclusivity}} {% set unselected
@@ -131,6 +133,7 @@
                 </div>
               </li>
             </div>
+            <!-- TIME COMMITMENT -->
             <div class="row" style="width: 100%;">
               <li class="list-group-item">
                 <strong>Time Commitment: </strong>{{time_commitment}} {% set
@@ -144,6 +147,7 @@
                 </div>
               </li>
             </div>
+            <!-- WORKLOAD -->
             <div class="row" style="width: 100%;">
               <li class="list-group-item">
                 <strong>Workload:</strong> {{workload}} {% set unselected = 5 -
@@ -157,6 +161,7 @@
                 </div>
               </li>
             </div>
+            <!-- EXPERIENCE REQUIRED -->
             <div class="row" style="width: 100%;">
               <li class="list-group-item">
                 <strong>Experience Requirement: </strong>

@@ -137,25 +137,16 @@ def landing():
     
     name = user.name
     clubs = club_search(search = clubname, query = sort_criteria, tags = filter_tags)
-    students_list = student_search(studentname, pagenum=1, per_page=21)
-
     tags = get_all_tags()
 
-    print(clubs)
-    print(students_list)
-    if not clubs and not students_list:
-        html = render_template("mylanding.html", netid=netid, name = name, hasClubs= False, hasStudents = False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
-        print("if not clubs and not students_list:")
-    elif not clubs:
-        html = render_template("mylanding.html", netid=netid, name = name, hasClubs= False, hasStudents = True,students = students_list, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
-        print("elif not clubs:")
-    elif not students_list:
-        html = render_template("mylanding.html", netid=netid, name = name, clubs = clubs, studentname=studentname, clubname = clubname, hasClubs= True, hasStudents = False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
-        print("elif not students_list:")
+    if not clubs:
+        html = render_template("mylanding.html", netid=netid, name = name, hasClubs= False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
+        print("if not clubs:")
     else:
-        html = render_template("mylanding.html", netid=netid, name = name, hasClubs = True, hasStudents = True, clubs = clubs, clubname = clubname, studentname=studentname, students = students_list, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
+        html = render_template("mylanding.html", netid=netid, name = name, hasClubs = True, clubs = clubs, clubname = clubname, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
         print("else")
         print(clubname)
+    
     response = make_response(html)
     return response
 

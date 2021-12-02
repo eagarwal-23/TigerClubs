@@ -48,15 +48,15 @@
       <div class="col-lg-5">
         {%for tag in tags: %}
         <div class="tag">
-          <div class="rounded-pill text-white" style="background-color: #e8804c">
+          <div class="rounded-pill text-white" style="background-color: #e8804c; padding: .25rem;">
             {{tag}}
           </div>
         </div>
         <style>
           .tag {
             display: inline-block;
-            padding-right: 0.4rem;
-            padding-left: 0.4rem;
+            padding-right: 0.25rem;
+            padding-left: 0.25rem;
           }
         </style>
         {% endfor %}

@@ -121,6 +121,8 @@ def landing():
     
     clubname = request.args.get("clubname")
     studentname = request.args.get("studentname")
+    pagenum = request.args.get('page', 1, type=int)
+
 
     if not clubname:
         clubname = ""
@@ -137,6 +139,7 @@ def landing():
     
     name = user.name
     clubs = club_search(search = clubname, query = sort_criteria, tags = filter_tags)
+    students_list = student_search(studentname, pagenum = pagenum, per_page= 21)
     tags = get_all_tags()
 
     if not clubs:
@@ -211,9 +214,10 @@ def profile(diffperson=None):
         clubs = student.clubs
         bio = student.bio
         interests = student.tags
+        tags = get_all_tags()
 
         html = render_template("profile.html", student = student,  name=name, netid= netid,
-        classyear=classyear, major=major, clubs=clubs,
+        classyear=classyear, major=major, clubs=clubs, tags=tags,
         bio=bio, interests=interests, diffperson = diffperson, isAdmin = isAdmin)
 
         response = make_response(html)
@@ -471,6 +475,20 @@ def adminstudents():
         print("else")
     response = make_response(html)
     return response
+
+@app.route("/adminrequests", methods=["GET"])
+def adminrequests():
+    auth_user = _cas.authenticate()
+    user = get_student_info(auth_user)
+    if (not user.admin):
+        html = render_template("notadmin.html")
+        response = make_response(html)
+        return response
+
+    html = render_template("adminrequests.html", requests = get_all_requests(), hasRequests = True)
+    response = make_response(html)
+    return response
+
 
 @app.route("/editclub", methods=["GET"])
 def editclub():

@@ -1,91 +1,97 @@
 <!DOCTYPE html>
 
 <head>
-    <link rel="shortcut icon" href="static/tigerclubsicon.ico"/>
+    <link rel="shortcut icon" href="static/tigerclubsicon.ico" />
 
     <meta charset="UTF-8">
-    <meta name= "viewport" content= "width-device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width-device-width, initial-scale=1, shrink-to-fit=no">
     <title> Tiger Clubs</title>
-    <link rel ="stylesheet" href="static/ratings.css">
+    <link rel="stylesheet" href="static/ratings.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!------ Include the above in your HEAD tag ---------->
     <link rel="stylesheet" type="text/css" href="static/jquery.raty.css">
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
     <link href="static/styles.css" rel="stylesheet" />
 
     <script src="static/jquery.raty.js"></script>
-    
+
 </head>
 
 
-<body style = "background-color: white">
+<body style="background-color: white">
     {% include "navbar.html" %}
 
-     <style>
+    <style>
         .parallax {
-          /* The image used */
-          background-image: url("/static/darkprinceton.jpeg");
-        
-          /* Set a specific height */
-          min-height: 200px;
-        
-          /* Create the parallax scrolling effect */
-          background-attachment: fixed;
-          background-position: center;
-          background-repeat: no-repeat;
-          background-size: cover;
+            /* The image used */
+            background-image: url("/static/darkprinceton.jpeg");
+
+            /* Set a specific height */
+            min-height: 200px;
+
+            /* Create the parallax scrolling effect */
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
-        </style>
-        
-        <!-- Container element -->
-    <div class="parallax" style = "padding-top: 5rem; padding-bottom: 2rem;">
-        <div class = "container bg-dark" style = "height: 16rem;">
-            <div class="text-center pt-5 pb-2" style = "color: white">
+    </style>
+
+    <!-- Container element -->
+    <div class="parallax" style="padding-top: 5rem; padding-bottom: 2rem;">
+        <div class="container bg-dark" style="height: 16rem;">
+            <div class="text-center pt-5 pb-2" style="color: white">
                 <h3> <strong>Rank your clubs !</strong></h3>
                 <p class="lead">Here, you can see how you previously rated your clubs.</p>
             </div>
-            <div class="container text-center" >
-                <div class = "row mx-auto">
-                <div class = "col mx-auto">
-                    <button type="button" data-toggle="modal" class="ratebtn btn-light btn-lg btn-block" data-target="#add-club-rating">Rate club </button>
+            <div class="container text-center">
+                <div class="row mx-auto">
+                    <div class="col mx-auto">
+                        <button type="button" data-toggle="modal" class="ratebtn btn-light btn-lg btn-block"
+                            data-target="#add-club-rating">Rate club </button>
+                    </div>
                 </div>
             </div>
-            </div>
-        
+
         </div>
     </div>
 
     <div class="container md py-5">
         <!-- prints all reviews a student has left for their clubs -->
         <div class="flex row mx-auto">
-                {%for r in review: %}
-                <div class="flex-item clubcard card bg-light" href="/clubpage?clubname={{review.clubname}}" style="width: 24rem;">
-                    <header class="card-header"> {{r.club[0]}}
-                        <button class="btn btn-outline-danger btn-sm rounded-0 float-right" type="button" id="deleterating" title="Delete" value="{{r.reviewid}}">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                    </header>
-                    
-                    <br>
-                    <br>
+            {%for r in review: %}
+            <div class="flex-item clubcard card bg-light" href="/clubpage?clubname={{review.clubname}}"
+                style="width: 24rem;">
+                <header class="card-header"> {{r.club[0]}}
+                    <button class="btn btn-outline-danger btn-sm rounded-0 float-right" type="button" id="deleterating"
+                        title="Delete" value="{{r.reviewid}}">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </header>
 
-                    {% set unselected = 5 - (r.diversity|int)%}
-                    <div id ="inlinereview">
-                        Diversity: 
-                        <br>
-                        <br>
+                <br>
+                <br>
+
+                {% set unselected = 5 - (r.diversity|int)%}
+                <div id="inlinereview">
+                    Diversity:
+                    <br>
+                    <br>
 
                     {% for i in range(r.diversity|int) %}
                     <i aria-hidden="true" class="fa fa-star"></i>
@@ -93,14 +99,14 @@
                     {% for i in range(unselected)%}
                     <i aria-hidden="true" class="fa fa-star-o"></i>
                     {%endfor%}
-                    </div>
-                    <br>
+                </div>
+                <br>
 
-                    {% set unselected = 5 - (r.inclusivity|int)%}
-                    <div id ="inlinereview">
-                        Inclusivity: 
-                        <br>
-                        <br>
+                {% set unselected = 5 - (r.inclusivity|int)%}
+                <div id="inlinereview">
+                    Inclusivity:
+                    <br>
+                    <br>
 
                     {% for i in range(r.inclusivity|int) %}
                     <i aria-hidden="true" class="fa fa-star"></i>
@@ -108,14 +114,14 @@
                     {% for i in range(unselected)%}
                     <i aria-hidden="true" class="fa fa-star-o"></i>
                     {%endfor%}
-                    </div>
-                    <br>
+                </div>
+                <br>
 
-                    {% set unselected = 5 - (r.time_commitment|int)%}
-                    <div id ="inlinereview">
-                        Time  Commitment: 
-                        <br>
-                        <br>
+                {% set unselected = 5 - (r.time_commitment|int)%}
+                <div id="inlinereview">
+                    Time Commitment:
+                    <br>
+                    <br>
 
                     {% for i in range(r.time_commitment|int) %}
                     <i aria-hidden="true" class="fa fa-star"></i>
@@ -123,14 +129,14 @@
                     {% for i in range(unselected)%}
                     <i aria-hidden="true" class="fa fa-star-o"></i>
                     {%endfor%}
-                    </div>
-                    <br>
+                </div>
+                <br>
 
-                    {% set unselected = 5 - (r.experience_requirement|int)%}
-                    <div id ="inlinereview">
-                        Experience Requirement: 
-                        <br>
-                        <br>
+                {% set unselected = 5 - (r.experience_requirement|int)%}
+                <div id="inlinereview">
+                    Experience Requirement:
+                    <br>
+                    <br>
 
                     {% for i in range(r.experience_requirement|int) %}
                     <i aria-hidden="true" class="fa fa-star"></i>
@@ -138,13 +144,13 @@
                     {% for i in range(unselected)%}
                     <i aria-hidden="true" class="fa fa-star-o"></i>
                     {%endfor%}
-                    </div>
-<br>
-                    {% set unselected = 5 - (r.workload|int)%}
-                    <div id ="inlinereview">
-                        Workload: 
-                        <br>
-                        <br>
+                </div>
+                <br>
+                {% set unselected = 5 - (r.workload|int)%}
+                <div id="inlinereview">
+                    Workload:
+                    <br>
+                    <br>
 
                     {% for i in range(r.workload|int) %}
                     <i aria-hidden="true" class="fa fa-star"></i>
@@ -152,24 +158,23 @@
                     {% for i in range(unselected)%}
                     <i aria-hidden="true" class="fa fa-star-o"></i>
                     {%endfor%}
-                    </div>
-                    <br>
-
-
-                
                 </div>
                 <br>
 
-                {% endfor %}
+
+
+            </div>
+            <br>
+
+            {% endfor %}
         </div>
 
-        
+
     </div>
     <br>
 
 
-    <div id="add-club-rating" class="modal fade" role="dialog" aria-labelledby="addClubRatingLabel"
-        aria-hidden="true">
+    <div id="add-club-rating" class="modal fade" role="dialog" aria-labelledby="addClubRatingLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modalfonts modal-content">
                 <div class="modal-header">
@@ -179,78 +184,79 @@
                 <!-- user types in club name to add their rating -->
                 <div class="modal-body">
                     <!-- CLUB NAME -->
-                <form>
-                    <div class="form-group">
-                    <p class="clubname bg-light ratelabel">Club Name</p>
-                    <!-- <input type="text" class="form-control" id="clubname" aria-describedby="clubName"
+                    <form>
+                        <div class="form-group">
+                            <p class="clubname bg-light ratelabel">Club Name</p>
+                            <!-- <input type="text" class="form-control" id="clubname" aria-describedby="clubName"
                             placeholder="e.g. IgniteSTEM, Roaring 20, COS Council"> -->
-                    <select id = "clubname" aria-describedby="clubName" name = "clubname" class = "form-control">
-                        <option value="none" selected disabled hidden>
-                            Select a Club
-                        </option>
-                        {% for club in clubs: %}
-                        <option value = "{{club}}">{{club}}</option>
-                        {% endfor %}
-                    </select>
-                    <br>
+                            <select id="clubname" aria-describedby="clubName" name="clubname" class="form-control">
+                                <option value="none" selected disabled hidden>
+                                    Select a Club
+                                </option>
+                                {% for club in clubs: %}
+                                <option value="{{club}}">{{club}}</option>
+                                {% endfor %}
+                            </select>
+                            <br>
 
-                    <!-- DIVERSITY RATING -->
-                    <p class="ratelabel bg-light">Diversity</label>
+                            <!-- DIVERSITY RATING -->
+                            <p class="ratelabel bg-light">Diversity</label>
 
-                    <div class="stars">
-                    <div id="diversity"></div>
+                                <div class="stars">
+                                    <div id="diversity"></div>
+                                </div>
+                                <br>
+
+
+                                <!-- INCLUSIVITY RATING -->
+                                <p class="ratelabel bg-light">Inclusivity</p>
+
+                                <div class="stars">
+
+                                    <div id="inclusivity"></div>
+                                </div>
+                                <br>
+
+                                <!-- TIME COMMITMENT RATING -->
+                                <p class="ratelabel bg-light">Time Commitment</p>
+
+                                <div class="stars">
+
+                                    <div id="time_commitment"></div>
+                                </div>
+                                <br>
+
+
+                                <!-- WORKLOAD RATING -->
+                                <p class="ratelabel bg-light">Workload</p>
+                                <div class="stars">
+
+                                    <div id="workload"></div>
+                                </div>
+                                <br>
+
+                                <!-- EXPERIENCE REQUIRED RATING -->
+                                <p class="ratelabel bg-light">Experience Required</p>
+                                <div class="stars">
+
+                                    <div id="experience_requirement"></div>
+                                </div>
+                                <br>
+
+                        </div>
+                    </form>
                 </div>
-                    <br>
 
-
-                    <!-- INCLUSIVITY RATING -->
-                    <p class="ratelabel bg-light">Inclusivity</p>
-
-                    <div class="stars">
-
-                    <div id="inclusivity"></div>
-                </div>
-                    <br>
-
-                    <!-- TIME COMMITMENT RATING -->
-                    <p class="ratelabel bg-light">Time Commitment</p>
-
-                    <div class="stars">
-
-                    <div id="time_commitment"></div>
-                </div>
-                    <br>
-
-
-                    <!-- WORKLOAD RATING -->
-                    <p class="ratelabel bg-light">Workload</p>
-                    <div class="stars">
-
-                    <div id="workload"></div>
-                </div>
-                    <br>
-
-                    <!-- EXPERIENCE REQUIRED RATING -->
-                    <p class="ratelabel bg-light">Experience Required</p>
-                    <div class="stars">
-
-                    <div id="experience_requirement"></div>
-                </div>
-                    <br>
-
-                    </div>
-                </form>
-                </div>
-            
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" name="save_button" id="save_button" class="btn btn-primary">Save changes</button>
+                    <button type="button" name="save_button" id="save_button" class="btn btn-primary">Save
+                        changes</button>
                 </div>
             </div>
         </div>
     </div>
     </div>
-    <script>  
+    <script>
         $.raty.path = 'static/images';
         $('#diversity').raty();
         $('#inclusivity').raty();
@@ -258,60 +264,59 @@
         $('#time_commitment').raty();
         $('#experience_requirement').raty();
 
-        $(document).on('click', '#deleterating', function() { 
+        $(document).on('click', '#deleterating', function () {
             var reviewid = $(this).attr("value");
-            $.ajax({  
-                url:"/removingvote",  
-                method:"POST",  
-                data: {reviewid: reviewid},  
-                success:function(data)  
-                {  
-                    location.reload();  
-                }  
-            }); 
+            $.ajax({
+                url: "/removingvote",
+                method: "POST",
+                data: { reviewid: reviewid },
+                success: function (data) {
+                    location.reload();
+                }
+            });
         });
 
-        $(document).ready(function(){ 
+        $(document).ready(function () {
 
-            $('#save_button').click(function(){  
+            $('#save_button').click(function () {
 
                 var clubname = $('#clubname').val();
 
-                var diversity= $('#diversity').data('raty').score();
-                var inclusivity= $('#inclusivity').data('raty').score();
-                var workload= $('#workload').data('raty').score();
-                var time_commitment= $('#time_commitment').data('raty').score();
-                var experience_requirement= $('#experience_requirement').data('raty').score();
+                var diversity = $('#diversity').data('raty').score();
+                var inclusivity = $('#inclusivity').data('raty').score();
+                var workload = $('#workload').data('raty').score();
+                var time_commitment = $('#time_commitment').data('raty').score();
+                var experience_requirement = $('#experience_requirement').data('raty').score();
 
-                if (clubname != '' && diversity  && inclusivity && workload && time_commitment 
-                    && experience_requirement) {  
+                if (clubname != '' && diversity && inclusivity && workload && time_commitment
+                    && experience_requirement) {
 
-                        $.ajax({  
-                            url:"/voting",  
-                            method:"POST",  
-                            data: {
-                                clubname:clubname, 
-                                diversity:diversity, 
-                                inclusivity:inclusivity, workload:workload, 
-                                time_commitment:time_commitment, 
-                                experience_requirement:experience_requirement
-                            },  
-                            success:function(data) {  
-                                $('#loginModal').hide();  
-                                location.reload();  
-                            }  
-                        });  
-                }  
-                else {  
-                    alert("All Fields are required");  
-                }  
-            });    
+                    $.ajax({
+                        url: "/voting",
+                        method: "POST",
+                        data: {
+                            clubname: clubname,
+                            diversity: diversity,
+                            inclusivity: inclusivity, workload: workload,
+                            time_commitment: time_commitment,
+                            experience_requirement: experience_requirement
+                        },
+                        success: function (data) {
+                            $('#loginModal').hide();
+                            location.reload();
+                        }
+                    });
+                }
+                else {
+                    alert("All Fields are required");
+                }
+            });
         });
 
-       </script>
-        
-  <!-- Footer-->
-  {% include "footer.html" %}
+    </script>
+
+    <!-- Footer-->
+    {% include "footer.html" %}
 </body>
 
 </html>

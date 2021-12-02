@@ -1,25 +1,27 @@
 <!DOCTYPE html>
-<head lang = "en">
-  <link rel="shortcut icon" href="static/tigerclubsicon.ico"/>
 
-  <meta charset = "UTF-8">
-  <meta name= "viewport" content= "width-device-width, initial-scale-1.0">
+<head lang="en">
+  <link rel="shortcut icon" href="static/tigerclubsicon.ico" />
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width-device-width, initial-scale-1.0">
   <title> Tiger Clubs</title>
-  <link rel="stylesheet" href="style.css" >
+  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <!------ Include the above in your HEAD tag ---------->
+  <!------ Include the above in your HEAD tag ---------->
 
 </head>
+
 <body>
   {% include "navbar.html" %}
-  <div class = "container-fluid">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-3">
-        <h3> Hi {{name}} !</h3>
+        <h3> Hi BOBBY !</h3>
       </div>
       <div class="col-6 d-flex justify-content-center">
         <h4> Club Rankings</h4>
@@ -31,35 +33,46 @@
     <div class="row">
       <div class="col-3">
         <form class="form-inline my-2 my-lg-0" action="landing" method="get">
-          <input class="form-control mr-sm-2" type="search" name = "clubname" placeholder="Search name, tag etc" value="{{clubname}}" aria-label="Search">
+          <input class="form-control mr-sm-2" type="search" name="clubname" placeholder="Search name, tag etc"
+            value="{{clubname}}" aria-label="Search">
           <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
         </form>
         <form class="form-inline my-2 my-lg-0" action="studentsearch" method="get">
-          <input class="form-control mr-sm-2" type="search" name = "studentname" placeholder="Search student" value="{{studentname}}" aria-label="Search">
+          <input class="form-control mr-sm-2" type="search" name="studentname" placeholder="Search student"
+            value="{{studentname}}" aria-label="Search">
           <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
         </form>
       </div>
       <div class="col-6">
         {%for club in clubs: %}
-        <div class = "container">
+        <div class="container">
           <div class="card" style="width: 40rem;">
             <div class="card-body">
               <h5 class="card-title">{{club}}</h5>
               <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
               <a href="/clubpage?clubname={{club}}&netid={{netid}}" class="card-link stretched-link"></a>
               <a href="#" class="card-link">Another link</a>
             </div>
           </div>
         </div>
-      {% endfor %}
+        {% endfor %}
       </div>
       <div class="col-3">
+<<<<<<< HEAD
+        <!-- Here;s where we can print out all the students that match the input "student" -->
+        {% if hasStudents: %}
+
+        {%for student in students:%}
+        <div class="container">
+=======
           <!-- Here;s where we can print out all the students that match the input "student" -->
       {% if hasStudents: %}
         
       {%for student in students.items:%}
         <div class = "container">
+>>>>>>> 08143a6421d50151de2da169bb260338bfd53ba0
           <div class="card" style="width: 15rem;">
             <img class="card-img-top" src="..." alt="Card image cap">
             <div class="card-body">
@@ -73,13 +86,37 @@
               {{student.res_college}}
             </div>
           </div>
-      </div>
+        </div>
         {% endfor %}
-      {% else: %}
+        {% else: %}
         No person found.
-      {% endif %}
+        {% endif %}
       </div>
     </div>
+
+
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+
   </div>
 </body>
+
 </html>

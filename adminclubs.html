@@ -1,3 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="shortcut icon" href="static/tigerclubsicon.ico" />
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width-device-width, initial-scale-1.0" />
+    <title>Tiger Clubs</title>
+    <link rel="stylesheet" href="static/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script
+      src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+      data-auto-replace-svg="nest"
+    ></script>
+
+    <!------ Include the above in your HEAD tag ---------->
+    <link rel="stylesheet" type="text/css" href="static/jquery.raty.css" />
+    <script src="static/jquery.raty.js"></script>
+    <link rel = "stylesheet" href = "static/button-hover-admin.css">
+
+  </head>
+
+  <body>
+    <!--Menu bar-->
+    {% include "admin-navbar.html" %}
+    <!-- Header-->
+    <div class="container" style="padding-top: 1rem;">
+      <h3 style="text-align: center;">Admin Dashboard</h3>
+      <div class="card-deck" style="padding: 2rem;">
+        <style>
+          .card {
+            transition: border-color 1s, box-shadow 0.5s;
+            background-color: #ffbd81
+          }
+
+          
+
+          .fa-eye:hover {
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            padding: 5px;
+            text-align: center;
+            font-size: 15px;
+            color: #ffffff;
+            background-color: #e8804c;
+          }
+
+          .fa-edit:hover {
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            padding: 5px;
+            text-align: center;
+            font-size: 15px;
+            color: #ffffff;
+            background-color: #e8804c;
+          }
+
+          .fa-trash:hover {
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            padding: 5px;
+            text-align: center;
+            font-size: 15px;
+            color: #ffffff;
+            background-color: #e8804c;
+          }
+
+          .viewclubpage, .editclubpage, .delete_club {
+            display:inline-block;
+          }
+
+          .text-right {
+            float: right;
+          }
+          </style>
+
+    <div class="card" >
+        <div class="card-body" style="text-align: center;">
+          <div class="justify-content-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                class="bi bi-people-fill" viewBox="0 0 16 16">
+                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                <path fill-rule="evenodd"
+                  d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
+                <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+              </svg>
+          </div>
+          <h2 class="card-title">Manage Clubs</h2>
+          <h4 class="card-text">View, edit, and delete clubs</h4>
+        </div>
+        <div class="col-sm-12 col-md-12" style="margin-top:5px">
+          <form  action="/adminclubs" method="get">
+              <div class="form-group">
+                  <input type="text" name="clubname" id="searchbar" class="form-control input-lg" placeholder="Search by club name or tags" />
+              </div>
+          </form>
+          </div>
+    </div>
+  </div>
+    <!-- Page Content-->
+    <section class="pt-4">
+      <div class="container px-lg-5">
+        <!-- Page Features-->
+        <div class="row gx-lg-5">
+          {%for club in clubs:%}
+          <div class="col-lg-6 col-xxl-4 mb-5">
+            <div
+              class="card border-0 h-100"
+              style="background-color: white; outline-style: solid"
+            >
+              <div class="card-body">
+                <section class="wow fadeIn animated" style="visibility: visible; animation-name: fadeIn;">
+                  <div class = "container justify-content-center ">
+                    <div class = "row">
+                          <div class="col-md-12 col-sm-10 text-right"> 
+                            <div class = "viewclubpage" data-clubname = "{{club.name}}">
+                            <i class="fas fa-eye"></i> 
+                          </div>
+                          <div class = "editclubpage" data-clubname = "{{club.name}}">
+                              <i class="fas fa-edit"></i>
+                          </div>
+                          <div class = "delete_club" data-clubid = "{{club.clubid}}">
+                            <i class="fas fa-trash"></i>
+                          </div>
+                        </div>
+                      </div>
+                        </div>
+              </section>
+              <div class = "text-center">
+                <img
+                  class="rounded-circle"
+                  src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg"
+                  width="100"
+                  height="100"
+                />
+                <h2 class="fs-4 fw-bold">{{club.name}}</h2>
+                {{ club.description }}
+                <br>
+                {%for tag in club.tags: %}
+                                <div class="tag">
+                                    <div class="badge badge-pill badge-dark text-white">{{tag}}
+                                    </div>
+                                </div>
+                                <style>
+                                    .tag {
+                                        display: inline-block;
+                                        /* font-size: small; */
+                                        padding-right: 0.25rem;
+                                        
+                                    }
+                                </style>
+                                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <script>
+      $(document).ready(function () {
+        function handleResponse(response) {
+          console.log("Response");
+          $("body").html(response);
+        }
+
+        $(".viewclubpage").click(function () {
+          var clubname = $(this).data("clubname");
+          url = "/clubpage?clubname=" + encodeURIComponent(clubname);
+          $.ajax({
+            url: url,
+            method: "GET",
+            success: function () {
+              window.location.href=url;
+            },
+          });
+        });
+
+        $(".editclubpage").click(function () {
+          var clubname = $(this).data("clubname");
+          url = "/editclub?clubname=" + encodeURIComponent(clubname);
+          $.ajax({
+            url: url,
+            method: "GET",
+            success: function () {
+              window.location.href=url;
+            },
+          });
+        });
+
+        $(".delete_club").click(function () {
+          var clubid = $(this).data("clubid");
+          url = "/delete_club?clubid=" + encodeURIComponent(clubid);
+          $.ajax({
+            url: url,
+            method: "GET",
+            success: function () {
+              location.reload();
+            },
+          });
+        });
+      });
+    </script>
+
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">
+          Copyright &copy; Tiger Clubs. Created by Anthony Guerra, Camila
+          Vasquez, Eesha Agarwal, Nadia Rodriguez and Natalie Reptak.
+        </p>
+      </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+  </body>
+</html>
+
 <!-- <!DOCTYPE html>
 <html>
   <head>
@@ -120,231 +366,3 @@
         </script>
   </body>
 </html> -->
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <link rel="shortcut icon" href="static/tigerclubsicon.ico" />
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width-device-width, initial-scale-1.0">
-  <title> Tiger Clubs</title>
-  <link rel="stylesheet" href="static/style.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <!------ Include the above in your HEAD tag ---------->
-  <link rel="stylesheet" type="text/css" href="static/jquery.raty.css">
-  <script src="static/jquery.raty.js"></script>
-
-</head>
-
-<body>
-  <!--Menu bar-->
-  <div class="menu-bar" style="background-color: #FFBD81;">
-    <nav class="navbar navbar-expand-lg navbar-light" style="font-family: Merriweather;">
-      <a class="navbar-brand" style="padding-left: 1%; font-size: 135% " href="/landing?netid={{netid}}">Student
-        View</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fa fa-bars"></i>
-      </button>
-      <div class="collapse navbar-collapse" style="font-size: 110%;" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item ">
-            <a class="nav-link" href="/adminlanding">Home<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/adminstudents">Manage Students</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/adminclubs">Manage Clubs</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/logout">Logout</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </div>
-  <!-- Header-->
-  <header class="py-5">
-    <div class="container px-lg-5">
-      <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
-        <div class="m-4 m-lg-5">
-          <h2><strong>Look up a club here</strong></h2>
-          <p class="fs-4">Add, edit, and delete club pages.</p>
-          <form class="form-inline my-2 my-lg-0 justify-content-center" style="padding-top: 2%;"
-            action="/studentsearch?netid={{netid}}&clubname={{clubname}}" method="get">
-            <input class="form-control mr-sm-2 justify-content-center" type="search" name="studentname"
-              placeholder="Search Club" value="{{studentname}}" aria-label="Search">
-            <button class="btn btn-outline my-2 my-sm-0" style="background-color: #e8804c;"
-              type="submit">Search</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </header>
-  <!-- Page Content-->
-  <section class="pt-4">
-    <div class="container px-lg-5">
-      <!-- Page Features-->
-      <!-- <div class="row gx-lg-5"> -->
-      <!-- {%for student in students:%}
-        <div class="col-lg-6 col-xxl-4 mb-5">
-          <div class="card border-0 h-100" style="background-color: white; outline-style: double;">
-            <div class="card-body text-center">
-              <img class="rounded-circle"
-                src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg" width="100"
-                height="100">
-              <a href="/profile?diffperson={{student.netid}}" class="card-link stretched-link"></a>
-              <h2 class="fs-4 fw-bold">{{student.name}}</h2>
-              {{student.netid}}
-              <br>
-              {{student.year}}
-              <br>
-              {{student.res_college}}
-            </div>
-          </div>
-        </div>
-        {% endfor %} -->
-
-      <!-- <div class="row gx-lg-5">
-        {%if hasClubs: %}
-        {%for club in clubs: %}
-        <div class="col-lg-6 col-xxl-4 mb-5">
-          <div class="card border-0 h-100" style="background-color: #ffe5cd;">
-            <div class="card-body text-center">
-              <h5 class="card-title">{{club}}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">{{club}}</h6>
-              <p class="card-text">Description: {{club.description}} Long yada yaday ydaa</p>
-              <button type="button" class="btn btn-primary view_club" data-clubname="{{ club.name }}"
-                data-netid="{{ netid }}">View</button>
-              <button type="button" class="btn btn-primary edit_club" data-clubname="{{ club.name }}">Edit</button>
-              <button type="button" class="btn btn-primary delete_club" data-clubid={{ club.clubid }}>Delete</button>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-        {%else: %}
-        No clubs found.
-        {%endif%}
-      </div> -->
-
-
-      <div class="col gx-lg-5">
-        <div class="row justify-content-center" style="width: 100%;">
-          <style>
-            .card-img {
-              opacity: 0.2;
-            }
-
-            .btn-primary {
-              position: relative;
-              width: 50%;
-            }
-          </style>
-          <!-- <div class="card bg-dark text-white">
-    <img class="card-img" src="https://pic -->
-          {%if hasClubs: %}
-          {%for club in clubs: %}
-          <div class="card bg-dark" style="background-color: white; width:12rem; margin: 5px;">
-            <img class="card-img" src="https://picsum.photos/200" alt="Card image">
-            <div class="card-img-overlay">
-              <div class="card-body" style="text-align: center;">
-                <h5 class="card-title" style="color: #e8804c;">{{club}}</h5>
-                <h6 class="card-subtitle mb-2" style="font-style: italic; font-size: small; color: white">
-                  Description:
-                  {{club.description}} Long
-                  yada yaday ydaa</h6>
-                <a href="/clubpage?clubname={{club.name}}&netid={{netid}}" class="card-link stretched-link"></a>
-              </div>
-            </div>
-            <div class="card-footer text-center">
-              <button class="btn btn-primary btn-sm float-left edit_club" type="button" id="left" style="color:white"
-                data-clubname="{{ club.name }}">
-                Edit
-              </button>
-              <button class="btn btn-danger btn-sm float-right delete_club" type="button" id="right" style="color:white"
-                data-clubid="{{club.clubid}}">
-                Delete
-              </button>
-            </div>
-          </div>
-
-          {% endfor %}
-          {%else: %}
-          No clubs found.
-          {%endif%}
-        </div>
-      </div>
-    </div>
-    <script>
-      $(document).ready(function () {
-
-        function handleResponse(response) {
-          $("body").html(response);
-        }
-
-        $(".edit_club").click(function () {
-          var clubname = ($(this).data('clubname'));
-          url = "/editclub?clubname=" + encodeURIComponent(clubname)
-          $.ajax({
-            type: 'GET',
-            url: url,
-            success: handleResponse
-          });
-        });
-
-        $(".view_club").click(function () {
-          var clubname = ($(this).data('clubname'));
-          var netid = ($(this).data('netid'));
-          url = "/clubpage?clubname=" + encodeURIComponent(clubname) + "&netid=" + encodeURIComponent(netid)
-          $.ajax({
-            type: 'GET',
-            url: url,
-            success: handleResponse
-          });
-        });
-
-        $(".delete_club").click(function () {
-          var clubid = $(this).data('clubid');
-          alert(clubid);
-          url = "/delete_club?clubid=" + encodeURIComponent(clubid)
-          $.ajax({
-            url: url,
-            method: "GET",
-            success: function () {
-              alert('success');
-            }
-          });
-        });
-      });
-    </script>
-
-    </div>
-    </div>
-  </section>
-  <!-- Footer-->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Tiger Clubs. Created by Anthony Guerra, Camila Vasquez,
-        Eesha Agarwal, Nadia Rodriguez and Natalie Reptak.</p>
-    </div>
-  </footer>
-  <!-- Bootstrap core JS-->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Core theme JS-->
-  <script src="js/scripts.js"></script>
-</body>
-
-</html>

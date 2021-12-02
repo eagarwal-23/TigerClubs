@@ -26,12 +26,29 @@
         <link href="static/styles.css" rel="stylesheet" />
     </head>
 
-    <body style = "background-color: rgb(255, 237, 215);">
+    <!-- style = "background-color: rgb(255, 237, 215);"-->
+    <body>
     {% include "navbar.html" %}
+    <style>
+      .parallax {
+        /* The image used */
+        background-image: url("/static/darkprinceton.jpeg");
+      
+        /* Set a specific height */
+        min-height: 200px;
+      
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      </style>
         <!-- Header - set the background image for the header in the line below-->
-        <header class="py-5">
-            <div class="container px-lg-5">
-                <div class="p-4 p-lg-5 rounded-3 text-center bg-light" style="">
+        <div class="parallax" style = "padding-top: 5rem; padding-bottom: 2rem;">
+              <div class = "row mx-auto py-5">
+                <div class = "col-5 mx-auto">
+                <div class="container mx-auto p-4 bg-light rounded-3 text-center">
                         <img class="img-fluid rounded-circle mb-4" src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg" alt="..." />
                         <h1 class="text-black fs-3 fw-bolder">{{student.name}}</h1>
                         <h2 class="text-black fs-4">{{major}} {{classyear}}</h2>
@@ -45,52 +62,54 @@
                         <a class="btn btn-sm" style = "background-color: #e8804c; "href="/editprofile">Edit Profile</a>
                         {%endif%}
                 </div>
-            </div>
-        </header>
-        <!-- Content section-->
-        <section class="pt-1" style = "align-content: center;">
-          <div class="container px-lg-5">
-              <!-- Page Features-->
-              <div class="row mx-auto gx-lg-5">
-                <div class="col gx-lg-5">
-                  <div class="card-body">
-                    <div class="row py-3 align-items-center">
-                        <h4 class="mb-0">Bio</h4>
-                        </div>
-                        <div class = "row">
-                      <div class="col-sm-9 text-secondary">
-                        {{bio}}
-                      </div>
-                    </div>
-                    <hr>
-                    <div class="row py-3 align-items-center">
-                        <h4 class="mb-0">Interests</h4>
+              </div>
+              
+              <div class="col-5 mr-auto">
+                <div class = "card mx-auto bg-light pl-4" style = "margin-top: 2rem;">
+                <div class="card-body">
+                  <div class="row py-3 align-items-center">
+                      <h4 class="mb-0">Bio</h4>
                       </div>
                       <div class = "row">
-                      <div class="col-sm-9 text-secondary">
-                        {%for interest in interests: %}
-                        <div class = "tag2">
-                          <div class = "badge text-white" style = "background-color: #e8804c;">{{interest}}</div>
-                        </div>
-                        <style> 
-                            .tag2 {
-                                display: inline-block;
-                                padding-right: 0.25rem;
-                                padding-left: 0.25rem;
-                            }
-                        </style>
-                        {% endfor %}
-                      </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{bio}}
                     </div>
-                    <hr>
-                    <br>
-                    <br>
                   </div>
+                  <hr>
+                  <div class="row py-3 align-items-center">
+                      <h4 class="mb-0">Interests</h4>
+                    </div>
+                    <div class = "row">
+                    <div class="col-sm-9 text-secondary">
+                      {%for interest in interests: %}
+                      <div class = "tag2">
+                        <div class = "badge text-white bg-dark">{{interest}}</div>
+                      </div>
+                      <style> 
+                          .tag2 {
+                              display: inline-block;
+                              padding-right: 0.25rem;
+                              padding-left: 0.25rem;
+                          }
+                      </style>
+                      {% endfor %}
+                    </div>
+                  </div>
+                  <hr>
                 </div>
-                <div class="col gx-lg-5">
+                </div>
+              </div>
+            </div>
+          </div>
+        <!-- Content section-->
+        <section class = "py-5" style = "align-content: center;">
+          <div class="container-fluid">
+              <!-- Page Features-->
+              <div class="row mx-auto gx-lg-5">
+                <div class="col mx-auto gx-lg-5">
                     <div class="row mx-auto" style="width: 100%;">
                     {%for club in clubs: %}
-                      <div class="card" style="width: 35rem; background-color: white; margin: 5px; margin-top:0">
+                      <div class="card card-1 mx-auto" style="width: 38rem; background-color: white; margin: 15px; margin-top:0">
                           <div class="card-body">
                           <h5 class="card-title" style="color: #e8804c;">{{club}}
                             {% set unselected = 5 - (club.combined|int)%}
@@ -135,12 +154,17 @@
                       </div>
                   {% endfor %}
                 </div>
+                <style>
+                  .card-1:hover{
+                      box-shadow: 1px 8px 15px grey;
+                      -webkit-transition: box-shadow 0.05s ease-in;
+                  }
+              </style>
                 </div>
               </div>
             </div>
+            
             </section>
-            <br>
-            <br>
         <!-- Footer-->
         {% include "footer.html" %}
         <!-- Bootstrap core JS-->

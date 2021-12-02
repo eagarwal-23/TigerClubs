@@ -41,6 +41,7 @@ class Student(db.Model):
     bio = db.Column(db.String())
     admin = db.Column(db.Boolean())
     blacklist = db.Column(db.Boolean())
+    pictureURL = db.Column(db.String())
     clubs = db.relationship("Club",
                                 secondary=student_clubs)
 
@@ -51,7 +52,7 @@ class Student(db.Model):
                                 secondary=student_reviews)
 
     def __init__(self, netid, name, res_college,
-            year, major, bio, admin=False):
+            year, major, bio, admin=False, pictureURL = None):
         self.netid = netid
         self.name = name
         self.res_college = res_college
@@ -59,6 +60,7 @@ class Student(db.Model):
         self.major = major
         self.bio = bio
         self.admin= admin
+        self.pictureURL = pictureURL
 
     def __repr__(self):
         return self.netid

@@ -1,4 +1,5 @@
 from flask import Flask, request, make_response, jsonify
+import datetime as dt
 from flask import render_template, Response
 from flask_sqlalchemy import SQLAlchemy
 from casclient import CASClient
@@ -10,7 +11,7 @@ EDIT_CLUB = 3
 ADD_TAG = 4
 app = Flask(__name__, template_folder=".")
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://rvwhfgtoycqubz:e0cb0aca7c7da7773f28d1905455da0f9bf5e83d1a0b98be573e86a621c168e9@ec2-23-23-199-57.compute-1.amazonaws.com:5432/d8hudjmal9i0pc"
-app.secret_key = os.urandom(16)
+app.secret_key = b'!*&y\xc9h`*u\xe0%-\xf2\xbc1\xa8\xd0gF\xc0\x89Y\xb4\xbe'
 db = SQLAlchemy(app)
 
 from db_search import *
@@ -19,6 +20,16 @@ from db_club_profile import *
 from db_admin import *
 
 _cas = CASClient()
+
+ratings_period = dt.date(2021, 12, 21)
+
+@app.before_request
+def enforceHttpsInHeroku():
+    # always force redirect to HTTPS (secure connection)
+    if request.headers.get("X-Forwarded-Proto") == "http":
+        url = request.url.replace("http://", "https://", 1)
+        code = 301
+        return redirect(url, code=code)
 
 def action_requests(request_type):
     if request_type == DELETE_USER:
@@ -61,6 +72,7 @@ def adminlogin():
 def adminportal():
 
     netid = _cas.authenticate()
+    netid = netid.rstrip()
     
     student = get_student_info(netid)
     adminStatus = student.admin
@@ -93,15 +105,19 @@ def landingwhoareyou():
 
 @app.route("/landing", methods=["GET"])
 def landing():
-    # removes new line char (this was some weird ass formatting bug???)
-    # auth_user = CasClient().authenticate()[:-1]
-    # netid = request.cookies.get('netid')
 
     netid = _cas.authenticate()
+    netid = netid.rstrip()
 
+
+    filter_tags = request.args.getlist("tags")
+    if not filter_tags:
+        filter_tags = get_all_tagnames()
     sort_criteria = request.args.get('sort_club')
     if not sort_criteria:
         sort_criteria = 'combined'
+    else:
+        print(sort_criteria)
     
     clubname = request.args.get("clubname")
     studentname = request.args.get("studentname")
@@ -115,33 +131,33 @@ def landing():
     print(studentname)
 
     user = get_student_info(netid)
+    isAdmin = 0
+    if user.admin:
+        isAdmin = 1
+    
     name = user.name
-    clubs = club_search(search = clubname, query = sort_criteria)
-    students_list = student_search(studentname)
+    clubs = club_search(search = clubname, query = sort_criteria, tags = filter_tags)
+    tags = get_all_tags()
 
-    print(clubs)
-    print(students_list)
-    if not clubs and not students_list:
-        html = render_template("landing.html", netid=netid, name = name, hasClubs= False, hasStudents = False)
-        print("if not clubs and not students_list:")
-    elif not clubs:
-        html = render_template("landing.html", netid=netid, name = name, hasClubs= False, hasStudents = True,students = students_list)
-        print("elif not clubs:")
-    elif not students_list:
-        html = render_template("landing.html", netid=netid, name = name, clubs = clubs, studentname=studentname, clubname = clubname, hasClubs= True, hasStudents = False)
-        print("elif not students_list:")
+    if not clubs:
+        html = render_template("mylanding.html", netid=netid, name = name, hasClubs= False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
+        print("if not clubs:")
     else:
-        html = render_template("landing.html", netid=netid, name = name, hasClubs = True, hasStudents = True, clubs = clubs, clubname = clubname, studentname=studentname, students = students_list)
+        html = render_template("mylanding.html", netid=netid, name = name, hasClubs = True, clubs = clubs, clubname = clubname, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
         print("else")
         print(clubname)
+    
     response = make_response(html)
     return response
 
 @app.route("/studentsearch", methods=["GET"])
 def studentsearch():
 
-    netid = _cas.authenticate()    
+    netid = _cas.authenticate()
+    netid = netid.rstrip()
+    # netid = "camilanv"
     studentname = request.args.get("studentname")
+    pagenum = request.args.get('page', 1, type=int)
 
     if not studentname:
         studentname = ""
@@ -149,37 +165,45 @@ def studentsearch():
     print(studentname)
 
     user = get_student_info(netid)
-    name = user.name
-    students_list = student_search(studentname)
+    isAdmin = 0
+    if user.admin:
+        isAdmin = 1
 
-    print(students_list)
+    name = user.name
+    students_list = student_search(studentname, pagenum = pagenum, per_page= 21)
+
+    print(students_list.items)
     
     if not students_list:
-        html = render_template("student.html", netid=netid, name = name, studentname=studentname, hasClubs= True, hasStudents = False)
+        html = render_template("student.html", netid=netid, name = name, studentname=studentname, hasClubs= True, hasStudents = False, isAdmin = isAdmin)
         print("elif not students_list:")
     else:
-        html = render_template("student.html", netid=netid, name = name, hasClubs = True, hasStudents = True, studentname=studentname, students = students_list)
+        html = render_template("student.html", netid=netid, name = name, hasClubs = True, hasStudents = True, studentname=studentname, students = students_list, isAdmin = isAdmin)
         print("else")
     response = make_response(html)
     return response
 
-#@app.route("/profileexternal", methods=["GET"])
-#def profileexternal():
-#    desirednetid = request.args.get("desirednetid")
-
-# rendering profile page from landing page
 @app.route("/profile", methods=["GET"])
-def profile():
+def profile(diffperson=None):
    
     try:
-        diffperson = request.args.get("diffperson")
+        print('we made it to profile')
+        if diffperson is None:
+            diffperson = request.args.get("diffperson")
+        print("no diff person", diffperson)
+        netid = _cas.authenticate()
+        netid = netid.rstrip()
+
+        print("net id found?")
         if diffperson:
             student = get_student_info(diffperson)
         else:
-            netid = _cas.authenticate()
             student = get_student_info(netid)
             diffperson = netid
         
+        isAdmin = 0
+        if student.admin:
+            isAdmin = 1
 
         name = student.name
         classyear = student.year
@@ -188,9 +212,9 @@ def profile():
         bio = student.bio
         interests = student.tags
 
-        html = render_template("profile.html", student = student,  name=name,
+        html = render_template("profile.html", student = student,  name=name, netid= netid,
         classyear=classyear, major=major, clubs=clubs,
-        bio=bio, interests=interests, diffperson = diffperson)
+        bio=bio, interests=interests, diffperson = diffperson, isAdmin = isAdmin)
 
         response = make_response(html)
         return response
@@ -203,11 +227,14 @@ def edited_profile():
 
     try:
         netid = _cas.authenticate()
+        netid = netid.rstrip()
+
+        realnetid = request.args.get("netid")
         bio = request.args.get("bio")
         clubs = request.args.getlist("clubs")
         tags = request.args.getlist("tags")
-        update_student_info(netid, bio, clubs, tags)
-        return profile()
+        update_student_info(realnetid, bio, clubs, tags)
+        return profile(diffperson=realnetid)
     except Exception:
         print("whoops profile from edit")
 
@@ -215,7 +242,14 @@ def edited_profile():
 @app.route("/editprofile", methods=["GET"])
 def editprofile():
     netid = _cas.authenticate()
+    netid = netid.rstrip()
+    
     student = get_student_info(netid)
+
+    isAdmin = 0
+    if student.admin:
+        isAdmin = 1
+    
     name = student.name
     classyear = student.year
     major = student.major
@@ -225,7 +259,7 @@ def editprofile():
     try:
         html = render_template("editprofile.html", name=name, netid=netid, student = student, clubs = clubs, tags = tags,
         classyear=classyear, major=major,
-        bio=bio)
+        bio=bio, isAdmin = isAdmin)
         response = make_response(html)
         return response
     except Exception:
@@ -235,6 +269,15 @@ def editprofile():
 @app.route("/clubpage", methods=["GET"])
 def clubpage():
     try:
+        netid = _cas.authenticate()
+        netid = netid.rstrip()
+       
+        student = get_student_info(netid)
+
+        isAdmin = 0
+        if student.admin:
+            isAdmin = 1
+        
         clubname = request.args.get("clubname")
         club = get_club_info(clubname)
 
@@ -246,7 +289,8 @@ def clubpage():
                                     inclusivity = club.inclusivity,
                                     time_commitment = club.time_commitment,
                                     workload = club.workload,
-                                    experience_requirement = club.experience_requirement)
+                                    experience_requirement = club.experience_requirement,
+                                    isAdmin = isAdmin)
         response = make_response(html)
         return response
 
@@ -257,33 +301,35 @@ def clubpage():
 def myratings():
     try:
         netid = _cas.authenticate()
+        netid = netid.rstrip()
+       
         student = get_student_info(netid=netid)
-        name = student.name
-        clubs = student.clubs
-        ratings = get_student_ratings(netid)
-        html = render_template("ratings_from_student.html", name = name, review = ratings, clubs = clubs)
-        response = make_response(html)
-        return response
-    except Exception:
-        print("whoops from ratings")
 
-@app.route("/ranking", methods = ["POST","GET"])
-def ranking():
-    html = render_template("voting.html")
-    response = make_response(html)
-    return response
-
-@app.route("/addrating", methods = ["POST","GET"])
-def addrating():
-
-    print("hahahahah we r here")
+        isAdmin = 0
+        if student.admin:
+            isAdmin = 1
+        today = dt.date.today()
+        #if today == ratings_period:
+        if True:
+            name = student.name
+            clubs = student.clubs
+            ratings = get_student_ratings(netid)
+            html = render_template("myratings.html", name = name, review = ratings, clubs = clubs, isAdmin = isAdmin)
+            response = make_response(html)
+            return response
+        else:
+            html = render_template("notmyratings.html", ratings_period=ratings_period, today=today, isAdmin = isAdmin)
+            response = make_response(html)
+            return response
+    except Exception as e:
+        print(e, "whoops from ratings")
 
 @app.route("/voting", methods = ["POST","GET"])
 def vote():
     try:
         netid = _cas.authenticate()
+        netid = netid.rstrip()
         if request.method == 'POST':
-            print("did we get here")
             clubname = request.form['clubname']
             diversity = request.form['diversity']
             inclusivity = request.form['inclusivity']
@@ -303,7 +349,6 @@ def removingvote():
     try:
         if request.method == 'POST':
             reviewid = request.form['reviewid']
-            print(reviewid)
             delete_rating(reviewid)
             msg = 'success'
         else:
@@ -393,13 +438,14 @@ def adminclubs():
 
     clubs = club_search(clubname)
 
-    html = render_template("adminclubs.html", hasClubs = 1, clubs=clubs)
+    html = render_template("adminclubs.html", clubs=clubs)
     response = make_response(html)
     return response
 
 @app.route("/adminstudents", methods=["GET"])
 def adminstudents():
     netid = _cas.authenticate()
+    netid = netid.rstrip()
     user = get_student_info(netid)
 
     if (not user.admin):
@@ -408,16 +454,14 @@ def adminstudents():
         return response
 
     studentname = request.args.get("studentname")
+    pagenum = request.args.get('page', 1, type=int)
 
     if not studentname:
         studentname = ""
-    
-    print(studentname)
 
     name = user.name
-    students_list = student_search(studentname)
+    students_list = student_search(studentname, pagenum = pagenum, per_page= 20)
 
-    print(students_list)
     
     if not students_list:
         html = render_template("adminstudents.html", netid=netid, name = name, studentname=studentname, hasClubs= True, hasStudents = False)
@@ -439,7 +483,10 @@ def editclub():
         return response
 
     clubname = request.args.get("clubname")
-    print(clubname)
+    if clubname is None:
+        clubname = ""
+    
+    print("clubname:", clubname)
     club = get_club_info(clubname)
 
     html = render_template("editclubs.html",
@@ -452,16 +499,19 @@ def editclub():
 
 @app.route("/editclubfromedit", methods=["GET"])
 def editclubfromedit():
-    try:
-        name = request.args.get("name")
-        description = request.args.get("description")
-        members = request.args.get("members")
-        tags = request.args.get("tags")
+#try: bob
+    name = request.args.get("name")
+    description = request.args.get("description")
+    members = request.args.get("members")
+    tags = request.args.get("tags")
 
-        update_club_info(name, description, members, tags)
-        return editclub()
-    except Exception:
-        print("whoops from editclubfromedit")
+    print("am i whooping here before?????", name, description, members, tags)
+
+    update_club_info(name, description, members, tags)
+    print("whooping hereeeeee???")
+    return adminclubs()
+#except Exception:
+    print("whoops from editclubfromedit")
 
 @app.route("/delete_club", methods = ["GET"])
 def delete_club():
@@ -479,7 +529,11 @@ def admintags():
         response = make_response(html)
         return response
 
-    tags = get_all_tags()
+    tagsearch = request.args.get("tag")
+    if tagsearch is None:
+        tagsearch = ""
+    
+    tags = tag_search(tagsearch)
 
     html = render_template("admintags.html", tags=tags)
     response = make_response(html)
@@ -512,3 +566,89 @@ def sort_clubs():
 @app.route("/report", methods = ["GET"])
 def file_report():
     netid = _cas.authenticate()
+    netid = netid.rstrip()
+    html = render_template("requestform.html")
+    response = make_response(html)
+    return response
+
+@app.route("/submittedrequest", methods = ["GET"])
+def submitted_request():
+    netid = _cas.authenticate()
+    netid = netid.rstrip()
+
+    # student = get_student_info(netid)
+    # isAdmin = 0
+    #if student.admin:
+    #    isAdmin = 1
+
+    request_reason = request.args.get("reason")
+    about_user = request.args.get("reporteduser")
+    club = request.args.get("clubname")
+    tag = request.args.get("tag")
+    descrip = request.args.get("explanation")
+    success = add_request(request_reason, netid, about_user, club, tag, descrip)
+    if success == None:
+        html = render_template("wrongrequestinput.html")
+    else:
+        html = render_template("requestsubmitted.html")
+    response = make_response(html)
+    return response
+
+@app.route("/creatingtags", methods=["POST"])
+def creatingtags():
+    newtag = request.form["newtag"]
+    add_tag_db(newtag)
+    msg = "Added!"
+    return jsonify(msg)
+
+# rendering edit profile page from the profile page
+@app.route("/admineditprofile", methods=["GET"])
+def admineditprofile():
+    adminnetid = _cas.authenticate()
+    adminnetid = adminnetid.rstrip()
+    
+    studentnetid = request.args.get("netid")
+    
+    student = get_student_info(studentnetid)
+    admin = get_student_info(adminnetid)
+
+    isAdmin = 0
+    if admin.admin:
+        isAdmin = 1
+    
+    name = student.name
+    classyear = student.year
+    major = student.major
+    bio = student.bio
+    clubs = get_all_clubs()
+    tags = get_all_tags()
+    try:
+        html = render_template("editprofile.html", name=name, netid=studentnetid, student = student, clubs = clubs, tags = tags,
+        classyear=classyear, major=major,
+        bio=bio, isAdmin = isAdmin)
+        response = make_response(html)
+        return response
+    except Exception:
+        print("whoops from admineditprofile")
+
+@app.route("/blackliststudent", methods=["GET"])
+def blackliststudent():
+    adminnetid = _cas.authenticate()
+    adminnetid = adminnetid.rstrip()
+    
+    studentnetid = request.args.get("studentnetid")
+
+    blacklist_student(studentnetid)
+    msg = "Blacklisted"
+    return jsonify(msg)
+
+@app.route("/whiteliststudent", methods=["GET"])
+def whiteliststudent():
+    adminnetid = _cas.authenticate()
+    adminnetid = adminnetid.rstrip()
+    
+    studentnetid = request.args.get("studentnetid")
+
+    whitelist_student(studentnetid)
+    msg = "Whitelisted"
+    return jsonify(msg)

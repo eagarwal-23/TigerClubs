@@ -4,7 +4,7 @@
     <link rel="shortcut icon" href="static/tigerclubsicon.ico"/>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width-device-width, initial-scale-1.0">
+    <meta name= "viewport" content= "width-device-width, initial-scale=1, shrink-to-fit=no">
     <title> Tiger Clubs</title>
     <link rel="stylesheet" href="static/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -13,21 +13,25 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <!------ Include the above in your HEAD tag ---------->
+
+    <link href="static/styles.css" rel="stylesheet" />
 </head>
 
-<body>
-    <div class="menu-bar" style="background-color: #FFBD81;">
-        <nav class="navbar navbar-expand-lg navbar-light" style="font-family: Merriweather;">
-            <a class="navbar-brand" style="padding-left: 1%; font-size: 135% " href="#">Tiger Clubs</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fa fa-bars"></i>
-            </button>
+<body style = "background-color: rgb(255, 237, 215);">
+    <div class="menu-bar">
+        <nav class="navbar navbar-expand-lg navbar-dark" style = "background-color: #e8804c;">
+            <div class="container px-lg-5">
+                <a class="navbar-brand" href="#">TigerClubs</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
         </nav>
     </div>
 
     <div id="login">
-        <h3 class="text-center text-white pt-5">Login form</h3>
+        <h3 class="text-center text-white pt-5"></h3>
         <div class="container" style="padding-top: 7%">
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
@@ -45,7 +49,7 @@
                                 class="btn btn-primary col-md-12" >Click
                                 here to login</button> -->
                             <a id="submit" name="submit" class="btn btn-primary col-md-12 text-center" href="/landingwhoareyou"
-                                style="background-color: #FFBD81; border-color: #FFBD81;">Click here to login</a>
+                                style="background-color: #e8804c; border-color: #e8804c;">Click here to login</a>
                             <!-- <meta name="user-name" content={{user}} />
                             <script>
                                 $('#submit').on('click', function () {
@@ -65,6 +69,7 @@
         </div>
     </div>
     </div>
+
 </body>
 
 </html>

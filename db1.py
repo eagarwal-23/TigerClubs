@@ -97,6 +97,7 @@ def update_club_info(name, description = None, members = None, tags = None):
         club.description = description
     
     if members != "" and members is not None:
+        members = members[1:-1]
         members = members.split(',')
         for member in members:
             member = member.strip()
@@ -106,6 +107,7 @@ def update_club_info(name, description = None, members = None, tags = None):
             db.session.add(club)
 
     if tags != "" and tags is not None:
+        tags = tags[1:-1]
         tags = tags.split(',')
         for tag in tags:
             tag = tag.strip()
@@ -154,15 +156,14 @@ def delete_club(name, description):
     db.session.delete(club)
     db.session.commit()
 
-def delete_student(netid, name, res_college, year, major, bio, admin = False):
-    student = Student(netid, name, res_college, year, major, bio, admin)
+def delete_student(netid):
+    student = Student.query.filter_by(netid = netid).first()
     db.session.delete(student)
     db.session.commit()
 
 def delete_review(reviewid):
     review = Review.query.filter_by(reviewid = reviewid).first()
     db.session.delete(review)
-
     db.session.commit()
 
 def delete_student_club(netid, clubname):

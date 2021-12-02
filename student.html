@@ -40,41 +40,57 @@
     <!--ours-->
     <link href="static/styles.css" rel="stylesheet" />
   </head>
-  <body style="background-color: rgb(255, 237, 215)">
+  <body style="background-color: white">
     {% include "navbar.html" %}
-    <!-- Header-->
-    <header class="py-5">
-      <div class="container px-lg-5">
-        <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
-          <div class="m-4 m-lg-5">
-            <h2><strong>Look up a friend!</strong></h2>
-            <p class="fs-4">Find out which clubs your friends are in!</p>
-            <form
-              class="form-inline my-2 my-lg-0"
-              style="padding-top: 2%"
-              action="/studentsearch"
-              method="get"
+
+    <style>
+      .parallax {
+        /* The image used */
+        background-image: url("/static/darkprinceton.jpeg");
+      
+        /* Set a specific height */
+        min-height: 200px;
+      
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      </style>
+  <!-- Header-->
+    <div class="parallax px-lg-5"style = "padding-top: 5rem; padding-bottom: 2rem;">
+      <br>
+      <div class="p-4 bg-dark rounded-3 text-center" style = "color: white; height: 20rem;">
+        <div class="m-4 m-lg-4">
+          <h2><strong>Look up a friend!</strong></h2>
+          <p class="fs-4">Find out which clubs your friends are in!</p>
+          <form
+            class="form-inline my-2 my-lg-0"
+            style="padding-top: 2%"
+            action="/studentsearch"
+            method="get"
+          >
+            <input
+              class="form-control mr-sm-2"
+              type="search"
+              name="studentname"
+              placeholder="Search Student"
+              value="{{studentname}}"
+              aria-label="Search"
+            />
+            <button
+              class="btn btn-outline my-2 my-sm-0"
+              style="background-color: #e8804c"
+              type="submit"
             >
-              <input
-                class="form-control mr-sm-2"
-                type="search"
-                name="studentname"
-                placeholder="Search Student"
-                value="{{studentname}}"
-                aria-label="Search"
-              />
-              <button
-                class="btn btn-outline my-2 my-sm-0"
-                style="background-color: #e8804c"
-                type="submit"
-              >
-                Search
-              </button>
-            </form>
-          </div>
+              Search
+            </button>
+          </form>
         </div>
       </div>
-    </header>
+      <br>
+    </div>
     <!-- Page Content-->
     <section class="pt-4">
       <div class="container px-lg-5">
@@ -90,7 +106,7 @@
                 outline-style: initial;
               "
             >
-              <div class="card-body text-center">
+              <div class="card-body bg-light text-center">
                 <img
                   class="rounded-circle"
                   src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg"
@@ -108,6 +124,12 @@
                 <br />
                 {{student.res_college}}
               </div>
+              <style>
+                .card:hover{
+                  box-shadow: 1px 8px 20px grey;
+                  -webkit-transition: box-shadow 0.2s ease-in;
+                }
+              </style>
             </div>
           </div>
           {% endfor %}

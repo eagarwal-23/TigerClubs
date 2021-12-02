@@ -2,7 +2,7 @@
 <div class="menu-bar">
   <nav
     class="navbar navbar-expand-lg navbar-dark"
-    style="background-color: #e8804c"
+    style="background-color: #e8804c; position: fixed; top: 0; width: 100%;  z-index:1;"
   >
     <div class="container px-lg-5">
       <a class="navbar-brand" href="/landing">TigerClubs</a>
@@ -19,6 +19,11 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          {%if isAdmin: %}
+          <li class="nav-item">
+            <a class="nav-link" href="/adminlanding">Admin View</a>
+          </li>
+          {%endif%}
           <li class="nav-item">
             <a class="nav-link" href="/studentsearch"> Students</a>
           </li>

@@ -156,15 +156,14 @@ def delete_club(name, description):
     db.session.delete(club)
     db.session.commit()
 
-def delete_student(netid, name, res_college, year, major, bio, admin = False):
-    student = Student(netid, name, res_college, year, major, bio, admin)
+def delete_student(netid):
+    student = Student.query.filter_by(netid = netid).first()
     db.session.delete(student)
     db.session.commit()
 
 def delete_review(reviewid):
     review = Review.query.filter_by(reviewid = reviewid).first()
     db.session.delete(review)
-
     db.session.commit()
 
 def delete_student_club(netid, clubname):

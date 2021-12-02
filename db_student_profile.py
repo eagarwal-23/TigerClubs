@@ -51,3 +51,13 @@ def delete_rating(reviewid):
     review = Review.query.filter_by(reviewid = reviewid).first()
     db.session.delete(review)
     db.session.commit()
+
+def blacklist_student(netid):
+    student = Student.query.filter_by(netid = netid).first()
+    student.blacklist = True
+    db.session.commit()
+
+def whitelist_student(netid):
+    student = Student.query.filter_by(netid = netid).first()
+    student.blacklist = False
+    db.session.commit()

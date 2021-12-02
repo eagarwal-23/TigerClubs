@@ -73,6 +73,26 @@
             future.</p>
         </div>
       </div>
+      <div class="row">
+        <h4><strong>Club Members:</strong></h4>
+        <br />
+        <br />
+        {%for member in members: %}
+        <div class="card border h-100" style="background-color: white; width: 25%; margin: 10px; margin-left:0">
+          <div class="card-body text-center">
+            <img class="rounded-circle"
+              src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg" width="50"
+              height="50" />
+            <a href="/profile?diffperson={{member.netid}}" class="card-link stretched-link"></a>
+            <h4 class="fs-4 fw-bold">{{member.name}}</h4>
+            <a href="{{member.netid}}@princeton.edu" class="link-dark" style="color: #db6225;">{{member.netid}}@</a>
+            <br />
+            {{member.year}}
+            <br />
+          </div>
+        </div>
+        {% endfor %}
+      </div>
     </div>
 
     <!-- DESCRIPTION CARD -->
@@ -172,7 +192,7 @@
     </div>
 
     <!-- CLUB MEMBERS -->
-    <div class="col-8">
+    <!-- <div class="col-8">
       <div class="row">
         <h4><strong>Club Members:</strong></h4>
         <br />
@@ -192,21 +212,21 @@
           </div>
         </div>
         {% endfor %}
-      </div>
-    </div>
+      </div> -->
+  </div>
 
-    <!-- <a class="btn btn-primary" href="#!">Website</a> -->
+  <!-- <a class="btn btn-primary" href="#!">Website</a> -->
 
-    <!-- Content Row-->
+  <!-- Content Row-->
 
 
-    <!-- Footer-->
-    {% include "footer.html" %}
+  <!-- Footer-->
+  {% include "footer.html" %}
 
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
+  <!-- Bootstrap core JS-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Core theme JS-->
+  <script src="js/scripts.js"></script>
 </body>
 
 </html>

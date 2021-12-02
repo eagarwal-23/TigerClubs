@@ -39,21 +39,6 @@
 
 <body style="background-color:rgb(255, 247, 243)">
   {% include "navbar.html" %}
-  <style>
-    .parallax {
-      /* The image used */
-      background-image: url("/static/darkprinceton.jpeg");
-
-      /* Set a specific height */
-      min-height: 200px;
-
-      /* Create the parallax scrolling effect */
-      background-attachment: fixed;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
-  </style>
   <!-- Page Content-->
   <div class="row px-4 px-lg-5 my-5 py-5">
     <!-- CLUB NAME HEADING CARD -->
@@ -165,13 +150,15 @@
         </div>
       </div>
     </div>
+
+    <!-- CLUB MEMBERS -->
     <div class="col-8">
-      <div class="row-flex">
+      <div class="row">
         <h4><strong>Club Members:</strong></h4>
         <br />
         <br />
         {%for member in members: %}
-        <div class="card border h-100" style="background-color: white; margin: 10px; margin-left:0">
+        <div class="card border h-100" style="background-color: white; width: 25%; margin: 10px; margin-left:0">
           <div class="card-body text-center">
             <img class="rounded-circle"
               src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg" width="50"

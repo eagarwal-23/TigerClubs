@@ -16,34 +16,34 @@ def get_all_requests():
 
 # add Request object to request_info table
 def add_request(request_type, netid_sender, netid_about = None, 
-                club = None, tagname = None):
+                club = None, tagname = None, descrip = None):
     if request_type == "delete_user":
         request_type = DELETE_USER
         club = Club.query.filter_by(name = club).first()
         if (club == None or get_student_info(netid_about) == None):
             return None
         club = club.clubid
-        request = Request(request_type, netid_sender, netid_about, club, None)
+        request = Request(request_type, netid_sender, netid_about, club, None, description= descrip)
     elif request_type == "blacklist_user":
         request_type = BLACKLIST_USER
         if (get_student_info(netid_about) == None):
             return None
-        request = Request(request_type, netid_sender, netid_about, None, None)
+        request = Request(request_type, netid_sender, netid_about, None, None, description = descrip)
     elif request_type == "edit_user":
         request_type = EDIT_USER
         if (get_student_info(netid_about) == None):
             return None
-        request = Request(request_type, netid_sender, netid_about, None, None)
+        request = Request(request_type, netid_sender, netid_about, None, None, description = descrip)
     if request_type == "edit_club":
         club = Club.query.filter_by(name = club).first()
         if (club == None):
             return None
         club = club.clubid
         request_type = EDIT_CLUB
-        request = Request(request_type, netid_sender, None, club, None)
+        request = Request(request_type, netid_sender, None, club, None, description = descrip)
     elif request_type == "add_tag":
         request_type = ADD_TAG
-        request = Request(request_type, netid_sender, None, None, tagname)
+        request = Request(request_type, netid_sender, None, None, tagname, description = descrip)
     
     db.session.add(request)
     db.session.commit()

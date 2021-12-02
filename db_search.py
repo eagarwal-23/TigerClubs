@@ -33,14 +33,14 @@ def get_all_tagnames():
 
 # get a list of all Student objects whose name, netid, 
 # res college, or year matches search query
-def student_search(search, pagenum):
+def student_search(search, pagenum, per_page):
     search_query = '%' + search + "%"
     students = Student.query.filter(
         (Student.name.ilike(search_query)) |
         (Student.netid.ilike(search_query)) |
         (Student.res_college.ilike(search_query)) |
         (Student.year.ilike(search_query))
-    ).paginate(page = pagenum, per_page = 21)
+    ).paginate(page = pagenum, per_page = per_page)
 
     return students
 

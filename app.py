@@ -179,7 +179,7 @@ def studentsearch():
         isAdmin = 1
 
     name = user.name
-    students_list = student_search(studentname, pagenum = pagenum)
+    students_list = student_search(studentname, pagenum = pagenum, per_page= 21)
 
     print(students_list.items)
     
@@ -463,12 +463,13 @@ def adminstudents():
         return response
 
     studentname = request.args.get("studentname")
+    pagenum = request.args.get('page', 1, type=int)
 
     if not studentname:
         studentname = ""
 
     name = user.name
-    students_list = student_search(studentname)
+    students_list = student_search(studentname, pagenum = pagenum, per_page= 20)
 
     
     if not students_list:

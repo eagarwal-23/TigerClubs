@@ -3,7 +3,7 @@ from models import Student, Club, Tag
 
 # get list of all Student objects in student_info table
 def get_all_students():
-    students = Student.query.all()
+    students = Student.query.paginate(page = 1, per_page = 30)
     return students
 
 # get list of all Club objects in club_info table
@@ -33,14 +33,14 @@ def get_all_tagnames():
 
 # get a list of all Student objects whose name, netid, 
 # res college, or year matches search query
-def student_search(search):
+def student_search(search, pagenum):
     search_query = '%' + search + "%"
     students = Student.query.filter(
         (Student.name.ilike(search_query)) |
         (Student.netid.ilike(search_query)) |
         (Student.res_college.ilike(search_query)) |
         (Student.year.ilike(search_query))
-    ).all()
+    ).paginate(page = pagenum, per_page = 21)
 
     return students
 

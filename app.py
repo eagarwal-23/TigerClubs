@@ -162,10 +162,11 @@ def landing():
 @app.route("/studentsearch", methods=["GET"])
 def studentsearch():
 
-    # netid = _cas.authenticate()
-    # netid = netid.rstrip()
-    netid = "camilanv"
+    netid = _cas.authenticate()
+    netid = netid.rstrip()
+    # netid = "camilanv"
     studentname = request.args.get("studentname")
+    pagenum = request.args.get('page', 1, type=int)
 
     if not studentname:
         studentname = ""
@@ -178,9 +179,9 @@ def studentsearch():
         isAdmin = 1
 
     name = user.name
-    students_list = student_search(studentname)
+    students_list = student_search(studentname, pagenum = pagenum)
 
-    print(students_list)
+    print(students_list.items)
     
     if not students_list:
         html = render_template("student.html", netid=netid, name = name, studentname=studentname, hasClubs= True, hasStudents = False, isAdmin = isAdmin)

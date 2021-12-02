@@ -96,7 +96,7 @@
       <div class="container px-lg-5">
         <!-- Page Features-->
         <div class="row gx-lg-5">
-          {%for student in students:%}
+          {%for student in students.items:%}
           <div class="col-lg-6 col-xxl-4 mb-5">
             <div
               class="card"
@@ -136,6 +136,43 @@
         </div>
       </div>
     </section>
+
+    <!-- Pagination Links-->
+    <div class="float-right">
+      <a href="{{ url_for('studentsearch', page=students.prev_num) }}"
+        class="btn btn-outline-dark 
+        {% if students.page == 1 %}disabled{% endif %}">
+          &laquo;
+      </a>
+    <!-- Loop through the number of pages to display a link for each-->
+      {% for page_num in students.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+    {% if page_num %}
+    <!-- Check for the active page and set the link to "Active"-->
+              {% if students.page == page_num %}
+              <a href="{{ url_for('studentsearch', page=page_num) }}"
+                class="btn btn-dark">
+                  {{ page_num }}
+              </a>
+              {% else %}
+              <a href="{{ url_for('studentsearch', page=page_num) }}"
+                class="btn btn-outline-dark">
+                  {{ page_num }}
+              </a>
+              {% endif %}
+          {% else %}
+              ...
+          {% endif %}
+      {% endfor %}
+      <a href="{{ url_for('studentsearch', page=students.next_num) }}"
+        class="btn btn-outline-dark 
+        {% if students.page == students.pages %}disabled{% endif %}">
+          &raquo;
+      </a>
+    </div>
+    <p class="text-right mt-3">
+    Showing page {{ students.page }} of {{ students.pages }}
+    </p>
+
     <!-- Footer-->
     {% include "footer.html" %}
     <!-- Bootstrap core JS-->

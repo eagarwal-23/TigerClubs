@@ -85,19 +85,19 @@ def add_tag_db(tagname):
     db.session.commit()
 
 # for admin students tab
-def add_student(netid, name, res_college, year, major, bio = "", admin = False):
+def add_student(netid, name, res_college, year, major, bio = "", admin = False, pictureURL = None):
     # what should we do if we delete student and then we want to repopulate 
     # our users, probably keep list of users we deleted so we can make
     # sure we don't recreate them
     if (get_student_info(netid) != None):
         print(netid, " already exists")
         return
-    student = Student(netid, name, res_college, year, major, bio, admin)
+    student = Student(netid, name, res_college, year, major, bio, admin, pictureURL)
     db.session.add(student)
     db.session.commit()
 
-def delete_student(netid, name, res_college, year, major, bio, admin = False):
-    student = Student(netid, name, res_college, year, major, bio, admin)
+def delete_student(netid, name, res_college, year, major, bio, admin = False, pictureURL = None):
+    student = Student(netid, name, res_college, year, major, bio, admin, pictureURL)
     db.session.delete(student)
     db.session.commit()
 

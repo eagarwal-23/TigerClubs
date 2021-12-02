@@ -19,14 +19,16 @@ if __name__ == "__main__":
             net_id = student['net_id'].strip()
             full_name = student['full_name'].strip()
             res_college = student['res_college'].strip()
-            class_year = student['class_year']
+            class_year = "20" + str(student['class_year'])
             major_code = student['major_code'].strip()
+            profile_url = student['photo_link']
+            print(student)
             # Have to do photos too -- tigerbook down but check if photos are none or just placeholder
 
             # uncomment line below to add student, the break line following only allows us
             # to add the first student (on purpose)
 
-            # add_student(net_id, full_name, res_college, class_year, major_code)
+            #add_student(net_id, full_name, res_college, class_year, major_code, "", False, profile_url)
             break
     else:
         print(req.text)

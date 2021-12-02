@@ -60,11 +60,19 @@
         {% endfor %}
       </div>
       <div class="col-3">
+<<<<<<< HEAD
         <!-- Here;s where we can print out all the students that match the input "student" -->
         {% if hasStudents: %}
 
         {%for student in students:%}
         <div class="container">
+=======
+          <!-- Here;s where we can print out all the students that match the input "student" -->
+      {% if hasStudents: %}
+        
+      {%for student in students.items:%}
+        <div class = "container">
+>>>>>>> 08143a6421d50151de2da169bb260338bfd53ba0
           <div class="card" style="width: 15rem;">
             <img class="card-img-top" src="..." alt="Card image cap">
             <div class="card-body">

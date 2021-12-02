@@ -1,4 +1,5 @@
 from flask import Flask, request, make_response, jsonify
+import datetime as dt
 from flask import render_template, Response
 from flask_sqlalchemy import SQLAlchemy
 from casclient import CASClient
@@ -19,6 +20,8 @@ from db_club_profile import *
 from db_admin import *
 
 _cas = CASClient()
+
+ratings_period = dt.date(2021, 12, 21)
 
 @app.before_request
 def enforceHttpsInHeroku():
@@ -159,10 +162,11 @@ def landing():
 @app.route("/studentsearch", methods=["GET"])
 def studentsearch():
 
-    # netid = _cas.authenticate()
-    # netid = netid.rstrip()
-    netid = "camilanv"
+    netid = _cas.authenticate()
+    netid = netid.rstrip()
+    # netid = "camilanv"
     studentname = request.args.get("studentname")
+    pagenum = request.args.get('page', 1, type=int)
 
     if not studentname:
         studentname = ""
@@ -175,9 +179,9 @@ def studentsearch():
         isAdmin = 1
 
     name = user.name
-    students_list = student_search(studentname)
+    students_list = student_search(studentname, pagenum = pagenum, per_page= 21)
 
-    print(students_list)
+    print(students_list.items)
     
     if not students_list:
         html = render_template("student.html", netid=netid, name = name, studentname=studentname, hasClubs= True, hasStudents = False, isAdmin = isAdmin)
@@ -314,13 +318,19 @@ def myratings():
         isAdmin = 0
         if student.admin:
             isAdmin = 1
-        
-        name = student.name
-        clubs = student.clubs
-        ratings = get_student_ratings(netid)
-        html = render_template("myratings.html", name = name, review = ratings, clubs = clubs, isAdmin = isAdmin)
-        response = make_response(html)
-        return response
+        today = dt.date.today()
+        #if today == ratings_period:
+        if True:
+            name = student.name
+            clubs = student.clubs
+            ratings = get_student_ratings(netid)
+            html = render_template("myratings.html", name = name, review = ratings, clubs = clubs, isAdmin = isAdmin)
+            response = make_response(html)
+            return response
+        else:
+            html = render_template("notmyratings.html", ratings_period=ratings_period, today=today, isAdmin = isAdmin)
+            response = make_response(html)
+            return response
     except Exception as e:
         print(e, "whoops from ratings")
 
@@ -454,12 +464,13 @@ def adminstudents():
         return response
 
     studentname = request.args.get("studentname")
+    pagenum = request.args.get('page', 1, type=int)
 
     if not studentname:
         studentname = ""
 
     name = user.name
-    students_list = student_search(studentname)
+    students_list = student_search(studentname, pagenum = pagenum, per_page= 20)
 
     
     if not students_list:
@@ -542,7 +553,11 @@ def admintags():
         response = make_response(html)
         return response
 
-    tags = get_all_tags()
+    tagsearch = request.args.get("tag")
+    if tagsearch is None:
+        tagsearch = ""
+    
+    tags = tag_search(tagsearch)
 
     html = render_template("admintags.html", tags=tags)
     response = make_response(html)
@@ -594,7 +609,8 @@ def submitted_request():
     about_user = request.args.get("reporteduser")
     club = request.args.get("clubname")
     tag = request.args.get("tag")
-    success = add_request(request_reason, netid, about_user, club, tag)
+    descrip = request.args.get("explanation")
+    success = add_request(request_reason, netid, about_user, club, tag, descrip)
     if success == None:
         html = render_template("wrongrequestinput.html")
     else:
@@ -644,8 +660,19 @@ def blackliststudent():
     adminnetid = _cas.authenticate()
     adminnetid = adminnetid.rstrip()
     
-    studentnetid = request.args.get("netid")
+    studentnetid = request.args.get("studentnetid")
 
     blacklist_student(studentnetid)
     msg = "Blacklisted"
+    return jsonify(msg)
+
+@app.route("/whiteliststudent", methods=["GET"])
+def whiteliststudent():
+    adminnetid = _cas.authenticate()
+    adminnetid = adminnetid.rstrip()
+    
+    studentnetid = request.args.get("studentnetid")
+
+    whitelist_student(studentnetid)
+    msg = "Whitelisted"
     return jsonify(msg)

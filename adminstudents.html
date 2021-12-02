@@ -29,107 +29,110 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script
+    src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+    data-auto-replace-svg="nest"
+  ></script>
     <!------ Include the above in your HEAD tag ---------->
     <link rel="stylesheet" type="text/css" href="static/jquery.raty.css" />
     <script src="static/jquery.raty.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel = "stylesheet" href = "static/button-hover-admin.css">
   </head>
 
   <body>
-    <!--Menu bar-->
-    <div class="menu-bar" style="background-color: #ffbd81">
-      <nav
-        class="navbar navbar-expand-lg navbar-light"
-        style="font-family: Merriweather"
-      >
-        <a
-          class="navbar-brand"
-          style="padding-left: 1%; font-size: 135%"
-          href="/landing?netid={{netid}}"
-          >Student View</a
-        >
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <i class="fa fa-bars"></i>
-        </button>
-        <div
-          class="collapse navbar-collapse"
-          style="font-size: 110%"
-          id="navbarNav"
-        >
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/adminlanding"
-                >Home<span class="sr-only">(current)</span></a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/adminstudents">Manage Students</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/adminclubs">Manage Clubs</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/admintags">Manage Tags</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/logout">Logout</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </div>
+    {% include "admin-navbar.html" %}
     <!-- Header-->
-    <header class="py-5">
-      <div class="container px-lg-5">
-        <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
-          <div class="m-4 m-lg-5">
-            <h2><strong>Look up a student here</strong></h2>
-            <p class="fs-4">View and manage student profiles.</p>
-            <form
-              class="form-inline my-2 my-lg-0 justify-content-center"
-              style="padding-top: 2%"
-              action="/adminstudents?netid={{netid}}&clubname={{clubname}}"
-              method="get"
-            >
-              <input
-                class="form-control mr-sm-2 justify-content-center"
-                type="search"
-                name="studentname"
-                placeholder="Search Student"
-                value="{{studentname}}"
-                aria-label="Search"
-              />
-              <button
-                class="btn btn-outline my-2 my-sm-0"
-                style="background-color: #e8804c"
-                type="submit"
-              >
-                Search
-              </button>
-            </form>
+    <div class="container" style="padding-top: 1rem;">
+      <h3 style="text-align: center;">Admin Dashboard</h3>
+      <div class="card-deck" style="padding: 2rem;">
+        <style>
+          .card {
+            transition: border-color 1s, box-shadow 0.5s;
+            background-color: #ffbd81
+          }
+          .fa-user:hover {
+            color: #ffffff;
+            background-color: #e8804c;
+          }
+          .fa-user-edit:hover {
+            color: #ffffff;
+            background-color: #e8804c;
+          }
+          .fa-user-times:hover {
+            color: #ffffff;
+            background-color: #e8804c;
+          }
+
+          .fa-user-check:hover {
+            color: #ffffff;
+            background-color: #e8804c;
+          }
+          
+          .viewuserprofile, .edituserprofile, .blacklist_student, .whitelist_student {
+            display:inline-block;
+          }
+
+        </style>
+    <div class="card" >
+        <div class="card-body" style="text-align: center;">
+          <div class="justify-content-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                class="bi bi-person-badge" viewBox="0 0 16 16">
+                <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                <path
+                  d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0h-7zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492V2.5z" />
+              </svg>
           </div>
+          <h2 class="card-title">Manage Students</h2>
+          <h4 class="card-text">View, edit, and blacklist users</h4>
         </div>
-      </div>
-    </header>
+      <div class="col-sm-12 col-md-12" style="margin-top:5px">
+        <form  action="/adminstudents" method="get">
+            <div class="form-group">
+                <input type="text" name="studentname" id="searchbar" class="form-control input-lg" placeholder="Search by name, netid, year, or major" />
+            </div>
+        </form>
+        </div>
+    </div>
+    </div>
     <!-- Page Content-->
     <section class="pt-4">
       <div class="container px-lg-5">
         <!-- Page Features-->
-        <div class="row gx-lg-5">
-          {%for student in students:%}
+          <div class="flex row mx-auto">
+          {% if hasStudents: %}
+          {%for student in students.items:%}
           <div class="col-lg-6 col-xxl-4 mb-5">
             <div
               class="card border-0 h-100"
-              style="background-color: white; outline-style: double"
+              style="background-color: white; outline-style: solid"
             >
               <div class="card-body text-center">
+                <section class="wow fadeIn animated" style="visibility: visible; animation-name: fadeIn;">
+                  <div class = "container">
+                    <div class = "row">
+                          <div class="col-md-12 col-sm-10 center-col text-right"> 
+                            <div class = "viewuserprofile" data-netid = "{{student.netid}}">
+                            <i class="fa fa-user i-extra-small-box"></i> 
+                          </div>
+                          <div class = "edituserprofile" data-netid = "{{student.netid}}">
+                              <i class="fas fa-user-edit i-extra-small-box"></i>
+                          </div>
+                            {% if student.blacklist %}
+                            <div class = "whitelist_student" data-netid = "{{student.netid}}">
+                            <i class="fas fa-user-check i-extra-small-box"></i>
+                            </div>
+
+                            {% else %}
+                            <div class = "blacklist_student" data-netid = "{{student.netid}}">
+                              <i class="fa fa-user-times i-extra-small-box"></i>
+                            </div>
+                          {% endif %}
+                          </div>
+                        </div>
+                        </div>
+              </section>
                 <img
                   class="rounded-circle"
                   src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg"
@@ -142,46 +145,56 @@
                 {{student.year}}
                 <br />
                 {{student.res_college}}
-
-                <form action="/profile">
-                  <button
-                    type="submit"
-                    class="btn btn-primary view_club"
-                    data-clubname=""
-                  >
-                    View
-                  </button>
-                  <input type="hidden" name="diffperson" value="{{student.netid}}" />
-                </form>
-
-                <form action="/admineditprofile">
-                  <button
-                    type="submit"
-                    class="btn btn-primary edit_club"
-                    data-clubname=""
-                  >
-                    Edit Profile
-                  </button>
-                  <input type="hidden" name="netid" value="{{student.netid}}" />
-                </form>
-
-                <button
-                  type="button"
-                  class="btn btn-primary blacklist_student"
-                  data-netid="{{student.netid}}"
-                >
-                  Delete
-                </button>
               </div>
             </div>
           </div>
           {% endfor %}
+          {% else: %}
+        No person found.
+      {% endif %}
         </div>
-      </div>
-    </section>
+        </div>
+      </section>
+
+        <!-- Pagination Links-->
+    <div class="float-right">
+      <a href="{{ url_for('adminstudents', page=students.prev_num) }}"
+        class="btn btn-outline-dark 
+        {% if students.page == 1 %}disabled{% endif %}">
+          &laquo;
+      </a>
+    <!-- Loop through the number of pages to display a link for each-->
+      {% for page_num in students.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+    {% if page_num %}
+    <!-- Check for the active page and set the link to "Active"-->
+              {% if students.page == page_num %}
+              <a href="{{ url_for('adminstudents', page=page_num) }}"
+                class="btn btn-dark">
+                  {{ page_num }}
+              </a>
+              {% else %}
+              <a href="{{ url_for('adminstudents', page=page_num) }}"
+                class="btn btn-outline-dark">
+                  {{ page_num }}
+              </a>
+              {% endif %}
+          {% else %}
+              ...
+          {% endif %}
+      {% endfor %}
+      <a href="{{ url_for('adminstudents', page=students.next_num) }}"
+        class="btn btn-outline-dark 
+        {% if students.page == students.pages %}disabled{% endif %}">
+          &raquo;
+      </a>
+    </div>
+    <p class="text-right mt-3">
+    Showing page {{ students.page }} of {{ students.pages }}
+    </p>
     <!-- Footer-->
     {% include "footer.html" %}
 
+  </div>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
@@ -194,9 +207,49 @@
           $("body").html(response);
         }
 
+        $(".viewuserprofile").click(function () {
+          var netid = $(this).data("netid");
+          console.log("viewing", netid)
+          url = "/profile?diffperson=" + encodeURIComponent(netid);
+          $.ajax({
+            url: url,
+            method: "GET",
+            success: function () {
+              window.location.href=url;
+            },
+          });
+        });
+
+        $(".edituserprofile").click(function () {
+          var netid = $(this).data("netid");
+          console.log("editing", netid)
+          url = "/admineditprofile?netid=" + encodeURIComponent(netid);
+          $.ajax({
+            url: url,
+            method: "GET",
+            success: function () {
+              window.location.href=url;
+            },
+          });
+        });
+
         $(".blacklist_student").click(function () {
           var netid = $(this).data("netid");
+          console.log("blacklisting ", netid)
           url = "/blackliststudent?studentnetid=" + encodeURIComponent(netid);
+          $.ajax({
+            url: url,
+            method: "GET",
+            success: function () {
+              location.reload();
+            },
+          });
+        });
+
+        $(".whitelist_student").click(function () {
+          var netid = $(this).data("netid");
+          console.log("whitelisting", netid)
+          url = "/whiteliststudent?studentnetid=" + encodeURIComponent(netid);
           $.ajax({
             url: url,
             method: "GET",

@@ -18,9 +18,9 @@ def filter_by_tags(tags):
     clubs = Club.query.filter(Club.tags.any(Tag.name.in_(tags))).all()
     return clubs
 
-# def get_all_clubs():
-#     clubs = Club.query.all()
-#     return clubs
+def get_all_students():
+    students = Student.query.paginate(page = 1, per_page = 20)
+    return students
     
 # def get_all_tags():
 #     tags = Tag.query.all()
@@ -123,70 +123,76 @@ def filter_by_tags(tags):
 #     return clubs
 
 if __name__ == "__main__":
-    def update_club_info(name, description = None, members = None, tags = None):
-        club = Club.query.filter_by(name = name).first()
+    students = (get_all_students())
+    print(students.pages)
+    print(students.items)
+    students = students.next()
+    print(students.items)
 
-        if description != "" and not None:
-            club.description = description
+    # def update_club_info(name, description = None, members = None, tags = None):
+    #     club = Club.query.filter_by(name = name).first()
+
+    #     if description != "" and not None:
+    #         club.description = description
         
-        if members != "" and members is not None:
-            members = members[1:-1]
-            members = members.split(',')
-            for member in members:
-                member = member.strip()
-                student = Student.query.filter_by(netid=member).first()
-                print(student)
-                club.members.append(student)
-                db.session.add(club)
+    #     if members != "" and members is not None:
+    #         members = members[1:-1]
+    #         members = members.split(',')
+    #         for member in members:
+    #             member = member.strip()
+    #             student = Student.query.filter_by(netid=member).first()
+    #             print(student)
+    #             club.members.append(student)
+    #             db.session.add(club)
 
-        if tags != "" and tags is not None:
-            tags = tags[1:-1]
-            tags = tags.split(',')
-            for tag in tags:
-                tag = tag.strip()
-                tag = Tag.query.filter_by(name=tag).first()
-                print(tag)
-                club.tags.append(tag)
-                db.session.add(club)
+    #     if tags != "" and tags is not None:
+    #         tags = tags[1:-1]
+    #         tags = tags.split(',')
+    #         for tag in tags:
+    #             tag = tag.strip()
+    #             tag = Tag.query.filter_by(name=tag).first()
+    #             print(tag)
+    #             club.tags.append(tag)
+    #             db.session.add(club)
 
-        db.session.commit()
+    #     db.session.commit()
 
-    update_club_info("TWN", 'the womens network!!!!', '[ajguerra, camilanv, nadiar]', '[Baseball, Basketball]')
-    # delete_student_club('camilanv', 1)
-    # delete_student_club('camilanv', 21)
-    # delete_student_club('camilanv', 20)
-    # delete_student_club('camilanv', 13)
-    # delete_student_club('camilanv', 20)
-    # delete_student_club('camilanv', 21)
-    # delete_student_club('camilanv', 1)
-    #print(get_all_requests())
-    # add_request(request_type="delete_user", netid_sender="eagarwal", netid_about="ajguerra", club = "SWE")
-    # add_request(request_type="edit_user", netid_sender="eagarwal", netid_about="ajguerra")
-    # add_request(request_type="edit_club", netid_sender="ajguerra", club = "PWICS")
-    # add_request(request_type="blacklist_user", netid_sender="ajguerra", netid_about="eagarwal")
-    # add_request(request_type="add_tag", netid_sender="ajguerra", tagname="Plants")
-    #add_review("eagarwal", "Roaring 20", 5, 4, 3, 4, 5)
-    # delete_review("eagarwal", "Roaring 20", 21)
-    # update_club_info("Roaring 20", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
-    # update_club_info("Nassoons", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
-    # update_club_info("eXpressions", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
-    # update_club_info("SWE", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
-    # update_club_info("PWICS", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
+    # update_club_info("TWN", 'the womens network!!!!', '[ajguerra, camilanv, nadiar]', '[Baseball, Basketball]')
+    # # delete_student_club('camilanv', 1)
+    # # delete_student_club('camilanv', 21)
+    # # delete_student_club('camilanv', 20)
+    # # delete_student_club('camilanv', 13)
+    # # delete_student_club('camilanv', 20)
+    # # delete_student_club('camilanv', 21)
+    # # delete_student_club('camilanv', 1)
+    # #print(get_all_requests())
+    # # add_request(request_type="delete_user", netid_sender="eagarwal", netid_about="ajguerra", club = "SWE")
+    # # add_request(request_type="edit_user", netid_sender="eagarwal", netid_about="ajguerra")
+    # # add_request(request_type="edit_club", netid_sender="ajguerra", club = "PWICS")
+    # # add_request(request_type="blacklist_user", netid_sender="ajguerra", netid_about="eagarwal")
+    # # add_request(request_type="add_tag", netid_sender="ajguerra", tagname="Plants")
+    # #add_review("eagarwal", "Roaring 20", 5, 4, 3, 4, 5)
+    # # delete_review("eagarwal", "Roaring 20", 21)
+    # # update_club_info("Roaring 20", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
+    # # update_club_info("Nassoons", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
+    # # update_club_info("eXpressions", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
+    # # update_club_info("SWE", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
+    # # update_club_info("PWICS", tags = ("Dogs", "Coding", "SQL", "MCU", "Bowling", "Innovation"))
 
-    # clubs = filter_by_tags(["Dogs", "League of Legends", "Coding"])
-    # print(clubs)
-    # clubs = get_all_clubs()
-    # for club in clubs:
-    #     print(club)
+    # # clubs = filter_by_tags(["Dogs", "League of Legends", "Coding"])
+    # # print(clubs)
+    # # clubs = get_all_clubs()
+    # # for club in clubs:
+    # #     print(club)
 
-    #calculate_all_club_ratings()
+    # #calculate_all_club_ratings()
 
-    # add_tag('Beachball')
-    # add_tag('Sports')
-    # add_tag('Bowling')
-    # add_tag('Cricket')
+    # # add_tag('Beachball')
+    # # add_tag('Sports')
+    # # add_tag('Bowling')
+    # # add_tag('Cricket')
 
-    # student = Student.query.filter_by(netid = 'eagarwal').first()
+    # # student = Student.query.filter_by(netid = 'eagarwal').first()
     # reviews = student.reviews
     # for review in reviews:
     #     print(review)

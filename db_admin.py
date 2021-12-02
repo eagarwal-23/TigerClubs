@@ -16,34 +16,34 @@ def get_all_requests():
 
 # add Request object to request_info table
 def add_request(request_type, netid_sender, netid_about = None, 
-                club = None, tagname = None):
+                club = None, tagname = None, descrip = None):
     if request_type == "delete_user":
         request_type = DELETE_USER
         club = Club.query.filter_by(name = club).first()
         if (club == None or get_student_info(netid_about) == None):
             return None
         club = club.clubid
-        request = Request(request_type, netid_sender, netid_about, club, None)
+        request = Request(request_type, netid_sender, netid_about, club, None, description= descrip)
     elif request_type == "blacklist_user":
         request_type = BLACKLIST_USER
         if (get_student_info(netid_about) == None):
             return None
-        request = Request(request_type, netid_sender, netid_about, None, None)
+        request = Request(request_type, netid_sender, netid_about, None, None, description = descrip)
     elif request_type == "edit_user":
         request_type = EDIT_USER
         if (get_student_info(netid_about) == None):
             return None
-        request = Request(request_type, netid_sender, netid_about, None, None)
+        request = Request(request_type, netid_sender, netid_about, None, None, description = descrip)
     if request_type == "edit_club":
         club = Club.query.filter_by(name = club).first()
         if (club == None):
             return None
         club = club.clubid
         request_type = EDIT_CLUB
-        request = Request(request_type, netid_sender, None, club, None)
+        request = Request(request_type, netid_sender, None, club, None, description = descrip)
     elif request_type == "add_tag":
         request_type = ADD_TAG
-        request = Request(request_type, netid_sender, None, None, tagname)
+        request = Request(request_type, netid_sender, None, None, tagname, description = descrip)
     
     db.session.add(request)
     db.session.commit()
@@ -85,19 +85,19 @@ def add_tag_db(tagname):
     db.session.commit()
 
 # for admin students tab
-def add_student(netid, name, res_college, year, major, bio = "", admin = False):
+def add_student(netid, name, res_college, year, major, bio = "", admin = False, pictureURL = None):
     # what should we do if we delete student and then we want to repopulate 
     # our users, probably keep list of users we deleted so we can make
     # sure we don't recreate them
     if (get_student_info(netid) != None):
         print(netid, " already exists")
         return
-    student = Student(netid, name, res_college, year, major, bio, admin)
+    student = Student(netid, name, res_college, year, major, bio, admin, pictureURL)
     db.session.add(student)
     db.session.commit()
 
-def delete_student(netid, name, res_college, year, major, bio, admin = False):
-    student = Student(netid, name, res_college, year, major, bio, admin)
+def delete_student(netid, name, res_college, year, major, bio, admin = False, pictureURL = None):
+    student = Student(netid, name, res_college, year, major, bio, admin, pictureURL)
     db.session.delete(student)
     db.session.commit()
 

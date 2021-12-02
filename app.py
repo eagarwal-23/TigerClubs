@@ -592,7 +592,8 @@ def submitted_request():
     about_user = request.args.get("reporteduser")
     club = request.args.get("clubname")
     tag = request.args.get("tag")
-    success = add_request(request_reason, netid, about_user, club, tag)
+    descrip = request.args.get("explanation")
+    success = add_request(request_reason, netid, about_user, club, tag, descrip)
     if success == None:
         html = render_template("wrongrequestinput.html")
     else:

@@ -48,7 +48,8 @@
       <div class="col-lg-5">
         {%for tag in tags: %}
         <div class="tag">
-          <div class="rounded-pill" style="background-color: #fcc397; color: #db6225; padding: .25rem;">
+          <div class="rounded-pill" style="background-color: #fcc397; color: #db6225; padding: .25rem; margin:
+            10px; margin-top: 0">
             {{tag}}
           </div>
         </div>
@@ -73,32 +74,9 @@
       </div>
     </div>
 
+    <a class="btn btn-primary" href="#!">Website</a>
 
-    <div class="row gx-4 gx-lg-5 align-items-center my-5">
-      <div class="col-lg-5">
-        <h3 class="font-weight-light">{{clubname}}</h3>
-        <p>Description: {{description}}</p>
-        {%for tag in tags: %}
-        <div class="tag">
-          <div class="badge text-white" style="background-color: #e8804c">
-            {{tag}}
-          </div>
-        </div>
-        <style>
-          .tag {
-            display: inline-block;
-            padding-right: 0.25rem;
-            padding-left: 0.25rem;
-          }
-        </style>
-        {% endfor %}
-        <br />
-        <br />
-        <br />
-        <br />
-        <a class="btn btn-primary" href="#!">Website</a>
-      </div>
-    </div>
+
     <!-- Call to Action-->
     <div class="card text-white my-5 py-4 text-center" style="background-color: #e8804c">
       <div class="card-body">

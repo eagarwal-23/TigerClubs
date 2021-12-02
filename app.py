@@ -137,7 +137,7 @@ def landing():
     
     name = user.name
     clubs = club_search(search = clubname, query = sort_criteria, tags = filter_tags)
-    students_list = student_search(studentname)
+    students_list = student_search(studentname, pagenum=1, per_page=21)
 
     tags = get_all_tags()
 

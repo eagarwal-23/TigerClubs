@@ -72,7 +72,6 @@
 
         </style>
     <div class="card" >
-      <a class="stretched-link text-decoration-none" href="/adminclubs" style="color: black">
         <div class="card-body" style="text-align: center;">
           <div class="justify-content-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
@@ -85,14 +84,21 @@
           <h2 class="card-title">Manage Students</h2>
           <h4 class="card-text">View, edit, and blacklist users</h4>
         </div>
-      </a>
+      <div class="col-sm-12 col-md-12" style="margin-top:5px">
+        <form  action="/adminstudents" method="get">
+            <div class="form-group">
+                <input type="text" name="studentname" id="searchbar" class="form-control input-lg" placeholder="Search by name, netid, year, or major" />
+            </div>
+        </form>
+        </div>
+    </div>
     </div>
     <!-- Page Content-->
     <section class="pt-4">
       <div class="container px-lg-5">
         <!-- Page Features-->
-        <div class="row gx-lg-5">
           <div class="flex row mx-auto">
+          {% if hasStudents: %}
           {%for student in students:%}
           <div class="col-lg-6 col-xxl-4 mb-5">
             <div
@@ -100,6 +106,30 @@
               style="background-color: white; outline-style: solid"
             >
               <div class="card-body text-center">
+                <section class="wow fadeIn animated" style="visibility: visible; animation-name: fadeIn;">
+                  <div class = "container">
+                    <div class = "row">
+                          <div class="col-md-12 col-sm-10 center-col text-right"> 
+                            <div class = "viewuserprofile" data-netid = "{{student.netid}}">
+                            <i class="fa fa-user i-extra-small-box"></i> 
+                          </div>
+                          <div class = "edituserprofile" data-netid = "{{student.netid}}">
+                              <i class="fas fa-user-edit i-extra-small-box"></i>
+                          </div>
+                            {% if student.blacklist %}
+                            <div class = "whitelist_student" data-netid = "{{student.netid}}">
+                            <i class="fas fa-user-check i-extra-small-box"></i>
+                            </div>
+
+                            {% else %}
+                            <div class = "blacklist_student" data-netid = "{{student.netid}}">
+                              <i class="fa fa-user-times i-extra-small-box"></i>
+                            </div>
+                          {% endif %}
+                          </div>
+                        </div>
+                        </div>
+              </section>
                 <img
                   class="rounded-circle"
                   src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg"
@@ -112,44 +142,20 @@
                 {{student.year}}
                 <br />
                 {{student.res_college}}
-
-                  <section class="wow fadeIn animated" style="visibility: visible; animation-name: fadeIn;">
-                    <div class = "container">
-                      <div class = "row">
-                            <div class="col-md-12 col-sm-10 center-col text-right"> 
-                              <div class = "viewuserprofile" data-netid = "{{student.netid}}">
-                              <i class="fa fa-user i-extra-small-box"></i> 
-                            </div>
-                            <div class = "edituserprofile" data-netid = "{{student.netid}}">
-                                <i class="fas fa-user-edit i-extra-small-box"></i>
-                            </div>
-                              {% if student.blacklist %}
-                              <div class = "whitelist_student" data-netid = "{{student.netid}}">
-                              <i class="fas fa-user-check i-extra-small-box"></i>
-                              </div>
-
-                              {% else %}
-                              <div class = "blacklist_student" data-netid = "{{student.netid}}">
-                                <i class="fa fa-user-times i-extra-small-box"></i>
-                              </div>
-                            {% endif %}
-                            </div>
-                          </div>
-                          </div>
-                </section>
               </div>
             </div>
           </div>
           {% endfor %}
+          {% else: %}
+        No person found.
+      {% endif %}
         </div>
         </div>
-      </div>
-    </div>
-    </div>
-    </section>
+      </section>
     <!-- Footer-->
     {% include "footer.html" %}
 
+  </div>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->

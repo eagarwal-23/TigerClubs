@@ -51,17 +51,7 @@
             background-color: #ffbd81
           }
 
-          .fa-edit:hover {
-            color: #ffffff;
-            background-color: #e8804c;
-          }
-
-          .fa-eye:hover {
-            color: #ffffff;
-            background-color: #e8804c;
-          }
-
-          .fa-trash:hover {
+          .fas:hover {
             color: #ffffff;
             background-color: #e8804c;
           }
@@ -69,10 +59,13 @@
           .viewclubpage, .editclubpage, .delete_club {
             display:inline-block;
           }
+
+          .text-right {
+            float: right;
+          }
           </style>
 
     <div class="card" >
-      <a class="stretched-link text-decoration-none" href="/adminclubs" style="color: black">
         <div class="card-body" style="text-align: center;">
           <div class="justify-content-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
@@ -86,8 +79,15 @@
           <h2 class="card-title">Manage Clubs</h2>
           <h4 class="card-text">View, edit, and delete clubs</h4>
         </div>
-      </a>
+        <div class="col-sm-12 col-md-12" style="margin-top:5px">
+          <form  action="/adminclubs" method="get">
+              <div class="form-group">
+                  <input type="text" name="clubname" id="searchbar" class="form-control input-lg" placeholder="Search by club name or tags" />
+              </div>
+          </form>
+          </div>
     </div>
+  </div>
     <!-- Page Content-->
     <section class="pt-4">
       <div class="container px-lg-5">
@@ -99,19 +99,11 @@
               class="card border-0 h-100"
               style="background-color: white; outline-style: solid"
             >
-              <div class="card-body text-center">
-                <img
-                  class="rounded-circle"
-                  src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg"
-                  width="100"
-                  height="100"
-                />
-                <h2 class="fs-4 fw-bold">{{club.name}}</h2>
-                {{ club.description }}
+              <div class="card-body">
                 <section class="wow fadeIn animated" style="visibility: visible; animation-name: fadeIn;">
-                  <div class = "container">
+                  <div class = "container justify-content-center ">
                     <div class = "row">
-                          <div class="col-md-12 col-sm-10 center-col text-right"> 
+                          <div class="col-md-12 col-sm-10 text-right"> 
                             <div class = "viewclubpage" data-clubname = "{{club.name}}">
                             <i class="fas fa-eye i-extra-small-box"></i> 
                           </div>
@@ -120,14 +112,39 @@
                           </div>
                           <div class = "delete_club" data-clubid = "{{club.clubid}}">
                             <i class="fas fa-trash i-extra-small-box"></i>
+                          </div>
                         </div>
-                        </div>
-                        </div>
+                      </div>
                         </div>
               </section>
+              <div class = "text-center">
+                <img
+                  class="rounded-circle"
+                  src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg"
+                  width="100"
+                  height="100"
+                />
+                <h2 class="fs-4 fw-bold">{{club.name}}</h2>
+                {{ club.description }}
+                <br>
+                {%for tag in club.tags: %}
+                                <div class="tag">
+                                    <div class="badge badge-pill badge-dark text-white">{{tag}}
+                                    </div>
+                                </div>
+                                <style>
+                                    .tag {
+                                        display: inline-block;
+                                        /* font-size: small; */
+                                        padding-right: 0.25rem;
+                                        
+                                    }
+                                </style>
+                                {% endfor %}
               </div>
             </div>
           </div>
+        </div>
           {% endfor %}
         </div>
       </div>

@@ -216,7 +216,9 @@
         $.ajax({
           type: 'GET',
           url: url,
-          success: handleResponse
+          success: function () {
+              window.location.href=url;
+            },
         });
       });
 
@@ -226,7 +228,9 @@
         $.ajax({
           type: 'GET',
           url: url,
-          success: handleResponse
+          success: function () {
+              window.location.href=url;
+            },
         });
       });
 

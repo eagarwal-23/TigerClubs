@@ -43,7 +43,6 @@
   <div class="container px-4 px-lg-5 my-5 py-5">
     <!-- CLUB NAME HEADING CARD -->
     <div class="card">
-      <!-- <img class="img-fluid rounded mb-4 mb-lg-0" src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..." /> -->
       <div class="col-lg-5">
         <img src="https://picsum.photos/100" style="float: left; padding: 10px; padding-left: 0">
         <h1 class="font-weight-bold" style="padding: 20px; padding-bottom: 0;">{{clubname}}</h1>
@@ -75,83 +74,84 @@
       </div>
     </div>
 
-    <a class="btn btn-primary" href="#!">Website</a>
-
-
-    <!-- Call to Action-->
-    <div class="card text-white my-5 py-4 text-center" style="background-color: #e8804c">
-      <div class="card-body">
-        <ul class="row justify-content-center">
-          <div class="col-2">
-            <li class="list-group-item">
-              <strong>Diversity: </strong> {{diversity}} <br />
-              {% set unselected = 5 - (diversity|int)%}
-              <div id="inlinereview">
-                {% for i in range(diversity|int) %}
-                <i aria-hidden="true" class="fa fa-star"></i>
-                {% endfor %} {% for i in range(unselected) %}
-                <i aria-hidden="true" class="fa fa-star-o"></i>
-                {% endfor %}
-              </div>
-            </li>
-          </div>
-          <div class="col-2">
-            <li class="list-group-item">
-              <strong>Inclusivity: </strong>{{inclusivity}} {% set unselected
-                = 5 - (inclusivity|int)%}
-              <div id="inlinereview">
-                {% for i in range(inclusivity|int) %}
-                <i aria-hidden="true" class="fa fa-star"></i>
-                {% endfor %} {% for i in range(unselected) %}
-                <i aria-hidden="true" class="fa fa-star-o"></i>
-                {% endfor %}
-              </div>
-            </li>
-          </div>
-          <div class="col-3">
-            <li class="list-group-item">
-              <strong>Time Commitment: </strong>{{time_commitment}} {% set
-                unselected = 5 - (time_commitment|int)%}
-              <div id="inlinereview">
-                {% for i in range(time_commitment|int) %}
-                <i aria-hidden="true" class="fa fa-star"></i>
-                {% endfor %} {% for i in range(unselected) %}
-                <i aria-hidden="true" class="fa fa-star-o"></i>
-                {% endfor %}
-              </div>
-            </li>
-          </div>
-          <div class="col-2">
-            <li class="list-group-item">
-              <strong>Workload:</strong> {{workload}} {% set unselected = 5 -
-                (workload|int)%}
-              <div id="inlinereview">
-                {% for i in range(workload|int) %}
-                <i aria-hidden="true" class="fa fa-star"></i>
-                {% endfor %} {% for i in range(unselected) %}
-                <i aria-hidden="true" class="fa fa-star-o"></i>
-                {% endfor %}
-              </div>
-            </li>
-          </div>
-          <div class="col-3">
-            <li class="list-group-item">
-              <strong>Experience Requirement: </strong>
-              {{experience_requirement}} {% set unselected = 5 -
-                (experience_requirement|int)%}
-              <div id="inlinereview">
-                {% for i in range(experience_requirement|int) %}
-                <i aria-hidden="true" class="fa fa-star"></i>
-                {% endfor %} {% for i in range(unselected) %}
-                <i aria-hidden="true" class="fa fa-star-o"></i>
-                {% endfor %}
-              </div>
-            </li>
-          </div>
-        </ul>
+    <div class="col-sm-4">
+      <div class="card text-white my-5 py-4 text-center" style="background-color: #e8804c">
+        <div class="card-body">
+          <ul class="row justify-content-center">
+            <div class="col-2">
+              <li class="list-group-item">
+                <strong>Diversity: </strong> {{diversity}} <br />
+                {% set unselected = 5 - (diversity|int)%}
+                <div id="inlinereview">
+                  {% for i in range(diversity|int) %}
+                  <i aria-hidden="true" class="fa fa-star"></i>
+                  {% endfor %} {% for i in range(unselected) %}
+                  <i aria-hidden="true" class="fa fa-star-o"></i>
+                  {% endfor %}
+                </div>
+              </li>
+            </div>
+            <div class="col-2">
+              <li class="list-group-item">
+                <strong>Inclusivity: </strong>{{inclusivity}} {% set unselected
+                  = 5 - (inclusivity|int)%}
+                <div id="inlinereview">
+                  {% for i in range(inclusivity|int) %}
+                  <i aria-hidden="true" class="fa fa-star"></i>
+                  {% endfor %} {% for i in range(unselected) %}
+                  <i aria-hidden="true" class="fa fa-star-o"></i>
+                  {% endfor %}
+                </div>
+              </li>
+            </div>
+            <div class="col-3">
+              <li class="list-group-item">
+                <strong>Time Commitment: </strong>{{time_commitment}} {% set
+                  unselected = 5 - (time_commitment|int)%}
+                <div id="inlinereview">
+                  {% for i in range(time_commitment|int) %}
+                  <i aria-hidden="true" class="fa fa-star"></i>
+                  {% endfor %} {% for i in range(unselected) %}
+                  <i aria-hidden="true" class="fa fa-star-o"></i>
+                  {% endfor %}
+                </div>
+              </li>
+            </div>
+            <div class="col-2">
+              <li class="list-group-item">
+                <strong>Workload:</strong> {{workload}} {% set unselected = 5 -
+                  (workload|int)%}
+                <div id="inlinereview">
+                  {% for i in range(workload|int) %}
+                  <i aria-hidden="true" class="fa fa-star"></i>
+                  {% endfor %} {% for i in range(unselected) %}
+                  <i aria-hidden="true" class="fa fa-star-o"></i>
+                  {% endfor %}
+                </div>
+              </li>
+            </div>
+            <div class="col-3">
+              <li class="list-group-item">
+                <strong>Experience Requirement: </strong>
+                {{experience_requirement}} {% set unselected = 5 -
+                  (experience_requirement|int)%}
+                <div id="inlinereview">
+                  {% for i in range(experience_requirement|int) %}
+                  <i aria-hidden="true" class="fa fa-star"></i>
+                  {% endfor %} {% for i in range(unselected) %}
+                  <i aria-hidden="true" class="fa fa-star-o"></i>
+                  {% endfor %}
+                </div>
+              </li>
+            </div>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
+
+  <a class="btn btn-primary" href="#!">Website</a>
+
   <!-- Content Row-->
 
   <section style="background-color: white">

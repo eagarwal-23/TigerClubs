@@ -121,6 +121,8 @@ def landing():
     
     clubname = request.args.get("clubname")
     studentname = request.args.get("studentname")
+    pagenum = request.args.get('page', 1, type=int)
+
 
     if not clubname:
         clubname = ""

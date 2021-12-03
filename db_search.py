@@ -63,18 +63,18 @@ def club_search(search, query = 'combined', tags = get_all_tagnames()):
     search_query = '%' + search + '%'
     clubs = Club.query.filter(Club.tags.any(Tag.name.in_(tags)),
                              (Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query))))
-    if query == 'combined':
+    if query == 'Overall':
         clubs = clubs.order_by(Club.combined.desc()).all()
-    elif query == 'diversity':
+    elif query == 'Diversity':
         clubs = clubs.order_by(Club.diversity.desc()).all()
-    elif query == 'inclusivity':
+    elif query == 'Inclusivity':
         clubs = clubs.order_by(Club.inclusivity.desc()).all()
-    elif query == 'time_commitment':
+    elif query == 'Time Commitment':
         clubs = clubs.order_by(Club.time_commitment.desc()).all()
-    elif query == 'workload':
+    elif query == 'Workload':
         clubs = clubs.order_by(Club.workload.desc()).all()
-    elif query == 'experience_requirement':
+    elif query == 'Experience Requirement':
         clubs = clubs.order_by(Club.experience_requirement.desc()).all()
-    elif query == 'alphabetical':
+    elif query == 'Club Name':
         clubs = clubs.order_by(Club.name).all()
     return clubs

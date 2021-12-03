@@ -18,15 +18,49 @@
 
       <!------ Include the above in your HEAD tag ---------->
       <link href="static/styles.css" rel="stylesheet" />
+      <link href="static/footeredits.css" rel="stylesheet" />
 </head>
 <body style = "background-color: rgb(255, 237, 215);">
     {% include "navbar.html" %}
+    <div id="page-container">
+      <div id="content-wrap">
+    <style>
+      .parallax {
+        /* The image used */
+        background-image: url("/static/darkprinceton.png");
+      
+        /* Set a specific height */
+        min-height: 200px;
+      
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      </style>
+    <div class="parallax" style = "padding-top: 5rem; padding-bottom: 2rem;">
+<header class="py-5">
+  <div class="container px-lg-5">
+      <div class="row g-2">
+          <div class="p-4 p-lg-3 bg-light rounded-3 text-center">
+              <h3> Request Submission </h3>
+              <p class="fs-4"> The admins will review your request shortly, and determine what actions should be made. Thank you for your help!</p>
+          </div>
+      </div>
+  </div>
+</header>
+
+</div>
+<div class = "container text-center">
+  <br>
 <br>
 <br>
-<p>
-     Successfully submiited review
-    </p>
+     <h3>Successfully submitted review</h3>
+  </div>
     <br><br>
+    </div>
     {% include "footer.html" %}
+    </div>
 </body>
 </html>

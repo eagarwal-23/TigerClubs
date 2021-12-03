@@ -103,27 +103,19 @@
           <ul class="justify-content-center">
             <div class="row" style="width: 100%;">
               <li class="list-group-item">
-                <!-- <div class="progress">
+                <div class="progress">
                   <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                     aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-                </div> -->
+                </div>
                 <!-- DIVERSITY -->
                 <strong>Diversity: </strong> {{diversity}} <br />
                 {% set unselected = 5 - (diversity|int)%}
-                {% set yessir = 24% %}
-                <!-- {% set diversity_test = (diversity|int) / 5 * 100 + 1% %} -->
-
-
                 <div id="inlinereview">
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                      aria-valuenow="diversity_test" aria-valuemin="0" aria-valuemax="100" style="width: yessir"></div>
-                  </div>
-                  <!-- {% for i in range(diversity|int) %}
-                  <i aria-hidden=" true" class="fa fa-star"></i>
-                      {% endfor %} {% for i in range(unselected) %}
-                      <i aria-hidden="true" class="fa fa-star-o"></i>
-                      {% endfor %} -->
+                  {% for i in range(diversity|int) %}
+                  <i aria-hidden="true" class="fa fa-star"></i>
+                  {% endfor %} {% for i in range(unselected) %}
+                  <i aria-hidden="true" class="fa fa-star-o"></i>
+                  {% endfor %}
                 </div>
               </li>
             </div>

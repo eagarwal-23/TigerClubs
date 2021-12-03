@@ -110,18 +110,14 @@
                 <!-- DIVERSITY -->
                 <strong>Diversity: </strong> {{diversity}} <br />
                 {% set unselected = 5 - (diversity|int)%}
-                {% set diversity_test = (diversity|int) / 5 * 100 %}
+                {% set diversity_test = (diversity|int) / 5 * 100 + 1% %}
 
-                <style>
-                  .plswork {
-                    width: (var(--diversity_test + 10%));
-                  }
-                </style>
+
                 <div id="inlinereview">
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated plswork" role="progressbar"
                       aria-valuenow="diversity_test" aria-valuemin="0" aria-valuemax="100"
-                      style="width: (--diversity_test - 0%)"></div>
+                      style="width: diversity_test"></div>
                   </div>
                   <!-- {% for i in range(diversity|int) %}
                   <i aria-hidden=" true" class="fa fa-star"></i>

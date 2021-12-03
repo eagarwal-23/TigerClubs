@@ -105,7 +105,6 @@
 
                     <div class="form-group choices" data-type="select-multiple">
                       <label for="message-text" class="col-form-label">Manage clubs:</label>
-
                       <select id="clubs" name="clubs" class="form-control" placeholder="Select up to 5 clubs" multiple>
                         {% for club in clubs: %}
                         <option value="{{club}}">{{club}}</option>
@@ -165,6 +164,7 @@
     <div class="col-5 mr-auto">
       <div class="card mx-auto bg-light pl-4" style="margin-top: 2rem;">
         <div class="card-body">
+          <input type="hidden" name="netid" value="{{netid}}" />
           <div class="row py-3 align-items-center">
             <h4 class="mb-0">About you</h4>
           </div>

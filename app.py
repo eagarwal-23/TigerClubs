@@ -1,3 +1,4 @@
+from re import S
 from flask import Flask, request, make_response, jsonify
 import datetime as dt
 from flask import render_template, Response
@@ -585,7 +586,9 @@ def sort_clubs():
 def file_report():
     netid = _cas.authenticate()
     netid = netid.rstrip()
-    html = render_template("requestform.html")
+    clubs = get_all_clubs()
+    students = get_all_students()
+    html = render_template("requestform.html", clubs = clubs, students = students)
     response = make_response(html)
     return response
 

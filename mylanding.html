@@ -219,7 +219,6 @@
             var sortQuery = $("#sort_club").val();
             var searchQuery = $("#searchInput").val()
             url = "/landing?clubname=" + encodeURIComponent(searchQuery) + "&sort=" + encodeURIComponent(sortQuery);
-            alert(url)
             $.ajax({
             type: 'GET',
             url: url,

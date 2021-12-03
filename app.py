@@ -490,6 +490,36 @@ def adminrequests():
     response = make_response(html)
     return response
 
+@app.route("/adminclubpage", methods=["GET"])
+def adminclubpage():
+    try:
+        netid = _cas.authenticate()
+        netid = netid.rstrip()
+       
+        student = get_student_info(netid)
+
+        isAdmin = 0
+        if student.admin:
+            isAdmin = 1
+        
+        clubname = request.args.get("clubname")
+        club = get_club_info(clubname)
+
+        html = render_template("admin-clubpage.html", clubname = club.name,
+                                    description = club.description, members = club.members,
+                                    tags = club.tags, 
+                                    hasScores = True,
+                                    diversity = "{:.1%}".format((club.diversity/5)),
+                                    inclusivity = "{:.1%}".format((club.inclusivity/5)),
+                                    time_commitment = "{:.1%}".format((club.time_commitment/5)),
+                                    workload = "{:.1%}".format((club.workload/5)),
+                                    experience_requirement = "{:.1%}".format((club.experience_requirement/5)),
+                                    isAdmin = isAdmin)
+        response = make_response(html)
+        return response
+
+    except Exception:
+        print("whoops from clubpage")
 
 @app.route("/editclub", methods=["GET"])
 def editclub():

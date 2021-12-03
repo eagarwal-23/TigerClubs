@@ -123,11 +123,12 @@ def get_all_students():
 #     return clubs
 
 if __name__ == "__main__":
-    students = (get_all_students())
-    print(students.pages)
-    print(students.items)
-    students = students.next()
-    print(students.items)
+    club = Club.query.filter_by(clubid = 26).first()
+    print(club)
+    print(club.reviews)
+    for review in club.reviews:
+        reviewThis = Review.query.filter_by(reviewid = review.reviewid).first()
+        print(reviewThis)
 
     # def update_club_info(name, description = None, members = None, tags = None):
     #     club = Club.query.filter_by(name = name).first()

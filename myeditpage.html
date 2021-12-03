@@ -175,9 +175,9 @@
                     {%for club in student.clubs: %}
                       <div class="card card-1 mx-auto" style="width: 38rem; background-color: white; margin: 15px; margin-top:0">
                           <div class="card-body">
-                            <div class = "delete_club text-right" data-clubid = "{{club.clubid}}" data-netid = "{{student.netid}}">
+                            <!-- <div class = "delete_club text-right" data-clubid = "{{club.clubid}}" data-netid = "{{student.netid}}">
                                 <i class="fas fa-trash"></i>
-                              </div>
+                              </div> -->
                           <h5 class="card-title" style="color: #e8804c;">{{club}}
                             {% set unselected = 5 - (club.combined|int)%}
                             <div id ="inlinereview">

@@ -232,7 +232,7 @@
         $(".viewuserprofile").click(function () {
           var netid = $(this).data("netid");
           console.log("viewing", netid)
-          url = "/profile?diffperson=" + encodeURIComponent(netid);
+          url = "/adminprofile?diffperson=" + encodeURIComponent(netid);
           $.ajax({
             url: url,
             method: "GET",

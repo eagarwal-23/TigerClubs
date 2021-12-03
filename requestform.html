@@ -32,7 +32,7 @@ height: 34px !important;
 }
       </style>
 </head>
-<body style = "background-color: rgb(255, 237, 215);" onbeforeunload='reset_options()'>
+<body onbeforeunload='reset_options()'>
     {% include "navbar.html" %}
     <div id="page-container">
       <div id="content-wrap">
@@ -63,8 +63,8 @@ height: 34px !important;
         </div>
     </header>
   </div>
-  <div class = "container">
-    <form class="p-3" action="submittedrequest" method="get">
+  <div class = "container py-5">
+    <form class="p-3" action="submittedrequest" method="get" style = "background-color: rgb(255, 237, 215);">
 
         <div class="form-group">
           <label for="requestReason">Request Reason</label>

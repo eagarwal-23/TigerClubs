@@ -42,7 +42,7 @@
 <!-- style = "background-color: rgb(255, 237, 215);"-->
 
 <body>
-  {% include "navbar.html" %}
+  {% include "admin-navbar.html" %}
   <style>
     .parallax {
       /* The image used */
@@ -83,14 +83,17 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-
+                  <div class="avatar">
+                    <img src="https://picsum.photos/id/237/150/150" alt="" class="rounded-circle">
+                  </div>
                   <h5 class="modal-title" id="exampleModalLabel" style="color: #e8804c;">Edit your profile</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body text-left">
-                  <form action="profilefromedit" method="get">
+                  <form>
+
                     <div class="custom-file">
                       <label for="message-text" class="col-form-label">Change profile pic:</label>
                       <input type="file" class="custom-file-input" id="customFile">
@@ -99,37 +102,20 @@
 
                     <div class="form-group">
                       <label for="message-text" class="col-form-label">About you:</label>
-                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                        name="bio">{{bio}}</textarea>
+                      <textarea class="form-control" id="message-text"></textarea>
                     </div>
 
                     <div class="form-group choices" data-type="select-multiple">
                       <label for="message-text" class="col-form-label">Manage clubs:</label>
+
                       <select id="clubs" name="clubs" class="form-control" placeholder="Select up to 5 clubs" multiple>
                         {% for club in clubs: %}
                         <option value="{{club}}">{{club}}</option>
                         {% endfor %}
                       </select>
 
-                      <div class="row mx-auto" style="width: 100%; padding-bottom: 1%">
-                        <h5 class="col-form-label" style="padding: 0">Clubs you are in:</h5>
-                      </div>
-                      <div class="row" style="width: 100%"></div>
-                      {% for club in student.clubs: %}
-                      <div class="tag">
-                        <div class="rounded-pill text-white"
-                          style="background-color: #e8804c; padding: 7px; font-size: 10px;">
-                          {{club}}
-                        </div>
-                      </div>
-                      <style>
-                        .tag {
-                          display: inline-block;
-                          padding-right: 0.25rem;
-                        }
-                      </style>
                     </div>
-                    {% endfor %}
+
                     <div class="form-group choices" data-type="select-multiple">
                       <label for="message-text" class="col-form-label">Choose interests:</label>
                       <select id="tags" name="tags" class="form-control" placeholder="Select up to 5 interests"
@@ -142,7 +128,7 @@
                         Search for a tag. Adding tags helps others see what you like!
                       </small>
                       <script>
-                        $('#tag').select({
+                        $('#tags').select({
                           dropdownParent: $('#exampleModal')
                         });
                       </script>
@@ -151,56 +137,54 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                  <input type="submit" value="Save" />
+                  <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
               </div>
             </div>
           </div>
+          {%endif%}
         </div>
-        {%endif%}
       </div>
-    </div>
 
-    <div class="col-5 mr-auto">
-      <div class="card mx-auto bg-light pl-4" style="margin-top: 2rem;">
-        <div class="card-body">
-          <input type="hidden" name="netid" value="{{netid}}" />
-          <div class="row py-3 align-items-center">
-            <h4 class="mb-0">About you</h4>
-          </div>
-          <div class="row">
-            <div class="col-sm-9 text-secondary">
-              {{bio}}
+      <div class="col-5 mr-auto">
+        <div class="card mx-auto bg-light pl-4" style="margin-top: 2rem;">
+          <div class="card-body">
+            <div class="row py-3 align-items-center">
+              <h4 class="mb-0">About you</h4>
             </div>
-          </div>
-          <hr>
-          <div class="row py-3 align-items-center">
-            <h4 class="mb-0">Interests</h4>
-          </div>
-          <div class="row">
-            <div class="text-secondary">
-              {%for interest in interests: %}
-              <div class="tag2">
-                <div class="rounded-pill text-white bg-dark"
-                  style="padding-left: .75rem; padding-right: .75rem; padding-top: .5rem; padding-bottom: .5rem">
-                  {{interest}}</div>
+            <div class="row">
+              <div class="col-sm-9 text-secondary">
+                {{bio}}
               </div>
-              <style>
-                .tag2 {
-                  display: inline-block;
-                  padding-right: .5rem;
-                  padding-top: .5rem;
-                  padding-bottom: .5rem;
-                }
-              </style>
-              {% endfor %}
             </div>
+            <hr>
+            <div class="row py-3 align-items-center">
+              <h4 class="mb-0">Interests</h4>
+            </div>
+            <div class="row">
+              <div class="text-secondary">
+                {%for interest in interests: %}
+                <div class="tag2">
+                  <div class="rounded-pill text-white bg-dark"
+                    style="padding-left: .75rem; padding-right: .75rem; padding-top: .5rem; padding-bottom: .5rem">
+                    {{interest}}</div>
+                </div>
+                <style>
+                  .tag2 {
+                    display: inline-block;
+                    padding-right: .5rem;
+                    padding-top: .5rem;
+                    padding-bottom: .5rem;
+                  }
+                </style>
+                {% endfor %}
+              </div>
+            </div>
+            <hr>
           </div>
-          <hr>
         </div>
       </div>
     </div>
-  </div>
   </div>
   <!-- Content section-->
   <section class="py-5" style="align-content: center;">
@@ -211,6 +195,14 @@
         <div class="col mx-auto gx-lg-5">
           <div class="row mx-auto" style="width: 100%; margin: 15px;">
             {%for club in clubs: %}
+            <!-- <div class="card card-1" style="width: 20%; margin: 15px; margin-top:0">
+              <div class="card-body"></div>
+              <img class="card-img-top" src="https://picsum.photos/100" alt="Card image cap">
+              <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                  card's content.</p>
+              </div>
+            </div> -->
 
             <div class="card card-1"
               style="width: 20%; background-color: white; margin: 15px; margin-top:0; padding: 0">

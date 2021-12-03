@@ -341,7 +341,9 @@ def vote():
             workload = request.form['workload']
             time_commitment = request.form['time_commitment']
             experience_requirement = request.form['experience_requirement']
-            add_rating(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload)
+            text_review = request.form["text_review"]
+            print(text_review)
+            add_rating(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload, text_review)
             msg = 'success'
         else:
             msg = 'huh we aren\'t supposed to be here'
@@ -490,6 +492,36 @@ def adminrequests():
     response = make_response(html)
     return response
 
+@app.route("/adminclubpage", methods=["GET"])
+def adminclubpage():
+    try:
+        netid = _cas.authenticate()
+        netid = netid.rstrip()
+       
+        student = get_student_info(netid)
+
+        isAdmin = 0
+        if student.admin:
+            isAdmin = 1
+        
+        clubname = request.args.get("clubname")
+        club = get_club_info(clubname)
+
+        html = render_template("admin-clubpage.html", clubname = club.name,
+                                    description = club.description, members = club.members,
+                                    tags = club.tags, 
+                                    hasScores = True,
+                                    diversity = "{:.1%}".format((club.diversity/5)),
+                                    inclusivity = "{:.1%}".format((club.inclusivity/5)),
+                                    time_commitment = "{:.1%}".format((club.time_commitment/5)),
+                                    workload = "{:.1%}".format((club.workload/5)),
+                                    experience_requirement = "{:.1%}".format((club.experience_requirement/5)),
+                                    isAdmin = isAdmin)
+        response = make_response(html)
+        return response
+
+    except Exception:
+        print("whoops from clubpage")
 
 @app.route("/editclub", methods=["GET"])
 def editclub():
@@ -625,6 +657,45 @@ def creatingtags():
     msg = "Added!"
     return jsonify(msg)
 
+@app.route("/adminprofile", methods=["GET"])
+def adminprofile(diffperson=None):
+   
+    try:
+        print('we made it to profile')
+        if diffperson is None:
+            diffperson = request.args.get("diffperson")
+        print("no diff person", diffperson)
+        netid = _cas.authenticate()
+        netid = netid.rstrip()
+
+        print("net id found?")
+        if diffperson:
+            student = get_student_info(diffperson)
+        else:
+            student = get_student_info(netid)
+            diffperson = netid
+        
+        isAdmin = 0
+        if student.admin:
+            isAdmin = 1
+
+        name = student.name
+        classyear = student.year
+        major = student.major
+        clubs = student.clubs
+        bio = student.bio
+        interests = student.tags
+        tags = get_all_tags()
+
+        html = render_template("adminprofile.html", student = student,  name=name, netid= netid,
+        classyear=classyear, major=major, clubs=clubs, tags=tags,
+        bio=bio, interests=interests, diffperson = diffperson, isAdmin = isAdmin)
+
+        response = make_response(html)
+        return response
+    except Exception:
+        print("whoops from profile")
+
 # rendering edit profile page from the profile page
 @app.route("/admineditprofile", methods=["GET"])
 def admineditprofile():
@@ -647,7 +718,7 @@ def admineditprofile():
     clubs = get_all_clubs()
     tags = get_all_tags()
     try:
-        html = render_template("editprofile.html", name=name, netid=studentnetid, student = student, clubs = clubs, tags = tags,
+        html = render_template("admineditprofile.html", name=name, netid=studentnetid, student = student, clubs = clubs, tags = tags,
         classyear=classyear, major=major,
         bio=bio, isAdmin = isAdmin)
         response = make_response(html)

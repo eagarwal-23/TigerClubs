@@ -34,7 +34,7 @@
   </head>
 
   <body style="background-color: rgb(255, 237, 215)">
-    {% include "navbar.html" %}
+    {% include "admin-navbar.html" %}
     <!-- Header - set the background image for the header in the line below-->
     <header class="py-5">
       <div class="container px-lg-5">
@@ -74,7 +74,7 @@
           <div class="row mx-auto gx-lg-5">
             <div class="col gx-lg-5">
               <div class="card-body">
-                <input type="hidden" name="netid" maxlength = 600 value="{{netid}}" />
+                <input type="hidden" name="netid" value="{{netid}}" />
                 <div class="row">
                   <div class="col-sm-3">
                     <h4 class="mb-0">Bio</h4>

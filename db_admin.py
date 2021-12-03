@@ -116,7 +116,11 @@ def add_club(name, description):
 
 def delete_club_db(clubid):
     club = Club.query.filter_by(clubid = clubid).first()
+    list_of_reviews = club.reviews
     db.session.delete(club)
+    for review in list_of_reviews:
+        reviewThis = Review.query.filter_by(reviewid = review.reviewid).first()
+        db.session.delete(reviewThis)
     db.session.commit()
 
 def delete_club_tag(clubname, tagname):

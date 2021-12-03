@@ -122,7 +122,7 @@ def landing():
     print("aaaaaa")
     print(sort_criteria)
     if not sort_criteria:
-        sort_criteria = 'combined'
+        sort_criteria = 'Overall'
         print("nayyyy")
     else:
         print(sort_criteria)

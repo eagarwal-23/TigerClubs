@@ -639,11 +639,14 @@ def submitted_request():
     #if student.admin:
     #    isAdmin = 1
 
+    print(request.args)
     request_reason = request.args.get("reason")
-    about_user = request.args.get("reporteduser")
+    about_user = request.args.get("reportedUser")
     club = request.args.get("clubname")
     tag = request.args.get("tag")
     descrip = request.args.get("explanation")
+    print(about_user)
+    print(request_reason)
     success = add_request(request_reason, netid, about_user, club, tag, descrip)
     if success == None:
         html = render_template("wrongrequestinput.html")
@@ -749,3 +752,18 @@ def whiteliststudent():
     whitelist_student(studentnetid)
     msg = "Whitelisted"
     return jsonify(msg)
+
+@app.route("/getstudentsJSON", methods=["POST", "GET"])
+def students_json():
+    if request.method == 'GET':
+        students = get_all_students()
+        students_json = []
+        for student in students:
+            each_student = {
+                'id':student.netid,
+                'text':student.netid}
+            print(student.netid)
+            students_json.append(each_student)
+        return jsonify(students_json)
+    else:
+        return None

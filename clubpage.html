@@ -112,8 +112,13 @@
                 {% set unselected = 5 - (diversity|int)%}
                 {% set diversity_test = (diversity|int) / 5 * 100 %}
 
+                <style>
+                  .plswork {
+                    width: (var(--diversity_test - 0%));
+                  }
+                </style>
                 <div id="inlinereview">
-                  <div class="progress">
+                  <div class="progress plswork">
                     <div id="inlinereview_diversity" class="progress-bar progress-bar-striped progress-bar-animated"
                       role="progressbar" aria-valuenow="diversity_test" aria-valuemin="0" aria-valuemax="100"
                       style="width: diversity_test;"></div>

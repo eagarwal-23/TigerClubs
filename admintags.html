@@ -46,6 +46,13 @@
         <h3 style="text-align: center;">Admin Dashboard</h3>
         <div class="card-deck" style="padding: 2rem;">
           <style>
+            .fa-plus-circle {
+              cursor: pointer;
+            }
+            .fa-plus-circle:hover {
+            color: #ffffff;
+            background-color: #e8804c;
+          }
             .card {
               transition: border-color 1s, box-shadow 0.5s;
               background-color: #ffbd81
@@ -78,6 +85,11 @@
 
 <div class="card" >
     <div class="card-body" style="text-align: center;">
+      <div style="position: absolute; text-align: right;">
+        <div class="text-right">
+          <i class="fas fa-plus-circle fa-3x" data-toggle="modal" data-target="#add-tag"></i>
+        </div>
+        </div>
       <div class="justify-content-center">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-tags-fill" viewBox="0 0 16 16">
           <path d="M2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2zm3.5 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
@@ -134,9 +146,6 @@
           </div>
           </div>
         </section>
-
-          <button type = "button" class = "btn btn-primary edit_tag"
-                  data-toggle="modal" data-target="#add-tag">Create Tag</button>
 
           <div class="col-6">
             

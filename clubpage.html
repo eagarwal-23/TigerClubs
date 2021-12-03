@@ -110,40 +110,21 @@
                 <!-- DIVERSITY -->
                 <strong>Diversity: </strong> {{diversity}} <br />
                 {% set unselected = 5 - (diversity|int)%}
-                {% set tester = (diversity|int)%}
+                {% set diversity_test = (diversity|int) / 5 * 100 %}
                 <style>
                   :root {
-                    --star-size: 60px;
-                    --star-color: #fff;
-                    --star-background: #fc0;
+                    --plswork: diversity_test;
                   }
 
-                  .Stars {
-                    --percent: calc(var(--rating) / 5 * 100%);
-
-                    display: inline-block;
-                    font-size: var(--star-size);
-                    font-family: Times;
-                    line-height: 1;
-
-
-                    background: #eee;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 100vh;
-                    content: '★★★★★';
-                    letter-spacing: 3px;
-                    background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
+                  #inlinereview_diversity {
+                    width: var(--plswork);
                   }
                 </style>
                 <div id="inlinereview">
-                  <div class="Stars" style="--rating: tester;" aria-label="Rating of this product is 2.3 out of 5.">
+                  <div class="progress">
+                    <div id="inlinereview_diversity" class="progress-bar progress-bar-striped progress-bar-animated"
+                      role="progressbar" aria-valuenow="diversity_test" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
-
-
                   <!-- {% for i in range(diversity|int) %}
                   <i aria-hidden="true" class="fa fa-star"></i>
                   {% endfor %} {% for i in range(unselected) %}

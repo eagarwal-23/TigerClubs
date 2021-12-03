@@ -340,7 +340,9 @@ def vote():
             workload = request.form['workload']
             time_commitment = request.form['time_commitment']
             experience_requirement = request.form['experience_requirement']
-            add_rating(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload)
+            text_review = request.form["text_review"]
+            print(text_review)
+            add_rating(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload, text_review)
             msg = 'success'
         else:
             msg = 'huh we aren\'t supposed to be here'

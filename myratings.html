@@ -150,6 +150,11 @@
                 </div>
                 <br>
 
+                <div id="inlinereview">
+                    <p> Review:</p>
+                    <p>{{r.text_review}}</p>
+                </div>
+
 
 
             </div>
@@ -232,6 +237,16 @@
                                 </div>
                                 <br>
 
+                                <!-- REVIEWS -->
+                                <p class="ratelabel bg-light">Review</p>
+                                <div class="stars">
+
+                                    <div id="experience_requirement"></div>
+                                </div>
+                                <br>
+
+                                <input id="text_review" type="text" size="45"></input>
+
                         </div>
                     </form>
                 </div>
@@ -276,9 +291,12 @@
                 var workload = $('#workload').data('raty').score();
                 var time_commitment = $('#time_commitment').data('raty').score();
                 var experience_requirement = $('#experience_requirement').data('raty').score();
+                var text_review = $("#text_review").val();
+
+                console.log(text_review);
 
                 if (clubname != '' && diversity && inclusivity && workload && time_commitment
-                    && experience_requirement) {
+                    && experience_requirement && text_review) {
 
                     $.ajax({
                         url: "/voting",
@@ -288,7 +306,8 @@
                             diversity: diversity,
                             inclusivity: inclusivity, workload: workload,
                             time_commitment: time_commitment,
-                            experience_requirement: experience_requirement
+                            experience_requirement: experience_requirement,
+                            text_review: text_review
                         },
                         success: function (data) {
                             $('#loginModal').hide();

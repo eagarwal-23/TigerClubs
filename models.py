@@ -128,6 +128,7 @@ class Review(db.Model):
     time_commitment = db.Column(db.Integer())
     experience_requirement = db.Column(db.Integer())
     workload = db.Column(db.Integer())
+    text_review = db.Column(db.Text())
     student = db.relationship("Student",
                                secondary=student_reviews,
                                post_update=True)
@@ -135,12 +136,13 @@ class Review(db.Model):
                                secondary=club_reviews,
                                post_update=True)
 
-    def __init__(self, diversity, inclusivity, time_commitment, experience_requirement, workload):
+    def __init__(self, diversity, inclusivity, time_commitment, experience_requirement, workload, text_review):
         self.diversity = diversity
         self.inclusivity = inclusivity
         self.time_commitment = time_commitment
         self.experience_requirement = experience_requirement
         self.workload = workload
+        self.text_review = text_review
 
     def __repr__(self):
         str_review = "Club: " + str(self.club[0]) + '\n'
@@ -149,6 +151,7 @@ class Review(db.Model):
         str_review += 'Time Commitment: ' + str(self.time_commitment) + '\n'
         str_review += 'Experience required: ' + str(self.experience_requirement) + '\n'
         str_review += 'Workload: ' + str(self.workload) + '\n'
+        str_review += "Text Review" + str(self.text_review) + "\n"
 
         return str_review
 

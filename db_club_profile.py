@@ -36,6 +36,14 @@ def update_club_info(name, description = None, members = None, tags = None):
 
     db.session.commit()
 
+def update_club_rating(name, review):
+    club = Club.query.filter_by(name = name).first()
+
+    if review != "" and not None:
+        club.text_review = review
+
+    db.session.commit()
+
 
 # get all ratings for a Club given clubid
 def get_club_ratings(clubid):

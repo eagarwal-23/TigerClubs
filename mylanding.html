@@ -12,6 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
     <link rel="stylesheet" href="static/choices.css" >
     <!------ Include the above in your HEAD tag ---------->
@@ -78,7 +79,7 @@
                         </form>
                 </div>
                 <hr>
-                <a
+                <!-- <a
                       class="btn btn-link text-muted p-0"
                       data-toggle="collapse"
                       href="#collapseEx"
@@ -116,8 +117,7 @@
                           for="44"
                           >44</label>
                     </div>
-              </div>
-
+              </div> -->
 
             </div>
             <div class = "col-xxl-7 gx-lg-5">
@@ -201,7 +201,7 @@
                         <option value="inclusivity">Inclusivity</option>
                         <option value="time_commitment">Time Commitment</option>
                         <option value="workload">Workload</option>
-                        <option value="experience_requirement">Experieince Required</option>
+                        <option value="experience_requirement">Experience Required</option>
                         <option value="alphabetical">Club Name</option>
                     </select>
                     <label for="floatingSelect">Sort clubs by</label>
@@ -213,24 +213,27 @@
     {% include "footer.html" %}
 </footer>
 <script>
-    $("#searchInput").on('input', function(){
-        let searchQuery = $("#searchInput").val()
-        alert(searchQuery);
+    $(document).ready(function () {
+        $("#sort_club").change( function() {
+            //let searchQuery = $("#searchInput").val()
+            var sortQuery = $("#sort_club").val();
+            var searchQuery = $("#searchInput").val()
+            url = "/landing?clubname=" + encodeURIComponent(searchQuery) + "&sort=" + encodeURIComponent(sortQuery);
+            alert(url)
+            $.ajax({
+            type: 'GET',
+            url: url,
+            success: function() {
+                window.location.href=url;
+            },
+            });
+        });
     });
-    $("#sort_club").change( function() {
-        let sortQuery = $("#sort_club").val()
-        alert(sortQuery)
-    });
-
-    $(".tags_filter").change( function() {
-        let sortQuery = $("#sort_club").val()
-        alert(sortQuery)
-    });
-
-    function getResults() {
-        alert("lalala")
-    }
-
 </script>
 </body>
+
+<!-- $("#searchInput").on('input', function(){
+    let searchQuery = $("#searchInput").val()
+    // alert(searchQuery);
+}); -->
 </html>

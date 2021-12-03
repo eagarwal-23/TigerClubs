@@ -53,6 +53,9 @@
             transition: border-color 1s, box-shadow 0.5s;
             background-color: #ffbd81
           }
+          .fa-plus-circle {
+              cursor: pointer;
+            }
 
           .fa-plus-circle:hover {
             color: #ffffff;
@@ -106,9 +109,9 @@
      
         <div class="card-body" style="text-align: center;">
           <div class="justify-content-center">
-            <div style="position: absolute; text-align: right;" class="createclub">
+            <div style="position: absolute; text-align: right;">
               <div class="text-right">
-              <i class="fas fa-plus-circle fa-3x"></i>
+              <i class="fas fa-plus-circle fa-3x" data-toggle="modal" data-target="#create-club"></i>
               </div>
               </div>
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
@@ -164,7 +167,7 @@
             </div>
         
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" id="closebutton">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" name="newclubsave_button" data-tagid="" id="newclubsave_button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
@@ -251,10 +254,6 @@
           $("body").html(response);
         }
 
-        $("#closebutton").click(function(){
-          $("#create-club").modal("hide");
-        });
-
         $("#newclubsave_button").click(function(){
           var newclubname = $("#newclubname").val();
           var newclubdesc = $("#newclubdesc").val();
@@ -275,11 +274,6 @@
           }else{
             alert("All Fields are required");
           }
-        });
-
-        $(".createclub").click(function () {
-          console.log("clicked");
-          $("#create-club").modal("show");
         });
 
         $(".viewclubpage").click(function () {

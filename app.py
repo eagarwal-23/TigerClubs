@@ -297,7 +297,7 @@ def clubpage():
                                     description = club.description, members = club.members,
                                     tags = club.tags, 
                                     hasScores = True,
-                                    diversity = "{:.0%}".format((club.diversity|int)),
+                                    diversity = club.diversity,
                                     inclusivity = club.inclusivity,
                                     time_commitment = club.time_commitment,
                                     workload = club.workload,

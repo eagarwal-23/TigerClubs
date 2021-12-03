@@ -113,6 +113,26 @@
                         {% endfor %}
                       </select>
 
+                      <div class="row mx-auto" style="width: 100%; padding-bottom: 1%">
+                        <h5 class="mb-0">Clubs you are in:</h5>
+                      </div>
+                      {% for club in student.clubs: %}
+                      <div class="row mx-auto" style="width: 100%">
+                        <div class="tag">
+                          <div class="badge text-white" style="background-color: #e8804c">
+                            {{club}}
+                          </div>
+                        </div>
+                        <style>
+                          .tag {
+                            display: inline-block;
+                            /* font-size: small; */
+                            padding-right: 0.25rem;
+                          }
+                        </style>
+                      </div>
+                      {% endfor %}
+
                     </div>
 
                     <div class="form-group choices" data-type="select-multiple">

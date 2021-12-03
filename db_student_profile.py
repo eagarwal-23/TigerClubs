@@ -6,6 +6,12 @@ def get_student_info(netid):
     student = Student.query.filter_by(netid = netid).first()
     return student
 
+def update_student_photo(netid, pictureURL = None):
+    student = Student.query.filter_by(netid = netid).first()
+    if pictureURL != "" and pictureURL:
+        student.pictureURL = pictureURL
+    db.session.commit()
+
 # edit Student's information given their netid
 def update_student_info(netid, bio = None, clubs = None, tags = None):
     student = Student.query.filter_by(netid = netid).first()

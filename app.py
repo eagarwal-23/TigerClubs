@@ -58,7 +58,7 @@ def login():
 
 @app.route("/logout", methods=["GET"])
 def logout():
-    _cas.logout('login')
+    _cas.logout()
 
 @app.route("/admin", methods=["GET"])
 def adminlogin():
@@ -106,23 +106,30 @@ def landingwhoareyou():
 
 @app.route("/landing", methods=["GET"])
 def landing():
-
+    print("we are here")
+    sort_criteria = request.args.get("sort")
+    clubname = request.args.get("clubname")
+    print("aaassdwdw", clubname)
+    print("verbverbe", sort_criteria)
     netid = _cas.authenticate()
     netid = netid.rstrip()
+    filter_tags = get_all_tagnames()
+    # filter_tags = request.args.getlist("tags")
+    # if not filter_tags:
+    #     filter_tags = get_all_tagnames()
 
-    filter_tags = request.args.getlist("tags")
-    if not filter_tags:
-        filter_tags = get_all_tagnames()
-    sort_criteria = request.args.get('sort_club')
+    print("here now")
+    print("aaaaaa")
+    print(sort_criteria)
     if not sort_criteria:
         sort_criteria = 'combined'
+        print("nayyyy")
     else:
         print(sort_criteria)
+        print("yayyyy")
     
-    clubname = request.args.get("clubname")
     studentname = request.args.get("studentname")
     pagenum = request.args.get('page', 1, type=int)
-
 
     if not clubname:
         clubname = ""
@@ -618,7 +625,11 @@ def file_report():
     netid = netid.rstrip()
     clubs = get_all_clubs()
     students = get_all_students()
-    html = render_template("requestform.html", clubs = clubs, students = students)
+    user = get_student_info(netid)
+    isAdmin = 0
+    if user.admin:
+        isAdmin = 1
+    html = render_template("requestform.html", clubs = clubs, students = students, isAdmin = isAdmin)
     response = make_response(html)
     return response
 
@@ -633,18 +644,25 @@ def submitted_request():
     #    isAdmin = 1
 
     print(request.args)
+    user = get_student_info(netid)
+    isAdmin = 0
+    if user.admin:
+        isAdmin = 1
     request_reason = request.args.get("reason")
-    about_user = request.args.get("reportedUser")
-    club = request.args.get("clubname")
-    tag = request.args.get("tag")
-    descrip = request.args.get("explanation")
-    print(about_user)
-    print(request_reason)
-    success = add_request(request_reason, netid, about_user, club, tag, descrip)
-    if success == None:
+    if (not request_reason):
         html = render_template("wrongrequestinput.html")
     else:
-        html = render_template("requestsubmitted.html")
+        about_user = request.args.get("reportedUser")
+        club = request.args.get("clubname")
+        tag = request.args.get("tag")
+        descrip = request.args.get("explanation")
+        print(about_user)
+        print(request_reason)
+        success = add_request(request_reason, netid, about_user, club, tag, descrip)
+        if success == None:
+            html = render_template("wrongrequestinput.html", isAdmin = isAdmin)
+        else:
+            html = render_template("requestsubmitted.html", isAdmin = isAdmin)
     response = make_response(html)
     return response
 
@@ -760,3 +778,28 @@ def students_json():
         return jsonify(students_json)
     else:
         return None
+
+@app.route("/getclubsJSON", methods=["POST", "GET"])
+def clubs_json():
+    if request.method== 'GET':
+        clubs = get_all_clubs()
+        clubs_json = []
+        for club in clubs:
+            each_club = {
+                'id':club.name,
+                'text':club.name}
+            print(club.name)
+            clubs_json.append(each_club)
+        return jsonify(clubs_json)
+    else:
+        return None
+
+@app.route("/createclub", methods=["POST"])
+def createclub():
+    name = request.form["name"]
+    desc = request.form["desc"]
+
+    add_club(name, desc)
+
+    msg = "Club added."
+    return jsonify(msg)

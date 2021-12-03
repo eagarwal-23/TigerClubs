@@ -21,8 +21,17 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
       <!------ Include the above in your HEAD tag ---------->
       <link href="static/styles.css" rel="stylesheet" />
+      <style>
+        .select2-selection__rendered {
+line-height: 32px !important;
+}
+
+.select2-selection {
+height: 34px !important;
+}
+      </style>
 </head>
-<body style = "background-color: rgb(255, 237, 215);">
+<body style = "background-color: rgb(255, 237, 215);" onbeforeunload='reset_options()'>
     {% include "navbar.html" %}
     <header class="py-5">
         <div class="container px-lg-5">
@@ -38,7 +47,8 @@
 
         <div class="form-group">
           <label for="requestReason">Request Reason</label>
-          <select class="form-control" id="requestReason" name="reason">
+          <select class="form-control" style="width: 300px" id="requestReason" name="reason" required>
+                <option value="place" disabled selected>Choose a request</option>
                 <option value="delete_user">Remove User From Club</option>
                 <option value="blacklist_user">Blacklist User</option>
                 <option value="edit_user">Report User</option>
@@ -50,23 +60,25 @@
         <div class="form-group" id="reportedUser">
           <label for="reportedUser">Which user? (Enter NetID)</label>
           <br>
-          <select class="select2" style="width: 300px" id="reportedUser" name="reportedUser">
+          <select class="selectUser " style="width: 300px;" id="reportedUser" name="reportedUser">
             <option></option></select>
         </div>
 
         <div class="form-group" id="clubName">
             <label for="clubName">Which club? (Enter Club Name) </label>
-            <input type="text" class="form-control w-100" id="clubName" name="clubname">
+            <br>
+            <select class="selectClub" style="width: 300px" id="clubName" name="clubname">
+              <option></option></select>
         </div>
 
         <div class="form-group" id="tag">
             <label for="tag">What tag would you like?</label>
-            <input type="text" class="form-control w-100" id="tag" name="tag">
+            <input type="text" class="form-control" style="width: 300px" id="tag" name="tag" maxlength = 20>
         </div>
         
-        <div class="form-group">
+        <div class="form-group" id="explanation">
           <label for="comments">Please provide an explanation for this request.</label>
-          <textarea class="form-control" id="comments" rows="3" name="explanation"></textarea>
+          <textarea class="form-control" id="comments" rows="3" name="explanation" maxlength = 40></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
@@ -74,7 +86,21 @@
 </div>
 {% include "footer.html" %}
 <script>
+function reset_options() {
+    document.getElementById('requestReason').options.length = 0;
+    return true;
+}
 $(document).ready(function(){
+  $('select').each(function () {
+    var select = $(this);
+    var selectedValue = select.find('option[selected]').val();
+
+    if (selectedValue) {
+      select.val(selectedValue);
+    } else {
+      select.prop('selectedIndex', 0);
+    }
+  });
  $.ajax({
 		url: "/getstudentsJSON",
 		type: "GET",
@@ -85,14 +111,31 @@ $(document).ready(function(){
 				return obj;
 			});
 			
-			$(".select2").select2({
+			$(".selectUser").select2({
 				placeholder: "User Netid",
 				data:xdata,
 			});
 
 		}
 	});
-});
+  $.ajax({
+		url: "/getclubsJSON",
+		type: "GET",
+		success: function(data, textStatus, jqXHR)
+		{
+ 			var xdata = $.map(data, function (obj) {
+ 				obj.text = obj.text || obj.name;  
+				return obj;
+			});
+			
+			$(".selectClub").select2({
+				placeholder: "Club Name",
+				data:xdata,
+			});
+
+		}
+	});
+
 $("#requestReason").change(function() {
   if ($(this).val() == "delete_user") {
     $('#tag').hide();
@@ -100,8 +143,9 @@ $("#requestReason").change(function() {
     $('#tag').removeAttr('data-error');
     $('#tag').val('')
     $('#reportedUser').show();
-    $('#reportedUser').attr('required', '');
     $('#reportedUser').attr('data-error', 'This field is required.');
+    $('#explanation').show();
+    $('#explanation').val('')
     $('#clubName').show();
     $('#clubName').attr('required', '');
     $('#clubName').attr('data-error', 'This field is required.');
@@ -115,6 +159,8 @@ $("#requestReason").change(function() {
     $('#tag').removeAttr('required');
     $('#tag').removeAttr('data-error');
     $('#tag').val('')
+    $('#explanation').show();
+    $('#explanation').val('')
     $('#reportedUser').show();
     $('#reportedUser').attr('required', '');
     $('#reportedUser').attr('data-error', 'This field is required.');
@@ -128,6 +174,8 @@ $("#requestReason").change(function() {
     $('#tag').removeAttr('required');
     $('#tag').removeAttr('data-error');
     $('#tag').val('')
+    $('#explanation').show();
+    $('#explanation').val('')
     $('#reportedUser').show();
     $('#reportedUser').attr('required', '');
     $('#reportedUser').attr('data-error', 'This field is required.');
@@ -141,6 +189,8 @@ $("#requestReason").change(function() {
     $('#tag').removeAttr('required');
     $('#tag').removeAttr('data-error');
     $('#tag').val('')
+    $('#explanation').show();
+    $('#explanation').val('')
     $('#clubName').show();
     $('#clubName').attr('required', '');
     $('#clubName').attr('data-error', 'This field is required.');
@@ -154,19 +204,25 @@ $("#requestReason").change(function() {
     $('#clubName').removeAttr('required');
     $('#clubName').removeAttr('data-error');
     $('#clubname').val('')
+    $('#explanation').show();
+    $('#explanation').val('')
     $('#tag').show();
     $('#tag').attr('required', '');
     $('#tag').attr('data-error', 'This field is required.');
   } else {
+    $("#requestReason").val("place");
+    $('select').val('place');
     $('#reportedUser').hide();
     $('#clubName').hide();
     $('#tag').hide();
+    $('#explanation').hide();
     $('#reportedUser').removeAttr('required');
     $('#reportedUser').removeAttr('data-error');
     $('#reportedUser').val('')
     $('#clubName').removeAttr('required');
     $('#clubName').removeAttr('data-error');
     $('#clubname').val('')
+    $('#explanation').val('')
     $('#tag').removeAttr('required');
     $('#tag').removeAttr('data-error');
     $('#tag').val('')
@@ -174,6 +230,7 @@ $("#requestReason").change(function() {
 });
 $("#requestReason").trigger("change");
 
+});
 </script>
 </body>
 </html>

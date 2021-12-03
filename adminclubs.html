@@ -54,6 +54,11 @@
             background-color: #ffbd81
           }
 
+          .fa-plus-circle:hover {
+            color: #ffffff;
+            background-color: #e8804c;
+          }
+
           .fa-eye:hover {
             width: 25px;
             height: 25px;
@@ -97,8 +102,15 @@
           </style>
 
     <div class="card" >
+
+     
         <div class="card-body" style="text-align: center;">
           <div class="justify-content-center">
+            <div style="position: absolute; text-align: right;" class="createclub">
+              <div class="text-right">
+              <i class="fas fa-plus-circle fa-3x"></i>
+              </div>
+              </div>
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
                 class="bi bi-people-fill" viewBox="0 0 16 16">
                 <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
@@ -120,6 +132,52 @@
     </div>
   </div>
     <!-- Page Content-->
+
+
+    <!-- Modal for create tag-->
+    <div id="create-club" class="modal fade" role="dialog" aria-labelledby="addClubRatingLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modalfonts modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="addClubRatingLabel">Create Club</h4>
+                <button type="button" class="btn-close close" data-dismiss="modal" aria-hidden="true"> </button>
+            </div>
+            <!-- user types in club name to add their rating -->
+            <div class="modal-body">
+                <!-- CLUB NAME -->
+            <form>
+                <div class="form-group">
+
+                <!-- Name Club -->
+                <p class="ratelabel bg-light">Name:</label>
+                <input type="text" id="newclubname" value=""></input>
+
+                <!-- Club Desc -->
+                <p class="ratelabel bg-light">Description:</label>
+                <textarea id="newclubdesc"></textarea>
+
+                <br>
+
+                </div>
+            </form>
+            </div>
+        
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="closebutton">Close</button>
+                <button type="button" name="newclubsave_button" data-tagid="" id="newclubsave_button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
     <section class="pt-4">
       
       <div class="container px-lg-5">
@@ -192,6 +250,37 @@
           console.log("Response");
           $("body").html(response);
         }
+
+        $("#closebutton").click(function(){
+          $("#create-club").modal("hide");
+        });
+
+        $("#newclubsave_button").click(function(){
+          var newclubname = $("#newclubname").val();
+          var newclubdesc = $("#newclubdesc").val();
+          
+          if (newclubname != "" && newclubdesc != ""){
+            $.ajax({
+              url:"/createclub",
+              method:"POST",
+              data: {
+                name: newclubname,
+                desc: newclubdesc
+              },
+              success: function(){
+                console.log("done");
+                location.reload();
+              }
+            });
+          }else{
+            alert("All Fields are required");
+          }
+        });
+
+        $(".createclub").click(function () {
+          console.log("clicked");
+          $("#create-club").modal("show");
+        });
 
         $(".viewclubpage").click(function () {
           var clubname = $(this).data("clubname");

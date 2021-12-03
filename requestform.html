@@ -21,6 +21,7 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
       <!------ Include the above in your HEAD tag ---------->
       <link href="static/styles.css" rel="stylesheet" />
+      <link href="static/footeredits.css" rel="stylesheet" />
       <style>
         .select2-selection__rendered {
 line-height: 32px !important;
@@ -33,6 +34,24 @@ height: 34px !important;
 </head>
 <body style = "background-color: rgb(255, 237, 215);" onbeforeunload='reset_options()'>
     {% include "navbar.html" %}
+    <div id="page-container">
+      <div id="content-wrap">
+    <style>
+      .parallax {
+        /* The image used */
+        background-image: url("/static/darkprinceton.png");
+      
+        /* Set a specific height */
+        min-height: 200px;
+      
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      </style>
+    <div class="parallax" style = "padding-top: 5rem; padding-bottom: 2rem;">
     <header class="py-5">
         <div class="container px-lg-5">
             <div class="row g-2">
@@ -43,6 +62,8 @@ height: 34px !important;
             </div>
         </div>
     </header>
+  </div>
+  <div class = "container">
     <form class="p-3" action="submittedrequest" method="get">
 
         <div class="form-group">
@@ -82,9 +103,13 @@ height: 34px !important;
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
-
+      <br>
+      <br>
+      <br>
+    </div>
 </div>
 {% include "footer.html" %}
+</div>
 <script>
 function reset_options() {
     document.getElementById('requestReason').options.length = 0;

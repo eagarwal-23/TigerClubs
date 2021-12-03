@@ -168,12 +168,12 @@
 </div>
 <!-- CLUB MEMBERS -->
 <div class="row px-4 px-lg-5">
-  <div class="col-8">
+  <div class="col">
   <h4 style="padding-left: 0; padding-top: 20px;"><strong>Club Members:</strong></h4>
-  <br />
-  <br />
+  <div class="row gx-lg-5">
   {%for member in members: %}
-  <div class="card border h-100" style="background-color: white; width: 25%; margin: 10px; margin-left:0">
+  <div class="col-lg-6 col-xxl-4 mb-5">
+  <div class="card border" style="background-color: white; margin: 5px; margin-left:0">
     <div class="card-body text-center">
       <img class="rounded-circle"
         src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg" width="50"
@@ -186,11 +186,13 @@
       <br />
     </div>
   </div>
+</div>
   {% endfor %}
+</div>
 </div>
 <div class = "col">
   <!-- STUDENT REVIEWS SECTION -->
-<h3 style="padding-top: 25px;">Student Reviews</h3>
+  <h4 style="padding-left: 0; padding-top: 20px; padding-bottom: 5px;"><strong>Student Reviews:</strong></h4>
 <div class="card rounded border-0"
   style="background-color:#fcc397; margin-bottom: 25px; color:#db6225; padding: 10px">
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore

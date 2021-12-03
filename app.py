@@ -631,7 +631,11 @@ def file_report():
     netid = netid.rstrip()
     clubs = get_all_clubs()
     students = get_all_students()
-    html = render_template("requestform.html", clubs = clubs, students = students)
+    user = get_student_info(netid)
+    isAdmin = 0
+    if user.admin:
+        isAdmin = 1
+    html = render_template("requestform.html", clubs = clubs, students = students, isAdmin = isAdmin)
     response = make_response(html)
     return response
 
@@ -646,18 +650,25 @@ def submitted_request():
     #    isAdmin = 1
 
     print(request.args)
+    user = get_student_info(netid)
+    isAdmin = 0
+    if user.admin:
+        isAdmin = 1
     request_reason = request.args.get("reason")
-    about_user = request.args.get("reportedUser")
-    club = request.args.get("clubname")
-    tag = request.args.get("tag")
-    descrip = request.args.get("explanation")
-    print(about_user)
-    print(request_reason)
-    success = add_request(request_reason, netid, about_user, club, tag, descrip)
-    if success == None:
+    if (not request_reason):
         html = render_template("wrongrequestinput.html")
     else:
-        html = render_template("requestsubmitted.html")
+        about_user = request.args.get("reportedUser")
+        club = request.args.get("clubname")
+        tag = request.args.get("tag")
+        descrip = request.args.get("explanation")
+        print(about_user)
+        print(request_reason)
+        success = add_request(request_reason, netid, about_user, club, tag, descrip)
+        if success == None:
+            html = render_template("wrongrequestinput.html", isAdmin = isAdmin)
+        else:
+            html = render_template("requestsubmitted.html", isAdmin = isAdmin)
     response = make_response(html)
     return response
 

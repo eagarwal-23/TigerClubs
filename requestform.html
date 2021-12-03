@@ -47,7 +47,7 @@ height: 34px !important;
 
         <div class="form-group">
           <label for="requestReason">Request Reason</label>
-          <select class="form-control" style="width: 300px" id="requestReason" name="reason">
+          <select class="form-control" style="width: 300px" id="requestReason" name="reason" required>
                 <option value="place" disabled selected>Choose a request</option>
                 <option value="delete_user">Remove User From Club</option>
                 <option value="blacklist_user">Blacklist User</option>
@@ -73,12 +73,12 @@ height: 34px !important;
 
         <div class="form-group" id="tag">
             <label for="tag">What tag would you like?</label>
-            <input type="text" class="form-control" style="width: 300px" id="tag" name="tag">
+            <input type="text" class="form-control" style="width: 300px" id="tag" name="tag" maxlength = 20>
         </div>
         
         <div class="form-group" id="explanation">
           <label for="comments">Please provide an explanation for this request.</label>
-          <textarea class="form-control" id="comments" rows="3" name="explanation"></textarea>
+          <textarea class="form-control" id="comments" rows="3" name="explanation" maxlength = 40></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
@@ -143,7 +143,6 @@ $("#requestReason").change(function() {
     $('#tag').removeAttr('data-error');
     $('#tag').val('')
     $('#reportedUser').show();
-    $('#reportedUser').attr('required', '');
     $('#reportedUser').attr('data-error', 'This field is required.');
     $('#explanation').show();
     $('#explanation').val('')

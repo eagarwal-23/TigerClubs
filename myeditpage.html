@@ -28,9 +28,16 @@
         <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     
+        <script
+      src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+      data-auto-replace-svg="nest"
+    ></script>
+
         <link rel="stylesheet" href="static/choices.css" />
         <!------ Include the above in your HEAD tag ---------->
         <link href="static/styles.css" rel="stylesheet" />
+        <link rel = "stylesheet" href = "static/button-hover-admin.css">
+
       </head>
 
     <!-- style = "background-color: rgb(255, 237, 215);"-->
@@ -59,7 +66,15 @@
               <div class = "row mx-auto py-5">
                 <div class = "col-5 mx-auto">
                 <div class="container mx-auto p-4 bg-light rounded-3 text-center">
-                        <img class="img-fluid rounded-circle mb-4" src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg" alt="..." />
+                  <br>
+                  <div class="profile-pic text-center">
+                    <label class="-label" for="file">
+                      <span>Change Your Profile Pic</span>
+                    </label>
+                    <br>
+                    <input id="file" type="file" onchange="loadFile(event)"/>
+                  </div>
+                  <br>
                         <h1 class="text-black fs-3 fw-bolder">{{student.name}}</h1>
                         <h2 class="text-black fs-4">{{major}} {{classyear}}</h2>
                         <a class="text-black-50 mb-0"
@@ -68,7 +83,8 @@
                         </a>
 
                         <br>
-                        <input type="submit" value="Save" />
+                        <br>
+                        <input class="btn btn-sm" type="submit" value="Save" style = "background-color: #e8804c;"/>
                   <a href="/profile?netid={{netid}}">Cancel</a>
 
 
@@ -92,7 +108,7 @@
                               class="form-control"
                               id="exampleFormControlTextarea1"
                               rows="3"
-                              name="bio" maxlength = 600
+                              name="bio" maxlength = 200
                             >{{bio}}</textarea>
                           </div>
                   </div>
@@ -140,9 +156,27 @@
               <div class="row mx-auto gx-lg-5">
                 <div class="col mx-auto gx-lg-5">
                     <div class="row mx-auto" style="width: 100%;">
-                    {%for club in clubs: %}
+                      <div class="card cardadd card-1 mx-auto" style="width: 38rem; background-color: white; margin: 15px; margin-top:0">
+                        <br>
+                        <h4 class = "mx-auto">Add a new club</h4>
+                        <select
+                    id="clubs"
+                    name="clubs"
+                    class="form-control"
+                    placeholder="Select up to 5 clubs"
+                    multiple
+                  >
+                    {% for club in clubs: %}
+                    <option value="{{club}}">{{club}}</option>
+                    {% endfor %}
+                  </select>
+                      </div>
+                    {%for club in student.clubs: %}
                       <div class="card card-1 mx-auto" style="width: 38rem; background-color: white; margin: 15px; margin-top:0">
                           <div class="card-body">
+                            <div class = "delete_club text-right" data-clubid = "{{club.clubid}}" data-netid = "{{student.netid}}">
+                                <i class="fas fa-trash"></i>
+                              </div>
                           <h5 class="card-title" style="color: #e8804c;">{{club}}
                             {% set unselected = 5 - (club.combined|int)%}
                             <div id ="inlinereview">
@@ -163,6 +197,16 @@
                                 #inlinereview{
                                     display:inline-block;
                                 }
+                                .fa-trash:hover {
+                                width: 25px;
+                                height: 25px;
+                                line-height: 25px;
+                                padding: 5px;
+                                text-align: center;
+                                font-size: 15px;
+                                color: #ffffff;
+                                background-color: #e8804c;
+                            }
                             </style></h5>
                           <h6 class="card-subtitle mb-2 text-muted">Description: {{club.description}} Long yada yaday ydaa</h6>
                           
@@ -181,17 +225,11 @@
                           {% endfor %}
 
 
-                          <a href="/clubpage?clubname={{club}}" class="card-link stretched-link"></a>
+                          <a href="/clubpage?clubname={{club}}"></a>
                           </div>
                       </div>
                   {% endfor %}
                 </div>
-                <style>
-                  .card-1:hover{
-                      box-shadow: 1px 8px 15px grey;
-                      -webkit-transition: box-shadow 0.05s ease-in;
-                  }
-              </style>
                 </div>
               </div>
             </div>
@@ -220,6 +258,24 @@
             renderChoiceLimit: 5,
           });
         });
+
+        $(".delete_club").click(function () {
+          var clubid = $(this).data("clubid");
+          url = "/delete_club_student?clubid=" + encodeURIComponent(clubid);
+          $.ajax({
+            url: url,
+            method: "GET",
+            success: function () {
+              location.reload();
+            },
+          });
+        });
       </script>
+      <!-- Save to database
+        var loadFile = function (event) {
+        var image = document.getElementById("output");
+        image.src = URL.createObjectURL(event.target.files[0]);
+      };
+      -->
 </html>
 

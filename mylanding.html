@@ -72,7 +72,7 @@
                 </a>
                 <div class="collapse pt-3" id="collapseExample">
                       <form class="input-group mx-auto" action="/landing" method="get">
-                        <input type="search" class="form-control rounded" name="clubname"
+                        <input id = "searchInput" type="search" class="form-control rounded" name="clubname"
                         placeholder="Search name, tag etc" value="{{clubname}}" aria-label="Search"/>
                         <button type="submit" class="btn text-black rounded" style="background-color: #e8804c;">Search</button>
                         </form>
@@ -87,7 +87,7 @@
                     >
                     Filter by tag:
                 </a>
-                <div class="collapse pt-3" id="collapseEx">
+                <div class="collapse show pt-3" id="tagsCollapse">
                     {%for tag in tags: %}
                     <div class="form-check pl-0 mb-3">
                         <input
@@ -95,6 +95,7 @@
                           type="checkbox"
                           class="filter-option form-check-input filled-in"
                           id="{{tag}}"
+                          oninput="printThis()"
                         />
                         <label
                           class="form-check-label small text-uppercase card-link-secondary"
@@ -113,8 +114,7 @@
                         <label
                           class="form-check-label small text-uppercase card-link-secondary"
                           for="44"
-                          >44</label
-                        >
+                          >44</label>
                     </div>
               </div>
 
@@ -212,5 +212,25 @@
 <footer>
     {% include "footer.html" %}
 </footer>
+<script>
+    $("#searchInput").on('input', function(){
+        let searchQuery = $("#searchInput").val()
+        alert(searchQuery);
+    });
+    $("#sort_club").change( function() {
+        let sortQuery = $("#sort_club").val()
+        alert(sortQuery)
+    });
+
+    $(".tags_filter").change( function() {
+        let sortQuery = $("#sort_club").val()
+        alert(sortQuery)
+    });
+
+    function getResults() {
+        alert("lalala")
+    }
+
+</script>
 </body>
 </html>

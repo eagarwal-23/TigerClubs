@@ -38,10 +38,10 @@ def get_student_ratings(netid):
 
 # add rating from Student with netid for club with name club
 # and ratings div, inc, time, exp, and work
-def add_rating(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload):
+def add_rating(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload, text_review):
     student = Student.query.filter_by(netid = netid).first()
     club = Club.query.filter_by(name = clubname).first()
-    review = Review(diversity, inclusivity, time_commitment, experience_requirement, workload)
+    review = Review(diversity, inclusivity, time_commitment, experience_requirement, workload, text_review)
     student.reviews.append(review)
     club.reviews.append(review)
     db.session.add(review)

@@ -3,7 +3,7 @@ from models import Student, Club, Tag
 
 # get list of all Student objects in student_info table
 def get_all_students():
-    students = Student.query.paginate(page = 1, per_page = 30)
+    students = Student.query.all()
     return students
 
 # get list of all Club objects in club_info table

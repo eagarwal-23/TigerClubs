@@ -52,19 +52,43 @@
             background-color: #ffbd81
           }
           .fa-user:hover {
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            padding: 5px;
+            text-align: center;
+            font-size: 15px;
             color: #ffffff;
             background-color: #e8804c;
           }
           .fa-user-edit:hover {
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            padding: 5px;
+            text-align: center;
+            font-size: 15px;
             color: #ffffff;
             background-color: #e8804c;
           }
           .fa-user-times:hover {
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            padding: 5px;
+            text-align: center;
+            font-size: 15px;
             color: #ffffff;
             background-color: #e8804c;
           }
 
           .fa-user-check:hover {
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            padding: 5px;
+            text-align: center;
+            font-size: 15px;
             color: #ffffff;
             background-color: #e8804c;
           }
@@ -192,8 +216,6 @@
     Showing page {{ students.page }} of {{ students.pages }}
     </p>
     <!-- Footer-->
-    {% include "footer.html" %}
-
   </div>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -210,7 +232,7 @@
         $(".viewuserprofile").click(function () {
           var netid = $(this).data("netid");
           console.log("viewing", netid)
-          url = "/profile?diffperson=" + encodeURIComponent(netid);
+          url = "/adminprofile?diffperson=" + encodeURIComponent(netid);
           $.ajax({
             url: url,
             method: "GET",
@@ -261,4 +283,5 @@
       });
     </script>
   </body>
+  {% include "footer.html" %}
 </html>

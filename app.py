@@ -1,3 +1,4 @@
+from re import S
 from flask import Flask, request, make_response, jsonify
 import datetime as dt
 from flask import render_template, Response
@@ -140,24 +141,16 @@ def landing():
     name = user.name
     clubs = club_search(search = clubname, query = sort_criteria, tags = filter_tags)
     students_list = student_search(studentname, pagenum = pagenum, per_page= 21)
-
     tags = get_all_tags()
 
-    print(clubs)
-    print(students_list)
-    if not clubs and not students_list:
-        html = render_template("mylanding.html", netid=netid, name = name, hasClubs= False, hasStudents = False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
-        print("if not clubs and not students_list:")
-    elif not clubs:
-        html = render_template("mylanding.html", netid=netid, name = name, hasClubs= False, hasStudents = True,students = students_list, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
-        print("elif not clubs:")
-    elif not students_list:
-        html = render_template("mylanding.html", netid=netid, name = name, clubs = clubs, studentname=studentname, clubname = clubname, hasClubs= True, hasStudents = False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
-        print("elif not students_list:")
+    if not clubs:
+        html = render_template("mylanding.html", netid=netid, name = name, hasClubs= False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
+        print("if not clubs:")
     else:
-        html = render_template("mylanding.html", netid=netid, name = name, hasClubs = True, hasStudents = True, clubs = clubs, clubname = clubname, studentname=studentname, students = students_list, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
+        html = render_template("mylanding.html", netid=netid, name = name, hasClubs = True, clubs = clubs, clubname = clubname, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
         print("else")
         print(clubname)
+    
     response = make_response(html)
     return response
 
@@ -593,7 +586,9 @@ def sort_clubs():
 def file_report():
     netid = _cas.authenticate()
     netid = netid.rstrip()
-    html = render_template("requestform.html")
+    clubs = get_all_clubs()
+    students = get_all_students()
+    html = render_template("requestform.html", clubs = clubs, students = students)
     response = make_response(html)
     return response
 
@@ -627,6 +622,45 @@ def creatingtags():
     msg = "Added!"
     return jsonify(msg)
 
+@app.route("/adminprofile", methods=["GET"])
+def adminprofile(diffperson=None):
+   
+    try:
+        print('we made it to profile')
+        if diffperson is None:
+            diffperson = request.args.get("diffperson")
+        print("no diff person", diffperson)
+        netid = _cas.authenticate()
+        netid = netid.rstrip()
+
+        print("net id found?")
+        if diffperson:
+            student = get_student_info(diffperson)
+        else:
+            student = get_student_info(netid)
+            diffperson = netid
+        
+        isAdmin = 0
+        if student.admin:
+            isAdmin = 1
+
+        name = student.name
+        classyear = student.year
+        major = student.major
+        clubs = student.clubs
+        bio = student.bio
+        interests = student.tags
+        tags = get_all_tags()
+
+        html = render_template("adminprofile.html", student = student,  name=name, netid= netid,
+        classyear=classyear, major=major, clubs=clubs, tags=tags,
+        bio=bio, interests=interests, diffperson = diffperson, isAdmin = isAdmin)
+
+        response = make_response(html)
+        return response
+    except Exception:
+        print("whoops from profile")
+
 # rendering edit profile page from the profile page
 @app.route("/admineditprofile", methods=["GET"])
 def admineditprofile():
@@ -649,7 +683,7 @@ def admineditprofile():
     clubs = get_all_clubs()
     tags = get_all_tags()
     try:
-        html = render_template("editprofile.html", name=name, netid=studentnetid, student = student, clubs = clubs, tags = tags,
+        html = render_template("admineditprofile.html", name=name, netid=studentnetid, student = student, clubs = clubs, tags = tags,
         classyear=classyear, major=major,
         bio=bio, isAdmin = isAdmin)
         response = make_response(html)

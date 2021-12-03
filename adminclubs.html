@@ -54,8 +54,6 @@
             background-color: #ffbd81
           }
 
-          
-
           .fa-eye:hover {
             width: 25px;
             height: 25px;
@@ -197,7 +195,7 @@
 
         $(".viewclubpage").click(function () {
           var clubname = $(this).data("clubname");
-          url = "/clubpage?clubname=" + encodeURIComponent(clubname);
+          url = "/adminclubpage?clubname=" + encodeURIComponent(clubname);
           $.ajax({
             url: url,
             method: "GET",

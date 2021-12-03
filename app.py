@@ -290,11 +290,11 @@ def clubpage():
                                     description = club.description, members = club.members,
                                     tags = club.tags, 
                                     hasScores = True,
-                                    diversity = club.diversity,
-                                    inclusivity = club.inclusivity,
-                                    time_commitment = club.time_commitment,
-                                    workload = club.workload,
-                                    experience_requirement = club.experience_requirement,
+                                    diversity = "{:.1%}".format((club.diversity/5)),
+                                    inclusivity = "{:.1%}".format((club.inclusivity/5)),
+                                    time_commitment = "{:.1%}".format((club.time_commitment/5)),
+                                    workload = "{:.1%}".format((club.workload/5)),
+                                    experience_requirement = "{:.1%}".format((club.experience_requirement/5)),
                                     isAdmin = isAdmin)
         response = make_response(html)
         return response

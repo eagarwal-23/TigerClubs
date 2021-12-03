@@ -66,15 +66,16 @@
       </div>
       <br>
       <div class="card">
-        <h3 class="font-weight-bold" style="padding: 20px;">Description</h3>
+        <h4 class="font-weight-bold" style="padding: 20px;">Description</h4>
         <div class="col">
           <p>IgniteSTEM is an international platform for the STEM revolution in K-12 education. Through conferences,
             resources, and more grassroots efforts we aspire to help educators and students build the classroom of the
             future.</p>
         </div>
       </div>
-      <div class="row">
-        <h4><strong>Club Members:</strong></h4>
+      <!-- CLUB MEMBERS -->
+      <div class="row" style="padding: 15px">
+        <h4 style="padding-left: 0; padding-top: 20px;"><strong>Club Members:</strong></h4>
         <br />
         <br />
         {%for member in members: %}
@@ -95,93 +96,83 @@
       </div>
     </div>
 
-    <!-- DESCRIPTION CARD -->
+    <!-- CLUB RATING SECTION -->
     <div class="col-4">
-      <h4><strong>Club Ratings:</strong></h4>
-      <div class="card text-white text-center" style="background-color: #e8804c">
-        <div class="card-body">
+      <style>
+        .plswork {
+          background-color: #db6225 !important;
+          width: var(--wid)
+        }
+      </style>
+
+      <div class="card text-center">
+        <h4 style="padding-top: 10px"><strong>Club Ratings:</strong></h4>
+        <div class="card-body" style="padding: 0">
           <ul class="justify-content-center">
+            <!-- DIVERSITY -->
             <div class="row" style="width: 100%;">
-              <li class="list-group-item">
-                <div class="progress">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-                </div>
-                <!-- DIVERSITY -->
+              <li class="list-group-item border-0">
                 <strong>Diversity: </strong> {{diversity}} <br />
-                {% set unselected = 5 - (diversity|int)%}
-                <div id="inlinereview">
-                  {% for i in range(diversity|int) %}
-                  <i aria-hidden="true" class="fa fa-star"></i>
-                  {% endfor %} {% for i in range(unselected) %}
-                  <i aria-hidden="true" class="fa fa-star-o"></i>
-                  {% endfor %}
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated plswork" role="progressbar"
+                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="--wid: {{diversity}};">
+                  </div>
                 </div>
               </li>
             </div>
             <!-- INCLUSIVITY -->
+            </style>
             <div class="row" style="width: 100%;">
-              <li class="list-group-item">
-                <strong>Inclusivity: </strong>{{inclusivity}} {% set unselected
-                  = 5 - (inclusivity|int)%}
-                <div id="inlinereview">
-                  {% for i in range(inclusivity|int) %}
-                  <i aria-hidden="true" class="fa fa-star"></i>
-                  {% endfor %} {% for i in range(unselected) %}
-                  <i aria-hidden="true" class="fa fa-star-o"></i>
-                  {% endfor %}
+              <li class="list-group-item border-0">
+                <strong>Inclusivity: </strong>{{inclusivity}}
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated plswork" role="progressbar"
+                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="--wid: {{inclusivity}}"></div>
                 </div>
               </li>
             </div>
-            <!-- TIME COMMITMENT -->
+            <!-- TIME COMMITMENTS -->
             <div class="row" style="width: 100%;">
-              <li class="list-group-item">
-                <strong>Time Commitment: </strong>{{time_commitment}} {% set
-                  unselected = 5 - (time_commitment|int)%}
-                <div id="inlinereview">
-                  {% for i in range(time_commitment|int) %}
-                  <i aria-hidden="true" class="fa fa-star"></i>
-                  {% endfor %} {% for i in range(unselected) %}
-                  <i aria-hidden="true" class="fa fa-star-o"></i>
-                  {% endfor %}
+              <li class="list-group-item border-0">
+                <strong>Time Commitment: </strong>{{time_commitment}}
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated plswork" role="progressbar"
+                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="--wid: {{time_commitment}}"></div>
                 </div>
               </li>
             </div>
             <!-- WORKLOAD -->
             <div class="row" style="width: 100%;">
-              <li class="list-group-item">
-                <strong>Workload:</strong> {{workload}} {% set unselected = 5 -
-                  (workload|int)%}
-                <div id="inlinereview">
-                  {% for i in range(workload|int) %}
-                  <i aria-hidden="true" class="fa fa-star"></i>
-                  {% endfor %} {% for i in range(unselected) %}
-                  <i aria-hidden="true" class="fa fa-star-o"></i>
-                  {% endfor %}
+              <li class="list-group-item border-0">
+                <strong>Workload:</strong> {{workload}}
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated plswork" role="progressbar"
+                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="--wid: {{workload}}"></div>
                 </div>
               </li>
             </div>
             <!-- EXPERIENCE REQUIRED -->
             <div class="row" style="width: 100%;">
-              <li class="list-group-item">
+              <li class="list-group-item border-0">
                 <strong>Experience Requirement: </strong>
-                {{experience_requirement}} {% set unselected = 5 -
-                  (experience_requirement|int)%}
-                <div id="inlinereview">
-                  {% for i in range(experience_requirement|int) %}
-                  <i aria-hidden="true" class="fa fa-star"></i>
-                  {% endfor %} {% for i in range(unselected) %}
-                  <i aria-hidden="true" class="fa fa-star-o"></i>
-                  {% endfor %}
+                {{experience_requirement}}
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated plswork" role="progressbar"
+                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="--wid: {{experience_requirement}}">
+                  </div>
                 </div>
               </li>
             </div>
           </ul>
         </div>
       </div>
-      <h3>Student Reviews</h3>
+
+
+
+      <!-- STUDENT REVIEWS SECTION -->
+      <h3 style="padding-top: 25px;">Student Reviews</h3>
       <div class="card rounded border-0"
-        style="background-color:#fcc397; margin-top: 25px; color:#db6225; padding: 10px">
+        style="background-color:#fcc397; margin-bottom: 25px; color:#db6225; padding: 10px">
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
         consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
@@ -189,7 +180,7 @@
         laborum."
       </div>
       <div class="card rounded border-0"
-        style="background-color:#fcc397; margin-top: 25px; color:#db6225;padding: 10px">
+        style="background-color:#fcc397; margin-bottom: 25px; color:#db6225;padding: 10px">
         "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
         aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
         enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos

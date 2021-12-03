@@ -81,7 +81,7 @@ class CASClient:
         # Delete the user's username from the session.
         session.pop("username")
         # Redirect the browser to the application's home page.
-        abort(redirect("https://tigergroups.herokuapp.com/"))
+        abort(redirect("https://tigergroups.herokuapp.com"))
 
 
 # -----------------------------------------------------------------------

@@ -767,3 +767,13 @@ def students_json():
         return jsonify(students_json)
     else:
         return None
+
+@app.route("/createclub", methods=["POST"])
+def createclub():
+    name = request.form["name"]
+    desc = request.form["desc"]
+
+    add_club(name, desc)
+
+    msg = "Club added."
+    return jsonify(msg)

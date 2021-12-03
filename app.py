@@ -163,9 +163,9 @@ def landing():
 @app.route("/studentsearch", methods=["GET"])
 def studentsearch():
 
-    netid = _cas.authenticate()
-    netid = netid.rstrip()
-    # netid = "camilanv"
+    # netid = _cas.authenticate()
+    # netid = netid.rstrip()
+    netid = "camilanv"
     studentname = request.args.get("studentname")
     pagenum = request.args.get('page', 1, type=int)
 
@@ -268,7 +268,7 @@ def editprofile():
     clubs = get_all_clubs()
     tags = get_all_tags()
     try:
-        html = render_template("editprofile.html", name=name, netid=netid, student = student, clubs = clubs, tags = tags,
+        html = render_template("myeditpage.html", name=name, netid=netid, student = student, clubs = clubs, tags = tags,
         classyear=classyear, major=major,
         bio=bio, isAdmin = isAdmin)
         response = make_response(html)
@@ -292,8 +292,6 @@ def clubpage():
         clubname = request.args.get("clubname")
         club = get_club_info(clubname)
 
-        reviews = get_club_ratings(club.clubid)
-
         html = render_template("clubpage.html", clubname = club.name,
                                     description = club.description, members = club.members,
                                     tags = club.tags, 
@@ -303,7 +301,6 @@ def clubpage():
                                     time_commitment = "{:.1%}".format((club.time_commitment/5)),
                                     workload = "{:.1%}".format((club.workload/5)),
                                     experience_requirement = "{:.1%}".format((club.experience_requirement/5)),
-                                    reviews = reviews,
                                     isAdmin = isAdmin)
         response = make_response(html)
         return response
@@ -316,7 +313,6 @@ def myratings():
     try:
         netid = _cas.authenticate()
         netid = netid.rstrip()
-       
         student = get_student_info(netid=netid)
 
         isAdmin = 0
@@ -338,29 +334,27 @@ def myratings():
     except Exception as e:
         print(e, "whoops from ratings")
 
-@app.route("/voting", methods = ["POST"])
+@app.route("/voting", methods = ["POST","GET"])
 def vote():
-
-    netid = _cas.authenticate()
-    netid = netid.rstrip()
-    if request.method == 'POST':
-        clubname = request.form['clubname']
-        diversity = request.form['diversity']
-        inclusivity = request.form['inclusivity']
-        workload = request.form['workload']
-        time_commitment = request.form['time_commitment']
-        experience_requirement = request.form['experience_requirement']
-        text_review = request.form["text_review"]
-        print(text_review)
-        add_rating(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload, text_review)
-        print("2nd time", text_review)
-        msg = 'success'
-    else:
-        print("i said we're not supposed to be here")
-        msg = 'huh we aren\'t supposed to be here'
-    return jsonify(msg)
-
-    #print("whoops from voting :(")
+    try:
+        netid = _cas.authenticate()
+        netid = netid.rstrip()
+        if request.method == 'POST':
+            clubname = request.form['clubname']
+            diversity = request.form['diversity']
+            inclusivity = request.form['inclusivity']
+            workload = request.form['workload']
+            time_commitment = request.form['time_commitment']
+            experience_requirement = request.form['experience_requirement']
+            text_review = request.form["text_review"]
+            print(text_review)
+            add_rating(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload, text_review)
+            msg = 'success'
+        else:
+            msg = 'huh we aren\'t supposed to be here'
+        return jsonify(msg)
+    except Exception:
+        print("whoops from voting :(")
 
 @app.route("/removingvote", methods= ["POST", "GET"])
 def removingvote():

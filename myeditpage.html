@@ -66,7 +66,7 @@
               <div class = "row mx-auto py-5">
                 <div class = "col-5 mx-auto">
                 <div class="container mx-auto p-4 bg-light rounded-3 text-center">
-                  <br>
+                  <!-- <br>
                   <div class="profile-pic text-center">
                     <label class="-label" for="file">
                       <span>Change Your Profile Pic</span>
@@ -74,7 +74,8 @@
                     <br>
                     <input id="file" type="file" onchange="loadFile(event)"/>
                   </div>
-                  <br>
+                  <br> -->
+                  <img class="img-fluid rounded-circle mb-4" style = "width: 150px; height: 150px;"src="{{student.pictureURL}}" alt="..." />
                         <h1 class="text-black fs-3 fw-bolder">{{student.name}}</h1>
                         <h2 class="text-black fs-4">{{major}} {{classyear}}</h2>
                         <a class="text-black-50 mb-0"

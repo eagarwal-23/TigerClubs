@@ -775,7 +775,6 @@ def students_json():
             each_student = {
                 'id':student.netid,
                 'text':student.netid}
-            print(student.netid)
             students_json.append(each_student)
         return jsonify(students_json)
     else:
@@ -790,7 +789,6 @@ def clubs_json():
             each_club = {
                 'id':club.name,
                 'text':club.name}
-            print(club.name)
             clubs_json.append(each_club)
         return jsonify(clubs_json)
     else:

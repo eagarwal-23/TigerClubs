@@ -110,12 +110,49 @@
                 <!-- DIVERSITY -->
                 <strong>Diversity: </strong> {{diversity}} <br />
                 {% set unselected = 5 - (diversity|int)%}
+                {% set tester = (diversity|int)%}
+                <style>
+                  :root {
+                    --star-size: 60px;
+                    --star-color: #fff;
+                    --star-background: #fc0;
+                  }
+
+                  .Stars {
+                    --percent: calc(var(--rating) / 5 * 100%);
+
+                    display: inline-block;
+                    font-size: var(--star-size);
+                    font-family: Times;
+                    line-height: 1;
+
+
+                  }
+
+
+                  body {
+                    background: #eee;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                  }
+
+                  * {
+                    position: relative;
+                    box-sizing: border-box;
+                  }
+                </style>
                 <div id="inlinereview">
-                  {% for i in range(diversity|int) %}
+                  <div class="Stars" style="--rating: tester;" aria-label="Rating of this product is 2.3 out of 5.">
+                  </div>
+
+
+                  <!-- {% for i in range(diversity|int) %}
                   <i aria-hidden="true" class="fa fa-star"></i>
                   {% endfor %} {% for i in range(unselected) %}
                   <i aria-hidden="true" class="fa fa-star-o"></i>
-                  {% endfor %}
+                  {% endfor %} -->
                 </div>
               </li>
             </div>

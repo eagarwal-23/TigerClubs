@@ -116,94 +116,93 @@
                       <div class="row mx-auto" style="width: 100%; padding-bottom: 1%">
                         <h5 class="col-form-label" style="padding: 0">Clubs you are in:</h5>
                       </div>
+                      <div class="row" style="width: 100%"></div>
                       {% for club in student.clubs: %}
-                      <div class="row" style="width: 100%">
-                        <div class="tag">
-                          <div class="rounded-pill text-white" style="background-color: #e8804c">
-                            {{club}}
-                          </div>
+                      <div class="tag">
+                        <div class="rounded-pill text-white" style="background-color: #e8804c">
+                          {{club}}
                         </div>
-                        <style>
-                          .tag {
-                            display: inline-block;
-                            /* font-size: small; */
-                            padding-right: 0.25rem;
-                          }
-                        </style>
                       </div>
-                      {% endfor %}
-
+                      <style>
+                        .tag {
+                          display: inline-block;
+                          /* font-size: small; */
+                          padding-right: 0.25rem;
+                        }
+                      </style>
                     </div>
+                    {% endfor %}
 
-                    <div class="form-group choices" data-type="select-multiple">
-                      <label for="message-text" class="col-form-label">Choose interests:</label>
-                      <select id="tags" name="tags" class="form-control" placeholder="Select up to 5 interests"
-                        multiple>
-                        {% for tag in tags: %}
-                        <option value="{{tag}}">{{tag}}</option>
-                        {% endfor %}
-                      </select>
-                      <small id="passwordHelpBlock" class="form-text text-muted">
-                        Search for a tag. Adding tags helps others see what you like!
-                      </small>
-                      <script>
-                        $('#tags').select({
-                          dropdownParent: $('#exampleModal')
-                        });
-                      </script>
-                    </div>
-                  </form>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                  <button type="submit" value="Save" class="btn btn-primary">Save changes</button>
+
+                <div class="form-group choices" data-type="select-multiple">
+                  <label for="message-text" class="col-form-label">Choose interests:</label>
+                  <select id="tags" name="tags" class="form-control" placeholder="Select up to 5 interests" multiple>
+                    {% for tag in tags: %}
+                    <option value="{{tag}}">{{tag}}</option>
+                    {% endfor %}
+                  </select>
+                  <small id="passwordHelpBlock" class="form-text text-muted">
+                    Search for a tag. Adding tags helps others see what you like!
+                  </small>
+                  <script>
+                    $('#tags').select({
+                      dropdownParent: $('#exampleModal')
+                    });
+                  </script>
                 </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" value="Save" class="btn btn-primary">Save changes</button>
               </div>
             </div>
           </div>
-          {%endif%}
         </div>
+        {%endif%}
       </div>
+    </div>
 
-      <div class="col-5 mr-auto">
-        <div class="card mx-auto bg-light pl-4" style="margin-top: 2rem;">
-          <div class="card-body">
-            <div class="row py-3 align-items-center">
-              <h4 class="mb-0">About you</h4>
-            </div>
-            <div class="row">
-              <div class="col-sm-9 text-secondary">
-                {{bio}}
-              </div>
-            </div>
-            <hr>
-            <div class="row py-3 align-items-center">
-              <h4 class="mb-0">Interests</h4>
-            </div>
-            <div class="row">
-              <div class="text-secondary">
-                {%for interest in interests: %}
-                <div class="tag2">
-                  <div class="rounded-pill text-white bg-dark"
-                    style="padding-left: .75rem; padding-right: .75rem; padding-top: .5rem; padding-bottom: .5rem">
-                    {{interest}}</div>
-                </div>
-                <style>
-                  .tag2 {
-                    display: inline-block;
-                    padding-right: .5rem;
-                    padding-top: .5rem;
-                    padding-bottom: .5rem;
-                  }
-                </style>
-                {% endfor %}
-              </div>
-            </div>
-            <hr>
+    <div class="col-5 mr-auto">
+      <div class="card mx-auto bg-light pl-4" style="margin-top: 2rem;">
+        <div class="card-body">
+          <div class="row py-3 align-items-center">
+            <h4 class="mb-0">About you</h4>
           </div>
+          <div class="row">
+            <div class="col-sm-9 text-secondary">
+              {{bio}}
+            </div>
+          </div>
+          <hr>
+          <div class="row py-3 align-items-center">
+            <h4 class="mb-0">Interests</h4>
+          </div>
+          <div class="row">
+            <div class="text-secondary">
+              {%for interest in interests: %}
+              <div class="tag2">
+                <div class="rounded-pill text-white bg-dark"
+                  style="padding-left: .75rem; padding-right: .75rem; padding-top: .5rem; padding-bottom: .5rem">
+                  {{interest}}</div>
+              </div>
+              <style>
+                .tag2 {
+                  display: inline-block;
+                  padding-right: .5rem;
+                  padding-top: .5rem;
+                  padding-bottom: .5rem;
+                }
+              </style>
+              {% endfor %}
+            </div>
+          </div>
+          <hr>
         </div>
       </div>
     </div>
+  </div>
   </div>
   <!-- Content section-->
   <section class="py-5" style="align-content: center;">

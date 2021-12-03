@@ -774,6 +774,21 @@ def students_json():
     else:
         return None
 
+@app.route("/getclubsJSON", methods=["POST", "GET"])
+def clubs_json():
+    if request.method== 'GET':
+        clubs = get_all_clubs()
+        clubs_json = []
+        for club in clubs:
+            each_club = {
+                'id':club.name,
+                'text':club.name}
+            print(club.name)
+            clubs_json.append(each_club)
+        return jsonify(clubs_json)
+    else:
+        return None
+
 @app.route("/createclub", methods=["POST"])
 def createclub():
     name = request.form["name"]

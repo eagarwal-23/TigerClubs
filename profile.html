@@ -91,7 +91,6 @@
                 </div>
                 <div class="modal-body text-left">
                   <form>
-
                     <div class="custom-file">
                       <label for="message-text" class="col-form-label">Change profile pic:</label>
                       <input type="file" class="custom-file-input" id="customFile">
@@ -133,26 +132,27 @@
                       </style>
                     </div>
                     {% endfor %}
-
+                    <div class="form-group choices" data-type="select-multiple">
+                      <label for="message-text" class="col-form-label">Choose interests:</label>
+                      <select id="tags" name="tags" class="form-control" placeholder="Select up to 5 interests"
+                        multiple>
+                        {% for tag in tags: %}
+                        <option value="{{tag}}">{{tag}}</option>
+                        {% endfor %}
+                      </select>
+                      <small id="passwordHelpBlock" class="form-text text-muted">
+                        Search for a tag. Adding tags helps others see what you like!
+                      </small>
+                      <script>
+                        $('#tags').select({
+                          dropdownParent: $('#exampleModal')
+                        });
+                      </script>
+                    </div>
+                  </form>
                 </div>
 
-                <div class="form-group choices" data-type="select-multiple">
-                  <label for="message-text" class="col-form-label">Choose interests:</label>
-                  <select id="tags" name="tags" class="form-control" placeholder="Select up to 5 interests" multiple>
-                    {% for tag in tags: %}
-                    <option value="{{tag}}">{{tag}}</option>
-                    {% endfor %}
-                  </select>
-                  <small id="passwordHelpBlock" class="form-text text-muted">
-                    Search for a tag. Adding tags helps others see what you like!
-                  </small>
-                  <script>
-                    $('#tags').select({
-                      dropdownParent: $('#exampleModal')
-                    });
-                  </script>
-                </div>
-                </form>
+
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

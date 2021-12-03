@@ -131,8 +131,8 @@
             <!-- INCLUSIVITY -->
             <div class="row" style="width: 100%;">
               <li class="list-group-item">
-                <strong>Inclusivity: </strong>{{inclusivity}} {% set unselected
-                  = 5 - (inclusivity|int)%}
+                <strong>Inclusivity: </strong>{{inclusivity}}
+                {% set unselected = 5 - (inclusivity|int)%}
                 <div id="inlinereview">
                   {% for i in range(inclusivity|int) %}
                   <i aria-hidden="true" class="fa fa-star"></i>
@@ -145,8 +145,8 @@
             <!-- TIME COMMITMENT -->
             <div class="row" style="width: 100%;">
               <li class="list-group-item">
-                <strong>Time Commitment: </strong>{{time_commitment}} {% set
-                  unselected = 5 - (time_commitment|int)%}
+                <strong>Time Commitment: </strong>{{time_commitment}}
+                {% set unselected = 5 - (time_commitment|int)%}
                 <div id="inlinereview">
                   {% for i in range(time_commitment|int) %}
                   <i aria-hidden="true" class="fa fa-star"></i>
@@ -159,8 +159,8 @@
             <!-- WORKLOAD -->
             <div class="row" style="width: 100%;">
               <li class="list-group-item">
-                <strong>Workload:</strong> {{workload}} {% set unselected = 5 -
-                  (workload|int)%}
+                <strong>Workload:</strong> {{workload}}
+                {% set unselected = 5 - (workload|int)%}
                 <div id="inlinereview">
                   {% for i in range(workload|int) %}
                   <i aria-hidden="true" class="fa fa-star"></i>
@@ -174,8 +174,8 @@
             <div class="row" style="width: 100%;">
               <li class="list-group-item">
                 <strong>Experience Requirement: </strong>
-                {{experience_requirement}} {% set unselected = 5 -
-                  (experience_requirement|int)%}
+                {{experience_requirement}}
+                {% set unselected = 5 - (experience_requirement|int)%}
                 <div id="inlinereview">
                   {% for i in range(experience_requirement|int) %}
                   <i aria-hidden="true" class="fa fa-star"></i>

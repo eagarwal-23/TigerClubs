@@ -119,7 +119,7 @@ def landing():
 
     print(sort_criteria)
     if not sort_criteria:
-        sort_criteria = 'Overall'
+        sort_criteria = 'combined'
         print("nayyyy")
     else:
         print(sort_criteria)
@@ -288,7 +288,6 @@ def clubpage():
         
         clubname = request.args.get("clubname")
         club = get_club_info(clubname)
-        reviews = get_club_ratings(club.clubid)
 
         html = render_template("clubpage.html", clubname = club.name,
                                     description = club.description, members = club.members,
@@ -299,7 +298,6 @@ def clubpage():
                                     time_commitment = "{:.1%}".format((club.time_commitment/5)),
                                     workload = "{:.1%}".format((club.workload/5)),
                                     experience_requirement = "{:.1%}".format((club.experience_requirement/5)),
-                                    reviews = reviews,
                                     isAdmin = isAdmin)
         response = make_response(html)
         return response

@@ -16,6 +16,8 @@ def add_tag(tagname):
     db.session.add(tag)
     db.session.commit()
 
+EXISTING_CLUBS = [1, 2, 5, 6, 8, 10, 11, 12, 13, 15, 16, 27]
+
 if __name__ == "__main__":
     filename = "club_data.xlsx"
     df = pd.read_excel(filename)

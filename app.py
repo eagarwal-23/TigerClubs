@@ -403,7 +403,16 @@ def delete_user():
     clubid = request.args.get("clubid")
     delete_student_club(netid=netid.strip(), clubid=clubid.strip())
     requestid = request.args.get("requestid")
-    delete_request(requestid)
+    if requestid:
+        delete_request(requestid)
+    msg = 'success'
+    return jsonify(msg)
+
+@app.route("/delete_tag_user", methods = ["POST","GET"])
+def delete_tag_user():
+    netid = request.args.get("netid")
+    tagid = request.args.get("tagid")
+    delete_student_tag(netid=netid.strip(), tagid=tagid.strip())
     msg = 'success'
     return jsonify(msg)
 

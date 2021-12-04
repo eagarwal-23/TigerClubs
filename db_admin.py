@@ -84,7 +84,6 @@ def delete_club_tag(clubid, tagid):
     print(club.tags)
     db.session.commit()
 
-
 # for BLACKLIST_USER type request
 def blacklist_student(netid):
     student = Student.query.filter_by(netid = netid).first()
@@ -126,8 +125,8 @@ def delete_student_tag(netid, tagname):
     db.session.commit()
 
 # for admin clubs tab
-def add_club(name, description):
-    club = Club(name, description)
+def add_club(name, description, club_type):
+    club = Club(name, description, club_type)
     db.session.add(club)
     db.session.commit()
 

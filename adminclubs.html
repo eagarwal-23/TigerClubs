@@ -174,13 +174,6 @@
     </div>
 </div>
 
-
-
-
-
-
-
-
     <section class="pt-4">
       
       <div class="container px-lg-5">
@@ -188,7 +181,7 @@
         <!-- Page Features-->
         <div class="row gx-lg-5">
           
-          {%for club in clubs:%}
+          {%for club in clubs.items:%}
           
           <div class="col-lg-6 col-xxl-4 mb-5">
             <div
@@ -201,13 +194,13 @@
                     <div class = "row">
                           <div class="col-md-12 col-sm-10 text-right"> 
                             <div class = "viewclubpage" data-clubname = "{{club.name}}">
-                              <i class="fas fa-eye"></i> 
+                              <i data-placement="top" title="View club page" data-toggle="tooltip" class="fas fa-eye"></i> 
                             </div>
                             <div class = "editclubpage" data-clubname = "{{club.name}}">
-                              <i class="fas fa-edit"></i>
+                              <i data-placement="top" title="Edit club page" data-toggle="tooltip" class="fas fa-edit"></i>
                             </div>
                             <div class = "delete_club" data-clubid = "{{club.clubid}}">
-                              <i class="fas fa-trash"></i>
+                              <i data-placement="top" title="Delete club page" data-toggle="tooltip" class="fas fa-trash"></i>
                             </div>
                           </div>
                     </div>
@@ -245,8 +238,10 @@
         </div>
       </div>
       </section>
-      </div>
-
+      
+    <footer>
+      {% include "footer.html" %}
+    </footer>
     <script>
       $(document).ready(function () {
         function handleResponse(response) {
@@ -318,7 +313,6 @@
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
   </body>
-  {% include "footer.html" %}
 </html>
 
 <!-- <!DOCTYPE html>

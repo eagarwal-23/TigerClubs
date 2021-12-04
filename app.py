@@ -109,17 +109,14 @@ def landing():
     print("we are here")
     sort_criteria = request.args.get("sort")
     clubname = request.args.get("clubname")
-    print("aaassdwdw", clubname)
-    print("verbverbe", sort_criteria)
     netid = _cas.authenticate()
     netid = netid.rstrip()
     filter_tags = get_all_tagnames()
+    pagenum = request.args.get('page', 1, type=int)
     # filter_tags = request.args.getlist("tags")
     # if not filter_tags:
     #     filter_tags = get_all_tagnames()
 
-    print("here now")
-    print("aaaaaa")
     print(sort_criteria)
     if not sort_criteria:
         sort_criteria = 'Overall'
@@ -163,9 +160,9 @@ def landing():
 @app.route("/studentsearch", methods=["GET"])
 def studentsearch():
 
-    # netid = _cas.authenticate()
-    # netid = netid.rstrip()
-    netid = "camilanv"
+    netid = _cas.authenticate()
+    netid = netid.rstrip()
+    #netid = "camilanv"
     studentname = request.args.get("studentname")
     pagenum = request.args.get('page', 1, type=int)
 
@@ -459,7 +456,7 @@ def adminclubs():
     if not clubname:
         clubname = ""
 
-    clubs = club_search(clubname)
+    clubs = admin_club_search(clubname)
 
     html = render_template("adminclubs.html", clubs=clubs)
     response = make_response(html)

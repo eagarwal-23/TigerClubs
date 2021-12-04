@@ -126,10 +126,10 @@
                       <div class = "row">
                             <div class="col-md-12 col-sm-10 center-col text-right"> 
                             <div class = "edit_tag" data-tagname = "{{tag.name}}" data-tagid = "{{tag.tagid}}" data-toggle="modal" data-target="#change-name">
-                              <i class="fas fa-edit i-extra-small-box"></i> 
+                              <i data-placement="top" title="Edit tag" data-toggle="tooltip" class="fas fa-edit i-extra-small-box"></i> 
                             </div>
                             <div class = "delete_tag" data-tagid = "{{ tag.tagid }}">
-                                <i class="fas fa-trash i-extra-small-box"></i>
+                                <i data-placement="top" title="Delete tag" data-toggle="tooltip" class="fas fa-trash i-extra-small-box"></i>
                             </div>
                             </div>
                           </div>
@@ -172,7 +172,7 @@
 
                     <!-- DIVERSITY RATING -->
                     <p class="ratelabel bg-light">Name:</label>
-                    <input type="text" id="newtag" value=""></input>
+                    <input type="text" maxlength=20 id="newtag" value=""></input>
 
                     <br>
 
@@ -187,12 +187,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
 
           <div id="change-name" class="modal fade" role="dialog" aria-labelledby="addClubRatingLabel"
         aria-hidden="true">

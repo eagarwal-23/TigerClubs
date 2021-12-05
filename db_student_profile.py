@@ -67,3 +67,17 @@ def whitelist_student(netid):
     student = Student.query.filter_by(netid = netid).first()
     student.blacklist = False
     db.session.commit()
+
+def get_unrated_clubs(netid):
+    student = Student.query.filter_by(netid = netid).first()
+    clubs = student.clubs
+    reviews = student.reviews
+    rated = []
+    unrated = []
+    for review in reviews:
+        club = review.club
+        rated.append(club[0])
+    for club in clubs:
+        if club not in rated:
+            unrated.append(club)
+    return unrated

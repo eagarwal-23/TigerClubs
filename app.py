@@ -319,7 +319,7 @@ def myratings():
         #if today == ratings_period:
         if True:
             name = student.name
-            clubs = student.clubs
+            clubs = get_unrated_clubs(student.netid)
             ratings = get_student_ratings(netid)
             html = render_template("myratings.html", name = name, review = ratings, clubs = clubs, isAdmin = isAdmin)
             response = make_response(html)
@@ -346,6 +346,7 @@ def vote():
             text_review = request.form["text_review"]
             print(text_review)
             add_rating(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload, text_review)
+            calculate_club_rating(clubname)
             msg = 'success'
         else:
             msg = 'huh we aren\'t supposed to be here'

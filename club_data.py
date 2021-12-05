@@ -84,12 +84,13 @@ def delete_added_clubs():
             db.session.delete(club)
     db.session.commit()
 
+# read in club data and add to db
+# add 25 randomly selected students as
+# members to each club
 if __name__ == "__main__":
     filename = "club_data.xlsx"
     df = pd.read_excel(filename)
     print(df.head(5))
-    delete_added_clubs()
-    club = Club.query.filter_by(name = 'IgniteSTEM').first()
     students = get_all_students()
     for i in range(len(df)):
         clubname = df.loc[i, "name"]

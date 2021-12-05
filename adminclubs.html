@@ -215,7 +215,7 @@
                     height="100"
                   />
                   <h2 class="fs-4 fw-bold">{{club.name}}</h2>
-                  {{ club.description }}
+                  {{ club.description[:110] + "..." }}
                   <br>
                   {%for tag in club.tags: %}
                                   <div class="tag">

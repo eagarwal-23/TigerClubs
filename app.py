@@ -288,7 +288,6 @@ def clubpage():
         
         clubname = request.args.get("clubname")
         club = get_club_info(clubname)
-
         html = render_template("clubpage.html", clubname = club.name,
                                     description = club.description, members = club.members,
                                     tags = club.tags, 
@@ -502,6 +501,13 @@ def adminrequests():
     html = render_template("adminrequests.html", requests = get_all_requests(), hasRequests = True)
     response = make_response(html)
     return response
+
+def shorten_description(club):
+    if len(club.description) > 80:
+        description = club.description[80] + "..."
+    else:
+        description = club.description
+    return description
 
 @app.route("/adminclubpage", methods=["GET"])
 def adminclubpage():

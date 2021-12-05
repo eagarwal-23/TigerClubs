@@ -209,7 +209,7 @@
                                 background-color: #e8804c;
                             }
                             </style></h5>
-                          <h6 class="card-subtitle mb-2 text-muted">Description: {{club.description}}</h6>
+                          <h6 class="card-subtitle mb-2 text-muted">Description: {{club.description[:50] + "..."}}</h6>
                           
                           
                           {%for tag in club.tags: %}

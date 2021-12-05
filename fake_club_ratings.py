@@ -154,19 +154,19 @@ if __name__ == "__main__":
     ratings = [1, 2, 3, 4, 5]
     weights = [0.05, 0.05, 0.2, 0.35, 0.35]
     for club in clubs:
-        # if club.clubid not in EXISTING_CLUBS:
-        #     remove_all_reviews(club.name)
-        members = club.members
-        for i in range(15):
-            diversity = (choices(ratings, weights))[0]
-            inclusivity = (choices(ratings, weights))[0]
-            time_commitment = (choices(ratings, weights))[0]
-            experience_requirement = (choices(ratings, weights))[0]
-            workload = (choices(ratings, weights))[0]
-            text = lorem.paragraph()
-            #print(diversity, inclusivity, time_commitment, experience_requirement, workload, text)
-            student = choice(members)
-            add_rating(student.netid, club.name, diversity,
-                        inclusivity, time_commitment, experience_requirement,
-                        workload, text)
-        calculate_club_rating(club.name)
+        if club.clubid not in EXISTING_CLUBS:
+            remove_all_reviews(club.name)
+        # members = club.members
+        # for i in range(15):
+        #     diversity = (choices(ratings, weights))[0]
+        #     inclusivity = (choices(ratings, weights))[0]
+        #     time_commitment = (choices(ratings, weights))[0]
+        #     experience_requirement = (choices(ratings, weights))[0]
+        #     workload = (choices(ratings, weights))[0]
+        #     text = lorem.paragraph()
+        #     #print(diversity, inclusivity, time_commitment, experience_requirement, workload, text)
+        #     student = choice(members)
+        #     add_rating(student.netid, club.name, diversity,
+        #                 inclusivity, time_commitment, experience_requirement,
+        #                 workload, text)
+        # calculate_club_rating(club.name)

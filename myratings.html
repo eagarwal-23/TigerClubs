@@ -64,6 +64,22 @@
             color: #ffffff;
             background-color: #e8804c;
           }
+
+        .fa-edit:hover {
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            padding: 5px;
+            text-align: center;
+            font-size: 15px;
+            color: #ffffff;
+            background-color: #e8804c;
+        }
+
+        .editrating, .deleterating {
+            display:inline-block;
+          }
+
     </style>
 
     <!-- Container element -->
@@ -91,10 +107,15 @@
             {%for r in review: %}
             <div class="flex-item clubcard card bg-light" href="/clubpage?clubname={{review.clubname}}"
                 style="width: 24rem;">
-                <header class="card-header fs-4 fw-bold"> {{r.club[0]}}
+                <header class="card-header fs-4 fw-bold"> {{r.club[0]}} {{r.reviewid}}
                     <button class="btn btn-sm rounded-0 float-right" type="button" id="deleterating"
                         title="Delete" value="{{r.reviewid}}">
-                        <i data-placement="top" title="Delete review" data-toggle="tooltip" class="fas fa-trash"></i>
+                        <i data-placement="top" title="Delete rating" data-toggle="tooltip" class="fas fa-trash"></i>
+                    </button>
+                    <button class="btn btn-sm rounded-0 float-right" type="button" id="editrating"
+                        title="Edit" data-id="{{r.reviewid}}" data-clubname="{{r.club}}"
+                        data-toggle="modal" data-target="#change-name">
+                        <i data-placement="top" title="Edit rating" data-toggle="tooltip" class="fas fa-edit"></i>
                     </button>
                 </header>
 
@@ -284,6 +305,18 @@
 
         $(document).on('click', '#deleterating', function () {
             var reviewid = $(this).attr("value");
+            $.ajax({
+                url: "/removingvote",
+                method: "POST",
+                data: { reviewid: reviewid },
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        });
+
+        $(document).on('click', '#editrating', function () {
+            var reviewid = $(this).data("id");
             $.ajax({
                 url: "/removingvote",
                 method: "POST",

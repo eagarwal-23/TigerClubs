@@ -136,6 +136,7 @@
   </div>
     <!-- Page Content-->
 
+  </div>
 
     <!-- Modal for create tag-->
     <div id="create-club" class="modal fade" role="dialog" aria-labelledby="addClubRatingLabel"
@@ -238,10 +239,45 @@
         </div>
       </div>
       </section>
-      
-    <footer>
-      {% include "footer.html" %}
-    </footer>
+
+                <!-- Pagination Links-->
+                <div class="float-right">
+                  <a href="{{ url_for('landing', page=clubs.prev_num) }}"
+                    class="btn btn-outline-dark 
+                    {% if clubs.page == 1 %}disabled{% endif %}">
+                      &laquo;
+                  </a>
+                <!-- Loop through the number of pages to display a link for each-->
+                  {% for page_num in clubs.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                {% if page_num %}
+                <!-- Check for the active page and set the link to "Active"-->
+                          {% if clubs.page == page_num %}
+                          <a href="{{ url_for('landing', page=page_num) }}"
+                            class="btn btn-dark">
+                              {{ page_num }}
+                          </a>
+                          {% else %}
+                          <a href="{{ url_for('landing', page=page_num) }}"
+                            class="btn btn-outline-dark">
+                              {{ page_num }}
+                          </a>
+                          {% endif %}
+                      {% else %}
+                          ...
+                      {% endif %}
+                  {% endfor %}
+                  <a href="{{ url_for('landing', page=clubs.next_num) }}"
+                    class="btn btn-outline-dark 
+                    {% if clubs.page == clubs.pages %}disabled{% endif %}">
+                      &raquo;
+                  </a>
+                </div>
+                <p class="text-right mt-3">
+                Showing page {{ clubs.page }} of {{ clubs.pages }}
+                </p>
+                <br>
+                <br>
+                {% include "footer.html" %}
     <script>
       $(document).ready(function () {
         function handleResponse(response) {

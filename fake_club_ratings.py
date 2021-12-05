@@ -1,38 +1,109 @@
+from datetime import time
 from app import db
-from models import Club, Student, Tag
+from models import Club, Student, Tag, Review
 import pandas as pd
-import random
+from random import *
+import lorem
+from db_club_profile import calculate_all_club_ratings, calculate_club_rating
+
+EXISTING_CLUBS = [1, 2, 5, 6, 8, 10, 11, 12, 13, 15, 16, 27]
+
+def remove_all_reviews(clubname):
+    club = Club.query.filter_by(name = clubname).first()
+    reviews = club.reviews
+    new_reviews = []
+    club.reviews = new_reviews
+    db.session.add(club)
+    for review in reviews:
+        reviewThis = Review.query.filter_by(reviewid = review.reviewid).first()
+        db.session.delete(reviewThis)
+    db.session.commit()
+
+def add_rating(netid, clubname, diversity, inclusivity, time_commitment, experience_requirement, workload, text_review):
+    student = Student.query.filter_by(netid = netid).first()
+    club = Club.query.filter_by(name = clubname).first()
+    review = Review(diversity, inclusivity, time_commitment, experience_requirement, workload, text_review)
+    student.reviews.append(review)
+    club.reviews.append(review)
+    db.session.add(review)
+    db.session.commit()
 
 def get_all_clubs():
     clubs = Club.query.all()
     return clubs
 
-def get_all_clubnames():
-    clubs = Club.query.order_by(Club.name).all()
-    final = list()
-    for club in clubs:
-        final.append(club.name)
-    return final
-
-def get_all_netids():
-    students = Student.query.order_by(Student.name).all()
-    final = list()
-    for student in students:
-        final.append(student.netid)
-    return final
-
 def get_all_students():
     students = Student.query.all()
     return students
 
+def add_club(name, description, club_type, diversity = 0, 
+    inclusivity = 0, time_commitment = 0,
+    experience_requirement = 0, workload = 0):
+    club = Club(name, description, club_type, diversity, 
+                inclusivity, time_commitment, experience_requirement, 
+                workload)
+    club.diversity = 0
+    club.inclusivity = 0
+    club.time_commitment = 0
+    club.experience_requirement = 0
+    club.workload = 0
+    db.session.add(club)
+    db.session.commit()
+
+def tag_in_db(tagname):
+    this_tag = Tag.query.filter_by(name = tagname).first()
+    all_tags = Tag.query.all()
+    return (this_tag in all_tags)
+
+def club_in_db(clubname):
+    this_club = Club.query.filter_by(name = clubname).first()
+    all_clubs = Club.query.all()
+    return (this_club in all_clubs)
+
+def add_tag(tagname):
+    tag = Tag(tagname)
+    db.session.add(tag)
+    db.session.commit()
+
+def add_tags_club(tagnames, clubname):
+    club = Club.query.filter_by(name = clubname).first()
+    for tagname in tagnames:
+        if tag_in_db(tagname):
+            tag = Tag.query.filter_by(name = tagname).first()
+        else:
+            tag = Tag(name = tagname)
+        club.tags.append(tag)
+        db.session.add(club)
+    db.session.commit()
+
 def add_students_club(students, clubname):
-    club = Club.query.filter_by(name = 'Armenian Club').first()
-    print(club)
+    club = Club.query.filter_by(name = clubname).first()
     for student in students:
-        student = Student.query.filter_by(netid=student).first()
         club.members.append(student)
         db.session.add(club)
-    print(club.members)
+    db.session.commit()
+
+def remove_all_members(clubname):
+    club = Club.query.filter_by(name = clubname).first()
+    new_members = []
+    club.members = new_members
+    db.session.add(club)
+    db.session.commit()
+
+def remove_all_tags(clubname):
+    club = Club.query.filter_by(name = clubname).first()
+    new_tags = []
+    club.tags = new_tags
+    db.session.add(club)
+    db.session.commit()
+
+def delete_added_clubs():
+    clubs = get_all_clubs()
+    for club in clubs:
+        clubid = club.clubid
+        if not clubid in EXISTING_CLUBS:
+            db.session.delete(club)
+    db.session.commit()
 
 STUDENTS = ['eagarwal', 'jg41', 'nreptak', 'camilanv',
             'nadiar', 'ajguerra']
@@ -80,18 +151,22 @@ if __name__ == "__main__":
         # add_students_club(members, club.name)
 
     clubs = get_all_clubs()
+    ratings = [1, 2, 3, 4, 5]
+    weights = [0.05, 0.05, 0.2, 0.35, 0.35]
     for club in clubs:
-        tag = Tag.query.filter_by(name = 'Baseball').first()
-        club.tags.append(tag)
-        diversity = random.randrange(1, 5)
-        inclusivity = random.randrange(1, 5)
-        time_commitment = random.randrange(1, 5)
-        experience_requirement = random.randrange(1, 5)
-        workload = random.randrange(1, 5)
-        club.diversity = diversity
-        club.inclusivity = inclusivity
-        club.time_commitment = time_commitment
-        club.experience_requirement = experience_requirement
-        club.workload = workload 
-        db.session.add(club)
-        db.session.commit()
+        # if club.clubid not in EXISTING_CLUBS:
+        #     remove_all_reviews(club.name)
+        members = club.members
+        for i in range(15):
+            diversity = (choices(ratings, weights))[0]
+            inclusivity = (choices(ratings, weights))[0]
+            time_commitment = (choices(ratings, weights))[0]
+            experience_requirement = (choices(ratings, weights))[0]
+            workload = (choices(ratings, weights))[0]
+            text = lorem.paragraph()
+            #print(diversity, inclusivity, time_commitment, experience_requirement, workload, text)
+            student = choice(members)
+            add_rating(student.netid, club.name, diversity,
+                        inclusivity, time_commitment, experience_requirement,
+                        workload, text)
+        calculate_club_rating(club.name)

@@ -289,7 +289,8 @@ def clubpage():
         clubname = request.args.get("clubname")
         club = get_club_info(clubname)
         html = render_template("clubpage.html", clubname = club.name,
-                                    description = club.description, members = club.members,
+                                    description = club.description, members = club.members, 
+                                    reviews = club.reviews,
                                     tags = club.tags, 
                                     hasScores = True,
                                     diversity = "{:.1%}".format((club.diversity/5)),
@@ -526,6 +527,7 @@ def adminclubpage():
 
         html = render_template("admin-clubpage.html", clubname = club.name,
                                     description = club.description, members = club.members,
+                                    reviews = club.reviews,
                                     tags = club.tags, 
                                     hasScores = True,
                                     diversity = "{:.1%}".format((club.diversity/5)),

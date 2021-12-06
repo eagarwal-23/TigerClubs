@@ -95,10 +95,10 @@
                         {%if hasClubs: %}
                         {%for club in clubs: %}
                         <div class="card" style="background-color: white; width:45rem; margin: 5px; margin-top:0">
-                            <div class="col-md-4">
-                                <img src="https://picsum.photos/200" class="card-img" alt="...">
-                            </div>
-                            <div class="col-md-8">
+                            <div class="card-horizontal">
+                                <div class="img-square-wrapper">
+                                    <img src="https://picsum.photos/200" class="card-img" alt="...">
+                                </div>
                                 <div class="card-body">
                                     <div style="justify-content: space-between;">
                                         <h5 class="card-title" style="color: #e8804c;">
@@ -152,21 +152,22 @@
                                     </style>
                                     {% endfor %}
 
-
                                     <a href="/clubpage?clubname={{club.name}}" class="card-link stretched-link"></a>
                                 </div>
                             </div>
 
                         </div>
-                        {% endfor %}
-                        {%else: %}
-                        No clubs found.
-                        {%endif%}
+
                     </div>
+                    {% endfor %}
+                    {%else: %}
+                    No clubs found.
+                    {%endif%}
                 </div>
             </div>
-            <br>
-            <br>
+        </div>
+        <br>
+        <br>
     </section>
     <!-- Footer-->
     {% include "footer.html" %}

@@ -102,14 +102,7 @@
                                     <h5 class="card-title" style="color: #e8804c;">
                                         HELLO
                                         {% set unselected = 5 - (club.combined|int)%}
-                                        <div id="inlinereview">
-                                            {% for i in range(club.combined|int) %}
-                                            <i aria-hidden="true" class="fa fa-star"></i>
-                                            {% endfor %}
-                                            {% for i in range(unselected) %}
-                                            <i aria-hidden="true" class="fa fa-star-o"></i>
-                                            {% endfor %}
-                                        </div>
+
                                     </h5>
 
                                     <style>

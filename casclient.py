@@ -56,10 +56,8 @@ class CASClient:
         # If the user's username is in the session, then the user was
         # authenticated previously.  So return the user's username.
         if "username" in session:
-            print("hm we shouldn't be here")
             return session.get("username").lower().strip()
         
-        print("okay we are validating")
         # If the request contains a login ticket, then try to
         # validate it.
         ticket = request.args.get("ticket")
@@ -82,8 +80,9 @@ class CASClient:
     def logout(self):
         # Delete the user's username from the session.
         session.pop("username")
+        logout_url = "https://fed.princeton.edu/cas/logout?service=https%3A//tigergroups.herokuapp.com/"
         # Redirect the browser to the application's home page.
-        abort(redirect("https://fed.princeton.edu/cas/logout"))
+        abort(redirect(logout_url))
 
 
 # -----------------------------------------------------------------------

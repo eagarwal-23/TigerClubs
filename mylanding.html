@@ -159,6 +159,12 @@
                                             display: inline-block;
                                         }
                                     </style>
+                                    <h6 class="card-subtitle mb-2 text-muted"
+                                        style="font-style: italic; font-size: small;">
+                                        Description:
+                                        {{club.description[:110] + "..."}}</h6>
+                                    <strong id="element1">Overall: </strong>
+                                    {{"{:.1f}".format(club.combined)}}
                                 </div>
                             </div>
                         </div>

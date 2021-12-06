@@ -28,6 +28,7 @@
         <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script
       src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
       data-auto-replace-svg="nest"
@@ -175,9 +176,9 @@
                     {%for club in student.clubs: %}
                       <div class="card card-1 mx-auto" style="width: 38rem; background-color: white; margin: 15px; margin-top:0">
                           <div class="card-body">
-                            <!-- <div class = "delete_club text-right" data-clubid = "{{club.clubid}}" data-netid = "{{student.netid}}">
+                            <div class = "delete_club text-right" data-clubid = "{{club.clubid}}" data-netid = "{{student.netid}}">
                                 <i class="fas fa-trash"></i>
-                              </div> -->
+                              </div>
                           <h5 class="card-title" style="color: #e8804c;">{{club}}
                             {% set unselected = 5 - (club.combined|int)%}
                             <div id ="inlinereview">
@@ -209,7 +210,7 @@
                                 background-color: #e8804c;
                             }
                             </style></h5>
-                          <h6 class="card-subtitle mb-2 text-muted">Description: {{club.description[:50] + "..."}}</h6>
+                          <h6 class="card-subtitle mb-2 text-muted">Description: {{club.description}} Long yada yaday ydaa</h6>
                           
                           
                           {%for tag in club.tags: %}
@@ -262,7 +263,10 @@
 
         $(".delete_club").click(function () {
           var clubid = $(this).data("clubid");
-          url = "/delete_club_student?clubid=" + encodeURIComponent(clubid);
+          var netid = $(this).data("netid");
+          alert(clubid);
+          url = "/delete_user?clubid=" + encodeURIComponent(clubid) + "&netid=" + encodeURIComponent(netid);
+          console.log(url)
           $.ajax({
             url: url,
             method: "GET",
@@ -279,4 +283,3 @@
       };
       -->
 </html>
-

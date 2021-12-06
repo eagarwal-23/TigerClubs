@@ -56,10 +56,9 @@ def filter_by_tags(tags):
     return clubs
 
 # sort list of Clubs on page by chosen criteria
-def club_search(search, query = 'Overall', tags = get_all_tagnames(), page = 1):
+def club_search(search, query = 'Overall', page = 1):
     search_query = '%' + search + '%'
-    clubs = Club.query.filter(Club.tags.any(Tag.name.in_(tags)),
-                             (Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query))))
+    clubs = Club.query.filter((Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query))))
     if query == 'Overall':
         clubs = clubs.order_by(Club.combined.desc())
     elif query == 'Diversity':
@@ -79,9 +78,8 @@ def club_search(search, query = 'Overall', tags = get_all_tagnames(), page = 1):
     return clubs
 
 # sort list of Clubs on page by chosen criteria
-def admin_club_search(search, query = 'Overall', tags = get_all_tagnames(), page = 1):
+def admin_club_search(search, page = 1):
     search_query = '%' + search + '%'
-    clubs = Club.query.filter(Club.tags.any(Tag.name.in_(tags)),
-                             (Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query))))
+    clubs = Club.query.filter((Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query))))
     clubs = clubs.order_by(Club.name).paginate(page = page, per_page = 20)
     return clubs

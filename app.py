@@ -118,7 +118,7 @@ def landing():
         isAdmin = 1
     
     name = user.name
-    clubs = club_search(search = clubname, query = sort_criteria, tags = filter_tags, page = pagenum)
+    clubs = club_search(search = clubname, query = sort_criteria, page = pagenum)
     tags = get_all_tags()
 
     if not clubs:
@@ -552,10 +552,8 @@ def adminstudents():
         
         if not students_list:
             html = render_template("adminstudents.html", netid=netid, name = name, studentname=studentname, hasClubs= True, hasStudents = False)
-            print("elif not students_list:")
         else:
             html = render_template("adminstudents.html", netid=netid, name = name, hasClubs = True, hasStudents = True, studentname=studentname, students = students_list)
-            print("else")
         response = make_response(html)
         return response
     except Exception:
@@ -635,9 +633,7 @@ def editclub():
     if clubname is None:
         clubname = ""
     
-    print("clubname:", clubname)
     club = get_club_info(clubname)
-    print(club, club.description)
 
     html = render_template("editclubs.html",
                             club = club,
@@ -670,10 +666,8 @@ def editclubfromedit():
         members = request.args.get("members")
         tags = request.args.get("tags")
 
-        print("am i whooping here before?????", name, description, members, tags)
 
         update_club_info(name, description, members, tags)
-        print("whooping hereeeeee???")
         return adminclubs()
     except Exception:
         print("whoops from editclubfromedit")
@@ -739,7 +733,6 @@ def updatingtags():
             return response
         newtagname = request.form["newtagname"]
         id = request.form["tagid"]
-        print("THE ID AND THE NAMEEEE", newtagname, id)
         edit_tag_db(id, newtagname)
         msg = "Editted!"
         return jsonify(msg)
@@ -809,7 +802,6 @@ def submitted_request():
             html = render_template("notadmin.html")
             response = make_response(html)
             return response
-        print(request.args)
         user = get_student_info(netid)
         isAdmin = 0
         if user.admin:
@@ -822,8 +814,6 @@ def submitted_request():
             club = request.args.get("clubname")
             tag = request.args.get("tag")
             descrip = request.args.get("explanation")
-            print(about_user)
-            print(request_reason)
             success = add_request(request_reason, netid, about_user, club, tag, descrip)
             if success == None:
                 html = render_template("wrongrequestinput.html", isAdmin = isAdmin)

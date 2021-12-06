@@ -48,7 +48,7 @@
                         <h4>Search a club by thier name:</h4>
                         <form class="input-group" action="/landing"
                         method="get">
-                            <input type="search" class="form-control rounded" name="clubname"
+                            <input type="search" id = "harrystyles" class="form-control rounded" name="clubname"
                             placeholder="Search name, tag etc" value="{{clubname}}" aria-label="Search"/>
                             <button type="submit" class="btn text-black rounded" style = "background-color: #e8804c;">search</button>
                             <br>
@@ -76,7 +76,7 @@
                                     <input type="submit" value="Apply">
                                 </div>
                         </div>
-                        </form>     
+                    </form>
                     <br>
                     <!-- <form class="form-floating mb-3" action="/landing?netid={{netid}}&studentname={{studentname}}"
                       method="get">
@@ -160,24 +160,27 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
+
     <script>
         $("#myDiv").click(function () {
             $("#myForm").submit();
         });
     </script>
-        <script>
-            $(document).ready(function(){
-                var multipleCancelButton = new Choices('#tags' , {
-                    removeItemButton: true,
-                    maxItemCount:5,
-                    searchResultLimit:5,
-                    renderChoiceLimit:5
-                });
-
-                var sort_by = $("#sort_club").data('select')
-                $("#sort_club").val(sort_by)
+    <script>
+        $(document).ready(function(){
+            var multipleCancelButton = new Choices('#tags' , {
+                removeItemButton: true,
+                maxItemCount:5,
+                searchResultLimit:5,
+                renderChoiceLimit:5
             });
-            </script>
+
+            var sort_by = $("#sort_club").data('select')
+            $("#sort_club").val(sort_by)
+
+            alert("hahaah")
+        });       
+    </script>
 </body>
 
 </html>

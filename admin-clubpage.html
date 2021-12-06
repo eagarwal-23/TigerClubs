@@ -40,6 +40,22 @@
 <body style="background-color:rgb(255, 247, 243)">
   {% include "admin-navbar.html" %}
   <!-- Page Content-->
+  <style>
+    .parallax {
+      /* The image used */
+      background-image: url("/static/darkprinceton.png");
+
+      /* Set a specific height */
+      min-height: 200px;
+
+      /* Create the parallax scrolling effect */
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  </style>
+  <div class="parallax">
   <div class="row px-4 px-lg-5 my-5 py-5">
     <!-- CLUB NAME HEADING CARD -->
     <div class="col-8">
@@ -49,7 +65,7 @@
           <h1 class="font-weight-bold" style="padding: 20px; padding-bottom: 0;">{{clubname}}</h1>
           {%for tag in tags: %}
           <div class="tag">
-            <div class="rounded-pill" style="background-color: #fcc397; color: #db6225; padding: .25rem; margin:
+            <div class="rounded-pill small" style="background-color: #fcc397; color: #db6225; padding: .25rem; margin:
               10px; margin-top: 0">
               {{tag}}
             </div>
@@ -68,31 +84,10 @@
       <div class="card">
         <h4 class="font-weight-bold" style="padding: 20px;">Description</h4>
         <div class="col">
-          <p>IgniteSTEM is an international platform for the STEM revolution in K-12 education. Through conferences,
-            resources, and more grassroots efforts we aspire to help educators and students build the classroom of the
-            future.</p>
+          {%if description%}
+            <p>{{description}}</p>
+          {%endif}
         </div>
-      </div>
-      <!-- CLUB MEMBERS -->
-      <div class="row" style="padding: 15px">
-        <h4 style="padding-left: 0; padding-top: 20px;"><strong>Club Members:</strong></h4>
-        <br />
-        <br />
-        {%for member in members: %}
-        <div class="card border h-100" style="background-color: white; width: 25%; margin: 10px; margin-left:0">
-          <div class="card-body text-center">
-            <img class="rounded-circle"
-              src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg" width="50"
-              height="50" />
-            <a href="/profile?diffperson={{member.netid}}" class="card-link stretched-link"></a>
-            <h4 class="fs-4 fw-bold">{{member.name}}</h4>
-            <a href="{{member.netid}}@princeton.edu" class="link-dark" style="color: #db6225;">{{member.netid}}@</a>
-            <br />
-            {{member.year}}
-            <br />
-          </div>
-        </div>
-        {% endfor %}
       </div>
     </div>
 
@@ -169,29 +164,58 @@
 
 
 
-      <!-- STUDENT REVIEWS SECTION -->
-      <h3 style="padding-top: 25px;">Student Reviews</h3>
-      <div class="card rounded border-0"
-        style="background-color:#fcc397; margin-bottom: 25px; color:#db6225; padding: 10px">
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-        laborum."
-      </div>
-      <div class="card rounded border-0"
-        style="background-color:#fcc397; margin-bottom: 25px; color:#db6225;padding: 10px">
-        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
-        aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
-        enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-        qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-        consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam
-        quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,
-        nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse
-        quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?""
-      </div>
+
     </div>
   </div>
+</div>
+<!-- CLUB MEMBERS -->
+<div class="row px-4 px-lg-5">
+  <div class="col" style = "height: 700px; overflow-y: scroll;">
+  <h4 style="padding-left: 0; padding-top: 20px;"><strong>Club Members:</strong></h4>
+  <div class="row gx-lg-5">
+  {%for member in members: %}
+  <div class="col-lg-6 col-xxl-4 mb-5">
+  <div class="card border" style="background-color: white; margin: 5px; margin-left:0">
+    <div class="card-body text-center">
+      <img class="rounded-circle"
+        src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg" width="50"
+        height="50" />
+      <a href="/profile?diffperson={{member.netid}}" class="card-link stretched-link"></a>
+      <h4 class="fs-4 fw-bold">{{member.name}}</h4>
+      {{member.netid}}
+      <br />
+      {{member.year}}
+      <br />
+    </div>
+  </div>
+</div>
+  {% endfor %}
+</div>
+</div>
+<div class = "col">
+
+
+
+
+
+
+  <!-- STUDENT REVIEWS SECTION -->
+  <h4 style="padding-left: 0; padding-top: 20px; padding-bottom: 5px;"><strong>Student Reviews:</strong></h4>
+<div style="height: 700px; overflow-y: scroll;">
+{% for review in reviews: %}
+{% if review.text_review is not none %}
+<div class="card rounded border-0"
+  style="background-color:#fcc397; margin-bottom: 25px; color:#db6225; padding: 10px;">
+  {{review.text_review}}
+</div>
+{% endif %}
+{% endfor %}
+</div>
+
+</div>
+</div>
+<br>
+
 
   <!-- <a class="btn btn-primary" href="#!">Website</a> -->
 

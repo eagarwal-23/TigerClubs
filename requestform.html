@@ -15,12 +15,43 @@
     <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
       <!------ Include the above in your HEAD tag ---------->
       <link href="static/styles.css" rel="stylesheet" />
+      <link href="static/footeredits.css" rel="stylesheet" />
+      <style>
+        .select2-selection__rendered {
+line-height: 32px !important;
+}
+
+.select2-selection {
+height: 34px !important;
+}
+      </style>
 </head>
-<body style = "background-color: rgb(255, 237, 215);">
+<body onbeforeunload='reset_options()'>
     {% include "navbar.html" %}
+    <div id="page-container">
+      <div id="content-wrap">
+    <style>
+      .parallax {
+        /* The image used */
+        background-image: url("/static/darkprinceton.png");
+      
+        /* Set a specific height */
+        min-height: 200px;
+      
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      </style>
+    <div class="parallax" style = "padding-top: 5rem; padding-bottom: 2rem;">
     <header class="py-5">
         <div class="container px-lg-5">
             <div class="row g-2">
@@ -31,11 +62,14 @@
             </div>
         </div>
     </header>
-    <form class="p-3" action="submittedrequest" method="get">
+  </div>
+  <div class = "container py-5">
+    <form class="p-3" action="submittedrequest" method="get" style = "background-color: rgb(255, 237, 215);">
 
         <div class="form-group">
           <label for="requestReason">Request Reason</label>
-          <select class="form-control" id="requestReason" name="reason">
+          <select class="form-control" style="width: 300px" id="requestReason" name="reason" required>
+                <option value="place" disabled selected>Choose a request</option>
                 <option value="delete_user">Remove User From Club</option>
                 <option value="blacklist_user">Blacklist User</option>
                 <option value="edit_user">Report User</option>
@@ -46,38 +80,102 @@
         
         <div class="form-group" id="reportedUser">
           <label for="reportedUser">Which user? (Enter NetID)</label>
-          <input type="text" class="form-control w-100" id="reportedUser" name="reporteduser">
+          <br>
+          <select class="selectUser " style="width: 300px;" id="reportedUser" name="reportedUser">
+            <option></option></select>
         </div>
 
         <div class="form-group" id="clubName">
             <label for="clubName">Which club? (Enter Club Name) </label>
-            <input type="text" class="form-control w-100" id="clubName" name="clubname">
+            <br>
+            <select class="selectClub" style="width: 300px" id="clubName" name="clubname">
+              <option></option></select>
         </div>
 
         <div class="form-group" id="tag">
             <label for="tag">What tag would you like?</label>
-            <input type="text" class="form-control w-100" id="tag" name="tag">
+            <input type="text" class="form-control" style="width: 300px" id="tag" name="tag" maxlength = 20>
         </div>
         
-        <div class="form-group">
+        <div class="form-group" id="explanation">
           <label for="comments">Please provide an explanation for this request.</label>
-          <textarea class="form-control" id="comments" rows="3" name="explanation"></textarea>
+          <textarea class="form-control" id="comments" rows="3" name="explanation" maxlength = 40></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button
+              class="btn btn-outline"
+              style="background-color: #e8804c;"
+              type="submit"
+              id="submitbtn"
+            >Submit</button>
       </form>
-
+      <br>
+      <br>
+      <br>
+    </div>
 </div>
 {% include "footer.html" %}
+</div>
 <script>
-    $("#requestReason").change(function() {
+function reset_options() {
+    document.getElementById('requestReason').options.length = 0;
+    return true;
+}
+$(document).ready(function(){
+  $('select').each(function () {
+    var select = $(this);
+    var selectedValue = select.find('option[selected]').val();
+
+    if (selectedValue) {
+      select.val(selectedValue);
+    } else {
+      select.prop('selectedIndex', 0);
+    }
+  });
+ $.ajax({
+		url: "/getstudentsJSON",
+		type: "GET",
+		success: function(data, textStatus, jqXHR)
+		{
+ 			var xdata = $.map(data, function (obj) {
+ 				obj.text = obj.text || obj.name;  
+				return obj;
+			});
+			
+			$(".selectUser").select2({
+				placeholder: "User Netid",
+				data:xdata,
+			});
+
+		}
+	});
+  $.ajax({
+		url: "/getclubsJSON",
+		type: "GET",
+		success: function(data, textStatus, jqXHR)
+		{
+ 			var xdata = $.map(data, function (obj) {
+ 				obj.text = obj.text || obj.name;  
+				return obj;
+			});
+			
+			$(".selectClub").select2({
+				placeholder: "Club Name",
+				data:xdata,
+			});
+
+		}
+	});
+
+$("#requestReason").change(function() {
   if ($(this).val() == "delete_user") {
     $('#tag').hide();
     $('#tag').removeAttr('required');
     $('#tag').removeAttr('data-error');
     $('#tag').val('')
     $('#reportedUser').show();
-    $('#reportedUser').attr('required', '');
     $('#reportedUser').attr('data-error', 'This field is required.');
+    $('#explanation').show();
+    $('#explanation').val('')
     $('#clubName').show();
     $('#clubName').attr('required', '');
     $('#clubName').attr('data-error', 'This field is required.');
@@ -91,6 +189,8 @@
     $('#tag').removeAttr('required');
     $('#tag').removeAttr('data-error');
     $('#tag').val('')
+    $('#explanation').show();
+    $('#explanation').val('')
     $('#reportedUser').show();
     $('#reportedUser').attr('required', '');
     $('#reportedUser').attr('data-error', 'This field is required.');
@@ -104,6 +204,8 @@
     $('#tag').removeAttr('required');
     $('#tag').removeAttr('data-error');
     $('#tag').val('')
+    $('#explanation').show();
+    $('#explanation').val('')
     $('#reportedUser').show();
     $('#reportedUser').attr('required', '');
     $('#reportedUser').attr('data-error', 'This field is required.');
@@ -117,6 +219,8 @@
     $('#tag').removeAttr('required');
     $('#tag').removeAttr('data-error');
     $('#tag').val('')
+    $('#explanation').show();
+    $('#explanation').val('')
     $('#clubName').show();
     $('#clubName').attr('required', '');
     $('#clubName').attr('data-error', 'This field is required.');
@@ -130,19 +234,25 @@
     $('#clubName').removeAttr('required');
     $('#clubName').removeAttr('data-error');
     $('#clubname').val('')
+    $('#explanation').show();
+    $('#explanation').val('')
     $('#tag').show();
     $('#tag').attr('required', '');
     $('#tag').attr('data-error', 'This field is required.');
   } else {
+    $("#requestReason").val("place");
+    $('select').val('place');
     $('#reportedUser').hide();
     $('#clubName').hide();
     $('#tag').hide();
+    $('#explanation').hide();
     $('#reportedUser').removeAttr('required');
     $('#reportedUser').removeAttr('data-error');
     $('#reportedUser').val('')
     $('#clubName').removeAttr('required');
     $('#clubName').removeAttr('data-error');
     $('#clubname').val('')
+    $('#explanation').val('')
     $('#tag').removeAttr('required');
     $('#tag').removeAttr('data-error');
     $('#tag').val('')
@@ -150,22 +260,7 @@
 });
 $("#requestReason").trigger("change");
 
-$("#seeAnotherFieldGroup").change(function() {
-  if ($(this).val() == "yes") {
-    $('#otherFieldGroupDiv').show();
-    $('#otherField1').attr('required', '');
-    $('#otherField1').attr('data-error', 'This field is required.');
-    $('#otherField2').attr('required', '');
-    $('#otherField2').attr('data-error', 'This field is required.');
-  } else {
-    $('#otherFieldGroupDiv').hide();
-    $('#otherField1').removeAttr('required');
-    $('#otherField1').removeAttr('data-error');
-    $('#otherField2').removeAttr('required');
-    $('#otherField2').removeAttr('data-error');
-  }
 });
-$("#seeAnotherFieldGroup").trigger("change");
 </script>
 </body>
 </html>

@@ -12,6 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
     <link rel="stylesheet" href="static/choices.css" >
     <!------ Include the above in your HEAD tag ---------->
@@ -31,7 +32,7 @@
     <style>
         .parallax {
           /* The image used */
-          background-image: url("/static/darkprinceton.jpeg");
+          background-image: url("/static/darkprinceton.png");
         
           /* Set a specific height */
           min-height: 200px;
@@ -55,8 +56,8 @@
     </div>
     
     <div class = "container-fluid" style = "padding-top: 4rem;">
-        <div class = "row mx-auto">
-            <div class="col-lg-4 col-xxl-3" style = "width: 20rem;">
+        <div class = "row mx-auto" style="justify-content:space-around">
+            <div class="col-lg-3 col-xxl-2" style = "width: 20rem;">
                 <div class = "row text-center">
                     <h5>Club look up:</h5>
                 </div>
@@ -70,15 +71,15 @@
                     >
                     Club name:
                 </a>
-                <div class="collapse pt-3" id="collapseExample">
+                <div class="collapse show pt-3" id="collapseExample">
                       <form class="input-group mx-auto" action="/landing" method="get">
-                        <input type="search" class="form-control rounded" name="clubname"
+                        <input id = "searchInput" type="search" class="form-control rounded" name="clubname"
                         placeholder="Search name, tag etc" value="{{clubname}}" aria-label="Search"/>
                         <button type="submit" class="btn text-black rounded" style="background-color: #e8804c;">Search</button>
                         </form>
                 </div>
                 <hr>
-                <a
+                <!-- <a
                       class="btn btn-link text-muted p-0"
                       data-toggle="collapse"
                       href="#collapseEx"
@@ -87,7 +88,7 @@
                     >
                     Filter by tag:
                 </a>
-                <div class="collapse pt-3" id="collapseEx">
+                <div class="collapse show pt-3" id="tagsCollapse">
                     {%for tag in tags: %}
                     <div class="form-check pl-0 mb-3">
                         <input
@@ -95,6 +96,7 @@
                           type="checkbox"
                           class="filter-option form-check-input filled-in"
                           id="{{tag}}"
+                          oninput="printThis()"
                         />
                         <label
                           class="form-check-label small text-uppercase card-link-secondary"
@@ -113,17 +115,15 @@
                         <label
                           class="form-check-label small text-uppercase card-link-secondary"
                           for="44"
-                          >44</label
-                        >
+                          >44</label>
                     </div>
-              </div>
-
+              </div> -->
 
             </div>
-            <div class = "col-xxl-7 gx-lg-5">
+            <div class = "col-xxl-6 gx-lg-7">
                 <div class="row mx-auto" style="width: 100%;">
                     {%if hasClubs: %}
-                    {%for club in clubs: %}
+                    {%for club in clubs.items: %}
                     <div class="card" style="background-color: whitesmoke; width:45rem; margin: 10px; margin-top:0">
                         <div class="card-body">
                             <div style = "justify-content: space-between;">
@@ -152,8 +152,7 @@
                                     </style>
                                 <h6 class="card-subtitle mb-2 text-muted" style="font-style: italic; font-size: small;">
                                     Description:
-                                    {{club.description}} Long
-                                    yada yaday ydaa</h6>
+                                    {{club.description[:110] + "..."}}</h6>
                                 <!-- <strong id="element1">Overall: </strong> 
                                 {{"{:.1f}".format(club.combined)}} -->
                             
@@ -196,21 +195,87 @@
                     <select class="form-select" id="sort_club" aria-label="Floating label select example"
                     data-select = "{{ sort_by }}">
                         <option value = "lalala">{{ sort_by }}</option>
-                        <option value="combined">Overall</option>
-                        <option value="diversity">Diversity</option>
-                        <option value="inclusivity">Inclusivity</option>
-                        <option value="time_commitment">Time Commitment</option>
-                        <option value="workload">Workload</option>
-                        <option value="experience_requirement">Experieince Required</option>
-                        <option value="alphabetical">Club Name</option>
+                        <option value="Overall">Overall</option>
+                        <option value="Diversity">Diversity</option>
+                        <option value="Inclusivity">Inclusivity</option>
+                        <option value="Time Commitment">Time Commitment</option>
+                        <option value="Workload">Workload</option>
+                        <option value="Experience Required">Experience Required</option>
+                        <option value="Club Name">Club Name</option>
                     </select>
                     <label for="floatingSelect">Sort clubs by</label>
                 </div>
             </div>
         </div>
     </div>
+    <br>
+    <br>
+    <br>
+
+            <!-- Pagination Links-->
+            <div class="float-right">
+                <a href="{{ url_for('landing', page=clubs.prev_num) }}"
+                  class="btn btn-outline-dark 
+                  {% if clubs.page == 1 %}disabled{% endif %}">
+                    &laquo;
+                </a>
+              <!-- Loop through the number of pages to display a link for each-->
+                {% for page_num in clubs.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+              {% if page_num %}
+              <!-- Check for the active page and set the link to "Active"-->
+                        {% if clubs.page == page_num %}
+                        <a href="{{ url_for('landing', page=page_num) }}"
+                          class="btn btn-dark">
+                            {{ page_num }}
+                        </a>
+                        {% else %}
+                        <a href="{{ url_for('landing', page=page_num) }}"
+                          class="btn btn-outline-dark">
+                            {{ page_num }}
+                        </a>
+                        {% endif %}
+                    {% else %}
+                        ...
+                    {% endif %}
+                {% endfor %}
+                <a href="{{ url_for('landing', page=clubs.next_num) }}"
+                  class="btn btn-outline-dark 
+                  {% if clubs.page == clubs.pages %}disabled{% endif %}">
+                    &raquo;
+                </a>
+              </div>
+              <p class="text-right mt-3">
+              Showing page {{ clubs.page }} of {{ clubs.pages }}
+              </p>
+
+
+  </div>
 <footer>
     {% include "footer.html" %}
 </footer>
+<script>
+    $(document).ready(function () {
+        $("#sort_club").change( function() {
+            //let searchQuery = $("#searchInput").val()
+            var sortQuery = $("#sort_club").val();
+            var searchQuery = $("#searchInput").val()
+            url = "/landing?clubname=" + encodeURIComponent(searchQuery) + "&sort=" + encodeURIComponent(sortQuery);
+            $.ajax({
+            type: 'GET',
+            url: url,
+            success: function() {
+                window.location.href=url;
+            },
+            });
+        });
+        // var select = sort_by
+        // $('#sort_club').val(select);
+    });
+</script>
 </body>
+
+<!-- $("#searchInput").on('input', function(){
+    let searchQuery = $("#searchInput").val()
+    // alert(searchQuery);
+}); -->
 </html>

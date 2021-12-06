@@ -1,3 +1,4 @@
+from flask.globals import request
 from app import db
 from db_search import get_all_clubs
 from db_student_profile import get_student_info
@@ -12,6 +13,10 @@ ADD_TAG = 4
 # get list of all Request objects in request_info table
 def get_all_requests():
     requests = Request.query.all()
+    return requests
+
+def get_all_club_requests(clubid):
+    requests = Request.query.filter_by(clubid = clubid).all()
     return requests
 
 # add Request object to request_info table
@@ -68,6 +73,22 @@ def delete_student_club(netid, clubid):
     print(student.clubs)
     db.session.commit()
 
+# for DELETE_USER_TAG type request
+def delete_student_tag(netid, tagid):
+    student = Student.query.filter_by(netid = netid).first()
+    tag = Tag.query.filter_by(tagid = tagid).first()
+    student.tags.remove(tag)
+    print(student.tags)
+    db.session.commit()
+
+# for DELETE_USER_TAG type request
+def delete_club_tag(clubid, tagid):
+    club = Club.query.filter_by(clubid = clubid).first()
+    tag = Tag.query.filter_by(tagid = tagid).first()
+    club.tags.remove(tag)
+    print(club.tags)
+    db.session.commit()
+
 # for BLACKLIST_USER type request
 def blacklist_student(netid):
     student = Student.query.filter_by(netid = netid).first()
@@ -109,18 +130,22 @@ def delete_student_tag(netid, tagname):
     db.session.commit()
 
 # for admin clubs tab
-def add_club(name, description):
-    club = Club(name, description)
+def add_club(name, description, club_type):
+    club = Club(name, description, club_type)
     db.session.add(club)
     db.session.commit()
 
 def delete_club_db(clubid):
     club = Club.query.filter_by(clubid = clubid).first()
     list_of_reviews = club.reviews
+    list_of_requests = get_all_club_requests(club.clubid)
     db.session.delete(club)
     for review in list_of_reviews:
         reviewThis = Review.query.filter_by(reviewid = review.reviewid).first()
         db.session.delete(reviewThis)
+    for request in list_of_requests:
+        requestThis = Request.query.filter_by(requestid = request.requestid).first()
+        db.session.delete(requestThis)
     db.session.commit()
 
 def delete_club_tag(clubname, tagname):

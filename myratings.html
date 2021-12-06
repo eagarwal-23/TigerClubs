@@ -107,14 +107,16 @@
             {%for r in review: %}
             <div class="flex-item clubcard card bg-light" href="/clubpage?clubname={{review.clubname}}"
                 style="width: 24rem;">
-                <header class="card-header fs-4 fw-bold"> {{r.club[0]}} {{r.reviewid}}
+                <header class="card-header fs-4 fw-bold"> {{r.club[0]}}
                     <button class="btn btn-sm rounded-0 float-right" type="button" id="deleterating"
                         title="Delete" value="{{r.reviewid}}">
                         <i data-placement="top" title="Delete rating" data-toggle="tooltip" class="fas fa-trash"></i>
                     </button>
                     <button class="btn btn-sm rounded-0 float-right" type="button" id="editrating"
-                        title="Edit" data-id="{{r.reviewid}}" data-clubname="{{r.club}}"
-                        data-toggle="modal" data-target="#change-name">
+                        title="Edit" data-id="{{r.reviewid}}" data-title="Edit rating for {{r.club[0]}}"
+                        data-clubname = "{{r.club[0]}}" data-div = "{{r.diversity}}" data-inc = "{{r.inclusivity}}"
+                        data-work = "{{r.workload}}" data-exp = "{{r.experience_requirement}}" data-time = "{{r.time_commitment}}"
+                        data-review = "{{r.text_review}}" data-toggle="modal" data-target="#edit-club-rating">
                         <i data-placement="top" title="Edit rating" data-toggle="tooltip" class="fas fa-edit"></i>
                     </button>
                 </header>
@@ -203,6 +205,80 @@
     <br>
 
 
+
+
+
+    <div id="edit-club-rating" class="modal fade" role="dialog" aria-labelledby="editClubRatingLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modalfonts modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="editClubRatingLabel"></h4>
+                    <button type="button" class="btn-close close" data-dismiss="modal" aria-hidden="true"> </button>
+                </div>
+                <!-- user types in club name to add their rating -->
+                <div class="modal-body">
+                    <!-- CLUB NAME -->
+                    <form>
+                        <div class="form-group">
+                            <input type = "hidden" id="clubname" name="clubname">
+                            <input type = "hidden" id="review_id" name="reviewid">
+                            <!-- DIVERSITY RATING -->
+                            <p class="ratelabel bg-light">Diversity</label>
+
+                                <div class="stars">
+                                    <div id="diversity_edit"></div>
+                                </div>
+                                <br>
+
+
+                                <!-- INCLUSIVITY RATING -->
+                                <p class="ratelabel bg-light">Inclusivity</p>
+
+                                <div class="stars">
+                                    <div id="inclusivity_edit"></div>
+                                </div>
+                                <br>
+
+                                <!-- TIME COMMITMENT RATING -->
+                                <p class="ratelabel bg-light">Time Commitment</p>
+
+                                <div class="stars">
+                                    <div id="time_commitment_edit"></div>
+                                </div>
+                                <br>
+
+
+                                <!-- WORKLOAD RATING -->
+                                <p class="ratelabel bg-light">Workload</p>
+                                <div class="stars">
+                                    <div id="workload_edit"></div>
+                                </div>
+                                <br>
+
+                                <!-- EXPERIENCE REQUIRED RATING -->
+                                <p class="ratelabel bg-light">Experience Required</p>
+                                <div class="stars">
+                                    <div id="experience_requirement_edit"></div>
+                                </div>
+                                <br>
+
+                                <!-- REVIEWS -->
+                                <p class="ratelabel bg-light">Review</p>
+                                <textarea id="text_review_edit" type="text" maxlength="600" rows = "6" cols ="46"></textarea>
+
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" name="save_button_edit" id="save_button_edit" class="btn btn-primary">Save
+                        changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="add-club-rating" class="modal fade" role="dialog" aria-labelledby="addClubRatingLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modalfonts modal-content">
@@ -274,26 +350,20 @@
 
                                 <!-- REVIEWS -->
                                 <p class="ratelabel bg-light">Review</p>
-                                <div class="stars">
-
-                                    <div id="experience_requirement"></div>
-                                </div>
-                                <br>
-
-                                <input id="text_review" type="text" maxlength="600" size="45"></input>
-
+                                <textarea id="text_review" type="text" maxlength="600" rows = "6" cols ="46"></textarea>
                         </div>
                     </form>
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" name="save_button" id="save_button" class="btn btn-primary">Save
-                        changes</button>
+                    <button type="button" name="save_button" id="save_button" class="btn btn-primary">Add
+                        rating</button>
                 </div>
             </div>
         </div>
     </div>
+
     </div>
     <script>
         $.raty.path = 'static/images';
@@ -302,7 +372,7 @@
         $('#workload').raty();
         $('#time_commitment').raty();
         $('#experience_requirement').raty();
-
+        
         $(document).on('click', '#deleterating', function () {
             var reviewid = $(this).attr("value");
             $.ajax({
@@ -315,16 +385,29 @@
             });
         });
 
-        $(document).on('click', '#editrating', function () {
-            var reviewid = $(this).data("id");
-            $.ajax({
-                url: "/removingvote",
-                method: "POST",
-                data: { reviewid: reviewid },
-                success: function (data) {
-                    location.reload();
-                }
-            });
+        $('#edit-club-rating').on('show.bs.modal', function (event) {
+
+            var title = $(event.relatedTarget).data('title');
+            var clubname = $(event.relatedTarget).data('clubname');
+            var review = $(event.relatedTarget).data('review');
+            var id = $(event.relatedTarget).data('id');
+            var diversity = $(event.relatedTarget).data('div');
+            var inclusivity = $(event.relatedTarget).data('inc');
+            var workload = $(event.relatedTarget).data('work');
+            var time_commitment = $(event.relatedTarget).data('time');
+            var experience_requirement = $(event.relatedTarget).data('exp');
+
+            $('#diversity_edit').raty({score: diversity})
+            $('#inclusivity_edit').raty({score: inclusivity});
+            $('#workload_edit').raty({score: workload});
+            $('#time_commitment_edit').raty({score: time_commitment});
+            $('#experience_requirement_edit').raty({score: experience_requirement});
+
+            $(this).find("#editClubRatingLabel").text(title);
+            $(this).find("#clubname").val(clubname);
+            $(this).find("#review_id").val(id);
+            $(this).find("#text_review").val(review);
+
         });
 
         $(document).ready(function () {
@@ -332,7 +415,6 @@
             $('#save_button').click(function () {
 
                 var clubname = $('#clubname').val();
-
                 var diversity = $('#diversity').data('raty').score();
                 var inclusivity = $('#inclusivity').data('raty').score();
                 var workload = $('#workload').data('raty').score();
@@ -366,7 +448,46 @@
                     alert("All Fields are required");
                 }
             });
+
+            $('#save_button_edit').click(function () {
+
+                var clubname = $('#clubname').val();
+                var reviewid = $('#review_id').val();
+                var diversity = $('#diversity_edit').data('raty').score();
+                var inclusivity = $('#inclusivity_edit').data('raty').score();
+                var workload = $('#workload_edit').data('raty').score();
+                var time_commitment = $('#time_commitment_edit').data('raty').score();
+                var experience_requirement = $('#experience_requirement_edit').data('raty').score();
+                var text_review = $("#text_review_edit").val();
+
+                if (clubname != '' && diversity && inclusivity && workload && time_commitment
+                    && experience_requirement && text_review) {
+
+                    $.ajax({
+                        url: "/votingedit",
+                        method: "POST",
+                        data: {
+                            reviewid: reviewid,
+                            clubname: clubname,
+                            diversity: diversity,
+                            inclusivity: inclusivity, workload: workload,
+                            time_commitment: time_commitment,
+                            experience_requirement: experience_requirement,
+                            text_review: text_review
+                        },
+                        success: function (data) {
+                            $('#loginModal').hide();
+                            location.reload();
+                        }
+                    });
+                }
+                else {
+                    alert("All Fields are required");
+                }
+                });
         });
+
+        
 
     </script>
 
@@ -375,3 +496,9 @@
 </body>
 
 </html>
+
+<!-- $('#diversity_edit').raty({ score: int(diversity) });
+$('#inclusivity_edit').raty({ score: int(workload) });
+$('#workload_edit').raty({ score: int(workload) });
+$('#time_commitment_edit').raty({ score: int(time_commitment) });
+$('#experience_requirement_edit').raty({ score: int(experience_requirement) }); -->

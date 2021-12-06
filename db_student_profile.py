@@ -53,6 +53,17 @@ def add_rating(netid, clubname, diversity, inclusivity, time_commitment, experie
     db.session.add(review)
     db.session.commit()
 
+def edit_rating(reviewid, diversity, inclusivity, time_commitment, experience_requirement, workload, text_review):
+    review = Review.query.filter_by(reviewid = reviewid).first()
+    review.diversity = diversity
+    review.inclusivity = inclusivity
+    review.time_commitment = time_commitment
+    review.workload = workload
+    review.experience_requirement = experience_requirement
+    review.text_review = text_review
+    db.session.add(review)
+    db.session.commit()
+
 def delete_rating(reviewid):
     review = Review.query.filter_by(reviewid = reviewid).first()
     db.session.delete(review)

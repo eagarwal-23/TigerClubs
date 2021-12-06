@@ -377,20 +377,19 @@ def removingvote():
 
 @app.route("/adminlanding", methods = ["GET"])
 def adminlanding():
-    auth_user = _cas.authenticate()
-    user = get_student_info(auth_user)
-    if (not user.admin):
-        html = render_template("notadmin.html")
+    try:
+        auth_user = _cas.authenticate()
+        user = get_student_info(auth_user)
+        if (not user.admin):
+            html = render_template("notadmin.html")
+            response = make_response(html)
+            return response
+
+        html = render_template("adminlanding.html", requests = get_all_requests(), hasRequests = True)
         response = make_response(html)
         return response
-
-    html = render_template("adminlanding.html", requests = get_all_requests(), hasRequests = True)
-    response = make_response(html)
-    return response
-    # try:
-
-    # except Exception:
-    #     print("whoops from adminlanding")
+    except Exception:
+        print("whoops from adminlanding")
 
 @app.route("/delete_user", methods = ["POST","GET"])
 def delete_user():
@@ -523,37 +522,17 @@ def shorten_description(club):
 
 @app.route("/adminclubpage", methods=["GET"])
 def adminclubpage():
-    netid = _cas.authenticate()
-    netid = netid.rstrip()
-    
-    student = get_student_info(netid)
-
-    isAdmin = 0
-    if student.admin:
-        isAdmin = 1
-    
-    clubname = request.args.get("clubname")
-    club = get_club_info(clubname)
-
-    html = render_template("admin-clubpage.html", clubname = club.name,
-                                description = club.description, members = club.members,
-                                reviews = club.reviews,
-                                tags = club.tags, 
-                                hasScores = True,
-                                diversity = "{:.1%}".format((club.diversity/5)),
-                                inclusivity = "{:.1%}".format((club.inclusivity/5)),
-                                time_commitment = "{:.1%}".format((club.time_commitment/5)),
-                                workload = "{:.1%}".format((club.workload/5)),
-                                experience_requirement = "{:.1%}".format((club.experience_requirement/5)),
-                                isAdmin = isAdmin)
-    response = make_response(html)
-    return response
     try:
         netid = _cas.authenticate()
         netid = netid.rstrip()
-       
+        
         student = get_student_info(netid)
 
+        if (not student.admin):
+            html = render_template("notadmin.html")
+            response = make_response(html)
+            return response
+        
         isAdmin = 0
         if student.admin:
             isAdmin = 1
@@ -574,7 +553,6 @@ def adminclubpage():
                                     isAdmin = isAdmin)
         response = make_response(html)
         return response
-
     except Exception:
         print("whoops from admin clubpage")
 
@@ -734,12 +712,19 @@ def creatingtags():
 @app.route("/adminprofile", methods=["GET"])
 def adminprofile(diffperson=None):
     try:
+        
         print('we made it to profile')
         if diffperson is None:
             diffperson = request.args.get("diffperson")
         print("no diff person", diffperson)
         netid = _cas.authenticate()
         netid = netid.rstrip()
+        user = get_student_info(netid)
+
+        if (not user.admin):
+            html = render_template("notadmin.html")
+            response = make_response(html)
+            return response
 
         print("net id found?")
         if diffperson:
@@ -774,6 +759,13 @@ def adminprofile(diffperson=None):
 def admineditprofile():
     adminnetid = _cas.authenticate()
     adminnetid = adminnetid.rstrip()
+
+    user = get_student_info(adminnetid)
+
+    if (not user.admin):
+        html = render_template("notadmin.html")
+        response = make_response(html)
+        return response
     
     studentnetid = request.args.get("netid")
     
@@ -806,6 +798,13 @@ def blackliststudent():
     
     studentnetid = request.args.get("studentnetid")
 
+    user = get_student_info(adminnetid)
+
+    if (not user.admin):
+        html = render_template("notadmin.html")
+        response = make_response(html)
+        return response
+
     blacklist_student(studentnetid)
     msg = "Blacklisted"
     return jsonify(msg)
@@ -814,6 +813,13 @@ def blackliststudent():
 def whiteliststudent():
     adminnetid = _cas.authenticate()
     adminnetid = adminnetid.rstrip()
+
+    user = get_student_info(adminnetid)
+
+    if (not user.admin):
+        html = render_template("notadmin.html")
+        response = make_response(html)
+        return response
     
     studentnetid = request.args.get("studentnetid")
 
@@ -851,6 +857,7 @@ def clubs_json():
 
 @app.route("/createclub", methods=["POST"])
 def createclub():
+    
     name = request.form["name"]
     desc = request.form["desc"]
 

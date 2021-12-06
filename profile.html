@@ -39,12 +39,6 @@
 
 <body>
   {% include "navbar.html" %}
-  <div class="view overlay">
-    <img src="https://mdbootstrap.com/img/Photos/Others/forest-sm.jpg" class="img-fluid " alt="smaple image">
-    <div class="mask flex-center rgba-green-slight">
-      <p class="white-text">Super light overlay</p>
-    </div>
-  </div>
   <div id="page-container">
     <div id="content-wrap">
       <style>
@@ -67,14 +61,13 @@
         <div class="row mx-auto py-5">
           <div class="col-5 mx-auto">
             <div class="container mx-auto p-4 bg-light rounded-3 text-center">
-              <!-- <div class="view overlay">
+              <div class="view overlay">
                 <img class="img-fluid rounded-circle mb-4" style="width: 150px; height: 150px;"
                   src="{{student.pictureURL}}" alt="..." />
                 <div class="mask flex-center rgba-red-strong">
                   <p class="white-text">Strong overlay</p>
                 </div>
-              </div> -->
-
+              </div>
 
               <h1 class="text-black fs-3 fw-bolder">{{student.name}}</h1>
               <h2 class="text-black fs-4">{{major}} {{classyear}}</h2>

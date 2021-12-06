@@ -64,23 +64,20 @@ def add_students_club(students, clubname):
 
 def remove_all_members(clubname):
     club = Club.query.filter_by(name = clubname).first()
-    new_members = []
-    club.members = new_members
+    club.members.clear()
     db.session.add(club)
     db.session.commit()
 
 def remove_all_tags(clubname):
     club = Club.query.filter_by(name = clubname).first()
-    new_tags = []
-    club.tags = new_tags
+    club.tags.clear()
     db.session.add(club)
     db.session.commit()
 
 def remove_all_reviews(clubname):
     club = Club.query.filter_by(name = clubname).first()
     reviews = club.reviews
-    new_reviews = []
-    club.reviews = new_reviews
+    club.reviews.clear()
     db.session.add(club)
     for review in reviews:
         reviewThis = Review.query.filter_by(reviewid = review.reviewid).first()

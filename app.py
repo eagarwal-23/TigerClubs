@@ -355,6 +355,32 @@ def vote():
     except Exception:
         print("whoops from voting :(")
 
+@app.route("/votingedit", methods = ["POST","GET"])
+def voteedit():
+    try:
+        netid = _cas.authenticate()
+        netid = netid.rstrip()
+        if request.method == 'POST':
+            reviewid = request.form['reviewid']
+            print(reviewid)
+            clubname = request.form['clubname']
+            diversity = request.form['diversity']
+            inclusivity = request.form['inclusivity']
+            workload = request.form['workload']
+            time_commitment = request.form['time_commitment']
+            experience_requirement = request.form['experience_requirement']
+            text_review = request.form["text_review"]
+            review = Review.query.filter_by(reviewid = reviewid)
+            print(review)
+            edit_rating(reviewid, diversity, inclusivity, time_commitment, experience_requirement, workload, text_review)
+            calculate_club_rating(clubname)
+            msg = 'success'
+        else:
+            msg = 'huh we aren\'t supposed to be here'
+        return jsonify(msg)
+    except Exception:
+        print("whoops from voting edit")
+
 @app.route("/removingvote", methods= ["POST", "GET"])
 def removingvote():
     try:

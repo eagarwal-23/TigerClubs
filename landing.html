@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <link rel="shortcut icon" href="static/tigerclubsicon.ico"/>
-  
-        <link rel="shortcut icon" href="static/tigerclubsicon.ico"/>
-      
-          <meta charset = "UTF-8">
-          <meta name= "viewport" content= "width-device-width, initial-scale=1, shrink-to-fit=no">
-          <title> Tiger Clubs</title>
-          <!-- <link rel="stylesheet" href="style.css" > -->
-          <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
-          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-          <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
-         
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  
-        <link rel="stylesheet" href="static/choices.css" >
-            <!------ Include the above in your HEAD tag ---------->
-        <link href="static/styles.css" rel="stylesheet" />
-      </head>
+<head>
+    <link rel="shortcut icon" href="static/tigerclubsicon.ico" />
+
+    <link rel="shortcut icon" href="static/tigerclubsicon.ico" />
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width-device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Tiger Clubs</title>
+    <!-- <link rel="stylesheet" href="style.css" > -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="static/choices.css">
+    <!------ Include the above in your HEAD tag ---------->
+    <link href="static/styles.css" rel="stylesheet" />
+</head>
 
 <body style="background-color: rgb(255, 237, 215);">
     <!-- Responsive navbar-->
     {% include "navbar.html" %}
-    
+
     <!-- Header-->
     <header class="py-5">
         <div class="container px-lg-5">
@@ -39,43 +43,43 @@
         </div>
     </header>
     <!-- Page Content-->
-    <section class="pt-1" style = "align-content: center;">
+    <section class="pt-1" style="align-content: center;">
         <div class="container px-lg-5">
             <!-- Page Features-->
             <div class="row mx-auto gx-lg-5">
                 <div class="col-lg-4 col-xxl-4">
                     <div class="row" style="width: 20rem; margin-bottom: 3%;">
                         <h4>Search a club by thier name:</h4>
-                        <form class="input-group" action="/landing"
-                        method="get">
-                            <input type="search" id = "harrystyles" class="form-control rounded" name="clubname"
-                            placeholder="Search name, tag etc" value="{{clubname}}" aria-label="Search"/>
-                            <button type="submit" class="btn text-black rounded" style = "background-color: #e8804c;">search</button>
+                        <form class="input-group" action="/landing" method="get">
+                            <input type="search" id="harrystyles" class="form-control rounded" name="clubname"
+                                placeholder="Search name, tag etc" value="{{clubname}}" aria-label="Search" />
+                            <button type="submit" class="btn text-black rounded"
+                                style="background-color: #e8804c;">search</button>
                             <br>
                             <br>
+                    </div>
+                    <div class="col-lg-4 col-xxl-4">
+                        <div class="form-floating" style="width: 14rem;">
+                            <select class="form-select" id="sort_club" aria-label="Floating label select example"
+                                data-select="{{ sort_by }}">
+                                <option value="lalala">{{ sort_by }}</option>
+                                <option value="combined">Overall</option>
+                                <option value="diversity">Diversity</option>
+                                <option value="inclusivity">Inclusivity</option>
+                                <option value="time_commitment">Time Commitment</option>
+                                <option value="workload">Workload</option>
+                                <option value="experience_requirement">Experieince Required</option>
+                                <option value="alphabetical">Club Name</option>
+                            </select>
+                            <label for="floatingSelect">Rank clubs by</label>
+                            <select id="tags" name="tags" class="form-control" placeholder="Filter by tags" multiple>
+                                {% for tag in tags: %}
+                                <option value="{{tag}}">{{tag}}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="submit" value="Apply">
                         </div>
-                            <div class="col-lg-4 col-xxl-4">
-                                <div class="form-floating" style = "width: 14rem;">
-                                    <select class="form-select" id="sort_club" aria-label="Floating label select example"
-                                    data-select = "{{ sort_by }}">
-                                        <option value = "lalala">{{ sort_by }}</option>
-                                        <option value="combined">Overall</option>
-                                        <option value="diversity">Diversity</option>
-                                        <option value="inclusivity">Inclusivity</option>
-                                        <option value="time_commitment">Time Commitment</option>
-                                        <option value="workload">Workload</option>
-                                        <option value="experience_requirement">Experieince Required</option>
-                                        <option value="alphabetical">Club Name</option>
-                                    </select>
-                                    <label for="floatingSelect">Rank clubs by</label>
-                                    <select id="tags" name = "tags" class = "form-control" placeholder="Filter by tags" multiple>
-                                        {% for tag in tags: %}
-                                        <option value = "{{tag}}">{{tag}}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <input type="submit" value="Apply">
-                                </div>
-                        </div>
+                    </div>
                     </form>
                     <br>
                     <!-- <form class="form-floating mb-3" action="/landing?netid={{netid}}&studentname={{studentname}}"
@@ -91,37 +95,45 @@
                         {%if hasClubs: %}
                         {%for club in clubs: %}
                         <div class="card" style="background-color: white; width:45rem; margin: 5px; margin-top:0">
+
+                            <img src="//placehold.it/200" class="img-fluid" alt="">
+
                             <div class="card-body">
-                                <div style = "justify-content: space-between;">
+                                <div style="justify-content: space-between;">
                                     <h5 class="card-title" style="color: #e8804c;">
                                         {{club}}
                                         {% set unselected = 5 - (club.combined|int)%}
-                                        <div id ="inlinereview">
+                                        <div id="inlinereview">
                                             {% for i in range(club.combined|int) %}
                                             <i aria-hidden="true" class="fa fa-star"></i>
-                                            {% endfor %}  
+                                            {% endfor %}
                                             {% for i in range(unselected) %}
                                             <i aria-hidden="true" class="fa fa-star-o"></i>
-                                            {% endfor %} 
-                                        </div></h5>
+                                            {% endfor %}
+                                        </div>
+                                    </h5>
 
-                                        <style>
-                                            .fa-star,.fa-star-o,.fa-star-half-o{
-                                            display:inline-block;
-                                            color:#FDC91B;
-                                            font-size:25px !important;
-                                            }
-                                            #inlinereview{
-                                                display:inline-block;
-                                            }
-                                        </style>
-                                    <h6 class="card-subtitle mb-2 text-muted" style="font-style: italic; font-size: small;">
+                                    <style>
+                                        .fa-star,
+                                        .fa-star-o,
+                                        .fa-star-half-o {
+                                            display: inline-block;
+                                            color: #FDC91B;
+                                            font-size: 25px !important;
+                                        }
+
+                                        #inlinereview {
+                                            display: inline-block;
+                                        }
+                                    </style>
+                                    <h6 class="card-subtitle mb-2 text-muted"
+                                        style="font-style: italic; font-size: small;">
                                         Description:
                                         {{club.description}} Long
                                         yada yaday ydaa</h6>
                                     <!-- <strong id="element1">Overall: </strong> 
                                     {{"{:.1f}".format(club.combined)}} -->
-                                
+
                                 </div>
 
                                 {%for tag in club.tags: %}
@@ -134,14 +146,13 @@
                                         display: inline-block;
                                         /* font-size: small; */
                                         padding-right: 0.25rem;
-                                        
+
                                     }
                                 </style>
                                 {% endfor %}
 
 
-                                <a href="/clubpage?clubname={{club.name}}"
-                                    class="card-link stretched-link"></a>
+                                <a href="/clubpage?clubname={{club.name}}" class="card-link stretched-link"></a>
                             </div>
                         </div>
                         {% endfor %}
@@ -167,12 +178,12 @@
         });
     </script>
     <script>
-        $(document).ready(function(){
-            var multipleCancelButton = new Choices('#tags' , {
+        $(document).ready(function () {
+            var multipleCancelButton = new Choices('#tags', {
                 removeItemButton: true,
-                maxItemCount:5,
-                searchResultLimit:5,
-                renderChoiceLimit:5
+                maxItemCount: 5,
+                searchResultLimit: 5,
+                renderChoiceLimit: 5
             });
 
             var sort_by = $("#sort_club").data('select')

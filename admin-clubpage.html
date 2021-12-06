@@ -84,7 +84,9 @@
       <div class="card">
         <h4 class="font-weight-bold" style="padding: 20px;">Description</h4>
         <div class="col">
-          <p>{{description}}</p>
+          {%if description%}
+            <p>{{description}}</p>
+          {%endif}
         </div>
       </div>
     </div>

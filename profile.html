@@ -66,7 +66,7 @@
 
               <div class=profile-pic>
                 <img class="profile-pic-image img-fluid rounded-circle mb-4" style="width: 150px; height: 150px;"
-                  src="{{student.pictureURL}}" alt="..." />
+                  src="{{student.pictureURL}}" id=change-pic alt="..." />
                 <p class="profile-pic-change-text mb-4">Change picture</p>
               </div>
 
@@ -99,9 +99,12 @@
                   transition: opacity .2s ease-in-out;
                 }
               </style>
-
-
-
+              <input id="imageUpload" type="file" name="profile_photo" placeholder="Photo" required="" capture>
+              <script>
+                $("#change-pic").click(function (e) {
+                  $("#imageUpload").click();
+                });
+              </script>
 
               <h1 class="text-black fs-3 fw-bolder">{{student.name}}</h1>
               <h2 class="text-black fs-4">{{major}} {{classyear}}</h2>

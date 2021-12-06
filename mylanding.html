@@ -127,69 +127,75 @@
                     {%if hasClubs: %}
                     {%for club in clubs.items: %}
                     <div class="card" style="background-color: whitesmoke; width:45rem; margin: 10px; padding: 0">
-                        <div class="col"><img src="https://picsum.photos/50" class="card-image-top" alt=""></div>
-                        <div class="card-body">
-                            <div style="justify-content: space-between;">
-                                <h5 class="card-title" style="color: black;">
-                                    {{club}}
-                                    <br>
-                                    {% set unselected = 5 - (club.combined|int)%}
-                                    <div id="inlinereview">
-                                        {% for i in range(club.combined|int) %}
-                                        <i aria-hidden="true" class="fa fa-star"></i>
-                                        {% endfor %}
-                                        {% for i in range(unselected) %}
-                                        <i aria-hidden="true" class="fa fa-star-o"></i>
-                                        {% endfor %}
-                                    </div>
-                                </h5>
+                        <div class="row no-gutters">
+                            <div class="col-sm-5">
+                                <img src="https://picsum.photos/50/100" class="card-image-top" alt=""></div>
+                            <div class="col-sm-7">
+                                <div class="card-body">
+                                    <div style="justify-content: space-between;">
+                                        <h5 class="card-title" style="color: black;">
+                                            {{club}}
+                                            <br>
+                                            {% set unselected = 5 - (club.combined|int)%}
+                                            <div id="inlinereview">
+                                                {% for i in range(club.combined|int) %}
+                                                <i aria-hidden="true" class="fa fa-star"></i>
+                                                {% endfor %}
+                                                {% for i in range(unselected) %}
+                                                <i aria-hidden="true" class="fa fa-star-o"></i>
+                                                {% endfor %}
+                                            </div>
+                                        </h5>
 
-                                <style>
-                                    .fa-star,
-                                    .fa-star-o,
-                                    .fa-star-half-o {
-                                        display: inline-block;
-                                        color: #FDC91B;
-                                        font-size: 25px !important;
-                                    }
+                                        <style>
+                                            .fa-star,
+                                            .fa-star-o,
+                                            .fa-star-half-o {
+                                                display: inline-block;
+                                                color: #FDC91B;
+                                                font-size: 25px !important;
+                                            }
 
-                                    #inlinereview {
-                                        display: inline-block;
-                                    }
+                                            #inlinereview {
+                                                display: inline-block;
+                                            }
 
-                                    .card {
-                                        flex-direction: row;
-                                    }
+                                            .card {
+                                                flex-direction: row;
+                                            }
 
-                                    .card img {
-                                        width: 40%;
-                                    }
-                                </style>
-                                <h6 class="card-subtitle mb-2 text-muted" style="font-style: italic; font-size: small;">
-                                    Description:
-                                    {{club.description[:110] + "..."}}</h6>
-                                <!-- <strong id="element1">Overall: </strong> 
+                                            .card img {
+                                                width: 40%;
+                                            }
+                                        </style>
+                                        <h6 class="card-subtitle mb-2 text-muted"
+                                            style="font-style: italic; font-size: small;">
+                                            Description:
+                                            {{club.description[:110] + "..."}}</h6>
+                                        <!-- <strong id="element1">Overall: </strong> 
                                 {{"{:.1f}".format(club.combined)}} -->
 
-                            </div>
+                                    </div>
 
-                            {%for tag in club.tags: %}
-                            <div class="tag">
-                                <div class="badge text-white" style="background-color: #e8804c;">{{tag}}
+                                    {%for tag in club.tags: %}
+                                    <div class="tag">
+                                        <div class="badge text-white" style="background-color: #e8804c;">{{tag}}
+                                        </div>
+                                    </div>
+                                    <style>
+                                        .tag {
+                                            display: inline-block;
+                                            font-size: small;
+                                            padding-right: 0.25rem;
+
+                                        }
+                                    </style>
+                                    {% endfor %}
+
+
+                                    <a href="/clubpage?clubname={{club.name}}" class="card-link stretched-link"></a>
                                 </div>
                             </div>
-                            <style>
-                                .tag {
-                                    display: inline-block;
-                                    font-size: small;
-                                    padding-right: 0.25rem;
-
-                                }
-                            </style>
-                            {% endfor %}
-
-
-                            <a href="/clubpage?clubname={{club.name}}" class="card-link stretched-link"></a>
                         </div>
                     </div>
                     <style>

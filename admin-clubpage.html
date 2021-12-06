@@ -84,9 +84,9 @@
       <div class="card">
         <h4 class="font-weight-bold" style="padding: 20px;">Description</h4>
         <div class="col">
-          <p>IgniteSTEM is an international platform for the STEM revolution in K-12 education. Through conferences,
-            resources, and more grassroots efforts we aspire to help educators and students build the classroom of the
-            future.</p>
+          {%if description%}
+            <p>{{description}}</p>
+          {%endif}
         </div>
       </div>
     </div>
@@ -170,7 +170,7 @@
 </div>
 <!-- CLUB MEMBERS -->
 <div class="row px-4 px-lg-5">
-  <div class="col">
+  <div class="col" style = "height: 700px; overflow-y: scroll;">
   <h4 style="padding-left: 0; padding-top: 20px;"><strong>Club Members:</strong></h4>
   <div class="row gx-lg-5">
   {%for member in members: %}
@@ -198,9 +198,10 @@
 
 
 
+
   <!-- STUDENT REVIEWS SECTION -->
   <h4 style="padding-left: 0; padding-top: 20px; padding-bottom: 5px;"><strong>Student Reviews:</strong></h4>
-<div style="height: 400px; overflow-y: scroll;">
+<div style="height: 700px; overflow-y: scroll;">
 {% for review in reviews: %}
 {% if review.text_review is not none %}
 <div class="card rounded border-0"

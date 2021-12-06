@@ -1,3 +1,4 @@
+from datetime import time
 from typing import DefaultDict
 from app import db
 from sqlalchemy.ext.hybrid import hybrid_property
@@ -42,6 +43,9 @@ class Student(db.Model):
     admin = db.Column(db.Boolean())
     blacklist = db.Column(db.Boolean())
     pictureURL = db.Column(db.String())
+    pronouns = db.Column(db.String())
+    linkedin = db.Column(db.String())
+    instagram = db.Column(db.String())
     clubs = db.relationship("Club",
                                 secondary=student_clubs)
 
@@ -52,7 +56,8 @@ class Student(db.Model):
                                 secondary=student_reviews)
 
     def __init__(self, netid, name, res_college,
-            year, major, bio, admin=False, pictureURL = None):
+            year, major, bio, admin=False, pictureURL = None,
+            pronouns = None, linkedin = None, instagram = None):
         self.netid = netid
         self.name = name
         self.res_college = res_college
@@ -61,6 +66,9 @@ class Student(db.Model):
         self.bio = bio
         self.admin= admin
         self.pictureURL = pictureURL
+        self.pronouns = pronouns
+        self.linkedin = linkedin
+        self.instagram = instagram
 
     def __repr__(self):
         return self.netid
@@ -72,6 +80,7 @@ class Club(db.Model):
     clubid = db.Column(db.Integer(), primary_key = True)
     name = db.Column(db.String())
     description = db.Column(db.String())
+    club_type = db.Column(db.String())
     diversity = db.Column(db.Float())
     inclusivity = db.Column(db.Float())
     time_commitment = db.Column(db.Float())
@@ -92,9 +101,17 @@ class Club(db.Model):
 
         return (weighted)
 
-    def __init__(self, name, description = None):
+    def __init__(self, name, description = None, club_type = None,
+                diversity = 0, inclusivity = 0, time_commitment = 0,
+                experience_requirement = 0, workload = 0):
         self.name = name
         self.description = description
+        self.club_type = club_type
+        self.diversity = 0
+        self.inclusivity = 0
+        self.time_commitment = 0
+        self.workload = 0
+        self.experience_requirement = 0
 
     def __repr__(self):
         return self.name

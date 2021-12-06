@@ -123,7 +123,7 @@
             <div class = "col-xxl-6 gx-lg-7">
                 <div class="row mx-auto" style="width: 100%;">
                     {%if hasClubs: %}
-                    {%for club in clubs: %}
+                    {%for club in clubs.items: %}
                     <div class="card" style="background-color: whitesmoke; width:45rem; margin: 10px; margin-top:0">
                         <div class="card-body">
                             <div style = "justify-content: space-between;">
@@ -152,8 +152,7 @@
                                     </style>
                                 <h6 class="card-subtitle mb-2 text-muted" style="font-style: italic; font-size: small;">
                                     Description:
-                                    {{club.description}} Long
-                                    yada yaday ydaa</h6>
+                                    {{club.description[:110] + "..."}}</h6>
                                 <!-- <strong id="element1">Overall: </strong> 
                                 {{"{:.1f}".format(club.combined)}} -->
                             
@@ -213,6 +212,44 @@
     <br>
     <br>
 
+            <!-- Pagination Links-->
+            <div class="float-right">
+                <a href="{{ url_for('landing', page=clubs.prev_num) }}"
+                  class="btn btn-outline-dark 
+                  {% if clubs.page == 1 %}disabled{% endif %}">
+                    &laquo;
+                </a>
+              <!-- Loop through the number of pages to display a link for each-->
+                {% for page_num in clubs.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+              {% if page_num %}
+              <!-- Check for the active page and set the link to "Active"-->
+                        {% if clubs.page == page_num %}
+                        <a href="{{ url_for('landing', page=page_num) }}"
+                          class="btn btn-dark">
+                            {{ page_num }}
+                        </a>
+                        {% else %}
+                        <a href="{{ url_for('landing', page=page_num) }}"
+                          class="btn btn-outline-dark">
+                            {{ page_num }}
+                        </a>
+                        {% endif %}
+                    {% else %}
+                        ...
+                    {% endif %}
+                {% endfor %}
+                <a href="{{ url_for('landing', page=clubs.next_num) }}"
+                  class="btn btn-outline-dark 
+                  {% if clubs.page == clubs.pages %}disabled{% endif %}">
+                    &raquo;
+                </a>
+              </div>
+              <p class="text-right mt-3">
+              Showing page {{ clubs.page }} of {{ clubs.pages }}
+              </p>
+
+
+  </div>
 <footer>
     {% include "footer.html" %}
 </footer>
@@ -231,7 +268,6 @@
             },
             });
         });
-
         // var select = sort_by
         // $('#sort_club').val(select);
     });

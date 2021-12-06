@@ -127,10 +127,13 @@
                       <div class = "row">
                             <div class="col-md-12 col-sm-10 center-col text-right"> 
                             <div class = "edit_tag" data-tagname = "{{tag.name}}" data-tagid = "{{tag.tagid}}" data-toggle="modal" data-target="#change-name">
-                              <i class="fas fa-edit i-extra-small-box"></i> 
+                              <i data-placement="top" title="Edit tag" data-toggle="tooltip" class="fas fa-edit i-extra-small-box"></i> 
                             </div>
-                            <div class = "delete_tag" data-tagid = "{{ tag.tagid }}">
-                                <i class="fas fa-trash i-extra-small-box"></i>
+
+                            <div class = "delete_tag" data-toggle = "modal"
+                                data-target = "#delete_sure_modal" data-tagid = "{{tag.tagid}}"
+                                data-label = "Delete Tag {{tag.name}}">
+                              <i data-placement="top" title="Delete tag" data-toggle="tooltip" class="fas fa-trash"></i> 
                             </div>
                             </div>
                           </div>
@@ -173,7 +176,7 @@
 
                     <!-- DIVERSITY RATING -->
                     <p class="ratelabel bg-light">Name:</label>
-                    <input type="text" id="newtag" value=""></input>
+                    <input type="text" maxlength=20 id="newtag" value=""></input>
 
                     <br>
 
@@ -188,12 +191,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
 
           <div id="change-name" class="modal fade" role="dialog" aria-labelledby="addClubRatingLabel"
         aria-hidden="true">
@@ -228,6 +225,31 @@
             </div>
         </div>
     </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id = "delete_sure_modal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id = "label"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          <form>
+              <input type = "hidden" id = "tagid">
+          </form>
+            <p>Are you sure you want to delete this tag? This tag will also be
+              deleted from all the clubs and students it is associated with.
+            This action cannot be undone.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="delete_tag" class="btn btn-danger">Delete Tag</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Go Back</button>
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
 
     <script>  
@@ -238,6 +260,15 @@
             $("#newtagname").val(tagname);
             $("#save_button").data("tagid", tagid)
         });
+
+        $('#delete_sure_modal').on('show.bs.modal', function (event) {
+
+            var tagid = $(event.relatedTarget).data('tagid');
+            var label = $(event.relatedTarget).data('label');
+
+            $(this).find("#label").text(label);
+            $(this).find("#tagid").val(tagid);
+            });
 
         $(document).ready(function(){ 
 
@@ -289,18 +320,19 @@
                 }  
             });
             
-            $(".delete_tag").click(function(){
+            $("#delete_tag").click(function(){
                 var tagid = $(this).data("tagid");
-                var $target = $(this).parents(".card")
-
+                // var $target = $(this).parents(".card")
+                var tagid = $('#tagid').val();
                 url = "/deletetag?tagid=" + encodeURIComponent(tagid)
                 $.ajax({
                     method: 'GET',
                     url: url,
                     success: function(){
-                        $target.fadeOut("slow", function () {
-                            location.reload(true);
-                        });
+                      location.reload();
+                        // $target.fadeOut("slow", function () {
+                        //     location.reload(true);
+                        // });
                     }
                 });
             });

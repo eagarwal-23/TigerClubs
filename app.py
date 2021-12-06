@@ -118,7 +118,7 @@ def landing():
         isAdmin = 1
     
     name = user.name
-    clubs = club_search(search = clubname, query = sort_criteria, tags = filter_tags)
+    clubs = club_search(search = clubname, query = sort_criteria, tags = filter_tags, page = pagenum)
     tags = get_all_tags()
 
     if not clubs:
@@ -501,6 +501,7 @@ def reject_request():
 @app.route("/adminclubs", methods=["GET"])
 def adminclubs():
     try:
+        pagenum = request.args.get('page', 1, type=int)
         auth_user = _cas.authenticate().rstrip()
         user = get_student_info(auth_user)
         if user.blacklist:
@@ -517,7 +518,7 @@ def adminclubs():
         if not clubname:
             clubname = ""
 
-        clubs = admin_club_search(clubname)
+        clubs = admin_club_search(search = clubname, page = pagenum)
 
         html = render_template("adminclubs.html", clubs=clubs)
         response = make_response(html)

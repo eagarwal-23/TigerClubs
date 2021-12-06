@@ -22,12 +22,7 @@
 
     <!------ Include the above in your HEAD tag ---------->
     <link rel="stylesheet" type="text/css" href="static/jquery.raty.css">
-    <link rel="stylesheet" type="text/css"
-        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script
-      src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
-      data-auto-replace-svg="nest"
-    ></script>
+    <script src="https://kit.fontawesome.com/38de75e948.js" crossorigin="anonymous"></script>
     <link href="static/styles.css" rel="stylesheet" />
     <link rel = "stylesheet" href = "static/button-hover-admin.css">
 
@@ -53,27 +48,10 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
-
-        .fa-trash:hover {
-            width: 25px;
-            height: 25px;
-            line-height: 25px;
-            padding: 5px;
-            text-align: center;
-            font-size: 15px;
-            color: #ffffff;
+        .btn:hover, .btn:focus, .btn:active, .btn.active, .open>.dropdown-toggle.btn-light {
+            color: #fff;
             background-color: #e8804c;
-          }
-
-        .fa-edit:hover {
-            width: 25px;
-            height: 25px;
-            line-height: 25px;
-            padding: 5px;
-            text-align: center;
-            font-size: 15px;
-            color: #ffffff;
-            background-color: #e8804c;
+            border-color: #e8804c; /*set the color you want here*/
         }
 
         .fa-eye:hover {
@@ -119,12 +97,12 @@
             <div class="flex-item clubcard card bg-light" href="/clubpage?clubname={{review.clubname}}"
                 style="width: 24rem;">
                 <header class="card-header fs-4 fw-bold"> {{r.club[0]}}
-                    <button class="btn btn-sm rounded-0 float-right" type="button" id="deleteratingmodal"
+                    <button class="btn btn-sm float-right" type="button" id="deleteratingmodal"
                         title="Delete" data-reviewid="{{r.reviewid}}" data-label="Delete Rating for {{r.club[0]}}"
                         data-toggle = "modal" data-target = "#delete_sure_modal">
                         <i data-placement="top" title="Delete rating" data-toggle="tooltip" class="fas fa-trash"></i>
                     </button>
-                    <button class="btn btn-sm rounded-0 float-right" type="button" id="editrating"
+                    <button class="btn btn-sm float-right"type="button" id="editrating"
                         title="Edit" data-id="{{r.reviewid}}" data-title="Edit Rating for {{r.club[0]}}"
                         data-clubname = "{{r.club[0]}}" data-div = "{{r.diversity}}" data-inc = "{{r.inclusivity}}"
                         data-work = "{{r.workload}}" data-exp = "{{r.experience_requirement}}" data-time = "{{r.time_commitment}}"
@@ -140,10 +118,10 @@
                 <div id="inlinereview">
                     <p>Diversity: </p>
                     {% for i in range(r.diversity|int) %}
-                    <i aria-hidden="true" class="fa fa-star"></i>
+                    <i aria-hidden="true" class="fas fa-star"></i>
                     {%endfor%}
                     {% for i in range(unselected)%}
-                    <i aria-hidden="true" class="fa fa-star-o"></i>
+                    <i aria-hidden="true" class="far fa-star"></i>
                     {%endfor%}
                 </div>
                 <br>

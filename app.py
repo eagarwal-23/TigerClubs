@@ -378,19 +378,20 @@ def removingvote():
 
 @app.route("/adminlanding", methods = ["GET"])
 def adminlanding():
-    try:
-        auth_user = _cas.authenticate()
-        user = get_student_info(auth_user)
-        if (not user.admin):
-            html = render_template("notadmin.html")
-            response = make_response(html)
-            return response
-
-        html = render_template("adminlanding.html", requests = get_all_requests(), hasRequests = True)
+    auth_user = _cas.authenticate()
+    user = get_student_info(auth_user)
+    if (not user.admin):
+        html = render_template("notadmin.html")
         response = make_response(html)
         return response
-    except Exception:
-        print("whoops from adminlanding")
+
+    html = render_template("adminlanding.html", requests = get_all_requests(), hasRequests = True)
+    response = make_response(html)
+    return response
+    # try:
+
+    # except Exception:
+    #     print("whoops from adminlanding")
 
 @app.route("/delete_user", methods = ["POST","GET"])
 def delete_user():
@@ -441,6 +442,7 @@ def reject_request():
 
 @app.route("/adminclubs", methods=["GET"])
 def adminclubs():
+
     try:
         auth_user = _cas.authenticate()
         user = get_student_info(auth_user)
@@ -460,6 +462,7 @@ def adminclubs():
         html = render_template("adminclubs.html", clubs=clubs)
         response = make_response(html)
         return response
+        
     except Exception:
         print("whoops from adminclubs")
 
@@ -521,6 +524,31 @@ def shorten_description(club):
 
 @app.route("/adminclubpage", methods=["GET"])
 def adminclubpage():
+    netid = _cas.authenticate()
+    netid = netid.rstrip()
+    
+    student = get_student_info(netid)
+
+    isAdmin = 0
+    if student.admin:
+        isAdmin = 1
+    
+    clubname = request.args.get("clubname")
+    club = get_club_info(clubname)
+
+    html = render_template("admin-clubpage.html", clubname = club.name,
+                                description = club.description, members = club.members,
+                                reviews = club.reviews,
+                                tags = club.tags, 
+                                hasScores = True,
+                                diversity = "{:.1%}".format((club.diversity/5)),
+                                inclusivity = "{:.1%}".format((club.inclusivity/5)),
+                                time_commitment = "{:.1%}".format((club.time_commitment/5)),
+                                workload = "{:.1%}".format((club.workload/5)),
+                                experience_requirement = "{:.1%}".format((club.experience_requirement/5)),
+                                isAdmin = isAdmin)
+    response = make_response(html)
+    return response
     try:
         netid = _cas.authenticate()
         netid = netid.rstrip()
@@ -599,6 +627,7 @@ def editclubfromedit():
 def delete_club():
    clubid = request.args.get("clubid")
    delete_club_db(clubid)
+
    msg = 'success'
    return jsonify(msg)
 

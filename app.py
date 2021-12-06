@@ -632,25 +632,26 @@ def delete_club():
 
 @app.route("/admintags", methods=["GET"])
 def admintags():
-    try: 
-        auth_user = _cas.authenticate()
-        user = get_student_info(auth_user)
-        if (not user.admin):
-            html = render_template("notadmin.html")
-            response = make_response(html)
-            return response
-
-        tagsearch = request.args.get("tag")
-        if tagsearch is None:
-            tagsearch = ""
-        
-        tags = tag_search(tagsearch)
-
-        html = render_template("admintags.html", tags=tags)
+    auth_user = _cas.authenticate()
+    user = get_student_info(auth_user)
+    if (not user.admin):
+        html = render_template("notadmin.html")
         response = make_response(html)
         return response
-    except Exception:
-        print("whoops from admintags")
+
+    tagsearch = request.args.get("tag")
+    if tagsearch is None:
+        tagsearch = ""
+    
+    tags = tag_search(tagsearch)
+
+    html = render_template("admintags.html", tags=tags)
+    response = make_response(html)
+    return response
+    # try: 
+        
+    # except Exception:
+    #     print("whoops from admintags")
 
 @app.route("/updatingtags", methods=["POST","GET"])
 def updatingtags():

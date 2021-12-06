@@ -133,14 +133,23 @@
                             </div>
                             <div class="col">
                                 <div class="card-block px-2">
-                                    <h4 class="card-title">Title</h4>
+                                    <h5 class="card-title" style="color: black;">
+                                        {{club}}
+                                        <br>
+                                        {% set unselected = 5 - (club.combined|int)%}
+                                        <div id="inlinereview">
+                                            {% for i in range(club.combined|int) %}
+                                            <i aria-hidden="true" class="fa fa-star"></i>
+                                            {% endfor %}
+                                            {% for i in range(unselected) %}
+                                            <i aria-hidden="true" class="fa fa-star-o"></i>
+                                            {% endfor %}
+                                        </div>
+                                    </h5>
                                     <p class="card-text">Description</p>
                                     <a href="#" class="btn btn-primary">BUTTON</a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-footer w-100 text-muted">
-                            Footer stating cats are CUTE little animals
                         </div>
                     </div>
                     <!-- <div class="card" style="background-color: whitesmoke; width:45rem; margin: 10px; margin-top:0">

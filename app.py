@@ -620,34 +620,37 @@ def adminclubpage():
 
 @app.route("/editclub", methods=["GET"])
 def editclub():
-    try:
-        auth_user = _cas.authenticate().rstrip()
-        user = get_student_info(auth_user)
-        if user.blacklist:
-            html = render_template("blacklistedstudent.html")
-            response = make_response(html)
-            return response
-        if not user.admin:
-            html = render_template("notadmin.html")
-            response = make_response(html)
-            return response
-
-        clubname = request.args.get("clubname")
-        if clubname is None:
-            clubname = ""
-        
-        print("clubname:", clubname)
-        club = get_club_info(clubname)
-
-        html = render_template("editclubs.html",
-                                name = club.name,
-                                description = club.description,
-                                members = club.members,
-                                tags = club.tags)
+    auth_user = _cas.authenticate().rstrip()
+    user = get_student_info(auth_user)
+    if user.blacklist:
+        html = render_template("blacklistedstudent.html")
         response = make_response(html)
         return response
-    except Exception:
-        print("whoops from editclub")
+    if not user.admin:
+        html = render_template("notadmin.html")
+        response = make_response(html)
+        return response
+
+    clubname = request.args.get("clubname")
+    if clubname is None:
+        clubname = ""
+    
+    print("clubname:", clubname)
+    club = get_club_info(clubname)
+    print(club, club.description)
+
+    html = render_template("editclubs.html",
+                            club = club,
+                            name = club.name,
+                            description = club.description,
+                            members = club.members,
+                            tags = club.tags)
+    response = make_response(html)
+    return response
+    # try:
+
+    # except Exception as e:
+    #     print(e, "whoops from editclub")
 
 @app.route("/editclubfromedit", methods=["GET"])
 def editclubfromedit():

@@ -126,11 +126,14 @@
                 <div class="row mx-auto" style="width: 100%;">
                     {%if hasClubs: %}
                     {%for club in clubs.items: %}
+                    <script>
+                        var rand = Math.random() * 100;
+                    </script>
                     <div class="card"
                         style="background-color: whitesmoke; width:45rem; margin: 10px; padding: 0; height:12rem">
                         <div class="row" style="width: 100%;">
                             <div class="col" style="height: 100%">
-                                <img src="https://picsum.photos/100" class="card-image-top" alt=""></div>
+                                <img src="https://picsum.photos/id/{rand}/100" class="card-image-top" alt=""></div>
                             <div class="col">
                                 <div class="card-body">
                                     <div style="justify-content: space-between;">
@@ -206,6 +209,7 @@
                             -webkit-transition: box-shadow 0.05s ease-in;
                         }
                     </style>
+
                     {% endfor %}
                     {%else: %}
                     No clubs found.

@@ -127,46 +127,18 @@
                     {%if hasClubs: %}
                     {%for club in clubs.items: %}
                     <div class="card">
-                        <div class="row">
-                            <div class="col">
-                                <img src="https://picsum.photos/200" class="img-fluid" alt="">
+                        <div class="card-horizontal">
+                            <div class="img-square-wrapper">
+                                <img class="" src="http://via.placeholder.com/300x180" alt="Card image cap">
                             </div>
-                            <div class="col">
-                                <div class="card-body">
-                                    <h5 class="card-title" style="color: black;">
-                                        {{club}}
-                                        <br>
-                                        {% set unselected = 5 - (club.combined|int)%}
-                                        <div id="inlinereview">
-                                            {% for i in range(club.combined|int) %}
-                                            <i aria-hidden="true" class="fa fa-star"></i>
-                                            {% endfor %}
-                                            {% for i in range(unselected) %}
-                                            <i aria-hidden="true" class="fa fa-star-o"></i>
-                                            {% endfor %}
-                                        </div>
-                                    </h5>
-                                    <style>
-                                        .fa-star,
-                                        .fa-star-o,
-                                        .fa-star-half-o {
-                                            display: inline-block;
-                                            color: #FDC91B;
-                                            font-size: 25px !important;
-                                        }
-
-                                        #inlinereview {
-                                            display: inline-block;
-                                        }
-                                    </style>
-                                    <h6 class="card-subtitle mb-2 text-muted"
-                                        style="font-style: italic; font-size: small;">
-                                        Description:
-                                        {{club.description[:110] + "..."}}</h6>
-                                    <strong id="element1">Overall: </strong>
-                                    {{"{:.1f}".format(club.combined)}}
-                                </div>
+                            <div class="card-body">
+                                <h4 class="card-title">Card title</h4>
+                                <p class="card-text">Some quick example text to build on the card title and make up the
+                                    bulk of the card's content.</p>
                             </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Last updated 3 mins ago</small>
                         </div>
                     </div>
                     <!-- <div class="card" style="background-color: whitesmoke; width:45rem; margin: 10px; margin-top:0">

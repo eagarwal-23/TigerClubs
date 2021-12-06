@@ -122,12 +122,31 @@ def get_all_students():
 #         clubs = Club.query.order_by(Club.inclusivity).all()
 #     return clubs
 
+def get_unrated_clubs(netid):
+    student = Student.query.filter_by(netid = netid).first()
+    clubs = student.clubs
+    reviews = student.reviews
+    rated = []
+    unrated = []
+    for review in reviews:
+        club = review.club
+        rated.append(club[0])
+    for club in clubs:
+        if club not in rated:
+            unrated.append(club)
+    return unrated
+
 if __name__ == "__main__":
-    students = (get_all_students())
-    print(students.pages)
-    print(students.items)
-    students = students.next()
-    print(students.items)
+    
+
+    club = Club.query.filter_by(name = "Aikido Club").first()
+    student = Student.query.filter_by(netid = "eagarwal").first()
+    (get_unrated_clubs(student.netid))
+    # print(club)
+    # print(club.reviews)
+    # for review in club.reviews:
+    #     reviewThis = Review.query.filter_by(reviewid = review.reviewid).first()
+    #     print(reviewThis)
 
     # def update_club_info(name, description = None, members = None, tags = None):
     #     club = Club.query.filter_by(name = name).first()

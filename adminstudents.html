@@ -114,7 +114,7 @@
       <div class="col-sm-12 col-md-12" style="margin-top:5px">
         <form  action="/adminstudents" method="get">
             <div class="form-group">
-                <input type="text" name="studentname" id="searchbar" class="form-control input-lg" placeholder="Search by name, netid, year, or major" />
+                <input type="text" name="studentname" id="searchbar" class="form-control input-lg" placeholder="Search for students by name, netid, year, or major" />
             </div>
         </form>
         </div>
@@ -138,19 +138,19 @@
                     <div class = "row">
                           <div class="col-md-12 col-sm-10 center-col text-right"> 
                             <div class = "viewuserprofile" data-netid = "{{student.netid}}">
-                            <i class="fa fa-user i-extra-small-box"></i> 
+                            <i data-placement="top" title="View student profile" data-toggle="tooltip" class="fa fa-user i-extra-small-box"></i> 
                           </div>
                           <div class = "edituserprofile" data-netid = "{{student.netid}}">
-                              <i class="fas fa-user-edit i-extra-small-box"></i>
+                              <i data-placement="top" title="Edit student profile" data-toggle="tooltip" class="fas fa-user-edit i-extra-small-box"></i>
                           </div>
                             {% if student.blacklist %}
                             <div class = "whitelist_student" data-netid = "{{student.netid}}">
-                            <i class="fas fa-user-check i-extra-small-box"></i>
+                            <i data-placement="top" title="Whitelist student" data-toggle="tooltip" class="fas fa-user-check i-extra-small-box"></i>
                             </div>
 
                             {% else %}
                             <div class = "blacklist_student" data-netid = "{{student.netid}}">
-                              <i class="fa fa-user-times i-extra-small-box"></i>
+                              <i data-placement="top" title="Blacklist student" data-toggle="tooltip" class="fa fa-user-times i-extra-small-box"></i>
                             </div>
                           {% endif %}
                           </div>

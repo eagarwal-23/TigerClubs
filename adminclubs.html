@@ -53,8 +53,14 @@
             transition: border-color 1s, box-shadow 0.5s;
             background-color: #ffbd81
           }
+          .fa-plus-circle {
+              cursor: pointer;
+            }
 
-          
+          .fa-plus-circle:hover {
+            color: #ffffff;
+            background-color: #e8804c;
+          }
 
           .fa-eye:hover {
             width: 25px;
@@ -99,8 +105,15 @@
           </style>
 
     <div class="card" >
+
+     
         <div class="card-body" style="text-align: center;">
           <div class="justify-content-center">
+            <div style="position: absolute; text-align: right;">
+              <div class="text-right">
+              <i class="fas fa-plus-circle fa-3x" data-toggle="modal" data-target="#create-club"></i>
+              </div>
+              </div>
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
                 class="bi bi-people-fill" viewBox="0 0 16 16">
                 <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
@@ -122,6 +135,71 @@
     </div>
   </div>
     <!-- Page Content-->
+
+  </div>
+
+    <!-- Modal for create tag-->
+    <div id="create-club" class="modal fade" role="dialog" aria-labelledby="addClubRatingLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modalfonts modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="addClubRatingLabel">Create Club</h4>
+                <button type="button" class="btn-close close" data-dismiss="modal" aria-hidden="true"> </button>
+            </div>
+            <!-- user types in club name to add their rating -->
+            <div class="modal-body">
+                <!-- CLUB NAME -->
+            <form>
+                <div class="form-group">
+
+                <!-- Name Club -->
+                <p class="ratelabel bg-light">Name:</label>
+                <input type="text" id="newclubname" value="" maxlength=20></input>
+
+                <!-- Club Desc -->
+                <p class="ratelabel bg-light">Description:</label>
+                <textarea id="newclubdesc" maxlength=800></textarea>
+
+                <br>
+
+                </div>
+            </form>
+            </div>
+        
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" name="newclubsave_button" data-tagid="" id="newclubsave_button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id = "delete_sure_modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id = "label"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form>
+          <input type = "hidden" id = "clubid">
+      </form>
+        <p>Are you sure you want to delete this club? All the information related to this club,
+          including members, tags, description, and reviews, will also be permanently
+          deleted. This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="delete_club" class="btn btn-danger">Delete Club</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Go Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
     <section class="pt-4">
       
       <div class="container px-lg-5">
@@ -129,7 +207,7 @@
         <!-- Page Features-->
         <div class="row gx-lg-5">
           
-          {%for club in clubs:%}
+          {%for club in clubs.items:%}
           
           <div class="col-lg-6 col-xxl-4 mb-5">
             <div
@@ -142,13 +220,15 @@
                     <div class = "row">
                           <div class="col-md-12 col-sm-10 text-right"> 
                             <div class = "viewclubpage" data-clubname = "{{club.name}}">
-                              <i class="fas fa-eye"></i> 
+                              <i data-placement="top" title="View club page" data-toggle="tooltip" class="fas fa-eye"></i> 
                             </div>
                             <div class = "editclubpage" data-clubname = "{{club.name}}">
-                              <i class="fas fa-edit"></i>
+                              <i data-placement="top" title="Edit club page" data-toggle="tooltip" class="fas fa-edit"></i>
                             </div>
-                            <div class = "delete_club" data-clubid = "{{club.clubid}}">
-                              <i class="fas fa-trash"></i>
+                            <div class = "viewclubpage" data-clubname = "{{club.name}}" data-toggle = "modal"
+                                data-target = "#delete_sure_modal" data-clubid = "{{club.clubid}}"
+                                data-label = "Delete Club {{club.name}}">
+                              <i data-placement="top" title="Delete club page" data-toggle="tooltip" class="fas fa-trash"></i> 
                             </div>
                           </div>
                     </div>
@@ -162,7 +242,9 @@
                     height="100"
                   />
                   <h2 class="fs-4 fw-bold">{{club.name}}</h2>
-                  {{ club.description }}
+                  {% if club.description: %}
+                    {{ club.description[:110] + "..." }}
+                  {% endif %}
                   <br>
                   {%for tag in club.tags: %}
                                   <div class="tag">
@@ -186,18 +268,86 @@
         </div>
       </div>
       </section>
-      </div>
 
+                <!-- Pagination Links-->
+                <div class="float-right">
+                  <a href="{{ url_for('adminclubs', page=clubs.prev_num) }}"
+                    class="btn btn-outline-dark 
+                    {% if clubs.page == 1 %}disabled{% endif %}">
+                      &laquo;
+                  </a>
+                <!-- Loop through the number of pages to display a link for each-->
+                  {% for page_num in clubs.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                {% if page_num %}
+                <!-- Check for the active page and set the link to "Active"-->
+                          {% if clubs.page == page_num %}
+                          <a href="{{ url_for('adminclubs', page=page_num) }}"
+                            class="btn btn-dark">
+                              {{ page_num }}
+                          </a>
+                          {% else %}
+                          <a href="{{ url_for('adminclubs', page=page_num) }}"
+                            class="btn btn-outline-dark">
+                              {{ page_num }}
+                          </a>
+                          {% endif %}
+                      {% else %}
+                          ...
+                      {% endif %}
+                  {% endfor %}
+                  <a href="{{ url_for('adminclubs', page=clubs.next_num) }}"
+                    class="btn btn-outline-dark 
+                    {% if clubs.page == clubs.pages %}disabled{% endif %}">
+                      &raquo;
+                  </a>
+                </div>
+                <p class="text-right mt-3">
+                Showing page {{ clubs.page }} of {{ clubs.pages }}
+                </p>
+                <br>
+                <br>
+                {% include "footer.html" %}
     <script>
+      $('#delete_sure_modal').on('show.bs.modal', function (event) {
+
+        var clubid = $(event.relatedTarget).data('clubid');
+        var label = $(event.relatedTarget).data('label');
+
+        $(this).find("#label").text(label);
+        $(this).find("#clubid").val(clubid);
+      });
+
       $(document).ready(function () {
         function handleResponse(response) {
           console.log("Response");
           $("body").html(response);
         }
 
+        $("#newclubsave_button").click(function(){
+          var newclubname = $("#newclubname").val();
+          var newclubdesc = $("#newclubdesc").val();
+          
+          if (newclubname != "" && newclubdesc != ""){
+            $.ajax({
+              url:"/createclub",
+              method:"POST",
+              data: {
+                name: newclubname,
+                desc: newclubdesc
+              },
+              success: function(){
+                console.log("done");
+                location.reload();
+              }
+            });
+          }else{
+            alert("All Fields are required");
+          }
+        });
+
         $(".viewclubpage").click(function () {
           var clubname = $(this).data("clubname");
-          url = "/clubpage?clubname=" + encodeURIComponent(clubname);
+          url = "/adminclubpage?clubname=" + encodeURIComponent(clubname);
           $.ajax({
             url: url,
             method: "GET",
@@ -219,8 +369,9 @@
           });
         });
 
-        $(".delete_club").click(function () {
-          var clubid = $(this).data("clubid");
+        $("#delete_club").click(function () {
+          //var clubid = $(this).data("clubid");
+          var clubid = $('#clubid').val();
           url = "/delete_club?clubid=" + encodeURIComponent(clubid);
           $.ajax({
             url: url,
@@ -237,7 +388,6 @@
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
   </body>
-  {% include "footer.html" %}
 </html>
 
 <!-- <!DOCTYPE html>

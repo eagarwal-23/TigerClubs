@@ -13,12 +13,12 @@ def get_all_clubs():
 
 # get list of all Tag objects in tag_info table  
 def get_all_tags():
-    tags = Tag.query.order_by(Tag.tagid).all()
+    tags = Tag.query.order_by(Tag.name).all()
     return tags
 
 # get list of all tag names in tag_info table  
 def get_all_tagnames():
-    tags = Tag.query.order_by(Tag.tagid).all()
+    tags = Tag.query.order_by(Tag.name).all()
     final = list()
     for tag in tags:
         final.append(tag.name)
@@ -40,16 +40,13 @@ def student_search(search, pagenum, per_page):
         (Student.netid.ilike(search_query)) |
         (Student.res_college.ilike(search_query)) |
         (Student.year.ilike(search_query))
-    ).paginate(page = pagenum, per_page = per_page)
+    ).order_by(Student.name).paginate(page = pagenum, per_page = per_page)
 
     return students
 
 def tag_search(search):
     search_query = '%' + search + "%"
-    tags = Tag.query.filter(
-        (Tag.name.ilike(search_query))
-    ).all()
-
+    tags = Tag.query.filter((Tag.name.ilike(search_query))).order_by(Tag.name).all()
     return tags
 
 # get all Club objects associated with any tag in 
@@ -59,22 +56,32 @@ def filter_by_tags(tags):
     return clubs
 
 # sort list of Clubs on page by chosen criteria
-def club_search(search, query = 'combined', tags = get_all_tagnames()):
+def club_search(search, query = 'Overall', tags = get_all_tagnames()):
     search_query = '%' + search + '%'
     clubs = Club.query.filter(Club.tags.any(Tag.name.in_(tags)),
                              (Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query))))
-    if query == 'combined':
-        clubs = clubs.order_by(Club.combined.desc()).all()
-    elif query == 'diversity':
-        clubs = clubs.order_by(Club.diversity.desc()).all()
-    elif query == 'inclusivity':
-        clubs = clubs.order_by(Club.inclusivity.desc()).all()
-    elif query == 'time_commitment':
-        clubs = clubs.order_by(Club.time_commitment.desc()).all()
-    elif query == 'workload':
-        clubs = clubs.order_by(Club.workload.desc()).all()
-    elif query == 'experience_requirement':
-        clubs = clubs.order_by(Club.experience_requirement.desc()).all()
-    elif query == 'alphabetical':
-        clubs = clubs.order_by(Club.name).all()
+    if query == 'Overall':
+        clubs = clubs.order_by(Club.combined.desc())
+    elif query == 'Diversity':
+        clubs = clubs.order_by(Club.diversity.desc())
+    elif query == 'Inclusivity':
+        clubs = clubs.order_by(Club.inclusivity.desc())
+    elif query == 'Time Commitment':
+        clubs = clubs.order_by(Club.time_commitment.desc())
+    elif query == 'Workload':
+        clubs = clubs.order_by(Club.workload.desc())
+    elif query == 'Experience Requirement':
+        clubs = clubs.order_by(Club.experience_requirement.desc())
+    elif query == 'Club Name':
+        clubs = clubs.order_by(Club.name)
+
+    clubs = clubs.paginate(page = 1, per_page = 20)
+    return clubs
+
+# sort list of Clubs on page by chosen criteria
+def admin_club_search(search, query = 'Overall', tags = get_all_tagnames()):
+    search_query = '%' + search + '%'
+    clubs = Club.query.filter(Club.tags.any(Tag.name.in_(tags)),
+                             (Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query))))
+    clubs = clubs.order_by(Club.name).paginate(page = 1, per_page = 20)
     return clubs

@@ -126,7 +126,24 @@
                 <div class="row mx-auto" style="width: 100%;">
                     {%if hasClubs: %}
                     {%for club in clubs.items: %}
-                    <div class="card" style="background-color: whitesmoke; width:45rem; margin: 10px; margin-top:0">
+                    <div class="card">
+                        <div class="row no-gutters">
+                            <div class="col-auto">
+                                <img src="//placehold.it/200" class="img-fluid" alt="">
+                            </div>
+                            <div class="col">
+                                <div class="card-block px-2">
+                                    <h4 class="card-title">Title</h4>
+                                    <p class="card-text">Description</p>
+                                    <a href="#" class="btn btn-primary">BUTTON</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer w-100 text-muted">
+                            Footer stating cats are CUTE little animals
+                        </div>
+                    </div>
+                    <!-- <div class="card" style="background-color: whitesmoke; width:45rem; margin: 10px; margin-top:0">
                         <img src="https://picsum.photos/50" class="img-fluid" alt="">
 
                         <div class="card-body">
@@ -164,56 +181,56 @@
                                 <!-- <strong id="element1">Overall: </strong> 
                                 {{"{:.1f}".format(club.combined)}} -->
 
-                            </div>
+                </div>
 
-                            {%for tag in club.tags: %}
-                            <div class="tag">
-                                <div class="badge text-white" style="background-color: #e8804c;">{{tag}}
-                                </div>
-                            </div>
-                            <style>
-                                .tag {
-                                    display: inline-block;
-                                    font-size: small;
-                                    padding-right: 0.25rem;
-
-                                }
-                            </style>
-                            {% endfor %}
-
-
-                            <a href="/clubpage?clubname={{club.name}}" class="card-link stretched-link"></a>
-                        </div>
+                {%for tag in club.tags: %}
+                <div class="tag">
+                    <div class="badge text-white" style="background-color: #e8804c;">{{tag}}
                     </div>
-                    <style>
-                        .card:hover {
-                            box-shadow: 1px 8px 15px grey;
-                            -webkit-transition: box-shadow 0.05s ease-in;
-                        }
-                    </style>
-                    {% endfor %}
-                    {%else: %}
-                    No clubs found.
-                    {%endif%}
                 </div>
+                <style>
+                    .tag {
+                        display: inline-block;
+                        font-size: small;
+                        padding-right: 0.25rem;
+
+                    }
+                </style>
+                {% endfor %}
+
+
+                <a href="/clubpage?clubname={{club.name}}" class="card-link stretched-link"></a>
             </div>
-            <div class="col-lg-4 col-xxl-3" style="width: 15rem;">
-                <div class="form-floating" style="width: 14rem;">
-                    <select class="form-select" id="sort_club" aria-label="Floating label select example"
-                        data-select="{{ sort_by }}">
-                        <option value="lalala">{{ sort_by }}</option>
-                        <option value="Overall">Overall</option>
-                        <option value="Diversity">Diversity</option>
-                        <option value="Inclusivity">Inclusivity</option>
-                        <option value="Time Commitment">Time Commitment</option>
-                        <option value="Workload">Workload</option>
-                        <option value="Experience Required">Experience Required</option>
-                        <option value="Club Name">Club Name</option>
-                    </select>
-                    <label for="floatingSelect">Sort clubs by</label>
-                </div>
-            </div>
+        </div> -->
+        <style>
+            .card:hover {
+                box-shadow: 1px 8px 15px grey;
+                -webkit-transition: box-shadow 0.05s ease-in;
+            }
+        </style>
+        {% endfor %}
+        {%else: %}
+        No clubs found.
+        {%endif%}
+    </div>
+    </div>
+    <div class="col-lg-4 col-xxl-3" style="width: 15rem;">
+        <div class="form-floating" style="width: 14rem;">
+            <select class="form-select" id="sort_club" aria-label="Floating label select example"
+                data-select="{{ sort_by }}">
+                <option value="lalala">{{ sort_by }}</option>
+                <option value="Overall">Overall</option>
+                <option value="Diversity">Diversity</option>
+                <option value="Inclusivity">Inclusivity</option>
+                <option value="Time Commitment">Time Commitment</option>
+                <option value="Workload">Workload</option>
+                <option value="Experience Required">Experience Required</option>
+                <option value="Club Name">Club Name</option>
+            </select>
+            <label for="floatingSelect">Sort clubs by</label>
         </div>
+    </div>
+    </div>
     </div>
     <br>
     <br>

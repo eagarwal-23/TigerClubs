@@ -127,18 +127,24 @@
                     {%if hasClubs: %}
                     {%for club in clubs.items: %}
                     <div class="card">
-                        <div class="card-horizontal">
-                            <div class="img-square-wrapper">
-                                <img class="" src="http://via.placeholder.com/300x180" alt="Card image cap">
+                        <div class="col">
+                            <img src="https://picsum.photos/100" style="float: left; padding: 10px; padding-left: 0">
+                            <h1 class="font-weight-bold" style="padding: 20px; padding-bottom: 0;">{{club}}</h1>
+                            {%for tag in tags: %}
+                            <div class="tag">
+                                <div class="rounded-pill small" style="background-color: #fcc397; color: #db6225; padding: .25rem; margin:
+                              10px; margin-top: 0">
+                                    {{tag}}
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <h4 class="card-title">Card title</h4>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
+                            <style>
+                                .tag {
+                                    display: inline-block;
+                                    padding-right: 0.25rem;
+                                    padding-left: 0.25rem;
+                                }
+                            </style>
+                            {% endfor %}
                         </div>
                     </div>
                     <!-- <div class="card" style="background-color: whitesmoke; width:45rem; margin: 10px; margin-top:0">

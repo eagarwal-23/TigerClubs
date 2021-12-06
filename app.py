@@ -58,6 +58,7 @@ def login():
 
 @app.route("/logout", methods=["GET"])
 def logout():
+    print("what")
     _cas.logout()
 
 @app.route("/admin", methods=["GET"])

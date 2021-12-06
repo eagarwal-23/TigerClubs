@@ -79,9 +79,10 @@ class CASClient:
 
     def logout(self):
         # Delete the user's username from the session.
+        print(session.get("username").lower().strip())
         session.pop("username")
         # Redirect the browser to the application's home page.
-        abort(redirect("https://tigergroups.herokuapp.com"))
+        abort(redirect("/login"))
 
 
 # -----------------------------------------------------------------------

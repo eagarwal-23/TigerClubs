@@ -23,7 +23,6 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
   
-    
     <script
     src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
     data-auto-replace-svg="nest"
@@ -37,8 +36,6 @@
     <link rel="stylesheet" href="static/choices.css" />
   
     <script src="static/jquery.raty.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 <body>
     {% include "admin-navbar.html" %}
@@ -88,7 +85,7 @@
                         placeholder="Select up to 5 tags"
                         multiple
                       >
-                        {% for tag in all_tags: %}
+                        {% for tag in alltags: %}
                         <option value="{{tag}}">{{tag}}</option>
                         {% endfor %}
                       </select>
@@ -201,7 +198,7 @@
       multiple
       >
       {% for student in students: %}
-      <option value="{{student.netid}}" style="z-index:999; pointer-events: auto; ">{{student.netid}}</option>
+      <option value="{{student}}">{{student}}</option>
       {% endfor %}
       </select>
       <div class="row gx-lg-5">
@@ -215,7 +212,7 @@
           <img class="rounded-circle"
             src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg" width="50"
             height="50" />
-          <a href="/profile?diffperson={{member.netid}}"></a>
+          <a href="/profile?diffperson={{member.netid}}" class="card-link stretched-link"></a>
           <h4 class="fs-4 fw-bold">{{member.name}}</h4>
           {{member.netid}}
           <br />

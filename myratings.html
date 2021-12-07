@@ -395,7 +395,12 @@
         $('#workload').raty();
         $('#time_commitment').raty();
         $('#experience_requirement').raty();
-
+        $('#diversity_edit').raty()
+        $('#inclusivity_edit').raty();
+        $('#workload_edit').raty();
+        $('#time_commitment_edit').raty();
+        $('#experience_requirement_edit').raty();
+    
         $('#delete_sure_modal').on('show.bs.modal', function (event) {
 
             var reviewid = $(event.relatedTarget).data('reviewid');
@@ -429,11 +434,11 @@
             var time_commitment = $(event.relatedTarget).data('time');
             var experience_requirement = $(event.relatedTarget).data('exp');
 
-            $('#diversity_edit').raty({score: diversity})
-            $('#inclusivity_edit').raty({score: inclusivity});
-            $('#workload_edit').raty({score: workload});
-            $('#time_commitment_edit').raty({score: time_commitment});
-            $('#experience_requirement_edit').raty({score: experience_requirement});
+            // $('#diversity_edit').raty('setScore', diversity);
+            // $('#inclusivity_edit').raty({score: inclusivity});
+            // $('#workload_edit').raty({score: workload});
+            // $('#time_commitment_edit').raty({score: time_commitment});
+            // $('#experience_requirement_edit').raty({score: experience_requirement});
 
             $(this).find("#editClubRatingLabel").text(title);
             $(this).find("#clubname_edit").val(clubname);

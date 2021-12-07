@@ -113,14 +113,18 @@
                               <i data-placement="top" title="Edit student profile" data-toggle="tooltip" class="fas fa-user-edit"></i>
                           </button>
                             {% if student.blacklist %}
-                            <button class = "btn btn-sm btn-light whitelist_student" data-netid = "{{student.netid}}">
-                            <i data-placement="top" title="Whitelist student" data-toggle="tooltip" class="fas fa-user-check"></i>
-                            </button>
+                            <button class = "btn btn-light btn-sm" data-toggle = "modal"
+                                data-target = "#delete_sure_modal_white" data-netid = "{{student.netid}}"
+                                data-label = "Whitelist Student {{student.name}}">
+                              <i data-placement="top" title="Whitelist student" data-toggle="tooltip" class="fas fa-user-check"></i> 
+                          </button>
 
                             {% else %}
-                            <button class = "btn btn-sm btn-light blacklist_student" data-netid = "{{student.netid}}">
-                              <i data-placement="top" title="Blacklist student" data-toggle="tooltip" class="fas fa-user-times"></i>
-                            </button>
+                            <button class = "btn btn-light btn-sm" data-toggle = "modal"
+                                data-target = "#delete_sure_modal" data-netid = "{{student.netid}}"
+                                data-label = "Blacklist Student {{student.name}}">
+                              <i data-placement="top" title="Blacklist student" data-toggle="tooltip" class="fas fa-user-times"></i> 
+                          </button>
                           {% endif %}
                           </div>
                         </div>
@@ -148,6 +152,7 @@
         </div>
         </div>
       </section>
+      
 
         <!-- Pagination Links-->
     <div class="float-right">
@@ -186,12 +191,79 @@
     </p>
     <!-- Footer-->
   </div>
+  <div class="modal" tabindex="-1" role="dialog" id = "delete_sure_modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id = "label"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        <form>
+            <input type = "hidden" id = "netid">
+        </form>
+          <p>Are you sure you want to blacklist this student? While all their information
+            will be retained, their access to this site will be disallowed and they will
+            be banned from TigerClubs until they are whitelisted by an admin.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="blacklist_student" class="btn btn-danger">Blacklist Student</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Go Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" tabindex="-1" role="dialog" id = "delete_sure_modal_white">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id = "label_white"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        <form>
+            <input type = "hidden" id = "netid_white">
+        </form>
+          <p>Are you sure you want to whitelist this student? They will be able to access
+            this site normally once you choose to do this.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="whitelist_student" class="btn btn-danger">Whitelist Student</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Go Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
 
     <script>
+      $('#delete_sure_modal').on('show.bs.modal', function (event) {
+
+        var netid = $(event.relatedTarget).data('netid');
+        var label = $(event.relatedTarget).data('label');
+
+        $(this).find("#label").text(label);
+        $(this).find("#netid").val(netid);
+        });
+
+        $('#delete_sure_modal_white').on('show.bs.modal', function (event) {
+
+        var netid = $(event.relatedTarget).data('netid');
+        var label = $(event.relatedTarget).data('label');
+
+        $(this).find("#label_white").text(label);
+        $(this).find("#netid_white").val(netid);
+        });
+      
       $(document).ready(function () {
         function handleResponse(response) {
           console.log("Response");
@@ -224,8 +296,9 @@
           });
         });
 
-        $(".blacklist_student").click(function () {
-          var netid = $(this).data("netid");
+        $("#blacklist_student").click(function () {
+         // var netid = $(this).data("netid");
+          var netid = $('#netid').val();
           console.log("blacklisting ", netid)
           url = "/blackliststudent?studentnetid=" + encodeURIComponent(netid);
           $.ajax({
@@ -237,8 +310,9 @@
           });
         });
 
-        $(".whitelist_student").click(function () {
-          var netid = $(this).data("netid");
+        $("#whitelist_student").click(function () {
+          // var netid = $(this).data("netid");
+          var netid = $('#netid_white').val();
           console.log("whitelisting", netid)
           url = "/whiteliststudent?studentnetid=" + encodeURIComponent(netid);
           $.ajax({

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,18 +9,23 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
-    
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-    <link rel="stylesheet" href="static/choices.css" >
+    <link rel="stylesheet" href="static/choices.css">
     <!------ Include the above in your HEAD tag ---------->
     <link href="static/styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="mystyle.css">
 
 </head>
+
 <body>
     {% include "navbar.html" %}
     <!-- <header class="py-5" style= "background-color: black; color: white">
@@ -31,244 +37,157 @@
 
     <style>
         .parallax {
-          /* The image used */
-          background-image: url("/static/darkprinceton.png");
-        
-          /* Set a specific height */
-          min-height: 200px;
-        
-          /* Create the parallax scrolling effect */
-          background-attachment: fixed;
-          background-position: center;
-          background-repeat: no-repeat;
-          background-size: cover;
+            /* The image used */
+            background-image: url("/static/darkprinceton.png");
+
+            /* Set a specific height */
+            min-height: 200px;
+
+            /* Create the parallax scrolling effect */
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
-        </style>
-        
-        <!-- Container element -->
-    <div class="parallax" style = "padding-top: 5rem; padding-bottom: 2rem;">
-        <div class = "container bg-dark" style = "height: 10rem;">
-            <div class="text-center py-5" style = "color: white">
+    </style>
+
+    <!-- Container element -->
+    <div class="parallax" style="padding-top: 5rem; padding-bottom: 2rem;">
+        <div class="container bg-dark" style="height: 10rem;">
+            <div class="text-center py-5" style="color: white">
                 <h3> <strong>Hi {{name}}</strong></h3>
                 <p>Check out club rankings for Fall 2021-2022</p>
             </div>
         </div>
     </div>
-    
-    <div class = "container-fluid" style = "padding-top: 4rem;">
-        <div class = "row mx-auto" style="justify-content:space-around">
-            <div class="col-lg-3 col-xxl-2" style = "width: 20rem;">
-                <div class = "row text-center">
+
+    <div class="container-fluid" style="padding-top: 4rem;">
+        <div class="row mx-auto" style="justify-content:space-around">
+            <div class="col-lg-3 col-xxl-2" style="width: 20rem;">
+                <div class="row text-center">
                     <h5>Filters:</h5>
                 </div>
                 <hr>
-                <a
-                      class="btn btn-link text-muted p-0"
-                      data-toggle="collapse"
-                      href="#collapseExample"
-                      aria-expanded="false"
-                      aria-controls="collapseExample"
-                    >
+                <a class="btn btn-link text-muted p-0" data-toggle="collapse" href="#collapseExample"
+                    aria-expanded="false" aria-controls="collapseExample">
                     Categories:
                 </a>
-                <div class="collapse show pt-3" style = "padding-left: 1rem;" id="collapseExample">
+                <div class="collapse show pt-3" style="padding-left: 1rem;" id="collapseExample">
                     <div class="form-check pl-0 mb-3">
-                        <input
-                          size="42"
-                          type="checkbox"
-                          class="filter-option form-check-input filled-in"
-                          id="ACADEMIC"
-                          oninput="printThis()"
-                        />
-                        <label
-                          class="form-check-label small text-uppercase card-link-secondary"
-                          for="42"
-                          >ACADEMIC</label
-                        >
-                      </div>
-                      <div class="form-check pl-0 mb-3">
-                        <input
-                          size="42"
-                          type="checkbox"
-                          class="filter-option form-check-input filled-in"
-                          id="ACAPELLA MUSIC"
-                          oninput="printThis()"
-                        />
-                        <label
-                          class="form-check-label small text-uppercase card-link-secondary"
-                          for="42"
-                          > ACAPELLA MUSIC</label
-                        >
-                      </div>
-                      <div class="form-check pl-0 mb-3">
-                        <input
-                          size="42"
-                          type="checkbox"
-                          class="filter-option form-check-input filled-in"
-                          id="A CAPPELLA"
-                          oninput="printThis()"
-                        />
-                        <label
-                          class="form-check-label small text-uppercase card-link-secondary"
-                          for="42"
-                          >A CAPPELLA</label
-                        >
-                      </div>
-                      <a
-                    class="btn btn-link text-muted p-0"
-                    data-toggle="collapse"
-                    href="#collapseExample2"
-                    aria-expanded="false"
-                    aria-controls="collapseExample2"
-                  >
-                    More
-                  </a>
-                  <div class="collapse pt-3" id="collapseExample2">
-                    {%for tag in tags: %}
+                        <input size="42" type="checkbox" class="filter-option form-check-input filled-in" id="ACADEMIC"
+                            oninput="printThis()" />
+                        <label class="form-check-label small text-uppercase card-link-secondary"
+                            for="42">ACADEMIC</label>
+                    </div>
                     <div class="form-check pl-0 mb-3">
-                        <input
-                          size="42"
-                          type="checkbox"
-                          class="filter-option form-check-input filled-in"
-                          id="{{tag}}"
-                          oninput="printThis()"
-                        />
-                        <label
-                          class="form-check-label small text-uppercase card-link-secondary"
-                          for="42"
-                          >{{tag}}</label
-                        >
-                      </div>
-                      {% endfor %}
-                  </div>
+                        <input size="42" type="checkbox" class="filter-option form-check-input filled-in"
+                            id="ACAPELLA MUSIC" oninput="printThis()" />
+                        <label class="form-check-label small text-uppercase card-link-secondary" for="42"> ACAPELLA
+                            MUSIC</label>
+                    </div>
+                    <div class="form-check pl-0 mb-3">
+                        <input size="42" type="checkbox" class="filter-option form-check-input filled-in"
+                            id="A CAPPELLA" oninput="printThis()" />
+                        <label class="form-check-label small text-uppercase card-link-secondary" for="42">A
+                            CAPPELLA</label>
+                    </div>
+                    <a class="btn btn-link text-muted p-0" data-toggle="collapse" href="#collapseExample2"
+                        aria-expanded="false" aria-controls="collapseExample2">
+                        More
+                    </a>
+                    <div class="collapse pt-3" id="collapseExample2">
+                        {%for tag in tags: %}
+                        <div class="form-check pl-0 mb-3">
+                            <input size="42" type="checkbox" class="filter-option form-check-input filled-in"
+                                id="{{tag}}" oninput="printThis()" />
+                            <label class="form-check-label small text-uppercase card-link-secondary"
+                                for="42">{{tag}}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
                 <hr>
-                <a
-                      class="btn btn-link text-muted p-0"
-                      data-toggle="collapse"
-                      href="#collapseExample3"
-                      aria-expanded="false"
-                      aria-controls="collapseExample3"
-                    >
+                <a class="btn btn-link text-muted p-0" data-toggle="collapse" href="#collapseExample3"
+                    aria-expanded="false" aria-controls="collapseExample3">
                     Star Ratings:
                 </a>
-                <div class="collapse show pt-3" style = "padding-left: 1rem;"id="collapseExample3">
+                <div class="collapse show pt-3" style="padding-left: 1rem;" id="collapseExample3">
                     <div class="form-check pl-0 mb-3">
-                        <input
-                          size="42"
-                          type="checkbox"
-                          class="filter-option form-check-input filled-in"
-                          id="{{tag}}"
-                          oninput="printThis()"
-                        />
-                        <label
-                          class="form-check-label small text-uppercase card-link-secondary"
-                          for="42"
-                          >{% set selected = 5 %}
-                          {% set unselected = 5- selected %}
-                          <div id ="inlinereview">
-                              {% for i in range(selected) %}
-                              <i aria-hidden="true" class="fa fa-star"></i>
-                              {% endfor %}  
-                              {% for i in range(unselected) %}
-                              <i aria-hidden="true" class="fa fa-star-o"></i>
-                              {% endfor %} 
-                          </div></label
-                        >
-                      </div>
-                      <div class="form-check pl-0 mb-3">
-                        <input
-                          size="42"
-                          type="checkbox"
-                          class="filter-option form-check-input filled-in"
-                          id="{{tag}}"
-                          oninput="printThis()"
-                        />
-                        <label
-                          class="form-check-label small text-uppercase card-link-secondary"
-                          for="42"
-                          >{% set selected = 4 %}
-                          {% set unselected = 5- selected %}
-                          <div id ="inlinereview">
-                              {% for i in range(selected) %}
-                              <i aria-hidden="true" class="fa fa-star"></i>
-                              {% endfor %}  
-                              {% for i in range(unselected) %}
-                              <i aria-hidden="true" class="fa fa-star-o"></i>
-                              {% endfor %} 
-                          </div></label
-                        >
-                      </div>
-                      <div class="form-check pl-0 mb-3">
-                        <input
-                          size="42"
-                          type="checkbox"
-                          class="filter-option form-check-input filled-in"
-                          id="{{tag}}"
-                          oninput="printThis()"
-                        />
-                        <label
-                          class="form-check-label small text-uppercase card-link-secondary"
-                          for="42"
-                          >{% set selected = 3 %}
-                          {% set unselected = 5- selected %}
-                          <div id ="inlinereview">
-                              {% for i in range(selected) %}
-                              <i aria-hidden="true" class="fa fa-star"></i>
-                              {% endfor %}  
-                              {% for i in range(unselected) %}
-                              <i aria-hidden="true" class="fa fa-star-o"></i>
-                              {% endfor %} 
-                          </div></label
-                        >
-                      </div>
-                      <div class="form-check pl-0 mb-3">
-                        <input
-                          size="42"
-                          type="checkbox"
-                          class="filter-option form-check-input filled-in"
-                          id="{{tag}}"
-                          oninput="printThis()"
-                        />
-                        <label
-                          class="form-check-label small text-uppercase card-link-secondary"
-                          for="42"
-                          >{% set selected = 2 %}
-                          {% set unselected = 5- 2 %}
-                          <div id ="inlinereview">
-                              {% for i in range(selected) %}
-                              <i aria-hidden="true" class="fa fa-star"></i>
-                              {% endfor %}  
-                              {% for i in range(unselected) %}
-                              <i aria-hidden="true" class="fa fa-star-o"></i>
-                              {% endfor %} 
-                          </div></label
-                        >
-                      </div>
-                      <div class="form-check pl-0 mb-3">
-                        <input
-                          size="42"
-                          type="checkbox"
-                          class="filter-option form-check-input filled-in"
-                          id="{{tag}}"
-                          oninput="printThis()"
-                        />
-                        <label
-                          class="form-check-label small text-uppercase card-link-secondary"
-                          for="42"
-                          >{% set selected = 1 %}
-                          {% set unselected = 5- 1 %}
-                          <div id ="inlinereview">
-                              {% for i in range(selected) %}
-                              <i aria-hidden="true" class="fa fa-star"></i>
-                              {% endfor %}  
-                              {% for i in range(unselected) %}
-                              <i aria-hidden="true" class="fa fa-star-o"></i>
-                              {% endfor %} 
-                          </div>
-                      </label
-                        >
-                      </div>
+                        <input size="42" type="checkbox" class="filter-option form-check-input filled-in" id="{{tag}}"
+                            oninput="printThis()" />
+                        <label class="form-check-label small text-uppercase card-link-secondary"
+                            for="42">{% set selected = 5 %}
+                            {% set unselected = 5- selected %}
+                            <div id="inlinereview">
+                                {% for i in range(selected) %}
+                                <i aria-hidden="true" class="fa fa-star"></i>
+                                {% endfor %}
+                                {% for i in range(unselected) %}
+                                <i aria-hidden="true" class="fa fa-star-o"></i>
+                                {% endfor %}
+                            </div></label>
+                    </div>
+                    <div class="form-check pl-0 mb-3">
+                        <input size="42" type="checkbox" class="filter-option form-check-input filled-in" id="{{tag}}"
+                            oninput="printThis()" />
+                        <label class="form-check-label small text-uppercase card-link-secondary"
+                            for="42">{% set selected = 4 %}
+                            {% set unselected = 5- selected %}
+                            <div id="inlinereview">
+                                {% for i in range(selected) %}
+                                <i aria-hidden="true" class="fa fa-star"></i>
+                                {% endfor %}
+                                {% for i in range(unselected) %}
+                                <i aria-hidden="true" class="fa fa-star-o"></i>
+                                {% endfor %}
+                            </div></label>
+                    </div>
+                    <div class="form-check pl-0 mb-3">
+                        <input size="42" type="checkbox" class="filter-option form-check-input filled-in" id="{{tag}}"
+                            oninput="printThis()" />
+                        <label class="form-check-label small text-uppercase card-link-secondary"
+                            for="42">{% set selected = 3 %}
+                            {% set unselected = 5- selected %}
+                            <div id="inlinereview">
+                                {% for i in range(selected) %}
+                                <i aria-hidden="true" class="fa fa-star"></i>
+                                {% endfor %}
+                                {% for i in range(unselected) %}
+                                <i aria-hidden="true" class="fa fa-star-o"></i>
+                                {% endfor %}
+                            </div></label>
+                    </div>
+                    <div class="form-check pl-0 mb-3">
+                        <input size="42" type="checkbox" class="filter-option form-check-input filled-in" id="{{tag}}"
+                            oninput="printThis()" />
+                        <label class="form-check-label small text-uppercase card-link-secondary"
+                            for="42">{% set selected = 2 %}
+                            {% set unselected = 5- 2 %}
+                            <div id="inlinereview">
+                                {% for i in range(selected) %}
+                                <i aria-hidden="true" class="fa fa-star"></i>
+                                {% endfor %}
+                                {% for i in range(unselected) %}
+                                <i aria-hidden="true" class="fa fa-star-o"></i>
+                                {% endfor %}
+                            </div></label>
+                    </div>
+                    <div class="form-check pl-0 mb-3">
+                        <input size="42" type="checkbox" class="filter-option form-check-input filled-in" id="{{tag}}"
+                            oninput="printThis()" />
+                        <label class="form-check-label small text-uppercase card-link-secondary"
+                            for="42">{% set selected = 1 %}
+                            {% set unselected = 5- 1 %}
+                            <div id="inlinereview">
+                                {% for i in range(selected) %}
+                                <i aria-hidden="true" class="fa fa-star"></i>
+                                {% endfor %}
+                                {% for i in range(unselected) %}
+                                <i aria-hidden="true" class="fa fa-star-o"></i>
+                                {% endfor %}
+                            </div>
+                        </label>
+                    </div>
                 </div>
                 <!-- <a
                       class="btn btn-link text-muted p-0"
@@ -311,88 +230,107 @@
               </div> -->
 
             </div>
-            <div class = "col-xxl-6 gx-lg-7">
+            <div class="col-xxl-6 gx-lg-7">
                 <div class="row mx-auto" style="width: 100%;">
-                    <form class="input-group mx-auto" action="/landing" style= "padding-bottom: 1rem;" method="get">
-                        <input id = "searchInput" type="search" class="form-control rounded" name="clubname"
-                        placeholder="Search for a club by name or tags" value="{{query}}" aria-label="Search"/>
-                        <button type="submit" class="btn text-black rounded" style="background-color: #e8804c;">Search</button>
-                        </form>
+                    <form class="input-group mx-auto" action="/landing" style="padding-bottom: 1rem;" method="get">
+                        <input id="searchInput" type="search" class="form-control rounded" name="clubname"
+                            placeholder="Search for a club by name or tags" value="{{query}}" aria-label="Search" />
+                        <button type="submit" class="btn text-black rounded"
+                            style="background-color: #e8804c;">Search</button>
+                    </form>
                     {%if hasClubs: %}
                     {%for club in clubs.items: %}
-                    <div class="card" style="background-color: whitesmoke; width:45rem; margin: 10px; margin-top:0">
-                        <div class="card-body">
-                            <div style = "justify-content: space-between;">
-                                <h5 class="card-title" style="color: black;">
-                                    {{club}}</h5>
+                    <div class="card"
+                        style="background-color: whitesmoke; width:45rem; margin: 10px; padding: 0; height:12rem">
+                        <div class="row" style="width: 100%;">
+                            <div class="col" style="height: 100%">
+                                <img src="https://picsum.photos/100" class="card-image-top" alt=""></div>
+                            <div class="col">
+                                <div class="card-body">
+                                    <div style="justify-content: space-between;">
+                                        <h5 class="card-title" style="color: black;">
+                                            {{club}}
+                                            <br>
+                                            {% set unselected = 5 - (club.combined|int)%}
+                                            <div id="inlinereview">
+                                                {% for i in range(club.combined|int) %}
+                                                <i aria-hidden="true" class="fa fa-star"></i>
+                                                {% endfor %}
+                                                {% for i in range(unselected) %}
+                                                <i aria-hidden="true" class="fa fa-star-o"></i>
+                                                {% endfor %}
+                                            </div>
+                                        </h5>
 
-                                    <h6>Overall Rating:
-                                    {% set unselected = 5 - (club.combined|int)%}
-                                    <div id ="inlinereview">
-                                        {% for i in range(club.combined|int) %}
-                                        <i aria-hidden="true" class="fa fa-star"></i>
-                                        {% endfor %}  
-                                        {% for i in range(unselected) %}
-                                        <i aria-hidden="true" class="fa fa-star-o"></i>
-                                        {% endfor %} 
-                                    </div></h6>
-                                
+                                        <style>
+                                            .fa-star,
+                                            .fa-star-o,
+                                            .fa-star-half-o {
+                                                display: inline-block;
+                                                color: #FDC91B;
+                                                font-size: 25px !important;
+                                            }
 
+                                            #inlinereview {
+                                                display: inline-block;
+                                            }
+
+                                            .card {
+                                                flex-direction: row;
+                                            }
+
+                                            .card img {
+                                                width: 100%;
+                                                height: 100%;
+                                            }
+                                        </style>
+                                        <h6 class="card-subtitle mb-2 text-muted"
+                                            style="font-style: italic; font-size: small;">
+                                            Description:
+                                            {{club.description[:250] + "..."}}</h6>
+                                        <!-- <strong id="element1">Overall: </strong> 
+                                {{"{:.1f}".format(club.combined)}} -->
+
+                                    </div>
+
+                                    {%for tag in club.tags: %}
+                                    <div class="tag">
+                                        <div class="badge text-white" style="background-color: #e8804c;">{{tag}}
+                                        </div>
+                                    </div>
                                     <style>
-                                        .fa-star,.fa-star-o,.fa-star-half-o{
-                                        display:inline-block;
-                                        color: #FDC91B;
-                                        font-size:25px !important;
-                                        }
-                                        #inlinereview{
-                                            display:inline-block;
+                                        .tag {
+                                            display: inline-block;
+                                            font-size: small;
+                                            padding-right: 0.25rem;
+
                                         }
                                     </style>
-                                <h6 class="card-subtitle mb-2 text-muted" style="font-style: italic; font-size: small;">
-                                    Description:
-                                    {{club.description[:250] + "..." }}</h6>
-                                <!-- <strong id="element1">Overall: </strong> 
-                                {{"{:.1f}".format(club.combined)}} -->
-                            
-                            </div>
+                                    {% endfor %}
 
-                            {%for tag in club.tags: %}
-                            <div class="tag">
-                                <div class="badge text-white" style="background-color: #e8804c;">{{tag}}
+
+                                    <a href="/clubpage?clubname={{club.name}}" class="card-link stretched-link"></a>
                                 </div>
                             </div>
-                            <style>
-                                .tag {
-                                    display: inline-block;
-                                    font-size: small;
-                                    padding-right: 0.25rem;
-                                    
-                                }
-                            </style>
-                            {% endfor %}
-
-
-                            <a href="/clubpage?clubname={{club.name}}"
-                                class="card-link stretched-link"></a>
                         </div>
                     </div>
                     <style>
-                        .card:hover{
+                        .card:hover {
                             box-shadow: 1px 8px 15px grey;
                             -webkit-transition: box-shadow 0.05s ease-in;
                         }
                     </style>
                     {% endfor %}
                     {%else: %}
-                        No clubs found.
+                    No clubs found.
                     {%endif%}
                 </div>
             </div>
-            <div class="col-lg-4 col-xxl-3" style = "width: 15rem;">
-                <div class="form-floating" style = "width: 14rem;">
+            <div class="col-lg-4 col-xxl-3" style="width: 15rem;">
+                <div class="form-floating" style="width: 14rem;">
                     <select class="form-select" id="sort_club" aria-label="Floating label select example"
-                    data-select = "{{ sort_by }}">
-                        <option value = "lalala">{{ sort_by }}</option>
+                        data-select="{{ sort_by }}">
+                        <option value="lalala">{{ sort_by }}</option>
                         <option value="Overall">Overall</option>
                         <option value="Diversity">Diversity</option>
                         <option value="Inclusivity">Inclusivity</option>
@@ -410,70 +348,67 @@
     <br>
     <br>
 
-            <!-- Pagination Links-->
-            <div class="float-right">
-                <a href="{{ url_for('landing', query = query, page=clubs.prev_num) }}"
-                  class="btn btn-outline-dark 
+    <!-- Pagination Links-->
+    <div class="float-right">
+        <a href="{{ url_for('landing', query = query, page=clubs.prev_num) }}" class="btn btn-outline-dark 
                   {% if clubs.page == 1 %}disabled{% endif %}">
-                    &laquo;
-                </a>
-              <!-- Loop through the number of pages to display a link for each-->
-                {% for page_num in clubs.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-              {% if page_num %}
-              <!-- Check for the active page and set the link to "Active"-->
-                        {% if clubs.page == page_num %}
-                        <a href="{{ url_for('landing', query = query, page=page_num) }}"
-                          class="btn btn-dark">
-                            {{ page_num }}
-                        </a>
-                        {% else %}
-                        <a href="{{ url_for('landing', query = query, page=page_num) }}"
-                          class="btn btn-outline-dark">
-                            {{ page_num }}
-                        </a>
-                        {% endif %}
-                    {% else %}
-                        ...
-                    {% endif %}
-                {% endfor %}
-                <a href="{{ url_for('landing', query = query, page=clubs.next_num) }}"
-                  class="btn btn-outline-dark 
+            &laquo;
+        </a>
+        <!-- Loop through the number of pages to display a link for each-->
+        {% for page_num in clubs.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+        <!-- Check for the active page and set the link to "Active"-->
+        {% if clubs.page == page_num %}
+        <a href="{{ url_for('landing', query = query, page=page_num) }}" class="btn btn-dark">
+            {{ page_num }}
+        </a>
+        {% else %}
+        <a href="{{ url_for('landing', query = query, page=page_num) }}" class="btn btn-outline-dark">
+            {{ page_num }}
+        </a>
+        {% endif %}
+        {% else %}
+        ...
+        {% endif %}
+        {% endfor %}
+        <a href="{{ url_for('landing', query = query, page=clubs.next_num) }}" class="btn btn-outline-dark 
                   {% if clubs.page == clubs.pages %}disabled{% endif %}">
-                    &raquo;
-                </a>
-              </div>
-              <p class="text-right mt-3">
-              Showing page {{ clubs.page }} of {{ clubs.pages }}
-              </p>
+            &raquo;
+        </a>
+    </div>
+    <p class="text-right mt-3">
+        Showing page {{ clubs.page }} of {{ clubs.pages }}
+    </p>
 
 
-  </div>
-<footer>
-    {% include "footer.html" %}
-</footer>
-<script>
-    $(document).ready(function () {
-        $("#sort_club").change( function() {
-            //let searchQuery = $("#searchInput").val()
-            var sortQuery = $("#sort_club").val();
-            var searchQuery = $("#searchInput").val()
-            url = "/landing?clubname=" + encodeURIComponent(searchQuery) + "&sort=" + encodeURIComponent(sortQuery);
-            $.ajax({
-            type: 'GET',
-            url: url,
-            success: function() {
-                window.location.href=url;
-            },
+    </div>
+    <footer>
+        {% include "footer.html" %}
+    </footer>
+    <script>
+        $(document).ready(function () {
+            $("#sort_club").change(function () {
+                //let searchQuery = $("#searchInput").val()
+                var sortQuery = $("#sort_club").val();
+                var searchQuery = $("#searchInput").val()
+                url = "/landing?clubname=" + encodeURIComponent(searchQuery) + "&sort=" + encodeURIComponent(sortQuery);
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function () {
+                        window.location.href = url;
+                    },
+                });
             });
+            // var select = sort_by
+            // $('#sort_club').val(select);
         });
-        // var select = sort_by
-        // $('#sort_club').val(select);
-    });
-</script>
+    </script>
 </body>
 
 <!-- $("#searchInput").on('input', function(){
     let searchQuery = $("#searchInput").val()
     // alert(searchQuery);
 }); -->
+
 </html>

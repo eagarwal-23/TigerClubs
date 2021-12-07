@@ -69,7 +69,8 @@ def logout():
 
 @app.route("/landingwhoareyou", methods=["GET"])
 def landingwhoareyou():
-    auth_user = _cas.authenticate().rstrip()
+    # auth_user = _cas.authenticate().rstrip()
+    auth_user = "camilanv"
     user = get_student_info(auth_user)
 
     if user.blacklist:
@@ -191,6 +192,7 @@ def profile(diffperson=None):
         instagram = student.instagram
         if instagram is None:
             instagram = ""
+        print(instagram)
         linkedin = student.linkedin
         if linkedin is None:
             linkedin = "https://www.linkedin.com/feed/"
@@ -219,8 +221,8 @@ def edited_profile():
         bio = request.args.get("bio")
         clubs = request.args.getlist("clubs")
         tags = request.args.getlist("tags")
-        instagram = request.args.getlist("instagram")
-        linkedin = request.args.getlist("linkedin")
+        instagram = request.args.get("instagram")
+        linkedin = request.args.get("linkedin")
         update_student_info(realnetid, bio, clubs, tags, instagram, linkedin)
         return profile(diffperson=realnetid)
     except Exception:

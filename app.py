@@ -694,8 +694,8 @@ def editclubfromedit():
             return response
         name = request.args.get("name")
         description = request.args.get("description")
-        members = request.args.get("members")
-        tags = request.args.get("tags")
+        members = request.args.getlist("members")
+        tags = request.args.getlist("tags")
 
 
         update_club_info(name, description, members, tags)

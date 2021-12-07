@@ -309,7 +309,7 @@
             });
             
             $("#delete_tag").click(function(){
-                var tagid = $(this).data("tagid");
+                //var tagid = $(this).data("tagid");
                 // var $target = $(this).parents(".card")
                 var tagid = $('#tagid').val();
                 url = "/deletetag?tagid=" + encodeURIComponent(tagid)

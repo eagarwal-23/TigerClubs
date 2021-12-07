@@ -28,6 +28,7 @@
         <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script
       src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
       data-auto-replace-svg="nest"
@@ -85,9 +86,6 @@
 
                         <br>
                         <br>
-                        <input class="btn btn-sm" type="submit" value="Save" style = "background-color: #e8804c;"/>
-                  <a href="/profile?netid={{netid}}">Cancel</a>
-
 
                         {%if diffperson == netid%}  
                         <br>
@@ -132,7 +130,7 @@
                     <div class="col-sm-9 text-secondary">
                       {%for interest in student.tags: %}
                       <div class = "tag2">
-                        <div class = "badge text-white bg-dark">{{interest}}</div>
+                        <div class = "badge text-white bg-dark">{{interest}}</div><span class="delete_tag close" data-tagid = "{{interest.tagid}}" data-netid = "{{student.netid}}">&times;</span> 
                       </div>
                       <style> 
                           .tag2 {
@@ -145,6 +143,10 @@
                     </div>
                   </div>
                   <hr>
+
+                  <input class="btn btn" type="submit" value="Save" style = "background-color: #e8804c;"/>
+                  <a href="/profile?netid={{netid}}">Cancel</a>
+
                 </div>
                 </div>
               </div>
@@ -175,9 +177,9 @@
                     {%for club in student.clubs: %}
                       <div class="card card-1 mx-auto" style="width: 38rem; background-color: white; margin: 15px; margin-top:0">
                           <div class="card-body">
-                            <!-- <div class = "delete_club text-right" data-clubid = "{{club.clubid}}" data-netid = "{{student.netid}}">
+                            <div class = "delete_club text-right" data-clubid = "{{club.clubid}}" data-netid = "{{student.netid}}">
                                 <i class="fas fa-trash"></i>
-                              </div> -->
+                              </div>
                           <h5 class="card-title" style="color: #e8804c;">{{club}}
                             {% set unselected = 5 - (club.combined|int)%}
                             <div id ="inlinereview">
@@ -209,7 +211,7 @@
                                 background-color: #e8804c;
                             }
                             </style></h5>
-                          <h6 class="card-subtitle mb-2 text-muted">Description: {{club.description[:50] + "..."}}</h6>
+                          <h6 class="card-subtitle mb-2 text-muted">Description: {{club.description}} Long yada yaday ydaa</h6>
                           
                           
                           {%for tag in club.tags: %}
@@ -262,7 +264,22 @@
 
         $(".delete_club").click(function () {
           var clubid = $(this).data("clubid");
-          url = "/delete_club_student?clubid=" + encodeURIComponent(clubid);
+          var netid = $(this).data("netid");
+          url = "/delete_user?clubid=" + encodeURIComponent(clubid) + "&netid=" + encodeURIComponent(netid);
+          console.log(url)
+          $.ajax({
+            url: url,
+            method: "GET",
+            success: function () {
+              location.reload();
+            },
+          });
+        });
+        $(".delete_tag").click(function () {
+          var tagid = $(this).data("tagid");
+          var netid = $(this).data("netid");
+          url = "/delete_tag_user?tagid=" + encodeURIComponent(tagid) + "&netid=" + encodeURIComponent(netid);
+          console.log(url)
           $.ajax({
             url: url,
             method: "GET",
@@ -272,6 +289,16 @@
           });
         });
       </script>
+      <script>
+        var closebtns = document.getElementsByClassName("close");
+        var i;
+        
+        for (i = 0; i < closebtns.length; i++) {
+          closebtns[i].addEventListener("click", function() {
+            this.parentElement.style.display = 'none';
+          });
+        }
+        </script>
       <!-- Save to database
         var loadFile = function (event) {
         var image = document.getElementById("output");
@@ -279,4 +306,3 @@
       };
       -->
 </html>
-

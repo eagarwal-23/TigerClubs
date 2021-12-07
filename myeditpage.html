@@ -29,10 +29,8 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script
-      src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
-      data-auto-replace-svg="nest"
-    ></script>
+        <script src="https://kit.fontawesome.com/38de75e948.js" crossorigin="anonymous"></script>
+
 
         <link rel="stylesheet" href="static/choices.css" />
         <!------ Include the above in your HEAD tag ---------->
@@ -45,6 +43,11 @@
     <body>
     {% include "navbar.html" %}
     <style>
+      .btn:hover, .btn:focus, .btn:active, .btn.active, .open>.dropdown-toggle.btn-light {
+            color: #fff;
+            background-color: #e8804c;
+            border-color: #e8804c; /*set the color you want here*/
+      }
       .parallax {
         /* The image used */
         background-image: url("/static/darkprinceton.png");
@@ -83,8 +86,10 @@
                         href ="https://mail.google.com/mail/?view=cm&fs=1&to={{student.netid}}@princeton.edu&body=Sent%20From%20Tigerclubs" target="_blank">
                           {{student.netid}}@princeton.edu
                         </a>
-
                         <br>
+                        <i class="fab fa-instagram"></i> : <input id="instagram" type = "text" name = "instagram" value="{{student.instagram}}"/>
+                        <br>
+                        <i class="fab fa-linkedin"></i> : <input id="linkedin" type = "text" name = "linkedin" value="{{student.linkedin}}"/>
                         <br>
 
                         {%if diffperson == netid%}  
@@ -177,17 +182,17 @@
                     {%for club in student.clubs: %}
                       <div class="card card-1 mx-auto" style="width: 38rem; background-color: white; margin: 15px; margin-top:0">
                           <div class="card-body">
-                            <div class = "delete_club text-right" data-clubid = "{{club.clubid}}" data-netid = "{{student.netid}}">
+                            <button class = "btn btn-sm btn-light delete_club text-right float-right" style="margin: right 0;" data-clubid = "{{club.clubid}}" data-netid = "{{student.netid}}">
                                 <i class="fas fa-trash"></i>
-                              </div>
+                            </button>
                           <h5 class="card-title" style="color: #e8804c;">{{club}}
                             {% set unselected = 5 - (club.combined|int)%}
                             <div id ="inlinereview">
                                 {% for i in range(club.combined|int) %}
-                                <i aria-hidden="true" class="fa fa-star"></i>
+                                <i aria-hidden="true" class="fas fa-star"></i>
                                 {% endfor %}  
                                 {% for i in range(unselected) %}
-                                <i aria-hidden="true" class="fa fa-star-o"></i>
+                                <i aria-hidden="true" class="fas fa-star-o"></i>
                                 {% endfor %} 
                             </div></h5>
 
@@ -200,16 +205,6 @@
                                 #inlinereview{
                                     display:inline-block;
                                 }
-                                .fa-trash:hover {
-                                width: 25px;
-                                height: 25px;
-                                line-height: 25px;
-                                padding: 5px;
-                                text-align: center;
-                                font-size: 15px;
-                                color: #ffffff;
-                                background-color: #e8804c;
-                            }
                             </style></h5>
                           <h6 class="card-subtitle mb-2 text-muted">Description: {{club.description}} Long yada yaday ydaa</h6>
                           

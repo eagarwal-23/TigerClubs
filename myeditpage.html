@@ -265,7 +265,6 @@
         $(".delete_club").click(function () {
           var clubid = $(this).data("clubid");
           var netid = $(this).data("netid");
-          alert(clubid);
           url = "/delete_user?clubid=" + encodeURIComponent(clubid) + "&netid=" + encodeURIComponent(netid);
           console.log(url)
           $.ajax({
@@ -279,7 +278,6 @@
         $(".delete_tag").click(function () {
           var tagid = $(this).data("tagid");
           var netid = $(this).data("netid");
-          alert(tagid);
           url = "/delete_tag_user?tagid=" + encodeURIComponent(tagid) + "&netid=" + encodeURIComponent(netid);
           console.log(url)
           $.ajax({

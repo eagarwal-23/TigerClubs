@@ -440,6 +440,20 @@ def delete_tag_user():
     msg = 'success'
     return jsonify(msg)
 
+@app.route("/delete_club_tag", methods = ["POST","GET"])
+def delete_club_tag():
+    auth_user = _cas.authenticate().rstrip()
+    user = get_student_info(auth_user)
+    if user.blacklist:
+        html = render_template("blacklistedstudent.html")
+        response = make_response(html)
+        return response
+    clubid = request.args.get("clubid")
+    tagid = request.args.get("tagid")
+    delete_club_tag(clubid=clubid.strip(), tagid=tagid.strip())
+    msg = 'success'
+    return jsonify(msg)
+
 @app.route("/blacklist_user")
 def blacklist_user():
     auth_user = _cas.authenticate().rstrip()

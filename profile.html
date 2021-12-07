@@ -64,13 +64,17 @@
 
 
 
-              <div class=profile-pic>
+              <div class="profile-pic view overlay">
+                <input class="mask flex-center" id="file" type="file" onchange="loadFile(event)" />
                 <img class="profile-pic-image img-fluid rounded-circle mb-4" style="width: 150px; height: 150px;"
                   src="{{student.pictureURL}}" id=change-pic alt="..." />
-                <p class="profile-pic-change-text mb-4">Change picture</p>
               </div>
 
               <style>
+                .profile-pic {
+                  color: red;
+                }
+
                 .profile-pic:hover .profile-pic-change-text {
                   opacity: 1;
                 }

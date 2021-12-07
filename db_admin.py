@@ -122,13 +122,6 @@ def delete_student(netid, name, res_college, year, major, bio, admin = False, pi
     db.session.delete(student)
     db.session.commit()
 
-def delete_student_tag(netid, tagname): 
-    student = Student.query.filter_by(netid = netid).first()
-    tag = Tag.query.filter_by(name = tagname).first()
-    student.tags.remove(tag)
-    tag.students.remove(student)
-    db.session.commit()
-
 # for admin clubs tab
 def add_club(name, description, club_type):
     club = Club(name, description, club_type)

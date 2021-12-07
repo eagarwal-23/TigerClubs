@@ -280,7 +280,7 @@
           var tagid = $(this).data("tagid");
           var netid = $(this).data("netid");
           alert(tagid);
-          url = "//delete_tag_user?tagid=" + encodeURIComponent(tagid) + "&netid=" + encodeURIComponent(netid);
+          url = "/delete_tag_user?tagid=" + encodeURIComponent(tagid) + "&netid=" + encodeURIComponent(netid);
           console.log(url)
           $.ajax({
             url: url,

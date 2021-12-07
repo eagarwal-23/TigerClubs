@@ -648,9 +648,13 @@ def editclub():
         clubname = ""
     
     club = get_club_info(clubname)
+    students = get_all_students()
+    all_tags = get_all_tags()
 
     html = render_template("editclubs.html",
                             club = club,
+                            students = students,
+                            all_tags = all_tags,
                             name = club.name,
                             description = club.description,
                             members = club.members,

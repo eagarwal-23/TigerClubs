@@ -138,7 +138,6 @@ def studentsearch():
         response = make_response(html)
         return response
 
-    #netid = "camilanv"
     studentname = request.args.get("studentname")
     pagenum = request.args.get('page', 1, type=int)
 
@@ -164,8 +163,7 @@ def profile(diffperson=None):
     try:
         if diffperson is None:
             diffperson = request.args.get("diffperson")
-        # netid = _cas.authenticate().rstrip()
-        netid = 'camilanv'
+        netid = _cas.authenticate().rstrip()
 
         user = get_student_info(netid)
         if user.blacklist:
@@ -529,6 +527,8 @@ def adminclubs():
         pagenum = request.args.get('page', 1, type=int)
         auth_user = _cas.authenticate().rstrip()
         user = get_student_info(auth_user)
+        students = get_all_students()
+        all_tags = get_all_tags()
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
             response = make_response(html)
@@ -545,7 +545,7 @@ def adminclubs():
 
         clubs = admin_club_search(search = clubname, page = pagenum)
 
-        html = render_template("adminclubs.html", clubs=clubs)
+        html = render_template("adminclubs.html", clubs=clubs, students=students, all_tags=all_tags)
         response = make_response(html)
         return response
         

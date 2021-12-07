@@ -165,6 +165,7 @@
                 <select
                   id="tags"
                   name="tags"
+                  class="form-control"
                   placeholder="Select up to 5 tags"
                   multiple
                 >
@@ -186,6 +187,7 @@
                 <select
                   id="members"
                   name="members"
+                  class="form-control"
                   placeholder="Select up to 5 students"
                   multiple
                 >
@@ -308,7 +310,7 @@
                           ></i>
                         </button>
                         <button
-                          class="btn btn-sm btn-light viewclubpage"
+                          class="btn btn-sm btn-light delete_club"
                           data-clubname="{{club.name}}"
                           data-toggle="modal"
                           data-target="#delete_sure_modal"
@@ -363,7 +365,7 @@
     <!-- Pagination Links-->
     <div class="float-right">
       <a
-        href="{{ url_for('adminclubs', page=clubs.prev_num) }}"
+        href="{{ url_for('adminclubs', query = query, page=clubs.prev_num) }}"
         class="btn btn-outline-dark {% if clubs.page == 1 %}disabled{% endif %}"
       >
         &laquo;
@@ -373,19 +375,19 @@
       left_current=1, right_current=2) %} {% if page_num %}
       <!-- Check for the active page and set the link to "Active"-->
       {% if clubs.page == page_num %}
-      <a href="{{ url_for('adminclubs', page=page_num) }}" class="btn btn-dark">
+      <a href="{{ url_for('adminclubs', query = query, page=page_num) }}" class="btn btn-dark">
         {{ page_num }}
       </a>
       {% else %}
       <a
-        href="{{ url_for('adminclubs', page=page_num) }}"
+        href="{{ url_for('adminclubs', query = query, page=page_num) }}"
         class="btn btn-outline-dark"
       >
         {{ page_num }}
       </a>
       {% endif %} {% else %} ... {% endif %} {% endfor %}
       <a
-        href="{{ url_for('adminclubs', page=clubs.next_num) }}"
+        href="{{ url_for('adminclubs', query = query, page=clubs.next_num) }}"
         class="
           btn btn-outline-dark
           {%
@@ -438,9 +440,6 @@
         $("#newclubsave_button").click(function () {
           var newclubname = $("#newclubname").val();
           var newclubdesc = $("#newclubdesc").val();
-          var newclubtags = $("#members").val();
-          var newclubmembers = $("#tags").val();
-          console.log(newclubtags)
 
           if (newclubname != "" && newclubdesc != "") {
             $.ajax({
@@ -449,8 +448,6 @@
               data: {
                 name: newclubname,
                 desc: newclubdesc,
-                tags: newclubtags,
-                members: newclubmembers
               },
               success: function () {
                 console.log("done");

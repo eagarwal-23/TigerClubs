@@ -64,17 +64,9 @@
 
 
 
-              <div class="profile-pic">
-                <img class="profile-pic-image img-fluid rounded-circle" style="width: 150px; height: 150px;"
-                  src="{{student.pictureURL}}" id=new-prof-pic alt="..." />
-              </div>
-              <input id="imageUpload" type="file" name="profile_photo" placeholder="Photo" required=""
-                style="visibility: hidden; margin: 0; padding: 0;" capture>
-              <script>
-                $("#new-prof-pic").click(function (e) {
-                  $("#imageUpload").click();
-                });
-              </script>
+              <img class="img-fluid rounded-circle" style="width: 150px; height: 150px;" src="{{student.pictureURL}}"
+                id=new-prof-pic alt="..." />
+
 
               <h1 class="text-black fs-3 fw-bolder">{{student.name}}</h1>
               <h2 class="text-black fs-4">{{major}} {{classyear}}</h2>

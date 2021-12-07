@@ -140,13 +140,12 @@ def add_club(name, description, club_type = None, tags= None, members=None):
         for member in members:
             member = member.strip()
             student = Student.query.filter_by(netid=member).first()
-            print(student)
             club.members.append(student)
+            db.session.add(club)
 
     if tags != "" and tags:
         for oneTag in tags:
             tag = Tag.query.filter_by(name=oneTag).first()
-            print(tag)
             club.tags.append(tag)
             db.session.add(club)
     db.session.add(club)

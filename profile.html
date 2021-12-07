@@ -64,13 +64,12 @@
 
 
 
-              <div class="profile-pic view overlay">
-                <input class="mask flex-center" id="file" type="file" onchange="loadFile(event)" />
+              <div class="profile-pic">
                 <img class="profile-pic-image img-fluid rounded-circle mb-4" style="width: 150px; height: 150px;"
                   src="{{student.pictureURL}}" id=change-pic alt="..." />
               </div>
 
-              <style>
+              <!-- <style>
                 .profile-pic {
                   color: red;
                 }
@@ -93,7 +92,7 @@
                   opacity: 0;
                   transition: opacity .2s ease-in-out;
                 }
-              </style>
+              </style> -->
               <input id="imageUpload" type="file" name="profile_photo" placeholder="Photo" required="" capture>
               <script>
                 $("#change-pic").click(function (e) {

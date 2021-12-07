@@ -232,7 +232,7 @@
             </div>
             <div class="col-xxl-6 gx-lg-7">
                 <div class="row mx-auto" style="width: 100%;">
-                    <form class="input-group mx-auto" action="/landing" style="padding-bottom: 1rem;" method="get">
+                    <form class="input-group mx-auto" action="/landing" style="padding-bottom: 1rem; width: 100%;" method="get">
                         <input id="searchInput" type="search" class="form-control rounded" name="clubname"
                             placeholder="Search for a club by name or tags" value="{{query}}" aria-label="Search" />
                         <button type="submit" class="btn text-black rounded"
@@ -240,13 +240,13 @@
                     </form>
                     {%if hasClubs: %}
                     {%for club in clubs.items: %}
-                    <div class="card"
-                        style="background-color: whitesmoke; width:45rem; margin: 10px; padding: 0; height:12rem">
+                    <div class="card mx-auto bg-light"
+                        style="background-color: whitesmoke; width:45rem; margin: 10px; padding: 0;">
                         <div class="row" style="width: 100%;">
-                            <div class="col" style="height: 100%">
+                            <div class="col-4" style=" height: 100%">
                                 <img src="https://picsum.photos/100" class="card-image-top" alt=""></div>
-                            <div class="col">
-                                <div class="card-body">
+                            <div class="col-8" style=" height: 100%">
+                                <div class="card-body" style=" height: 100%">
                                     <div style="justify-content: space-between;">
                                         <h5 class="card-title" style="color: black;">
                                             {{club}}

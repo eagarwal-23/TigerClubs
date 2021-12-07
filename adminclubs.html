@@ -128,7 +128,8 @@ div#social-float { position: fixed; bottom: 30px;
                   name="clubname"
                   id="searchbar"
                   class="form-control input-lg"
-                  placeholder="Search by club name or tags"
+                  placeholder="Search for a club by name or tags"
+                  value = {{query}}
                 />
               </div>
             </form>
@@ -386,7 +387,7 @@ div#social-float { position: fixed; bottom: 30px;
     <!-- Pagination Links-->
     <div class="float-right">
       <a
-        href="{{ url_for('adminclubs', page=clubs.prev_num) }}"
+        href="{{ url_for('adminclubs', query = query, page=clubs.prev_num) }}"
         class="btn btn-outline-dark {% if clubs.page == 1 %}disabled{% endif %}"
       >
         &laquo;
@@ -396,19 +397,19 @@ div#social-float { position: fixed; bottom: 30px;
       left_current=1, right_current=2) %} {% if page_num %}
       <!-- Check for the active page and set the link to "Active"-->
       {% if clubs.page == page_num %}
-      <a href="{{ url_for('adminclubs', page=page_num) }}" class="btn btn-dark">
+      <a href="{{ url_for('adminclubs', query = query, page=page_num) }}" class="btn btn-dark">
         {{ page_num }}
       </a>
       {% else %}
       <a
-        href="{{ url_for('adminclubs', page=page_num) }}"
+        href="{{ url_for('adminclubs', query = query, page=page_num) }}"
         class="btn btn-outline-dark"
       >
         {{ page_num }}
       </a>
       {% endif %} {% else %} ... {% endif %} {% endfor %}
       <a
-        href="{{ url_for('adminclubs', page=clubs.next_num) }}"
+        href="{{ url_for('adminclubs', query = query, page=clubs.next_num) }}"
         class="
           btn btn-outline-dark
           {%

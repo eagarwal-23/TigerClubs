@@ -315,7 +315,7 @@
                 <div class="row mx-auto" style="width: 100%;">
                     <form class="input-group mx-auto" action="/landing" style= "padding-bottom: 1rem;" method="get">
                         <input id = "searchInput" type="search" class="form-control rounded" name="clubname"
-                        placeholder="Search club by name or tags" value="{{clubname}}" aria-label="Search"/>
+                        placeholder="Search for a club by name or tags" value="{{query}}" aria-label="Search"/>
                         <button type="submit" class="btn text-black rounded" style="background-color: #e8804c;">Search</button>
                         </form>
                     {%if hasClubs: %}
@@ -412,7 +412,7 @@
 
             <!-- Pagination Links-->
             <div class="float-right">
-                <a href="{{ url_for('landing', page=clubs.prev_num) }}"
+                <a href="{{ url_for('landing', query = query, page=clubs.prev_num) }}"
                   class="btn btn-outline-dark 
                   {% if clubs.page == 1 %}disabled{% endif %}">
                     &laquo;
@@ -422,12 +422,12 @@
               {% if page_num %}
               <!-- Check for the active page and set the link to "Active"-->
                         {% if clubs.page == page_num %}
-                        <a href="{{ url_for('landing', page=page_num) }}"
+                        <a href="{{ url_for('landing', query = query, page=page_num) }}"
                           class="btn btn-dark">
                             {{ page_num }}
                         </a>
                         {% else %}
-                        <a href="{{ url_for('landing', page=page_num) }}"
+                        <a href="{{ url_for('landing', query = query, page=page_num) }}"
                           class="btn btn-outline-dark">
                             {{ page_num }}
                         </a>
@@ -436,7 +436,7 @@
                         ...
                     {% endif %}
                 {% endfor %}
-                <a href="{{ url_for('landing', page=clubs.next_num) }}"
+                <a href="{{ url_for('landing', query = query, page=clubs.next_num) }}"
                   class="btn btn-outline-dark 
                   {% if clubs.page == clubs.pages %}disabled{% endif %}">
                     &raquo;

@@ -83,7 +83,7 @@
       <div class="col-sm-12 col-md-12" style="margin-top:5px">
         <form  action="/adminstudents" method="get">
             <div class="form-group">
-                <input type="text" name="studentname" id="searchbar" class="form-control input-lg" placeholder="Search for students by name, netid, year, or major" />
+                <input type="text" name="studentname" id="searchbar" class="form-control input-lg" value = {{query}} placeholder="Search for a student by name, netid, year, or res college" />
             </div>
         </form>
         </div>
@@ -156,7 +156,7 @@
 
         <!-- Pagination Links-->
     <div class="float-right">
-      <a href="{{ url_for('adminstudents', page=students.prev_num) }}"
+      <a href="{{ url_for('adminstudents', query = query, page=students.prev_num) }}"
         class="btn btn-outline-dark 
         {% if students.page == 1 %}disabled{% endif %}">
           &laquo;
@@ -166,12 +166,12 @@
     {% if page_num %}
     <!-- Check for the active page and set the link to "Active"-->
               {% if students.page == page_num %}
-              <a href="{{ url_for('adminstudents', page=page_num) }}"
+              <a href="{{ url_for('adminstudents', query = query, page=page_num) }}"
                 class="btn btn-dark">
                   {{ page_num }}
               </a>
               {% else %}
-              <a href="{{ url_for('adminstudents', page=page_num) }}"
+              <a href="{{ url_for('adminstudents', query = query, page=page_num) }}"
                 class="btn btn-outline-dark">
                   {{ page_num }}
               </a>
@@ -180,7 +180,7 @@
               ...
           {% endif %}
       {% endfor %}
-      <a href="{{ url_for('adminstudents', page=students.next_num) }}"
+      <a href="{{ url_for('adminstudents', query = query, page=students.next_num) }}"
         class="btn btn-outline-dark 
         {% if students.page == students.pages %}disabled{% endif %}">
           &raquo;

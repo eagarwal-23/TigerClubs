@@ -29,10 +29,8 @@
         crossorigin="anonymous"
       ></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-      <script
-      src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
-      data-auto-replace-svg="nest"
-    ></script>
+      <script src="https://kit.fontawesome.com/38de75e948.js" crossorigin="anonymous"></script>
+
       <!------ Include the above in your HEAD tag ---------->
       <link rel="stylesheet" type="text/css" href="static/jquery.raty.css" />
       <script src="static/jquery.raty.js"></script>
@@ -54,29 +52,19 @@
             color: #ffffff;
             background-color: #e8804c;
           }
-            .card {
+          .card {
               transition: border-color 1s, box-shadow 0.5s;
               background-color: #ffbd81
             }
-            .fa-trash:hover {
-            width: 25px;
-            height: 25px;
-            line-height: 25px;
-            padding: 5px;
-            text-align: center;
-            font-size: 15px;
-            color: #ffffff;
-            background-color: #e8804c;
+          .btn-light{
+            color:#000;
+            background-color:#E8E8E8;
+
           }
-          .fa-edit:hover {
-            width: 25px;
-            height: 25px;
-            line-height: 25px;
-            padding: 5px;
-            text-align: center;
-            font-size: 15px;
-            color: #ffffff;
+          .btn:hover, .btn:focus, .btn:active, .btn.active, .open>.dropdown-toggle.btn-light {
+            color: #fff;
             background-color: #e8804c;
+            border-color: #e8804c; /*set the color you want here*/
           }
             
           .edit_tag, .delete_tag {
@@ -123,18 +111,18 @@
               >
                 <div class="card-body text-center">
                   <section class="wow fadeIn animated" style="visibility: visible; animation-name: fadeIn;">
-                    <div class = "container">
+                    <div class =  "justify-content-right" style="padding: right 0;">
                       <div class = "row">
                             <div class="col-md-12 col-sm-10 center-col text-right"> 
-                            <div class = "edit_tag" data-tagname = "{{tag.name}}" data-tagid = "{{tag.tagid}}" data-toggle="modal" data-target="#change-name">
-                              <i data-placement="top" title="Edit tag" data-toggle="tooltip" class="fas fa-edit i-extra-small-box"></i> 
-                            </div>
+                            <button class = "btn btn-light btn-sm edit_tag" data-tagname = "{{tag.name}}" data-tagid = "{{tag.tagid}}" data-toggle="modal" data-target="#change-name">
+                              <i data-placement="top" title="Edit tag" data-toggle="tooltip" class="fas fa-edit"></i> 
+                            </button>
 
-                            <div class = "delete_tag" data-toggle = "modal"
+                            <button class = "btn btn-light btn-sm delete_tag" data-toggle = "modal"
                                 data-target = "#delete_sure_modal" data-tagid = "{{tag.tagid}}"
                                 data-label = "Delete Tag {{tag.name}}">
                               <i data-placement="top" title="Delete tag" data-toggle="tooltip" class="fas fa-trash"></i> 
-                            </div>
+                          </button>
                             </div>
                           </div>
                           </div>

@@ -31,16 +31,37 @@
     <link rel="stylesheet" href="static/selectuser.css" />
     <title>TigerClubs</title>
   </head>
-  <body>
+  <body style = "background-color: rgb(255, 237, 215);">
     <header>Welcome, Select A Role:</header>
 
-    <div class="flex">
+
+    <div class = "row py-5">
+    <div class="card container"style = "width: 20rem; height: 25rem; background-color: #ffbd81;">
+      <a class="stretched-link text-decoration-none" href="/adminlanding" style="color: black">
+        <div class="card-body" style="text-align: center;">
+          <i class="fas fa-user-cog fa-3x"></i>
+          <h2 class="card-title">Admin</h2>
+          <h4 class="card-text">View, accept, and reject user requests</h4>
+        </div>
+      </a>
+      </div>
+      <div class="card container" style = "width: 20rem; height: 25rem; background-color: #ffbd81;">
+      <a class="stretched-link text-decoration-none" href="/landing" style="color: black">
+        <div class="card-body" style="text-align: center;">
+          <i class="fas fa-user fa-3x"></i>
+          <h2 class="card-title">User</h2>
+          <h4 class="card-text">View your profile, look at clubs and your friends</h4>
+        </div>
+      </a>
+      </div>
+    </div>
+    <!-- <div class="flex">
       <a class="flex-item btn btn-light" href="/adminlanding">
         <i class="fas fa-user-cog"></i> &nbsp; Admin
       </a>
       <a class="flex-item btn btn-light" href="/landing">
         <i class="fas fa-user"></i> &nbsp; User
       </a>
-    </div>
+    </div> -->
   </body>
 </html>

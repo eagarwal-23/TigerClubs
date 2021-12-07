@@ -1073,8 +1073,8 @@ def createclub():
         return response
     name = request.form["name"]
     desc = request.form["desc"]
-    tags = request.form.getlist("tags")
-    members = request.form.getlist("members")
+    tags = request.args.getlist("tags")
+    members = request.args.getlist("members")
     print(tags)
     print(members)
 

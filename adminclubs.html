@@ -54,7 +54,7 @@
         <style>
           div.social-float-parent {  position: relative; }
 div#social-float { position: fixed; bottom: 30px;
-    right: 20px; }
+    right: 30px; }
           .btn-dark{
             color:#fff  !important;
             background-color: #e8804c !important;
@@ -370,13 +370,13 @@ div#social-float { position: fixed; bottom: 30px;
         </div>
       </div>
     </section>
+    <!-- https://getcssscan.com/css-box-shadow-examples -->
     <div class="social-float-parent">
       <div id="social-float">
-        <button class="btn text-right float-right btn-lg shadow p-3 mb-5 rounded-pill btn-dark" style="
-        bottom: 40px;
-        right: 30px; " data-toggle="modal"
+        <button class="btn text-right float-right btn-lg rounded-pill btn-dark" style="
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px; margin-bottom: 40px; padding-top: 15px;padding-bottom: 15px; " data-toggle="modal"
                         data-target="#create-club">
-            <i class="fas fa-plus"></i> Create Club
+            <i class="fas fa-plus"></i> &nbsp; Create Club
         </button>
         <br>
         <br>
@@ -437,7 +437,7 @@ div#social-float { position: fixed; bottom: 30px;
     <script>
       function checkOffset() {
           if($('#social-float').offset().top + $('#social-float').height() 
-                                                >= $('#footer').offset().top - 15)
+                                                >= $('#footer').offset().top - 20)
               $('#social-float').css('position', 'absolute');
           if($(document).scrollTop() + window.innerHeight < $('#footer').offset().top)
               $('#social-float').css('position', 'fixed'); // restore when you scroll up

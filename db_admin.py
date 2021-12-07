@@ -90,7 +90,6 @@ def delete_club_tag(clubid, tagid):
 def blacklist_student(netid):
     student = Student.query.filter_by(netid = netid).first()
     student.blacklist = True
-    print(student)
     db.session.commit()
 
 # for EDIT_USER type request => db functions in db_student_profile.py

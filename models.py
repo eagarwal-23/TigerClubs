@@ -135,6 +135,23 @@ class Tag(db.Model):
     def __repr__(self):
         return self.name
 
+class Rating_Period(db.Model):
+    __tablename__ = "rating_period"
+
+    id = db.Column(db.Integer(), primary_key = True)
+    day = db.Column(db.Integer())
+    month = db.Column(db.Integer())
+    year = db.Column(db.Integer())
+
+    def __init__(self, day, month, year):
+        self.day = day
+        self.month = month
+        self.year = year
+    
+    def __repr__(self):
+        return str(self.day) + " " + str(self.month) + " " + str(self.year)
+
+
 class Review(db.Model):
     __tablename__ = 'review_info'
 

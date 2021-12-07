@@ -19,10 +19,15 @@ from db_search import *
 from db_student_profile import *
 from db_club_profile import *
 from db_admin import *
+from db_rating_period import *
 
 _cas = CASClient()
 
-ratings_period = dt.date(2021, 12, 21)
+def obtain_rating_period():
+    info = get_rating_period()
+    return dt.date(info.year, info.month, info.day)
+
+rating_period = obtain_rating_period()
 
 def isBlacklist(netid):
     student = get_student_info(netid)
@@ -305,7 +310,7 @@ def myratings():
         if student.admin:
             isAdmin = 1
         today = dt.date.today()
-        #if today == ratings_period:
+        #if today == rating_period:
         if True:
             name = student.name
             clubs = get_unrated_clubs(student.netid)
@@ -314,7 +319,7 @@ def myratings():
             response = make_response(html)
             return response
         else:
-            html = render_template("notmyratings.html", ratings_period=ratings_period, today=today, isAdmin = isAdmin)
+            html = render_template("notmyratings.html", ratings_period=rating_period, today=today, isAdmin = isAdmin)
             response = make_response(html)
             return response
     except Exception as e:
@@ -1076,4 +1081,56 @@ def createclub():
     add_club(name, desc)
 
     msg = "Club added."
+    return jsonify(msg)
+
+@app.route("/adminratings", methods=["GET"])
+def adminratings():
+    netid = _cas.authenticate().rstrip()
+    user = get_student_info(netid)
+
+    if not user.admin:
+        html = render_template("notadmin.html")
+        response = make_response(html)
+        return response
+
+    html = render_template("adminratings.html", rating_period = rating_period)
+    response = make_response(html)
+    return response
+
+@app.route("/update_rating_period", methods=["GET"])
+def update_rating_period():
+    netid = _cas.authenticate().rstrip()
+    user = get_student_info(netid)
+
+    if not user.admin:
+        html = render_template("notadmin.html")
+        response = make_response(html)
+        return response
+    
+    new_date = request.args.get("new_date")
+    year = int(new_date[0:4])
+    month = int(new_date[5:7])
+    day = int(new_date[8:])
+    
+    set_rating_period(day, month, year)
+
+    global rating_period
+    rating_period = dt.date(year, month, day)
+
+    msg = "Rating period updated"
+    return jsonify(msg)
+
+@app.route("/calculate_club_ratings", methods=["GET"])
+def calculate_club_ratings():
+    netid = _cas.authenticate().rstrip()
+    user = get_student_info(netid)
+
+    if not user.admin:
+        html = render_template("notadmin.html")
+        response = make_response(html)
+        return response
+
+    calculate_all_club_ratings()
+
+    msg = "Calculated all club ratings"
     return jsonify(msg)

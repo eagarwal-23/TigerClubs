@@ -70,7 +70,6 @@ def delete_student_club(netid, clubid):
     student = Student.query.filter_by(netid = netid).first()
     club = Club.query.filter_by(clubid = clubid).first()
     student.clubs.remove(club)
-    print(student.clubs)
     db.session.commit()
 
 # for DELETE_USER_TAG type request
@@ -78,7 +77,6 @@ def delete_student_tag(netid, tagid):
     student = Student.query.filter_by(netid = netid).first()
     tag = Tag.query.filter_by(tagid = tagid).first()
     student.tags.remove(tag)
-    print(student.tags)
     db.session.commit()
 
 # for DELETE_USER_TAG type request
@@ -86,7 +84,6 @@ def delete_club_tag(clubid, tagid):
     club = Club.query.filter_by(clubid = clubid).first()
     tag = Tag.query.filter_by(tagid = tagid).first()
     club.tags.remove(tag)
-    print(club.tags)
     db.session.commit()
 
 # for BLACKLIST_USER type request

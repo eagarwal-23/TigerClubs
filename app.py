@@ -459,7 +459,7 @@ def delete_club_tag():
         return response
     clubid = request.args.get("clubid")
     tagid = request.args.get("tagid")
-    delete_club_tag(clubid=clubid.strip(), tagid=tagid.strip())
+    delete_club_tag_db(clubid=clubid.strip(), tagid=tagid.strip())
     msg = 'success'
     return jsonify(msg)
 

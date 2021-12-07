@@ -317,8 +317,7 @@ def myratings():
         if student.admin:
             isAdmin = 1
         today = dt.date.today()
-        #if today == rating_period:
-        if True:
+        if today == rating_period:
             name = student.name
             clubs = get_unrated_clubs(student.netid)
             ratings = get_student_ratings(netid)

@@ -86,9 +86,6 @@
 
                         <br>
                         <br>
-                        <input class="btn btn-sm" type="submit" value="Save" style = "background-color: #e8804c;"/>
-                  <a href="/profile?netid={{netid}}">Cancel</a>
-
 
                         {%if diffperson == netid%}  
                         <br>
@@ -133,7 +130,7 @@
                     <div class="col-sm-9 text-secondary">
                       {%for interest in student.tags: %}
                       <div class = "tag2">
-                        <div class = "badge text-white bg-dark">{{interest}}</div>
+                        <div class = "badge text-white bg-dark">{{interest}}</div><span class="delete_tag close" data-tagid = "{{interest.tagid}}" data-netid = "{{student.netid}}">&times;</span> 
                       </div>
                       <style> 
                           .tag2 {
@@ -146,6 +143,10 @@
                     </div>
                   </div>
                   <hr>
+
+                  <input class="btn btn" type="submit" value="Save" style = "background-color: #e8804c;"/>
+                  <a href="/profile?netid={{netid}}">Cancel</a>
+
                 </div>
                 </div>
               </div>
@@ -275,7 +276,31 @@
             },
           });
         });
+        $(".delete_tag").click(function () {
+          var tagid = $(this).data("tagid");
+          var netid = $(this).data("netid");
+          alert(tagid);
+          url = "//delete_tag_user?tagid=" + encodeURIComponent(tagid) + "&netid=" + encodeURIComponent(netid);
+          console.log(url)
+          $.ajax({
+            url: url,
+            method: "GET",
+            success: function () {
+              location.reload();
+            },
+          });
+        });
       </script>
+      <script>
+        var closebtns = document.getElementsByClassName("close");
+        var i;
+        
+        for (i = 0; i < closebtns.length; i++) {
+          closebtns[i].addEventListener("click", function() {
+            this.parentElement.style.display = 'none';
+          });
+        }
+        </script>
       <!-- Save to database
         var loadFile = function (event) {
         var image = document.getElementById("output");

@@ -79,7 +79,7 @@ def landingwhoareyou():
         return response
 
     if user.admin:
-        html = render_template("studentoradmin.html")
+        html = render_template("studentoradmin.html", user = user)
         response = make_response(html)
         return response
     else:

@@ -164,7 +164,8 @@ def profile(diffperson=None):
     try:
         if diffperson is None:
             diffperson = request.args.get("diffperson")
-        netid = _cas.authenticate().rstrip()
+        # netid = _cas.authenticate().rstrip()
+        netid = 'camilanv'
 
         user = get_student_info(netid)
         if user.blacklist:
@@ -189,10 +190,16 @@ def profile(diffperson=None):
         bio = student.bio
         interests = student.tags
         tags = get_all_tags()
+        instagram = student.instagram
+        if instagram is None:
+            instagram = ""
+        linkedin = student.linkedin
+        if linkedin is None:
+            linkedin = "https://www.linkedin.com/feed/"
 
         html = render_template("profile.html", student = student,  name=name, netid= netid,
         classyear=classyear, major=major, clubs=clubs, tags=tags,
-        bio=bio, interests=interests, diffperson = diffperson, isAdmin = isAdmin)
+        bio=bio, interests=interests, diffperson = diffperson, isAdmin = isAdmin, instagram = instagram, linkedin= linkedin)
 
         response = make_response(html)
         return response
@@ -214,7 +221,9 @@ def edited_profile():
         bio = request.args.get("bio")
         clubs = request.args.getlist("clubs")
         tags = request.args.getlist("tags")
-        update_student_info(realnetid, bio, clubs, tags)
+        instagram = request.args.getlist("instagram")
+        linkedin = request.args.getlist("linkedin")
+        update_student_info(realnetid, bio, clubs, tags, instagram, linkedin)
         return profile(diffperson=realnetid)
     except Exception:
         print("whoops profile from edit")
@@ -240,9 +249,11 @@ def editprofile():
     bio = student.bio
     clubs = get_all_clubs()
     tags = get_all_tags()
+    instagram = student.instagram
+    linkedin = student.linkedin
     try:
         html = render_template("myeditpage.html", name=name, netid=netid, student = student, clubs = clubs, tags = tags,
-        classyear=classyear, major=major,
+        classyear=classyear, major=major,instagram = instagram, linkedin = linkedin,
         bio=bio, isAdmin = isAdmin)
         response = make_response(html)
         return response

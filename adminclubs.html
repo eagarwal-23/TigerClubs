@@ -165,7 +165,6 @@
                 <select
                   id="tags"
                   name="tags"
-                  class="form-control"
                   placeholder="Select up to 5 tags"
                   multiple
                 >
@@ -187,7 +186,6 @@
                 <select
                   id="members"
                   name="members"
-                  class="form-control"
                   placeholder="Select up to 5 students"
                   multiple
                 >
@@ -440,6 +438,9 @@
         $("#newclubsave_button").click(function () {
           var newclubname = $("#newclubname").val();
           var newclubdesc = $("#newclubdesc").val();
+          var newclubtags = $("#members").val();
+          var newclubmembers = $("#tags").val();
+          console.log(newclubtags)
 
           if (newclubname != "" && newclubdesc != "") {
             $.ajax({
@@ -448,6 +449,8 @@
               data: {
                 name: newclubname,
                 desc: newclubdesc,
+                tags: newclubtags,
+                members: newclubmembers
               },
               success: function () {
                 console.log("done");

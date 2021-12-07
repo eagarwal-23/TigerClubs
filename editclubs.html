@@ -21,13 +21,19 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
   
+    <script
+    src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+    data-auto-replace-svg="nest"
+  ></script>
     <!------ Include the above in your HEAD tag ---------->
     <link rel="stylesheet" type="text/css" href="static/jquery.raty.css" />
     <link rel="stylesheet" type="text/css"
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
   
     <link href="static/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="static/choices.css" />
   
     <script src="static/jquery.raty.js"></script>
 </head>
@@ -57,13 +63,12 @@
           <div class="card">
             <div class="col">
               <img src="https://picsum.photos/100" style="float: left; padding: 10px; padding-left: 0">
-              <h1 class="font-weight-bold" style="padding: 20px; padding-bottom: 0;">{{name}}</h1>
+              <h1 class="font-weight-bold" style="padding: 20px; padding-bottom: 0;"><input type="text" name="name" value="{{name}}"></h1>
               {%for tag in tags: %}
               <div class="tag">
                 <div class="rounded-pill small" style="background-color: #fcc397; color: #db6225; padding: .25rem; margin:
                   10px; margin-top: 0">
-                  {{tag}}
-                </div>
+                  {{tag}} <span class="delete_tag close" data-tagid = "{{tag.tagid}}" data-clubid = "{{club.clubid}}"> &times;</span></div>
               </div>
               <style>
                 .tag {
@@ -73,8 +78,18 @@
                 }
               </style>
               {% endfor %}
-              <input type="text" name="tags" value="{{tags}}">
-              <button type = "submit" class = "btn btn-primary edit_club">Save</button>
+              <select
+                        id="tags"
+                        name="tags"
+                        class="form-control"
+                        placeholder="Select up to 5 tags"
+                        multiple
+                      >
+                        {% for tag in alltags: %}
+                        <option value="{{tag}}">{{tag}}</option>
+                        {% endfor %}
+                      </select>
+                      <br>
             </div>
           </div>
           <br>
@@ -86,10 +101,11 @@
                   class="form-control"
                   id="exampleFormControlTextarea1"
                   rows="3"
-                  type="text" name="description" maxlength = 200
+                  type="text" name="description" maxlength = 350
                 >{{description}}</textarea>
               </div>
             </div>
+            <button type = "submit" class = "btn btn-primary edit_club">Save</button>
           </div>
         </div>
     
@@ -174,12 +190,25 @@
     <div class="row px-4 px-lg-5">
       <div class="col">
       <h4 style="padding-left: 0; padding-top: 20px;"><strong>Club Members:</strong></h4>
+      <select
+      id="members"
+      name="members"
+      class="form-control"
+      placeholder="Select up to 5 students"
+      multiple
+      >
+      {% for student in students: %}
+      <option value="{{student}}">{{student}}</option>
+      {% endfor %}
+      </select>
       <div class="row gx-lg-5">
-        <input type="text" name="members" value="{{members}}">
       {%for member in members: %}
       <div class="col-lg-6 col-xxl-4 mb-5">
       <div class="card border" style="background-color: white; margin: 5px; margin-left:0">
         <div class="card-body text-center">
+            <div class = "delete_student text-right" data-clubid = "{{club.clubid}}" data-netid = "{{member.netid}}">
+                <i class="fas fa-trash"></i>
+              </div>
           <img class="rounded-circle"
             src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg" width="50"
             height="50" />
@@ -190,6 +219,17 @@
           {{member.year}}
           <br />
         </div>
+        <style>
+            .fa-trash:hover {
+                width: 25px;
+                height: 25px;
+                line-height: 25px;
+                padding: 5px;
+                text-align: center;
+                font-size: 15px;
+                color: #ffffff;
+                background-color: #e8804c; }
+        </style>
       </div>
     </div>
       {% endfor %}
@@ -216,11 +256,13 @@
     
     </div>
     </div>
-    <br>
+    <!-- <br>
 
-    <h2>Editing Club: {{name}}</h2>
+    <h2>Editing Club: {{name}}</h2> -->
 
-    <form action="/editclubfromedit">
+</form>
+
+    <!-- <form action="/editclubfromedit">
         <table>
             <tr>
                 <td><label>Change Name:</label></td>
@@ -242,7 +284,61 @@
                 <button type = "submit" class = "btn btn-primary edit_club">Save</button>
             </tr>
         </table>
-    </form>
+    </form> -->
+    <script>
+        $(document).ready(function () {
+          var multipleCancelButton = new Choices("#members", {
+            removeItemButton: true,
+            maxItemCount: 5,
+            searchResultLimit: 5,
+            renderChoiceLimit: 5,
+          });
+
+          var multipleCancelButton = new Choices("#tags", {
+            removeItemButton: true,
+            maxItemCount: 5,
+            searchResultLimit: 5,
+            renderChoiceLimit: 5,
+          });
+        });
+
+        $(".delete_tag").click(function () {
+          var tagid = $(this).data("tagid");
+          var clubid = $(this).data("clubid");
+          url = "/delete_club_tag?tagid=" + encodeURIComponent(tagid) + "&clubid=" + encodeURIComponent(clubid);
+          console.log(url)
+          $.ajax({
+            url: url,
+            method: "GET",
+            success: function () {
+              location.reload();
+            },
+          });
+        });
+        $(".delete_student").click(function () {
+          var clubid = $(this).data("clubid");
+          var netid = $(this).data("netid");
+          url = "/delete_user?clubid=" + encodeURIComponent(clubid) + "&netid=" + encodeURIComponent(netid);
+          console.log(url)
+          $.ajax({
+            url: url,
+            method: "GET",
+            success: function () {
+              location.reload();
+            },
+          });
+        });
+    </script>
+    <script>
+        var closebtns = document.getElementsByClassName("close");
+        var i;
+        
+        for (i = 0; i < closebtns.length; i++) {
+          closebtns[i].addEventListener("click", function() {
+            this.parentElement.style.display = 'none';
+          });
+        }
+        </script>
     {% include "footer.html" %}
 
 </body>

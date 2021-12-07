@@ -1,7 +1,7 @@
 from flask.globals import request
 from app import db
 from db_search import get_all_clubs
-from db_student_profile import get_student_info
+from db_student_profile import get_student_info, get_student_ratings
 from models import Student, Club, Tag, Review, Request
 
 DELETE_USER = 0
@@ -18,6 +18,15 @@ def get_all_requests():
 def get_all_club_requests(clubid):
     requests = Request.query.filter_by(clubid = clubid).all()
     return requests
+
+def get_all_student_reviews(clubid, netid):
+    reviews = []
+    student_ratings = get_student_ratings(netid)
+    for rating in student_ratings:
+        club = rating.club[0]
+        if club.clubid == clubid:
+            reviews.append(rating)
+    return reviews
 
 # add Request object to request_info table
 def add_request(request_type, netid_sender, netid_about = None, 
@@ -69,6 +78,10 @@ def delete_request(requestid):
 def delete_student_club(netid, clubid):
     student = Student.query.filter_by(netid = netid).first()
     club = Club.query.filter_by(clubid = clubid).first()
+    list_of_reviews = get_all_student_reviews(club.clubid, student.netid)
+    for review in list_of_reviews:
+        reviewThis = Review.query.filter_by(reviewid = review.reviewid).first()
+        db.session.delete(reviewThis)
     student.clubs.remove(club)
     db.session.commit()
 

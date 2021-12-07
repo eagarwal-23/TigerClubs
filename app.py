@@ -69,8 +69,7 @@ def logout():
 
 @app.route("/landingwhoareyou", methods=["GET"])
 def landingwhoareyou():
-    # auth_user = _cas.authenticate().rstrip()
-    auth_user = "camilanv"
+    auth_user = _cas.authenticate().rstrip()
     user = get_student_info(auth_user)
 
     if user.blacklist:

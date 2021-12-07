@@ -686,6 +686,7 @@ def editclub():
                             club = club,
                             students = students,
                             all_tags = all_tags,
+                            reviews = club.reviews,
                             name = club.name,
                             description = club.description,
                             members = club.members,

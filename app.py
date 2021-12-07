@@ -83,7 +83,7 @@ def landingwhoareyou():
         return response
 
     if user.admin:
-        html = render_template("studentoradmin.html")
+        html = render_template("studentoradmin.html", user = user)
         response = make_response(html)
         return response
     else:
@@ -100,6 +100,7 @@ def landing():
     
     sort_criteria = request.args.get("sort")
     clubname = request.args.get("clubname")
+    query =  request.args.get("query")
 
     filter_tags = get_all_tagnames()
     pagenum = request.args.get('page', 1, type=int)
@@ -110,13 +111,14 @@ def landing():
     if not sort_criteria:
         sort_criteria = 'Overall'
     
-    studentname = request.args.get("studentname")
     pagenum = request.args.get('page', 1, type=int)
 
     if not clubname:
-        clubname = ""
-    if not studentname:
-        studentname = ""
+        if not query:
+            clubname = ""
+        else:
+            clubname = query
+
 
     isAdmin = 0
     if user.admin:
@@ -127,9 +129,9 @@ def landing():
     tags = get_all_tags()
 
     if not clubs:
-        html = render_template("mylanding.html", netid=netid, name = name, hasClubs= False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
+        html = render_template("mylanding.html", netid=netid, name = name, hasClubs= False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin, query = clubname)
     else:
-        html = render_template("mylanding.html", netid=netid, name = name, hasClubs = True, clubs = clubs, clubname = clubname, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin)
+        html = render_template("mylanding.html", netid=netid, name = name, hasClubs = True, clubs = clubs, clubname = clubname, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin, query = clubname)
     
     response = make_response(html)
     return response
@@ -145,9 +147,13 @@ def studentsearch():
 
     studentname = request.args.get("studentname")
     pagenum = request.args.get('page', 1, type=int)
+    query = request.args.get("query")
 
     if not studentname:
-        studentname = ""
+        if not query:
+            studentname = ""
+        else:
+            studentname = query
 
     isAdmin = 0
     if user.admin:
@@ -157,9 +163,9 @@ def studentsearch():
     students_list = student_search(studentname, pagenum = pagenum, per_page= 21)
     
     if not students_list:
-        html = render_template("student.html", netid=netid, name = name, studentname=studentname, hasClubs= True, hasStudents = False, isAdmin = isAdmin)
+        html = render_template("student.html", netid=netid, name = name, studentname=studentname, hasClubs= True, hasStudents = False, isAdmin = isAdmin, query = studentname)
     else:
-        html = render_template("student.html", netid=netid, name = name, hasClubs = True, hasStudents = True, studentname=studentname, students = students_list, isAdmin = isAdmin)
+        html = render_template("student.html", netid=netid, name = name, hasClubs = True, hasStudents = True, studentname=studentname, students = students_list, isAdmin = isAdmin, query = studentname)
     response = make_response(html)
     return response
 
@@ -196,6 +202,7 @@ def profile(diffperson=None):
         instagram = student.instagram
         if instagram is None:
             instagram = ""
+        print(instagram)
         linkedin = student.linkedin
         if linkedin is None:
             linkedin = "https://www.linkedin.com/feed/"
@@ -224,8 +231,8 @@ def edited_profile():
         bio = request.args.get("bio")
         clubs = request.args.getlist("clubs")
         tags = request.args.getlist("tags")
-        instagram = request.args.getlist("instagram")
-        linkedin = request.args.getlist("linkedin")
+        instagram = request.args.get("instagram")
+        linkedin = request.args.get("linkedin")
         update_student_info(realnetid, bio, clubs, tags, instagram, linkedin)
         return profile(diffperson=realnetid)
     except Exception:
@@ -544,13 +551,17 @@ def adminclubs():
             return response
 
         clubname = request.args.get("clubname")
+        query = request.args.get("query")
 
         if not clubname:
-            clubname = ""
+            if not query:
+                clubname = ""
+            else:
+                clubname = query
 
         clubs = admin_club_search(search = clubname, page = pagenum)
 
-        html = render_template("adminclubs.html", clubs=clubs, students=students, all_tags=all_tags)
+        html = render_template("adminclubs.html", clubs=clubs, students=students, all_tags=all_tags, query = clubname)
         response = make_response(html)
         return response
         
@@ -572,18 +583,22 @@ def adminstudents():
             return response
         studentname = request.args.get("studentname")
         pagenum = request.args.get('page', 1, type=int)
+        query = request.args.get("query")
 
         if not studentname:
-            studentname = ""
+            if not query:
+                studentname = ""
+            else:
+                studentname = query
 
         name = user.name
         students_list = student_search(studentname, pagenum = pagenum, per_page= 20)
 
         
         if not students_list:
-            html = render_template("adminstudents.html", netid=netid, name = name, studentname=studentname, hasClubs= True, hasStudents = False)
+            html = render_template("adminstudents.html", netid=netid, name = name, studentname=studentname, hasClubs= True, hasStudents = False, query = studentname)
         else:
-            html = render_template("adminstudents.html", netid=netid, name = name, hasClubs = True, hasStudents = True, studentname=studentname, students = students_list)
+            html = render_template("adminstudents.html", netid=netid, name = name, hasClubs = True, hasStudents = True, studentname=studentname, students = students_list, query = studentname)
         response = make_response(html)
         return response
     except Exception:
@@ -697,8 +712,8 @@ def editclubfromedit():
             return response
         name = request.args.get("name")
         description = request.args.get("description")
-        members = request.args.get("members")
-        tags = request.args.get("tags")
+        members = request.args.getlist("members")
+        tags = request.args.getlist("tags")
 
 
         update_club_info(name, description, members, tags)
@@ -1077,8 +1092,12 @@ def createclub():
         return response
     name = request.form["name"]
     desc = request.form["desc"]
+    tags = request.args.getlist("tags")
+    members = request.args.getlist("members")
+    print(tags)
+    print(members)
 
-    add_club(name, desc)
+    add_club(name, desc, tags= tags, members = members)
 
     msg = "Club added."
     return jsonify(msg)

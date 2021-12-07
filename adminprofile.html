@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="static/choices.css" />
   <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
+  <script src="https://kit.fontawesome.com/38de75e948.js" crossorigin="anonymous"></script>
 
 </head>
 
@@ -128,16 +129,19 @@
             <div class="card card-1 mx-auto"
               style="width: 38rem; background-color: white; margin: 15px; margin-top:0">
               <div class="card-body">
-                <h5 class="card-title" style="color: #e8804c;">{{club}}
+                <h5 class="card-title" style="color: #e8804c;">{{club}} &nbsp;
+
                   {% set unselected = 5 - (club.combined|int)%}
                   <div id="inlinereview">
                     {% for i in range(club.combined|int) %}
-                    <i aria-hidden="true" class="fa fa-star"></i>
+                    <i aria-hidden="true" class="fas fa-star"></i>
                     {% endfor %}
                     {% for i in range(unselected) %}
-                    <i aria-hidden="true" class="fa fa-star-o"></i>
+                    <i aria-hidden="true" class="far fa-star"></i>
                     {% endfor %}
                   </div>
+                  <div class="border-top my-3"></div>
+
                 </h5>
 
                 <style>
@@ -153,7 +157,6 @@
                     display: inline-block;
                   }
                 </style>
-                </h5>
                 <h6 class="card-subtitle mb-2 text-muted">Description: {{club.description[:50] + "..."}}</h6>
 
 

@@ -137,22 +137,18 @@ def delete_student(netid, name, res_college, year, major, bio, admin = False, pi
 def add_club(name, description, club_type = None, tags= None, members=None):
     club = Club(name, description, club_type)
     if members != "" and members is not None:
-        members = members[1:-1]
-        members = members.split(',')
         for member in members:
             member = member.strip()
             student = Student.query.filter_by(netid=member).first()
             print(student)
             club.members.append(student)
 
-    if tags != "" and tags is not None:
-        tags = tags[1:-1]
-        tags = tags.split(',')
-        for tag in tags:
-            tag = tag.strip()
-            tag = Tag.query.filter_by(name=tag).first()
+    if tags != "" and tags:
+        for oneTag in tags:
+            tag = Tag.query.filter_by(name=oneTag).first()
             print(tag)
             club.tags.append(tag)
+            db.session.add(club)
     db.session.add(club)
     db.session.commit()
 

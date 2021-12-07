@@ -55,17 +55,6 @@
             border-color: #e8804c; /*set the color you want here*/
         }
 
-        .fa-eye:hover {
-            width: 25px;
-            height: 25px;
-            line-height: 25px;
-            padding: 5px;
-            text-align: center;
-            font-size: 15px;
-            color: #ffffff;
-            background-color: #e8804c;
-        }
-
         .editrating, .deleterating {
             display:inline-block;
           }
@@ -96,55 +85,57 @@
         <div class="flex row mx-auto">
             {%for r in review: %}
             <div class="flex-item clubcard card bg-light" href="/clubpage?clubname={{review.clubname}}"
-                style="width: 24rem;">
+                style="width: 24rem; padding-left: 0%; padding-right: 0%;">
                 
-                <header class="card-header fs-4 fw-bold"> 
-                    <button class="btn btn-sm float-right" type="button" id="deleteratingmodal"
-                        title="Delete" data-reviewid="{{r.reviewid}}" data-label="Delete Rating for {{r.club[0]}}"
-                        data-toggle = "modal" data-target = "#delete_sure_modal">
-                        <i data-placement="top" title="Delete rating" data-toggle="tooltip" class="fas fa-trash"></i>
-                    </button>
-                    <button class="btn btn-sm float-right"type="button" id="editrating"
-                        title="Edit" data-id="{{r.reviewid}}" data-title="Edit Rating for {{r.club[0]}}"
-                        data-clubname = "{{r.club[0]}}" data-div = "{{r.diversity}}" data-inc = "{{r.inclusivity}}"
-                        data-work = "{{r.workload}}" data-exp = "{{r.experience_requirement}}" data-time = "{{r.time_commitment}}"
-                        data-review = "{{r.text_review}}" data-toggle="modal" data-target="#edit-club-rating">
-                        <i data-placement="top" title="Edit Rating" data-toggle="tooltip" class="fas fa-edit"></i>
-                    </button>
+                <header class="card-header fs-4 fw-bold" style="padding-left: 0%; padding-right: 0%;"> 
+                    <div class="btn-group dropright float-right">
+                        
+                        <button class="btn btn-sm btn-light" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <button class="dropdown-item btn btn-sm float-right" type="button" id="deleteratingmodal"
+                            title="Delete" data-reviewid="{{r.reviewid}}" data-label="Delete Rating for {{r.club[0]}}"
+                            data-toggle = "modal" data-target = "#delete_sure_modal">
+                                <i data-placement="top" title="Delete rating" data-toggle="tooltip" class="fas fa-trash"></i> Delete Review
+                            </button>
+                            <button class="dropdown-item btn btn-sm float-right"type="button" id="editrating"
+                            title="Edit" data-id="{{r.reviewid}}" data-title="Edit Rating for {{r.club[0]}}"
+                            data-clubname = "{{r.club[0]}}" data-div = "{{r.diversity}}" data-inc = "{{r.inclusivity}}"
+                            data-work = "{{r.workload}}" data-exp = "{{r.experience_requirement}}" data-time = "{{r.time_commitment}}"
+                            data-review = "{{r.text_review}}" data-toggle="modal" data-target="#edit-club-rating">
+                                <i data-placement="top" title="Edit Rating" data-toggle="tooltip" class="fas fa-edit"></i> Edit Review
+                            </button>
+                      </div>
+                      </div>
+
                     <br>
                     {{r.club[0]}}
 
-                    <div class="btn-group dropright">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Dropdown
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                          <button class="dropdown-item" type="button">Action</button>
-                          <button class="dropdown-item" type="button">Another action</button>
-                          <button class="dropdown-item" type="button">Something else here</button>
-                        </div>
-                      </div>
+                    
                 </header>
 
                 <br>
-                <br>
+                <div class = "card-body">
 
                 {% set unselected = 5 - (r.diversity|int)%}
                 <div id="inlinereview">
-                    <p>Diversity: </p>
+                    <h6>Diversity: </h6>
                     {% for i in range(r.diversity|int) %}
                     <i aria-hidden="true" class="fas fa-star"></i>
                     {%endfor%}
                     {% for i in range(unselected)%}
                     <i aria-hidden="true" class="far fa-star"></i>
                     {%endfor%}
+                    
                 </div>
                 <br>
+                <div class="border-top my-3"></div>
 
                 {% set unselected = 5 - (r.inclusivity|int)%}
                 {% set tester = (r.inclusivity|int)%}
                 <div id="inlinereview">
-                    <p>Inclusivity: </p>
+                    <h6>Inclusivity: </h6>
                     {% for i in range(r.inclusivity|int) %}
                     <i aria-hidden="true" class="fa fa-star"></i>
                     {%endfor%}
@@ -153,10 +144,12 @@
                     {%endfor%}
                 </div>
                 <br>
+                <div class="border-top my-3"></div>
+
 
                 {% set unselected = 5 - (r.time_commitment|int)%}
                 <div id="inlinereview">
-                    <p>Time Commitment: </p>
+                    <h6>Time Commitment: </h6>
 
                     {% for i in range(r.time_commitment|int) %}
                     <i aria-hidden="true" class="fa fa-star"></i>
@@ -166,10 +159,12 @@
                     {%endfor%}
                 </div>
                 <br>
+                <div class="border-top my-3"></div>
+
 
                 {% set unselected = 5 - (r.experience_requirement|int)%}
                 <div id="inlinereview">
-                    <p>Experience Requirement: </p>
+                    <h6>Experience Requirement: </h6>
 
                     {% for i in range(r.experience_requirement|int) %}
                     <i aria-hidden="true" class="fa fa-star"></i>
@@ -179,9 +174,10 @@
                     {%endfor%}
                 </div>
                 <br>
+                <div class="border-top my-3"></div>
                 {% set unselected = 5 - (r.workload|int)%}
                 <div id="inlinereview">
-                    <p> Workload:</p>
+                    <h6> Workload:</h6>
 
                     {% for i in range(r.workload|int) %}
                     <i aria-hidden="true" class="fa fa-star"></i>
@@ -191,17 +187,18 @@
                     {%endfor%}
                 </div>
                 <br>
+                <div class="border-top my-3"></div>
 
                 <div id="inlinereview">
-                    <p> Review:</p>
-                    <p>{{r.text_review}}</p>
+                    <h6> Review:</h6>
+                    <p class="lead" style="font-size: 15px;">{{r.text_review}}</p>
                 </div>
 
 
 
             </div>
             <br>
-
+            </div>
             {% endfor %}
         </div>
 

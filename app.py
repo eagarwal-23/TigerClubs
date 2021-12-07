@@ -1072,8 +1072,12 @@ def createclub():
         return response
     name = request.form["name"]
     desc = request.form["desc"]
+    tags = request.form.getlist("tags")
+    members = request.form.getlist("members")
+    print(tags)
+    print(members)
 
-    add_club(name, desc)
+    add_club(name, desc, tags= tags, members = members)
 
     msg = "Club added."
     return jsonify(msg)

@@ -29,6 +29,12 @@
     <script src="static/jquery.raty.js"></script>
 
 
+    <style>
+        .span{
+            display:inline-block; 
+            word-wrap: break-word;
+        }
+    </style>
 </head>
 
 
@@ -189,11 +195,14 @@
                 <br>
                 <div class="border-top my-3"></div>
 
-                <div id="inlinereview">
+                <!-- <div id="inlinereview">
                     <h6> Review:</h6>
                     <p class="lead" style="font-size: 15px;">{{r.text_review}}</p>
-                </div>
-
+                </div> -->
+                    <span style="font-size: 15px;">
+                        <h6> Review:</h6>
+                        {{r.text_review}}
+                    </span>
 
 
             </div>

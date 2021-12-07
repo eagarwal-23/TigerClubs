@@ -44,6 +44,7 @@
   </head>
 
   <body>
+    
     <!--Menu bar-->
     {% include "admin-navbar.html" %}
     <!-- Header-->
@@ -51,6 +52,22 @@
       <h3 style="text-align: center">Admin Dashboard</h3>
       <div class="card-deck" style="padding: 2rem">
         <style>
+          div.social-float-parent {  position: relative; }
+div#social-float { position: fixed; bottom: 30px;
+    right: 20px; }
+          .btn-dark{
+            color:#fff  !important;
+            background-color: #e8804c !important;
+            border-color: #e8804c !important;
+          }
+          .btn-dark:hover,
+          .btn-dark:active,
+          .btn-dark.active,
+          .open > .dropdown-toggle.btn-dark {
+            color: #fff !important;
+            background-color: #000 !important;
+            border-color: #000 !important; /*set the color you want here*/
+          }
           .btn-light {
             color: #000;
             background-color: #e8e8e8;
@@ -59,14 +76,13 @@
             transition: border-color 1s, box-shadow 0.5s;
             background-color: #ffbd81;
           }
-          .btn:hover,
-          .btn:focus,
-          .btn:active,
-          .btn.active,
+          .btn-light:hover,
+          .btn-light:active,
+          .btn-light.active,
           .open > .dropdown-toggle.btn-light {
-            color: #fff;
-            background-color: #e8804c;
-            border-color: #e8804c; /*set the color you want here*/
+            color: #fff !important;
+            background-color: #e8804c !important;
+            border-color: #e8804c !important; /*set the color you want here*/
           }
 
           .viewclubpage,
@@ -83,15 +99,6 @@
         <div class="card">
           <div class="card-body" style="text-align: center">
             <div class="justify-content-center">
-              <div style="position: absolute; text-align: right">
-                <div class="text-right">
-                  <i
-                    class="fas fa-plus-circle fa-3x"
-                    data-toggle="modal"
-                    data-target="#create-club"
-                  ></i>
-                </div>
-              </div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="32"
@@ -130,6 +137,7 @@
       </div>
       <!-- Page Content-->
     </div>
+    
 
     <!-- Modal for create tag-->
     <div
@@ -361,6 +369,19 @@
         </div>
       </div>
     </section>
+    <div class="social-float-parent">
+      <div id="social-float">
+        <button class="btn text-right float-right btn-lg shadow p-3 mb-5 rounded-pill btn-dark" style="
+        bottom: 40px;
+        right: 30px; " data-toggle="modal"
+                        data-target="#create-club">
+            <i class="fas fa-plus"></i> Create Club
+        </button>
+        <br>
+        <br>
+      </div>
+    </div>
+    <div id="footer">
 
     <!-- Pagination Links-->
     <div class="float-right">
@@ -408,8 +429,22 @@
     </p>
     <br />
     <br />
+    </div>
+    
     {% include "footer.html" %}
+   <!-- https://stackoverflow.com/questions/8653025/stop-fixed-position-at-footer -->
     <script>
+      function checkOffset() {
+          if($('#social-float').offset().top + $('#social-float').height() 
+                                                >= $('#footer').offset().top - 15)
+              $('#social-float').css('position', 'absolute');
+          if($(document).scrollTop() + window.innerHeight < $('#footer').offset().top)
+              $('#social-float').css('position', 'fixed'); // restore when you scroll up
+      }
+      $(document).scroll(function() {
+          checkOffset();
+      });
+
       $("#delete_sure_modal").on("show.bs.modal", function (event) {
         var clubid = $(event.relatedTarget).data("clubid");
         var label = $(event.relatedTarget).data("label");

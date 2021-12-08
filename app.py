@@ -274,7 +274,7 @@ def editprofile():
 @app.route("/clubpage", methods=["GET"])
 def clubpage():
     try:
-        netid = _cas.authenticate().rstrip()       
+        netid = _cas.authenticate().rstrip()
         student = get_student_info(netid)
         if student.blacklist:
                 html = render_template("blacklistedstudent.html")
@@ -629,7 +629,7 @@ def adminrequests():
 @app.route("/adminclubpage", methods=["GET"])
 def adminclubpage():
     try:
-        netid = _cas.authenticate().rstrip()        
+        netid = _cas.authenticate().rstrip() 
         student = get_student_info(netid)
         if student.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -713,14 +713,14 @@ def editclubfromedit():
             html = render_template("notadmin.html")
             response = make_response(html)
             return response
-        name = request.args.get("name")
+        clubname = request.args.get("clubname")
         description = request.args.get("description")
         members = request.args.getlist("members")
         tags = request.args.getlist("tags")
 
 
-        update_club_info(name, description, members, tags)
-        return adminclubs()
+        update_club_info(clubname, description, members, tags)
+        return adminclubpage()
     except Exception:
         print("whoops from editclubfromedit")
 

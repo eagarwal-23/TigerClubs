@@ -24,10 +24,10 @@ from db_rating_period import *
 _cas = CASClient()
 
 def obtain_rating_period():
-    info = get_rating_period()
-    return dt.date(info.year, info.month, info.day)
+    start, end = get_rating_period()
+    return dt.date(start.year, start.month, start.day), dt.date(end.year, end.month, end.day)
 
-rating_period = obtain_rating_period()
+start_rating_period, end_rating_period = obtain_rating_period()
 
 def isBlacklist(netid):
     student = get_student_info(netid)
@@ -317,7 +317,8 @@ def myratings():
         if student.admin:
             isAdmin = 1
         today = dt.date.today()
-        #if today == rating_period:
+        
+        # if start_rating_period <= today <= end_rating_period:
         if True:
             name = student.name
             clubs = get_unrated_clubs(student.netid)
@@ -326,7 +327,8 @@ def myratings():
             response = make_response(html)
             return response
         else:
-            html = render_template("notmyratings.html", ratings_period=rating_period, today=today, isAdmin = isAdmin)
+            html = render_template("notmyratings.html", start_rating_period=start_rating_period, 
+                                    end_rating_period=end_rating_period, today=today, isAdmin = isAdmin)
             response = make_response(html)
             return response
     except Exception as e:
@@ -686,6 +688,7 @@ def editclub():
                             club = club,
                             students = students,
                             all_tags = all_tags,
+                            reviews = club.reviews,
                             name = club.name,
                             description = club.description,
                             members = club.members,
@@ -1092,11 +1095,8 @@ def createclub():
         return response
     name = request.form["name"]
     desc = request.form["desc"]
-    tags = request.args.getlist("tags")
-    members = request.args.getlist("members")
-    print(tags)
-    print(members)
-
+    tags = request.form.getlist("tags[]")
+    members = request.form.getlist("members[]")
     add_club(name, desc, tags= tags, members = members)
 
     msg = "Club added."
@@ -1112,7 +1112,8 @@ def adminratings():
         response = make_response(html)
         return response
 
-    html = render_template("adminratings.html", rating_period = rating_period)
+    html = render_template("adminratings.html", start_rating_period = start_rating_period,
+                            end_rating_period = end_rating_period)
     response = make_response(html)
     return response
 
@@ -1126,15 +1127,25 @@ def update_rating_period():
         response = make_response(html)
         return response
     
-    new_date = request.args.get("new_date")
-    year = int(new_date[0:4])
-    month = int(new_date[5:7])
-    day = int(new_date[8:])
-    
-    set_rating_period(day, month, year)
+    start_date = request.args.get("start_date")
+    start_year = int(start_date[0:4])
+    start_month = int(start_date[5:7])
+    start_day = int(start_date[8:])
 
-    global rating_period
-    rating_period = dt.date(year, month, day)
+    end_date = request.args.get("end_date")
+    end_year = int(end_date[0:4])
+    end_month = int(end_date[5:7])
+    end_day = int(end_date[8:])
+    
+    set_start_rating_period(start_day, start_month, start_year)
+    set_end_rating_period(end_day, end_month, end_year)
+
+    global start_rating_period
+    start_rating_period = dt.date(start_year, start_month, start_day)
+
+    global end_rating_period
+    end_rating_period = dt.date(end_year, end_month, end_day)
+
 
     msg = "Rating period updated"
     return jsonify(msg)

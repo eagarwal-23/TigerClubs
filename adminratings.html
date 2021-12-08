@@ -46,7 +46,7 @@
             </svg>
                   </div>
                   <h2 class="card-title">Manage Ratings</h2>
-                  <h4 class="card-text">Manage the rating period and update the ratings. Current rating period: {{rating_period}}</h4>
+                  <h4 class="card-text">Manage the rating period. Current rating period: From {{start_rating_period}} to {{end_rating_period}}</h4>
                 </div>
               </a>
             </div>
@@ -54,16 +54,18 @@
 <br>
 
 <div style="float:left; padding-left: 200px;">
-<h4 class="card-text">Update the Rating Period:</h4>
-
-<input type="date" id="new_date">
-<input type="submit">
+Start Date:
+<input type="date" id="start_date">
 </div>
 
 
-<div style="float:right; padding-right: 200px;">
-<h4 class="card-text">Recalculate all ratings:</h4>
-<button type="button" class="btn btn-primary">Recalculate</button>
+<div style="float:left; padding-left: 50px;">
+    End Date:
+    <input type="date" id="end_date">
+</div>
+
+<div style="float:left; padding-left: 50px;">
+    <input type="submit">
 </div>
 
 <br/>
@@ -82,11 +84,13 @@
     
     
         $("input[type=submit]").click(function(){
-            var new_date = $("#new_date").val();
-            if (new_date == ""){
+            var start_date = $("#start_date").val();
+            var end_date = $("#end_date").val();
+            if (start_date == "" || end_date == ""){
                 alert("Must select a non-empty date.");
             }else{
-                url = "/update_rating_period?new_date=" + encodeURIComponent(new_date);
+                url = "/update_rating_period?start_date=" + encodeURIComponent(start_date)
+                     + "&end_date=" + encodeURIComponent(end_date);
                 $.ajax({
                   url: url,
                   method: "GET",

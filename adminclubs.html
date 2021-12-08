@@ -172,7 +172,7 @@ div#social-float { position: fixed; bottom: 30px;
                 <br />
                 <label class="taglabel bg-light"> Tags: </label>
                 <select
-                  id="tags"
+                  id="newtags"
                   name="tags"
                   class="form-control"
                   placeholder="Select up to 5 tags"
@@ -194,7 +194,7 @@ div#social-float { position: fixed; bottom: 30px;
                 <!--- Club Members -->
                 <label class="memberlabel bg-light">Club Members:</label>
                 <select
-                  id="members"
+                  id="newmembers"
                   name="members"
                   class="form-control"
                   placeholder="Select up to 5 students"
@@ -455,14 +455,14 @@ div#social-float { position: fixed; bottom: 30px;
       });
 
       $(document).ready(function () {
-        var multipleCancelButton = new Choices("#members", {
+        var multipleCancelButton = new Choices("#newmembers", {
           removeItemButton: true,
           maxItemCount: 5,
           searchResultLimit: 5,
           renderChoiceLimit: 5,
         });
 
-        var multipleCancelButton = new Choices("#tags", {
+        var multipleCancelButton = new Choices("#newtags", {
           removeItemButton: true,
           maxItemCount: 5,
           searchResultLimit: 5,
@@ -476,6 +476,8 @@ div#social-float { position: fixed; bottom: 30px;
         $("#newclubsave_button").click(function () {
           var newclubname = $("#newclubname").val();
           var newclubdesc = $("#newclubdesc").val();
+          var newclubtags = $('#newtags').val();
+          var newclubmembers = $('#newmembers').val();
 
           if (newclubname != "" && newclubdesc != "") {
             $.ajax({
@@ -484,6 +486,8 @@ div#social-float { position: fixed; bottom: 30px;
               data: {
                 name: newclubname,
                 desc: newclubdesc,
+                tags: newclubtags,
+                members: newclubmembers,
               },
               success: function () {
                 console.log("done");

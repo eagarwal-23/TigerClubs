@@ -86,6 +86,7 @@ class Club(db.Model):
     time_commitment = db.Column(db.Float())
     experience_requirement = db.Column(db.Float())
     workload = db.Column(db.Float())
+    pictureURL = db.Column(db.String())
     members = db.relationship("Student",
                                secondary=student_clubs)
     tags = db.relationship("Tag",

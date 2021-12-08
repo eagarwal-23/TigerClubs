@@ -1,141 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <link rel="shortcut icon" href="static/tigerclubsicon.ico" />
 
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width-device-width, initial-scale-1.0" />
-    <title>Tiger Clubs</title>
-    <link rel="stylesheet" href="static/style.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Nunito&display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://kit.fontawesome.com/38de75e948.js" crossorigin="anonymous"></script>
+<head>
+  <link rel="shortcut icon" href="static/tigerclubsicon.ico" />
 
-    <!------ Include the above in your HEAD tag ---------->
-    <link rel="stylesheet" type="text/css" href="static/jquery.raty.css" />
-    <script src="static/jquery.raty.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel = "stylesheet" href = "static/button-hover-admin.css">
-    <link href="static/styles.css" rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width-device-width, initial-scale-1.0" />
+  <title>Tiger Clubs</title>
+  <link rel="stylesheet" href="static/style.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/38de75e948.js" crossorigin="anonymous"></script>
 
-  </head>
+  <!------ Include the above in your HEAD tag ---------->
+  <link rel="stylesheet" type="text/css" href="static/jquery.raty.css" />
+  <script src="static/jquery.raty.js"></script>
+  <link rel="stylesheet" type="text/css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="static/button-hover-admin.css">
+  <link href="static/styles.css" rel="stylesheet" />
 
-  <body>
-    {% include "admin-navbar.html" %}
-    <!-- Header-->
-    <div class="container" style="padding-top: 1rem;">
-      <h3 style="text-align: center;">Admin Dashboard</h3>
-      <div class="card-deck" style="padding: 2rem;">
-        <style>
-          .btn-light{
-            color:#000;
-            background-color:#E8E8E8;
+</head>
 
-          }
-          .card {
-            transition: border-color 1s, box-shadow 0.5s;
-            background-color: #ffbd81
-          }
-          .btn:hover, .btn:focus, .btn:active, .btn.active, .open>.dropdown-toggle.btn-light {
-            color: #fff;
-            background-color: #e8804c;
-            border-color: #e8804c; /*set the color you want here*/
-          }
-          
-          .viewuserprofile, .edituserprofile, .blacklist_student, .whitelist_student {
-            display:inline-block;
-          }
+<body>
+  {% include "admin-navbar.html" %}
+  <!-- Header-->
+  <div class="container" style="padding-top: 1rem;">
+    <h3 style="text-align: center;">Admin Dashboard</h3>
+    <div class="card-deck" style="padding: 2rem;">
+      <style>
+        .btn-light {
+          color: #000;
+          background-color: #E8E8E8;
 
-        </style>
-    <div class="card" >
+        }
+
+        .card {
+          transition: border-color 1s, box-shadow 0.5s;
+          background-color: #ffbd81
+        }
+
+        .btn:hover,
+        .btn:focus,
+        .btn:active,
+        .btn.active,
+        .open>.dropdown-toggle.btn-light {
+          color: #fff;
+          background-color: #e8804c;
+          border-color: #e8804c;
+          /*set the color you want here*/
+        }
+
+        .viewuserprofile,
+        .edituserprofile,
+        .blacklist_student,
+        .whitelist_student {
+          display: inline-block;
+        }
+      </style>
+      <div class="card">
         <div class="card-body" style="text-align: center;">
           <div class="justify-content-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
-                class="bi bi-person-badge" viewBox="0 0 16 16">
-                <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                <path
-                  d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0h-7zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492V2.5z" />
-              </svg>
+              class="bi bi-person-badge" viewBox="0 0 16 16">
+              <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path
+                d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0h-7zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492V2.5z" />
+            </svg>
           </div>
           <h2 class="card-title">Manage Students</h2>
           <h4 class="card-text">View, edit, and blacklist users</h4>
         </div>
-      <div class="col-sm-12 col-md-12" style="margin-top:5px">
-        <form  action="/adminstudents" method="get">
+        <div class="col-sm-12 col-md-12" style="margin-top:5px">
+          <form action="/adminstudents" method="get">
             <div class="form-group">
-                <input type="text" name="studentname" id="searchbar" class="form-control input-lg" value = "{{query}}" placeholder="Search for a student by name, netid, year, or res college" />
+              <input type="text" name="studentname" id="searchbar" class="form-control input-lg" value="{{query}}"
+                placeholder="Search for a student by name, netid, year, or res college" />
             </div>
-        </form>
+          </form>
         </div>
-    </div>
+      </div>
     </div>
     <!-- Page Content-->
     <section class="pt-4">
       <div class="container px-lg-5">
         <!-- Page Features-->
-          <div class="flex row mx-auto">
+        <div class="flex row mx-auto">
           {% if hasStudents: %}
           {%for student in students.items:%}
           <div class="col-lg-6 col-xxl-4 mb-5">
-            <div
-              class="card border-0 h-100"
-              style="background-color: white; outline-style: solid"
-            >
+            <div class="card border-0 h-100" style="background-color: white; outline-style: solid">
               <div class="card-body text-center">
                 <section class="wow fadeIn animated" style="visibility: visible; animation-name: fadeIn;">
-                  <div class = "justify-content-right" style="padding: right 0;">
-                    <div class = "row">
-                      <div class="col-md-12 col-sm-10 text-right float-right" style="padding: right 0; margin-left: auto; margin-right: 0;">
-                            <button class="btn btn-sm btn-light viewuserprofile" data-netid = "{{student.netid}}">
-                            <i data-placement="top" title="View student profile" data-toggle="tooltip" class="fas fa-user"></i> 
-                            </button>
-                          <button class = "btn btn-sm btn-light edituserprofile" data-netid = "{{student.netid}}">
-                              <i data-placement="top" title="Edit student profile" data-toggle="tooltip" class="fas fa-user-edit"></i>
-                          </button>
-                            {% if student.blacklist %}
-                            <button class = "btn btn-light btn-sm" data-toggle = "modal"
-                                data-target = "#delete_sure_modal_white" data-netid = "{{student.netid}}"
-                                data-label = "Whitelist Student {{student.name}}">
-                              <i data-placement="top" title="Whitelist student" data-toggle="tooltip" class="fas fa-user-check"></i> 
-                          </button>
+                  <div class="justify-content-right" style="padding: right 0;">
+                    <div class="row">
+                      <div class="col-md-12 col-sm-10 text-right float-right"
+                        style="padding: right 0; margin-left: auto; margin-right: 0;">
+                        <button class="btn btn-sm btn-light viewuserprofile" data-netid="{{student.netid}}">
+                          <i data-placement="top" title="View student profile" data-toggle="tooltip"
+                            class="fas fa-user"></i>
+                        </button>
+                        <button class="btn btn-sm btn-light edituserprofile" data-netid="{{student.netid}}">
+                          <i data-placement="top" title="Edit student profile" data-toggle="tooltip"
+                            class="fas fa-user-edit"></i>
+                        </button>
+                        {% if student.blacklist %}
+                        <button class="btn btn-light btn-sm" data-toggle="modal" data-target="#delete_sure_modal_white"
+                          data-netid="{{student.netid}}" data-label="Whitelist Student {{student.name}}">
+                          <i data-placement="top" title="Whitelist student" data-toggle="tooltip"
+                            class="fas fa-user-check"></i>
+                        </button>
 
-                            {% else %}
-                            <button class = "btn btn-light btn-sm" data-toggle = "modal"
-                                data-target = "#delete_sure_modal" data-netid = "{{student.netid}}"
-                                data-label = "Blacklist Student {{student.name}}">
-                              <i data-placement="top" title="Blacklist student" data-toggle="tooltip" class="fas fa-user-times"></i> 
-                          </button>
-                          {% endif %}
-                          </div>
-                        </div>
-                        </div>
-              </section>
-                <img
-                  class="rounded-circle"
-                  src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg"
-                  width="100"
-                  height="100"
-                />
+                        {% else %}
+                        <button class="btn btn-light btn-sm" data-toggle="modal" data-target="#delete_sure_modal"
+                          data-netid="{{student.netid}}" data-label="Blacklist Student {{student.name}}">
+                          <i data-placement="top" title="Blacklist student" data-toggle="tooltip"
+                            class="fas fa-user-times"></i>
+                        </button>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <img class="rounded-circle" src="{{student.pictureURL}}" width="100" height="100" />
                 <h2 class="fs-4 fw-bold">{{student.name}}</h2>
                 {{student.netid}}
                 <br />
@@ -147,63 +143,59 @@
           </div>
           {% endfor %}
           {% else: %}
-        No person found.
-      {% endif %}
-        </div>
-        </div>
-      </section>
-      
-
-        <!-- Pagination Links-->
-    <div class="float-right">
-      <a href="{{ url_for('adminstudents', query = query, page=students.prev_num) }}"
-        class="btn btn-outline-dark 
-        {% if students.page == 1 %}disabled{% endif %}">
-          &laquo;
-      </a>
-    <!-- Loop through the number of pages to display a link for each-->
-      {% for page_num in students.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-    {% if page_num %}
-    <!-- Check for the active page and set the link to "Active"-->
-              {% if students.page == page_num %}
-              <a href="{{ url_for('adminstudents', query = query, page=page_num) }}"
-                class="btn btn-dark">
-                  {{ page_num }}
-              </a>
-              {% else %}
-              <a href="{{ url_for('adminstudents', query = query, page=page_num) }}"
-                class="btn btn-outline-dark">
-                  {{ page_num }}
-              </a>
-              {% endif %}
-          {% else %}
-              ...
+          No person found.
           {% endif %}
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Pagination Links-->
+    <div class="float-right">
+      <a href="{{ url_for('adminstudents', query = query, page=students.prev_num) }}" class="btn btn-outline-dark 
+        {% if students.page == 1 %}disabled{% endif %}">
+        &laquo;
+      </a>
+      <!-- Loop through the number of pages to display a link for each-->
+      {% for page_num in students.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+      <!-- Check for the active page and set the link to "Active"-->
+      {% if students.page == page_num %}
+      <a href="{{ url_for('adminstudents', query = query, page=page_num) }}" class="btn btn-dark">
+        {{ page_num }}
+      </a>
+      {% else %}
+      <a href="{{ url_for('adminstudents', query = query, page=page_num) }}" class="btn btn-outline-dark">
+        {{ page_num }}
+      </a>
+      {% endif %}
+      {% else %}
+      ...
+      {% endif %}
       {% endfor %}
-      <a href="{{ url_for('adminstudents', query = query, page=students.next_num) }}"
-        class="btn btn-outline-dark 
+      <a href="{{ url_for('adminstudents', query = query, page=students.next_num) }}" class="btn btn-outline-dark 
         {% if students.page == students.pages %}disabled{% endif %}">
-          &raquo;
+        &raquo;
       </a>
     </div>
     <p class="text-right mt-3">
-    Showing page {{ students.page }} of {{ students.pages }}
+      Showing page {{ students.page }} of {{ students.pages }}
     </p>
     <!-- Footer-->
   </div>
-  <div class="modal" tabindex="-1" role="dialog" id = "delete_sure_modal">
+  <div class="modal" tabindex="-1" role="dialog" id="delete_sure_modal">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id = "label"></h5>
+          <h5 class="modal-title" id="label"></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-        <form>
-            <input type = "hidden" id = "netid">
-        </form>
+          <form>
+            <input type="hidden" id="netid">
+          </form>
           <p>Are you sure you want to blacklist this student? While all their information
             will be retained, their access to this site will be disallowed and they will
             be banned from TigerClubs until they are whitelisted by an admin.
@@ -216,19 +208,19 @@
       </div>
     </div>
   </div>
-  <div class="modal" tabindex="-1" role="dialog" id = "delete_sure_modal_white">
+  <div class="modal" tabindex="-1" role="dialog" id="delete_sure_modal_white">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id = "label_white"></h5>
+          <h5 class="modal-title" id="label_white"></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-        <form>
-            <input type = "hidden" id = "netid_white">
-        </form>
+          <form>
+            <input type="hidden" id="netid_white">
+          </form>
           <p>Are you sure you want to whitelist this student? They will be able to access
             this site normally once you choose to do this.
           </p>
@@ -240,91 +232,92 @@
       </div>
     </div>
   </div>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
+  <!-- Bootstrap core JS-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Core theme JS-->
+  <script src="js/scripts.js"></script>
 
-    <script>
-      $('#delete_sure_modal').on('show.bs.modal', function (event) {
+  <script>
+    $('#delete_sure_modal').on('show.bs.modal', function (event) {
 
-        var netid = $(event.relatedTarget).data('netid');
-        var label = $(event.relatedTarget).data('label');
+      var netid = $(event.relatedTarget).data('netid');
+      var label = $(event.relatedTarget).data('label');
 
-        $(this).find("#label").text(label);
-        $(this).find("#netid").val(netid);
-        });
+      $(this).find("#label").text(label);
+      $(this).find("#netid").val(netid);
+    });
 
-        $('#delete_sure_modal_white').on('show.bs.modal', function (event) {
+    $('#delete_sure_modal_white').on('show.bs.modal', function (event) {
 
-        var netid = $(event.relatedTarget).data('netid');
-        var label = $(event.relatedTarget).data('label');
+      var netid = $(event.relatedTarget).data('netid');
+      var label = $(event.relatedTarget).data('label');
 
-        $(this).find("#label_white").text(label);
-        $(this).find("#netid_white").val(netid);
-        });
-      
-      $(document).ready(function () {
-        function handleResponse(response) {
-          console.log("Response");
-          $("body").html(response);
-        }
+      $(this).find("#label_white").text(label);
+      $(this).find("#netid_white").val(netid);
+    });
 
-        $(".viewuserprofile").click(function () {
-          var netid = $(this).data("netid");
-          console.log("viewing", netid)
-          url = "/adminprofile?diffperson=" + encodeURIComponent(netid);
-          $.ajax({
-            url: url,
-            method: "GET",
-            success: function () {
-              window.location.href=url;
-            },
-          });
-        });
+    $(document).ready(function () {
+      function handleResponse(response) {
+        console.log("Response");
+        $("body").html(response);
+      }
 
-        $(".edituserprofile").click(function () {
-          var netid = $(this).data("netid");
-          console.log("editing", netid)
-          url = "/admineditprofile?netid=" + encodeURIComponent(netid);
-          $.ajax({
-            url: url,
-            method: "GET",
-            success: function () {
-              window.location.href=url;
-            },
-          });
-        });
-
-        $("#blacklist_student").click(function () {
-         // var netid = $(this).data("netid");
-          var netid = $('#netid').val();
-          console.log("blacklisting ", netid)
-          url = "/blackliststudent?studentnetid=" + encodeURIComponent(netid);
-          $.ajax({
-            url: url,
-            method: "GET",
-            success: function () {
-              location.reload();
-            },
-          });
-        });
-
-        $("#whitelist_student").click(function () {
-          // var netid = $(this).data("netid");
-          var netid = $('#netid_white').val();
-          console.log("whitelisting", netid)
-          url = "/whiteliststudent?studentnetid=" + encodeURIComponent(netid);
-          $.ajax({
-            url: url,
-            method: "GET",
-            success: function () {
-              location.reload();
-            },
-          });
+      $(".viewuserprofile").click(function () {
+        var netid = $(this).data("netid");
+        console.log("viewing", netid)
+        url = "/adminprofile?diffperson=" + encodeURIComponent(netid);
+        $.ajax({
+          url: url,
+          method: "GET",
+          success: function () {
+            window.location.href = url;
+          },
         });
       });
-    </script>
-  </body>
-  {% include "footer.html" %}
+
+      $(".edituserprofile").click(function () {
+        var netid = $(this).data("netid");
+        console.log("editing", netid)
+        url = "/admineditprofile?netid=" + encodeURIComponent(netid);
+        $.ajax({
+          url: url,
+          method: "GET",
+          success: function () {
+            window.location.href = url;
+          },
+        });
+      });
+
+      $("#blacklist_student").click(function () {
+        // var netid = $(this).data("netid");
+        var netid = $('#netid').val();
+        console.log("blacklisting ", netid)
+        url = "/blackliststudent?studentnetid=" + encodeURIComponent(netid);
+        $.ajax({
+          url: url,
+          method: "GET",
+          success: function () {
+            location.reload();
+          },
+        });
+      });
+
+      $("#whitelist_student").click(function () {
+        // var netid = $(this).data("netid");
+        var netid = $('#netid_white').val();
+        console.log("whitelisting", netid)
+        url = "/whiteliststudent?studentnetid=" + encodeURIComponent(netid);
+        $.ajax({
+          url: url,
+          method: "GET",
+          success: function () {
+            location.reload();
+          },
+        });
+      });
+    });
+  </script>
+</body>
+{% include "footer.html" %}
+
 </html>

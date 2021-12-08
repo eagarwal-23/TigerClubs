@@ -22,7 +22,6 @@ from db_admin import *
 from db_rating_period import *
 
 _cas = CASClient()
-#
 
 def obtain_rating_period():
     start, end = get_rating_period()

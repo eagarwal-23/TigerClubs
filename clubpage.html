@@ -36,11 +36,11 @@
 
   <script src="static/jquery.raty.js"></script>
   <style>
-    .span{
-        display:inline-block; 
-        word-wrap: break-word;
+    .span {
+      display: inline-block;
+      word-wrap: break-word;
     }
-</style>
+  </style>
 </head>
 
 <body style="background-color:rgb(255, 247, 243)">
@@ -67,7 +67,7 @@
       <div class="col-8">
         <div class="card">
           <div class="col">
-            <img src="{{club.profileURL}}"
+            <img src="http://www.princetonroaring20.com/wp-content/uploads/2016/04/delancey-logo-backgroundless.png"
               style="float: left; padding: 10px; padding-left: 0; width:100px; height:100px">
             <h1 class="font-weight-bold" style="padding: 20px; padding-bottom: 0;">{{clubname}}</h1>
             {%for tag in tags: %}
@@ -200,20 +200,20 @@
     <div class="col-6">
 
 
- <!-- STUDENT REVIEWS SECTION -->
- <h4 style="padding-left: 0; padding-top: 20px; padding-bottom: 5px;"><strong>Student Reviews:</strong></h4>
- <div style="height: 700px; overflow-y: scroll;">
- {% for review in reviews: %}
- {% if review.text_review is not none %}
- <div class="card rounded border-0"
-   style="background-color:#fcc397; margin-bottom: 25px; color:#db6225; padding: 10px;">
-   <span style="font-size: 15px;">
-       {{review.text_review}}
- </span>
- </div>
- {% endif %}
- {% endfor %}
- </div>
+      <!-- STUDENT REVIEWS SECTION -->
+      <h4 style="padding-left: 0; padding-top: 20px; padding-bottom: 5px;"><strong>Student Reviews:</strong></h4>
+      <div style="height: 700px; overflow-y: scroll;">
+        {% for review in reviews: %}
+        {% if review.text_review is not none %}
+        <div class="card rounded border-0"
+          style="background-color:#fcc397; margin-bottom: 25px; color:#db6225; padding: 10px;">
+          <span style="font-size: 15px;">
+            {{review.text_review}}
+          </span>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
     </div>
   </div>
   <br>

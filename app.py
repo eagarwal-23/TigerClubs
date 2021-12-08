@@ -287,7 +287,7 @@ def clubpage():
         
         clubname = request.args.get("clubname")
         club = get_club_info(clubname)
-        html = render_template("clubpage.html", clubname = club.name,
+        html = render_template("clubpage.html", club = club, clubname = club.name,
                                     description = club.description, members = club.members, 
                                     reviews = club.reviews,
                                     tags = club.tags, 

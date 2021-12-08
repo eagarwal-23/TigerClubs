@@ -68,14 +68,14 @@
         }
       </style>
       <div class="parallax">
-        <form action="/editclubfromedit">
-      <div class="row px-4 px-lg-5 my-5 py-5">
+        <form action="/editclubfromedit" method="get">
+      <div class="row px-4 px-lg-5 my-5 py-5 justify-content-center">
         <!-- CLUB NAME HEADING CARD -->
-        <div class="col-8">
+        <div class="col-6">
           <div class="card">
             <div class="col">
               <img src="https://picsum.photos/100" style="float: left; padding: 10px; padding-left: 0">
-              <h1 class="font-weight-bold" style="padding: 20px; padding-bottom: 0;"><input type="text" name="name" value="{{name}}"></h1>
+              <h1 class="font-weight-bold" style="padding: 20px; padding-bottom: 0;"><input type="text" name="clubname" value="{{name}}"></h1>
               {%for tag in tags: %}
               <div class="tag">
                 <div class="rounded-pill small" style="background-color: #fcc397; color: #db6225; padding: .25rem; margin:
@@ -103,8 +103,55 @@
                       </select>
                       <br>
             </div>
+            <h4 class="font-weight-bold" style="padding: 20px;">Description</h4>
+            <div class="col">
+              <div class="form-group">
+                <textarea
+                  class="form-control"
+                  id="exampleFormControlTextarea1"
+                  rows="3"
+                  type="text" name="description" maxlength = 350
+                >{{description}}</textarea>
+              </div>
+            </div>
+            <div class="col">
+                <h4 style="padding-left: 0; padding-top: 20px;"><strong>Club Members:</strong></h4>
+                <select
+                id="members"
+                name="members"
+                class="form-control"
+                placeholder="Select up to 5 students"
+                multiple
+                >
+                {% for student in students: %}
+                <option value="{{student.name}}">{{student.name}}</option>
+                {% endfor %}
+                </select>
+            </div>
+            <div class="col-sm-9 text-secondary">
+            <br>
+            {%for member in members: %}
+            <div class = "tag2">
+                <div class = "badge text-white bg-dark">{{member.name}}</div><span class="delete_student close" data-clubid = "{{club.clubid}}" data-netid = "{{member.netid}}">&times;</span> 
+              </div>
+              <style> 
+                  .tag2 {
+                      display: inline-block;
+                      padding-right: 0.25rem;
+                      padding-left: 0.25rem;
+                  }
+              </style>
+            {%endfor%}
+        </div>
+        <br>
+        <br>
+        <hr>
+        <div class = "row-2 px-3 py-3">
+        <input class="btn btn-lg" type="submit" value="Save Changes" style = "background-color: #e8804c;"/>
+        <a href="/adminclubs?netid={{netid}}">Cancel</a>
+        </div>
           </div>
-          <br>
+          <!-- <br>
           <div class="card">
             <h4 class="font-weight-bold" style="padding: 20px;">Description</h4>
             <div class="col">
@@ -118,153 +165,11 @@
               </div>
             </div>
             <button type = "submit" class = "btn btn-primary edit_club">Save</button>
-          </div>
+          </div> -->
         </div>
-    
-        <!-- CLUB RATING SECTION -->
-        <div class="col-4">
-          <style>
-            .plswork {
-              background-color: #db6225 !important;
-              width: var(--wid)
-            }
-          </style>
-    
-          <div class="card text-center">
-            <h4 style="padding-top: 10px"><strong>Club Ratings:</strong></h4>
-            <div class="card-body" style="padding: 0">
-              <ul class="justify-content-center">
-                <!-- DIVERSITY -->
-                <div class="row" style="width: 100%;">
-                  <li class="list-group-item border-0">
-                    <strong>Diversity: </strong> {{club.diversity}} <br />
-                    <div class="progress">
-                      <div class="progress-bar progress-bar-striped progress-bar-animated plswork" role="progressbar"
-                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="--wid: {{club.diversity}};">
-                      </div>
-                    </div>
-                  </li>
-                </div>
-                <!-- INCLUSIVITY -->
-                <div class="row" style="width: 100%;">
-                  <li class="list-group-item border-0">
-                    <strong>Inclusivity: </strong>{{club.inclusivity}}
-                    <div class="progress">
-                      <div class="progress-bar progress-bar-striped progress-bar-animated plswork" role="progressbar"
-                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="--wid: {{club.inclusivity}}"></div>
-                    </div>
-                  </li>
-                </div>
-                <!-- TIME COMMITMENTS -->
-                <div class="row" style="width: 100%;">
-                  <li class="list-group-item border-0">
-                    <strong>Time Commitment: </strong>{{club.time_commitment}}
-                    <div class="progress">
-                      <div class="progress-bar progress-bar-striped progress-bar-animated plswork" role="progressbar"
-                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="--wid: {{club.time_commitment}}"></div>
-                    </div>
-                  </li>
-                </div>
-                <!-- WORKLOAD -->
-                <div class="row" style="width: 100%;">
-                  <li class="list-group-item border-0">
-                    <strong>Workload:</strong> {{club.workload}}
-                    <div class="progress">
-                      <div class="progress-bar progress-bar-striped progress-bar-animated plswork" role="progressbar"
-                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="--wid: {{club.workload}}"></div>
-                    </div>
-                  </li>
-                </div>
-                <!-- EXPERIENCE REQUIRED -->
-                <div class="row" style="width: 100%;">
-                  <li class="list-group-item border-0">
-                    <strong>Experience Requirement: </strong>
-                    {{club.experience_requirement}}
-                    <div class="progress">
-                      <div class="progress-bar progress-bar-striped progress-bar-animated plswork" role="progressbar"
-                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="--wid: {{club.experience_requirement}}">
-                      </div>
-                    </div>
-                  </li>
-                </div>
-              </ul>
-            </div>
-          </div>
-    
-    
-    </div>
     
         </div>
       </div>
-    <!-- CLUB MEMBERS -->
-    <div class="row px-4 px-lg-5">
-      <div class="col">
-      <h4 style="padding-left: 0; padding-top: 20px;"><strong>Club Members:</strong></h4>
-      <select
-      id="members"
-      name="members"
-      class="form-control"
-      placeholder="Select up to 5 students"
-      multiple
-      >
-      {% for student in students: %}
-      <option value="{{student}}">{{student}}</option>
-      {% endfor %}
-      </select>
-      <div style="height: 700px; overflow-y: scroll;">
-      <div class="row gx-lg-5">
-      {%for member in members: %}
-      <div class="col-lg-6 col-xxl-4 mb-5">
-      <div class="card border" style="background-color: white; margin: 5px; margin-left:0">
-        <div class="card-body text-center">
-            <div class = "delete_student text-right" data-clubid = "{{club.clubid}}" data-netid = "{{member.netid}}">
-                <i class="fas fa-trash"></i>
-              </div>
-          <img class="rounded-circle"
-            src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg" width="50"
-            height="50" />
-          <!-- <a href="/profile?diffperson={{member.netid}}" class="card-link stretched-link"></a> -->
-          <h4 class="fs-4 fw-bold">{{member.name}}</h4>
-          {{member.netid}}
-          <br />
-          {{member.year}}
-          <br />
-        </div>
-        <style>
-            .fa-trash:hover {
-                width: 25px;
-                height: 25px;
-                line-height: 25px;
-                padding: 5px;
-                text-align: center;
-                font-size: 15px;
-                color: #ffffff;
-                background-color: #e8804c; }
-        </style>
-      </div>
-    </div>
-      {% endfor %}
-    </div>
-    </div>
-    </div>
-    <div class = "col-6">
-      <!-- STUDENT REVIEWS SECTION -->
-      <h4 style="padding-left: 0; padding-top: 20px; padding-bottom: 5px;"><strong>Student Reviews:</strong></h4>
-    <div style="height: 700px; overflow-y: scroll;">
-    {% for review in reviews: %}
-    {% if review.text_review is not none %}
-    <div class="card rounded border-0"
-      style="background-color:#fcc397; margin-bottom: 25px; color:#db6225; padding: 10px;">
-      <span style="font-size: 15px;">
-          {{review.text_review}}
-    </span>
-    </div>
-    {% endif %}
-    {% endfor %}
-    </div>
-    
-    </div>
-    </div>
     <!-- <br>
 
     <h2>Editing Club: {{name}}</h2> -->

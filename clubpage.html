@@ -56,168 +56,181 @@
     }
   </style>
   <div class="parallax">
-  <div class="row px-4 px-lg-5 my-5 py-5">
-    <!-- CLUB NAME HEADING CARD -->
-    <div class="col-8">
-      <div class="card">
-        <div class="col">
-          <img src="https://picsum.photos/100" style="float: left; padding: 10px; padding-left: 0">
-          <h1 class="font-weight-bold" style="padding: 20px; padding-bottom: 0;">{{clubname}}</h1>
-          {%for tag in tags: %}
-          <div class="tag">
-            <div class="rounded-pill small" style="background-color: #fcc397; color: #db6225; padding: .25rem; margin:
+    <div class="row px-4 px-lg-5 my-5 py-5">
+      <!-- CLUB NAME HEADING CARD -->
+      <div class="col-8">
+        <div class="card">
+          <div class="col">
+            <img src="https://picsum.photos/100" style="float: left; padding: 10px; padding-left: 0">
+            <h1 class="font-weight-bold" style="padding: 20px; padding-bottom: 0;">{{clubname}}</h1>
+            {%for tag in tags: %}
+            <div class="tag">
+              <div class="rounded-pill small" style="background-color: #fcc397; color: #db6225; padding: .5rem; margin:
               10px; margin-top: 0">
-              {{tag}}
+                {{tag}}
+              </div>
+            </div>
+            <style>
+              .tag {
+                display: inline-block;
+                padding-right: 0.25rem;
+                padding-left: 0.25rem;
+              }
+            </style>
+            {% endfor %}
+          </div>
+        </div>
+        <br>
+        <div class="card">
+          <h4 class="font-weight-bold" style="padding: 10px;">Description</h4>
+          <div class="col">
+            <p>{{description}}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLUB RATING SECTION -->
+      <div class="col-4">
+        <style>
+          .plswork {
+            background-color: #db6225 !important;
+            width: var(--wid)
+          }
+        </style>
+
+        <div class="card text-center">
+          <h4 style="padding-top: 10px"><strong>Club Ratings:</strong></h4>
+          <div class="card-body" style="padding: 0">
+            <ul class="justify-content-center">
+              <!-- DIVERSITY -->
+              <div class="row" style="width: 100%;">
+                <li class="list-group-item border-0">
+                  <strong>Diversity: </strong> {{diversity}} <br />
+                  <div class="progress">
+                    <div class="progress-bar plswork" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                      aria-valuemax="100" style="--wid: {{diversity}};">
+                    </div>
+                  </div>
+                </li>
+              </div>
+              <!-- INCLUSIVITY -->
+              </style>
+              <div class="row" style="width: 100%;">
+                <li class="list-group-item border-0">
+                  <strong>Inclusivity: </strong>{{inclusivity}}
+                  <div class="progress">
+                    <div class="progress-bar plswork" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                      aria-valuemax="100" style="--wid: {{inclusivity}}"></div>
+                  </div>
+                </li>
+              </div>
+              <!-- TIME COMMITMENTS -->
+              <div class="row" style="width: 100%;">
+                <li class="list-group-item border-0">
+                  <strong>Time Commitment: </strong>{{time_commitment}}
+                  <div class="progress">
+                    <div class="progress-bar plswork" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                      aria-valuemax="100" style="--wid: {{time_commitment}}"></div>
+                  </div>
+                </li>
+              </div>
+              <!-- WORKLOAD -->
+              <div class="row" style="width: 100%;">
+                <li class="list-group-item border-0">
+                  <strong>Workload:</strong> {{workload}}
+                  <div class="progress">
+                    <div class="progress-bar plswork" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                      aria-valuemax="100" style="--wid: {{workload}}"></div>
+                  </div>
+                </li>
+              </div>
+              <!-- EXPERIENCE REQUIRED -->
+              <div class="row" style="width: 100%;">
+                <li class="list-group-item border-0">
+                  <strong>Experience Requirement: </strong>
+                  {{experience_requirement}}
+                  <div class="progress">
+                    <div class="progress-bar plswork" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                      aria-valuemax="100" style="--wid: {{experience_requirement}}">
+                    </div>
+                  </div>
+                </li>
+              </div>
+            </ul>
+          </div>
+        </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+  <!-- CLUB MEMBERS -->
+  <div class="row px-4 px-lg-5">
+    <div class="col" style="height: 700px; overflow-y: scroll;">
+      <h4 style="padding-left: 0; padding-top: 20px;"><strong>Club Members:</strong></h4>
+      <div class="row gx-lg-5">
+        {%for member in members: %}
+        <div class="col-lg-6 col-xxl-4 mb-5">
+          <div class="card border" style="background-color: white; margin: 5px; margin-left:0">
+            <div class="card-body text-center">
+              <img class="rounded-circle"
+                src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg" width="50"
+                height="50" />
+              <a href="/profile?diffperson={{member.netid}}" class="card-link stretched-link"></a>
+              <h4 class="fs-4 fw-bold">{{member.name}}</h4>
+              {{member.netid}}
+              <br />
+              {{member.year}}
+              <br />
             </div>
           </div>
-          <style>
-            .tag {
-              display: inline-block;
-              padding-right: 0.25rem;
-              padding-left: 0.25rem;
-            }
-          </style>
-          {% endfor %}
         </div>
-      </div>
-      <br>
-      <div class="card">
-        <h4 class="font-weight-bold" style="padding: 10px;">Description</h4>
-        <div class="col">
-          <p>{{description}}</p>
-        </div>
+        {% endfor %}
       </div>
     </div>
+    <div class="col">
 
-    <!-- CLUB RATING SECTION -->
-    <div class="col-4">
-      <style>
-        .plswork {
-          background-color: #db6225 !important;
-          width: var(--wid)
+
+
+
+
+      <!-- STUDENT REVIEWS SECTION -->
+      <h4 style="padding-left: 0; padding-top: 20px; padding-bottom: 5px;"><strong>Student Reviews:</strong></h4>
+      <div style="height: 700px; overflow-y: scroll;">
+        {% for review in reviews: %}
+        <div class="card rounded border-0"
+          style="background-color:#fcc397; margin-bottom: 25px; color:#db6225; padding: 10px;">
+          {{review.text_review}}
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+  <br>
+
+  <!-- <script>
+    function gradeCalculate(score) {
+      // A+
+      if (score <= 100 && score >= 95) {
+        return (
+          <p style="color: green">A+</p>
+        )
+      }
+      // A-
+      if (score <= 100 && score >= 95) {
+        return (
+          <p style="color: green">A-</p>
+        )
+        // B+
+        if (score <= 100 && score >= 95) {
+          return (
+            <p style="color: green">B+</p>
+          )
         }
-      </style>
-
-      <div class="card text-center">
-        <h4 style="padding-top: 10px"><strong>Club Ratings:</strong></h4>
-        <div class="card-body" style="padding: 0">
-          <ul class="justify-content-center">
-            <!-- DIVERSITY -->
-            <div class="row" style="width: 100%;">
-              <li class="list-group-item border-0">
-                <strong>Diversity: </strong> {{diversity}} <br />
-                <div class="progress">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated plswork" role="progressbar"
-                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="--wid: {{diversity}};">
-                  </div>
-                </div>
-              </li>
-            </div>
-            <!-- INCLUSIVITY -->
-            </style>
-            <div class="row" style="width: 100%;">
-              <li class="list-group-item border-0">
-                <strong>Inclusivity: </strong>{{inclusivity}}
-                <div class="progress">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated plswork" role="progressbar"
-                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="--wid: {{inclusivity}}"></div>
-                </div>
-              </li>
-            </div>
-            <!-- TIME COMMITMENTS -->
-            <div class="row" style="width: 100%;">
-              <li class="list-group-item border-0">
-                <strong>Time Commitment: </strong>{{time_commitment}}
-                <div class="progress">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated plswork" role="progressbar"
-                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="--wid: {{time_commitment}}"></div>
-                </div>
-              </li>
-            </div>
-            <!-- WORKLOAD -->
-            <div class="row" style="width: 100%;">
-              <li class="list-group-item border-0">
-                <strong>Workload:</strong> {{workload}}
-                <div class="progress">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated plswork" role="progressbar"
-                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="--wid: {{workload}}"></div>
-                </div>
-              </li>
-            </div>
-            <!-- EXPERIENCE REQUIRED -->
-            <div class="row" style="width: 100%;">
-              <li class="list-group-item border-0">
-                <strong>Experience Requirement: </strong>
-                {{experience_requirement}}
-                <div class="progress">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated plswork" role="progressbar"
-                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="--wid: {{experience_requirement}}">
-                  </div>
-                </div>
-              </li>
-            </div>
-          </ul>
-        </div>
-      </div>
-
-
-
-
-    </div>
-  </div>
-</div>
-<!-- CLUB MEMBERS -->
-<div class="row px-4 px-lg-5">
-  <div class="col" style = "height: 700px; overflow-y: scroll;">
-  <h4 style="padding-left: 0; padding-top: 20px;"><strong>Club Members:</strong></h4>
-  <div class="row gx-lg-5">
-  {%for member in members: %}
-  <div class="col-lg-6 col-xxl-4 mb-5">
-  <div class = "card_stu">
-  <div class="card border" style="background-color: white; margin: 5px; margin-left:0">
-    <div class="card-body text-center">
-      <img class="rounded-circle"
-        src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg" width="50"
-        height="50" />
-      <a href="/profile?diffperson={{member.netid}}" class="card-link stretched-link"></a>
-      <h4 class="fs-4 fw-bold">{{member.name}}</h4>
-      {{member.netid}}
-      <br />
-      {{member.year}}
-      <br />
-    </div>
-  </div>
-  </div>
-  <style>
-    .card_stu:hover{
-        box-shadow: 1px 8px 15px grey;
-        -webkit-transition: box-shadow 0.05s ease-in;
-    }
-</style>
-</div>
-  {% endfor %}
-</div>
-</div>
-<div class = "col">
-
-
-
-
-
-  <!-- STUDENT REVIEWS SECTION -->
-  <h4 style="padding-left: 0; padding-top: 20px; padding-bottom: 5px;"><strong>Student Reviews:</strong></h4>
-<div style="height: 700px; overflow-y: scroll;">
-{% for review in reviews: %}
-<div class="card rounded border-0"
-  style="background-color:#fcc397; margin-bottom: 25px; color:#db6225; padding: 10px;">
-  {{review.text_review}}
-</div>
-{% endfor %}
-</div>
-
-</div>
-</div>
-<br>
+  </script> -->
 
 
   <!-- <a class="btn btn-primary" href="#!">Website</a> -->

@@ -23,6 +23,10 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
   
+
+  <link rel="stylesheet" type="text/css" href="static/jquery.raty.css" />
+  <script src="static/jquery.raty.js"></script>
+  <link href="static/styles.css" rel="stylesheet" />
     <script
     src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
     data-auto-replace-svg="nest"
@@ -36,6 +40,14 @@
     <link rel="stylesheet" href="static/choices.css" />
   
     <script src="static/jquery.raty.js"></script>
+
+    <style>
+        .span{
+            display:inline-block; 
+            word-wrap: break-word;
+        }
+    </style>
+    
 </head>
 <body style="background-color:rgb(255, 247, 243)">
     {% include "admin-navbar.html" %}
@@ -235,20 +247,17 @@
     </div>
     </div>
     </div>
-    <div class = "col">
-    
-    
-    
-    
-    
+    <div class = "col-6">
       <!-- STUDENT REVIEWS SECTION -->
       <h4 style="padding-left: 0; padding-top: 20px; padding-bottom: 5px;"><strong>Student Reviews:</strong></h4>
-    <div style="height: 400px; overflow-y: scroll;">
+    <div style="height: 700px; overflow-y: scroll;">
     {% for review in reviews: %}
     {% if review.text_review is not none %}
     <div class="card rounded border-0"
       style="background-color:#fcc397; margin-bottom: 25px; color:#db6225; padding: 10px;">
-      {{review.text_review}}
+      <span style="font-size: 15px;">
+          {{review.text_review}}
+    </span>
     </div>
     {% endif %}
     {% endfor %}
@@ -292,14 +301,14 @@
             removeItemButton: true,
             maxItemCount: 5,
             searchResultLimit: 5,
-            renderChoiceLimit: 5,
+            // renderChoiceLimit: 5,
           });
 
           var multipleCancelButton = new Choices("#tags", {
             removeItemButton: true,
             maxItemCount: 5,
             searchResultLimit: 5,
-            renderChoiceLimit: 5,
+            // renderChoiceLimit: 5,
           });
         });
 

@@ -49,7 +49,7 @@
             <div class="row mx-auto gx-lg-5">
                 <div class="col-lg-4 col-xxl-4">
                     <div class="row" style="width: 20rem; margin-bottom: 3%;">
-                        <h4>Search a club by thier name:</h4>
+                        <h4>Search a club by their name</h4>
                         <form class="input-group" action="/landing" method="get">
                             <input type="search" id="harrystyles" class="form-control rounded" name="clubname"
                                 placeholder="Search name, tag etc" value="{{clubname}}" aria-label="Search" />
@@ -96,9 +96,11 @@
                         {%for club in clubs: %}
                         <div class="card" style="background-color: white; width:45rem; margin: 5px; margin-top:0">
                             <div class="card-body">
+                                <img src="https://picsum.photos/200" alt="">
+                                <h5>{{club}}</h5>
+
                                 <div style="justify-content: space-between;">
                                     <h5 class="card-title" style="color: #e8804c;">
-                                        {{club}}
                                         {% set unselected = 5 - (club.combined|int)%}
                                         <div id="inlinereview">
                                             {% for i in range(club.combined|int) %}
@@ -108,6 +110,7 @@
                                             <i aria-hidden="true" class="fa fa-star-o"></i>
                                             {% endfor %}
                                         </div>
+
                                     </h5>
 
                                     <style>
@@ -129,7 +132,11 @@
                                         {{club.description}} Long
                                         yada yaday ydaa</h6>
                                     <!-- <strong id="element1">Overall: </strong> 
+
                                     {{"{:.1f}".format(club.combined)}} -->
+
+
+
 
                                 </div>
 
@@ -151,6 +158,8 @@
 
                                 <a href="/clubpage?clubname={{club.name}}" class="card-link stretched-link"></a>
                             </div>
+
+
                         </div>
                         {% endfor %}
                         {%else: %}

@@ -317,7 +317,8 @@ def myratings():
         if student.admin:
             isAdmin = 1
         today = dt.date.today()
-        # if today == rating_period:
+        
+        # if start_rating_period <= today <= end_rating_period:
         if True:
             name = student.name
             clubs = get_unrated_clubs(student.netid)
@@ -326,7 +327,8 @@ def myratings():
             response = make_response(html)
             return response
         else:
-            html = render_template("notmyratings.html", ratings_period=rating_period, today=today, isAdmin = isAdmin)
+            html = render_template("notmyratings.html", start_rating_period=start_rating_period, 
+                                    end_rating_period=end_rating_period, today=today, isAdmin = isAdmin)
             response = make_response(html)
             return response
     except Exception as e:

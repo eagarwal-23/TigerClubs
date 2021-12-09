@@ -845,38 +845,56 @@ def file_report():
 
 @app.route("/submittedrequest", methods = ["GET"])
 def submitted_request():
-    try:
-        netid = _cas.authenticate().rstrip()
-        user = get_student_info(netid)
-        if user.blacklist:
-            html = render_template("blacklistedstudent.html")
-            response = make_response(html)
-            return response
-        if not user.admin:
-            html = render_template("notadmin.html")
-            response = make_response(html)
-            return response
-        user = get_student_info(netid)
-        isAdmin = 0
-        if user.admin:
-            isAdmin = 1
-        request_reason = request.args.get("reason")
-        if (not request_reason):
-            html = render_template("wrongrequestinput.html")
-        else:
-            about_user = request.args.get("reportedUser")
-            club = request.args.get("clubname")
-            tag = request.args.get("tag")
-            descrip = request.args.get("explanation")
-            success = add_request(request_reason, netid, about_user, club, tag, descrip)
-            if success == None:
-                html = render_template("wrongrequestinput.html", isAdmin = isAdmin)
-            else:
-                html = render_template("requestsubmitted.html", isAdmin = isAdmin)
+    # try:
+    netid = _cas.authenticate().rstrip()
+    user = get_student_info(netid)
+    if user.blacklist:
+        html = render_template("blacklistedstudent.html")
         response = make_response(html)
         return response
-    except Exception:
-        print("whoops from submittedrequest")
+    if not user.admin:
+        html = render_template("notadmin.html")
+        response = make_response(html)
+        return response
+    user = get_student_info(netid)
+    isAdmin = 0
+    if user.admin:
+        isAdmin = 1
+    request_reason = request.args.get("reason")
+    if (not request_reason):
+        html = render_template("wrongrequestinput.html")
+    else:
+        about_user = request.args.get("reportedUser")
+        club = request.args.get("clubname")
+        tag = request.args.get("tag")
+        descrip = request.args.get("explanation")
+
+
+        if request_reason == "delete_user":
+            if not member_in_club(about_user, club):
+                html = render_template("studentnotinclub.html", isAdmin = isAdmin, student = about_user, club = club)
+                response = make_response(html)
+                return response
+        elif request_reason == "blacklist_user":
+            if is_blacklist(about_user):
+                html = render_template("studentalreadyblacklist.html", isAdmin = isAdmin, student = about_user)
+                response = make_response(html)
+                return response
+        elif request_reason == "add_tag":
+            if tag_exists(tag):
+               in_db = get_tagname(tag) 
+               html = render_template("tagexists.html", isAdmin = isAdmin, tag = in_db)
+               response = make_response(html)
+               return response 
+        success = add_request(request_reason, netid, about_user, club, tag, descrip)
+        if success == None:
+            html = render_template("wrongrequestinput.html", isAdmin = isAdmin)
+        else:
+            html = render_template("requestsubmitted.html", isAdmin = isAdmin)
+    response = make_response(html)
+    return response
+    # except Exception:
+    #     print("whoops from submittedrequest")
 
 @app.route("/creatingtags", methods=["POST"])
 def creatingtags():

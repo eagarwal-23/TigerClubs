@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<head>
+  <link rel="shortcut icon" href="static/tigerclubsicon.ico"/>
+
+  <link rel="shortcut icon" href="static/tigerclubsicon.ico"/>
+
+    <meta charset = "UTF-8">
+    <meta name= "viewport" content= "width-device-width, initial-scale-1.0">
+    <title> Tiger Clubs</title>
+    <link rel="stylesheet" href="style.css" >
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+
+      <!------ Include the above in your HEAD tag ---------->
+      <link href="static/styles.css" rel="stylesheet" />
+      <link href="static/footeredits.css" rel="stylesheet" />
+</head>
+<body>
+  {% include "navbar.html" %}
+  <div id="page-container">
+    <div id="content-wrap">
+  <style>
+    .parallax {
+      /* The image used */
+      background-image: url("/static/darkprinceton.png");
+    
+      /* Set a specific height */
+      min-height: 200px;
+    
+      /* Create the parallax scrolling effect */
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    </style>
+  <div class="parallax" style = "padding-top: 5rem; padding-bottom: 2rem;">
+<header class="py-5">
+<div class="container px-lg-5">
+    <div class="row g-2">
+        <div class="p-4 p-lg-3 bg-light rounded-3 text-center">
+            <h3> Request Submission </h3>
+            <p class="fs-4"> The admins will review your request shortly, and determine what actions should be made. Thank you for your help!</p>
+        </div>
+    </div>
+</div>
+</header>
+
+</div>
+<div class = "container text-center">
+<br>
+<br>
+<br>
+   <h3>Request Unsuccessful. Tag {{tag}} already exists.</h3>
+   <a href="/report">Try Again.</a>
+</div>
+  <br><br>
+  </div>
+  {% include "footer.html" %}
+  </div>
+</body>
+</html>

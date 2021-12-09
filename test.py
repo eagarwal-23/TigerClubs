@@ -21,6 +21,12 @@ def filter_by_tags(tags):
 def get_all_students():
     students = Student.query.paginate(page = 1, per_page = 20)
     return students
+
+def member_in_club(netid, clubid):
+    student = Student.query.filter_by(netid = netid).first()
+    club = Club.query.filter_by(name = clubid).first()
+    members = club.members
+    return student in members
     
 # def get_all_tags():
 #     tags = Tag.query.all()
@@ -139,9 +145,11 @@ def get_unrated_clubs(netid):
 if __name__ == "__main__":
     
 
-    club = Club.query.filter_by(name = "Aikido Club").first()
-    student = Student.query.filter_by(netid = "eagarwal").first()
-    (get_unrated_clubs(student.netid))
+    # club = Club.query.filter_by(name = "Aikido Club").first()
+    # student = Student.query.filter_by(netid = "eagarwal").first()
+    # (get_unrated_clubs(student.netid))
+    print(member_in_club('eagarwal', 'Mock Trial'))
+    print(member_in_club('ajguerra', 'Mock Trial'))
     # print(club)
     # print(club.reviews)
     # for review in club.reviews:

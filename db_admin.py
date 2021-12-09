@@ -3,12 +3,41 @@ from app import db
 from db_search import get_all_clubs
 from db_student_profile import get_student_info, get_student_ratings
 from models import Student, Club, Tag, Review, Request
+from db_search import get_all_tagnames
 
 DELETE_USER = 0
 BLACKLIST_USER = 1
 EDIT_USER = 2
 EDIT_CLUB = 3
 ADD_TAG = 4
+
+def member_in_club(netid, clubname):
+    student = Student.query.filter_by(netid = netid).first()
+    club = Club.query.filter_by(name = clubname).first()
+    members = club.members
+    return student in members
+
+def tag_exists(new_tagname):
+    tagnames = get_all_tagnames()
+    for tagname in tagnames:
+        tagname = tagname.strip().lower().replace(" ", "_")
+        new_tagname = new_tagname.strip().lower().replace(" ", "_")
+        if tagname == new_tagname:
+            return True
+    return False
+
+def get_tagname(new_tagname):
+    tagnames = get_all_tagnames()
+    for tagname in tagnames:
+        og = tagname
+        tagname = tagname.strip().lower().replace(" ", "_")
+        new_tagname = new_tagname.strip().lower().replace(" ", "_")
+        if tagname == new_tagname:
+            return og
+
+def is_blacklist(netid):
+    student = Student.query.filter_by(netid = netid).first()
+    return student.blacklist
 
 # get list of all Request objects in request_info table
 def get_all_requests():

@@ -91,6 +91,7 @@ def landingwhoareyou():
 
 @app.route("/landing", methods=["GET"])
 def landing():
+    print("okay so we're here")
     netid = _cas.authenticate().rstrip()
     user = get_student_info(netid)
     if user.blacklist:
@@ -101,12 +102,12 @@ def landing():
     sort_criteria = request.args.get("sort")
     clubname = request.args.get("clubname")
     query =  request.args.get("query")
+    filter_tags = request.args.getlist("tags")
 
-    filter_tags = get_all_tagnames()
+    print("tags", filter_tags)
+    if not filter_tags:
+        filter_tags = get_all_tagnames()
     pagenum = request.args.get('page', 1, type=int)
-    # filter_tags = request.args.getlist("tags")
-    # if not filter_tags:
-    #     filter_tags = get_all_tagnames()
 
     if not sort_criteria:
         sort_criteria = 'Overall'
@@ -119,7 +120,6 @@ def landing():
         else:
             clubname = query
 
-
     isAdmin = 0
     if user.admin:
         isAdmin = 1
@@ -127,6 +127,8 @@ def landing():
     name = user.name
     clubs = club_search(search = clubname, query = sort_criteria, page = pagenum)
     tags = get_all_tags()
+
+    print(tags)
 
     if not clubs:
         html = render_template("mylanding.html", netid=netid, name = name, hasClubs= False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin, query = clubname)

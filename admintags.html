@@ -96,7 +96,7 @@ div#social-float { position: fixed; bottom: 30px;
     <form action="/admintags?netid={{netid}}&clubname={{clubname}}"
             method="get">
         <div class="form-group">
-            <input type="text" name="tag" id="searchbar" class="form-control input-lg" placeholder="Search tags by name" />
+            <input type="text" name="tag" id="searchbar" maxlength="120" class="form-control input-lg" placeholder="Search tags by name" />
         </div>
     </form>
     </div>
@@ -168,7 +168,7 @@ div#social-float { position: fixed; bottom: 30px;
 
                     <!-- DIVERSITY RATING -->
                     <p class="ratelabel bg-light">Name:</label>
-                    <input type="text" maxlength=20 id="newtag" value=""></input>
+                    <input type="text" maxlength=30 id="newtag" value=""></input>
 
                     <br>
 
@@ -202,7 +202,7 @@ div#social-float { position: fixed; bottom: 30px;
 
                     <!-- DIVERSITY RATING -->
                     <p class="ratelabel bg-light">New Name:</label>
-                    <input type="text" id="newtagname" value="" maxlength=20></input>
+                    <input type="text" id="newtagname" value="" maxlength=30></input>
 
                     <br>
 

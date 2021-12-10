@@ -272,7 +272,7 @@ def editprofile():
     instagram = student.instagram
     linkedin = student.linkedin
     try:
-        html = render_template("myeditpage.html", name=name, netid=netid, student = student, clubs = clubs, tags = tags,
+        html = render_template("newedit.html", name=name, netid=netid, student = student, clubs = clubs, tags = tags,
         classyear=classyear, major=major,instagram = instagram, linkedin = linkedin,
         bio=bio, isAdmin = isAdmin)
         response = make_response(html)
@@ -879,21 +879,43 @@ def submitted_request():
 
 
         if request_reason == "delete_user":
+            if not about_user or not club:
+                html = render_template("wrongrequestinput.html", isAdmin = isAdmin)
+                response = make_response(html)
+                return response
             if not member_in_club(about_user, club):
                 html = render_template("studentnotinclub.html", isAdmin = isAdmin, student = about_user, club = club)
                 response = make_response(html)
                 return response
         elif request_reason == "blacklist_user":
+            if not about_user:
+                html = render_template("wrongrequestinput.html", isAdmin = isAdmin)
+                response = make_response(html)
+                return response
             if is_blacklist(about_user):
                 html = render_template("studentalreadyblacklist.html", isAdmin = isAdmin, student = about_user)
                 response = make_response(html)
                 return response
         elif request_reason == "add_tag":
+            if not tag:
+                html = render_template("wrongrequestinput.html", isAdmin = isAdmin)
+                response = make_response(html)
+                return response
             if tag_exists(tag):
                in_db = get_tagname(tag) 
                html = render_template("tagexists.html", isAdmin = isAdmin, tag = in_db)
                response = make_response(html)
                return response 
+        elif request_reason == "edit_user":
+            if not about_user:
+                html = render_template("wrongrequestinput.html", isAdmin = isAdmin)
+                response = make_response(html)
+                return response
+        elif request_reason == "edit_club":
+            if not club:
+                html = render_template("wrongrequestinput.html", isAdmin = isAdmin)
+                response = make_response(html)
+                return response
         success = add_request(request_reason, netid, about_user, club, tag, descrip)
         if success == None:
             html = render_template("wrongrequestinput.html", isAdmin = isAdmin)

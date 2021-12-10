@@ -66,23 +66,30 @@
                 id=profpic alt="..." />
               <h1 class="text-black fs-3 fw-bolder">{{student.name}}</h1>
               <h2 class="text-black fs-4">{{major}} {{classyear}}</h2>
-              <a class="text-black-50 mb-0"
+              <!-- <a class="text-black-50 mb-0"
                 href="https://mail.google.com/mail/?view=cm&fs=1&to={{student.netid}}@princeton.edu&body=Sent%20From%20Tigerclubs"
                 target="_blank">
                 <i class="fas fa-envelope fa-3x spacebih"></i>
+              </a> -->
+              <a class="btn btn-large" href="https://mail.google.com/mail/?view=cm&fs=1&to={{student.netid}}@princeton.edu&body=Sent%20From%20Tigerclubs" target="_blank">
+                <i class="fa fa-envelope fa-3x" style = "color:orange" aria-hidden="true"></i>
               </a>
-              <a class="text-black-50 mb-0"
-              href ="https://www.instagram.com/{{instagram + '/'}}" target="_blank">
-              <i class="fab fa-instagram fa-3x spacebih"></i>
+              <a class="btn btn-large" href="https://www.instagram.com/{{instagram + '/'}}" target="_blank">
+                <i class="fa fa-instagram fa-3x" style = "color:purple" aria-hidden="true"></i>
               </a>
-              <a class="text-black-50 mb-0"
+              <a class="btn btn-large"  href ="{{linkedin}}" target="_blank">
+                <i class="fa fa-linkedin fa-3x" style = "color:rgb(45, 119, 255)" aria-hidden="true"></i>
+              </a>
+              <!-- <a href ="https://www.instagram.com/{{instagram + '/'}}">
+                <i class="fab fa-instagram fa-3x" style = "color:purple"></i>
+              </a> -->
+              <!-- <a class="text-black-50 mb-0"
               href ="{{linkedin}}" target="_blank">
               <i class="fab fa-linkedin fa-3x spacebih"></i>
-              </a>
+              </a> -->
               <style>
-                .spacebih{
-                  padding: 0.5rem;
-                  padding-top: 0.5rem;
+                .btn:hover, .btn:focus{
+                  outline: none;
                 }
               </style>
               {%if diffperson == netid%}

@@ -35,6 +35,12 @@
   <link href="static/styles.css" rel="stylesheet" />
 
   <script src="static/jquery.raty.js"></script>
+  <style>
+    .span {
+      display: inline-block;
+      word-wrap: break-word;
+    }
+  </style>
 </head>
 
 <body style="background-color:rgb(255, 247, 243)">
@@ -61,7 +67,8 @@
       <div class="col-8">
         <div class="card">
           <div class="col">
-            <img src="https://picsum.photos/100" style="float: left; padding: 10px; padding-left: 0">
+            <img src="{{club.pictureURL}}"
+              style="float: left; padding: 10px; padding-left: 0; width:100px; height:100px">
             <h1 class="font-weight-bold" style="padding: 20px; padding-bottom: 0;">{{clubname}}</h1>
             {%for tag in tags: %}
             <div class="tag">
@@ -168,7 +175,7 @@
   </div>
   <!-- CLUB MEMBERS -->
   <div class="row px-4 px-lg-5">
-    <div class="col" style="height: 700px; overflow-y: scroll;">
+    <div class="col-6" style="height: 700px; overflow-y: scroll;">
       <h4 style="padding-left: 0; padding-top: 20px;"><strong>Club Members:</strong></h4>
       <div class="row gx-lg-5">
         {%for member in members: %}
@@ -176,7 +183,7 @@
           <div class="card border" style="background-color: white; margin: 5px; margin-left:0">
             <div class="card-body text-center">
               <img class="rounded-circle"
-                src="https://www.mcgregorkitchens.co.nz/app/uploads/2020/04/placeholder-profile.jpg" width="50"
+                src="{{member.pictureURL}}" width="50"
                 height="50" />
               <a href="/profile?diffperson={{member.netid}}" class="card-link stretched-link"></a>
               <h4 class="fs-4 fw-bold">{{member.name}}</h4>
@@ -190,23 +197,23 @@
         {% endfor %}
       </div>
     </div>
-    <div class="col">
-
-
-
+    <div class="col-6">
 
 
       <!-- STUDENT REVIEWS SECTION -->
       <h4 style="padding-left: 0; padding-top: 20px; padding-bottom: 5px;"><strong>Student Reviews:</strong></h4>
       <div style="height: 700px; overflow-y: scroll;">
         {% for review in reviews: %}
+        {% if review.text_review is not none %}
         <div class="card rounded border-0"
           style="background-color:#fcc397; margin-bottom: 25px; color:#db6225; padding: 10px;">
-          {{review.text_review}}
+          <span style="font-size: 15px;">
+            {{review.text_review}}
+          </span>
         </div>
+        {% endif %}
         {% endfor %}
       </div>
-
     </div>
   </div>
   <br>

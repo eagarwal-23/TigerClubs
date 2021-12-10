@@ -24,10 +24,10 @@ from db_rating_period import *
 _cas = CASClient()
 
 def obtain_rating_period():
-    info = get_rating_period()
-    return dt.date(info.year, info.month, info.day)
+    start, end = get_rating_period()
+    return dt.date(start.year, start.month, start.day), dt.date(end.year, end.month, end.day)
 
-rating_period = obtain_rating_period()
+start_rating_period, end_rating_period = obtain_rating_period()
 
 def isBlacklist(netid):
     student = get_student_info(netid)
@@ -77,6 +77,11 @@ def landingwhoareyou():
     auth_user = _cas.authenticate().rstrip()
     user = get_student_info(auth_user)
 
+    if not user:
+        html = render_template("notauser.html")
+        response = make_response(html)
+        return response
+
     if user.blacklist:
         html = render_template("blacklistedstudent.html")
         response = make_response(html)
@@ -101,15 +106,19 @@ def landing():
     sort_criteria = request.args.get("sort")
     clubname = request.args.get("clubname")
     query =  request.args.get("query")
+    prev = request.args.get("prev")
+    filter_tags = request.args.getlist("tags")
 
-    filter_tags = get_all_tagnames()
+    if not filter_tags:
+        filter_tags = get_all_tagnames()
     pagenum = request.args.get('page', 1, type=int)
-    # filter_tags = request.args.getlist("tags")
-    # if not filter_tags:
-    #     filter_tags = get_all_tagnames()
 
     if not sort_criteria:
-        sort_criteria = 'Overall'
+        if not prev:
+            sort_criteria = 'Overall'
+        else:
+            sort_criteria = prev
+    
     
     pagenum = request.args.get('page', 1, type=int)
 
@@ -118,7 +127,6 @@ def landing():
             clubname = ""
         else:
             clubname = query
-
 
     isAdmin = 0
     if user.admin:
@@ -129,15 +137,17 @@ def landing():
     tags = get_all_tags()
 
     if not clubs:
-        html = render_template("mylanding.html", netid=netid, name = name, hasClubs= False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin, query = clubname)
+        html = render_template("mylanding.html", netid=netid, name = name, hasClubs= False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin, query = clubname, prev = sort_criteria)
     else:
-        html = render_template("mylanding.html", netid=netid, name = name, hasClubs = True, clubs = clubs, clubname = clubname, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin, query = clubname)
+        html = render_template("mylanding.html", netid=netid, name = name, hasClubs = True, clubs = clubs, clubname = clubname, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin, query = clubname, prev = sort_criteria)
     
     response = make_response(html)
     return response
 
 @app.route("/studentsearch", methods=["GET"])
 def studentsearch():
+
+    # old code
     netid = _cas.authenticate().rstrip()
     user = get_student_info(netid)
     if user.blacklist:
@@ -262,7 +272,7 @@ def editprofile():
     instagram = student.instagram
     linkedin = student.linkedin
     try:
-        html = render_template("myeditpage.html", name=name, netid=netid, student = student, clubs = clubs, tags = tags,
+        html = render_template("newedit.html", name=name, netid=netid, student = student, clubs = clubs, tags = tags,
         classyear=classyear, major=major,instagram = instagram, linkedin = linkedin,
         bio=bio, isAdmin = isAdmin)
         response = make_response(html)
@@ -274,7 +284,7 @@ def editprofile():
 @app.route("/clubpage", methods=["GET"])
 def clubpage():
     try:
-        netid = _cas.authenticate().rstrip()       
+        netid = _cas.authenticate().rstrip()
         student = get_student_info(netid)
         if student.blacklist:
                 html = render_template("blacklistedstudent.html")
@@ -287,7 +297,7 @@ def clubpage():
         
         clubname = request.args.get("clubname")
         club = get_club_info(clubname)
-        html = render_template("clubpage.html", clubname = club.name,
+        html = render_template("clubpage.html", club = club, clubname = club.name,
                                     description = club.description, members = club.members, 
                                     reviews = club.reviews,
                                     tags = club.tags, 
@@ -317,7 +327,9 @@ def myratings():
         if student.admin:
             isAdmin = 1
         today = dt.date.today()
-        if today == rating_period:
+        
+        # if start_rating_period <= today <= end_rating_period:
+        if True:
             name = student.name
             clubs = get_unrated_clubs(student.netid)
             ratings = get_student_ratings(netid)
@@ -325,7 +337,8 @@ def myratings():
             response = make_response(html)
             return response
         else:
-            html = render_template("notmyratings.html", ratings_period=rating_period, today=today, isAdmin = isAdmin)
+            html = render_template("notmyratings.html", start_rating_period=start_rating_period, 
+                                    end_rating_period=end_rating_period, today=today, isAdmin = isAdmin)
             response = make_response(html)
             return response
     except Exception as e:
@@ -406,23 +419,23 @@ def removingvote():
 
 @app.route("/adminlanding", methods = ["GET"])
 def adminlanding():
-    try:
-        auth_user = _cas.authenticate().rstrip()
-        user = get_student_info(auth_user)
-        if user.blacklist:
-            html = render_template("blacklistedstudent.html")
-            response = make_response(html)
-            return response
-        if (not user.admin):
-            html = render_template("notadmin.html")
-            response = make_response(html)
-            return response
-
-        html = render_template("adminlanding.html", requests = get_all_requests(), hasRequests = True)
+    # try:
+    auth_user = _cas.authenticate().rstrip()
+    user = get_student_info(auth_user)
+    if user.blacklist:
+        html = render_template("blacklistedstudent.html")
         response = make_response(html)
         return response
-    except Exception:
-        print("whoops from adminlanding")
+    if (not user.admin):
+        html = render_template("notadmin.html")
+        response = make_response(html)
+        return response
+
+    html = render_template("adminlanding.html", requests = get_all_requests(), hasRequests = True)
+    response = make_response(html)
+    return response
+    # except Exception:
+    #     print("whoops from adminlanding")
 
 @app.route("/delete_user", methods = ["POST","GET"])
 def delete_user():
@@ -626,7 +639,7 @@ def adminrequests():
 @app.route("/adminclubpage", methods=["GET"])
 def adminclubpage():
     try:
-        netid = _cas.authenticate().rstrip()        
+        netid = _cas.authenticate().rstrip() 
         student = get_student_info(netid)
         if student.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -644,7 +657,7 @@ def adminclubpage():
         clubname = request.args.get("clubname")
         club = get_club_info(clubname)
 
-        html = render_template("admin-clubpage.html", clubname = club.name,
+        html = render_template("admin-clubpage.html", club= club, clubname = club.name,
                                     description = club.description, members = club.members,
                                     reviews = club.reviews,
                                     tags = club.tags, 
@@ -685,6 +698,7 @@ def editclub():
                             club = club,
                             students = students,
                             all_tags = all_tags,
+                            reviews = club.reviews,
                             name = club.name,
                             description = club.description,
                             members = club.members,
@@ -709,14 +723,14 @@ def editclubfromedit():
             html = render_template("notadmin.html")
             response = make_response(html)
             return response
-        name = request.args.get("name")
+        clubname = request.args.get("clubname")
         description = request.args.get("description")
         members = request.args.getlist("members")
         tags = request.args.getlist("tags")
 
 
-        update_club_info(name, description, members, tags)
-        return adminclubs()
+        update_club_info(clubname, description, members, tags)
+        return adminclubpage()
     except Exception:
         print("whoops from editclubfromedit")
 
@@ -839,38 +853,78 @@ def file_report():
 
 @app.route("/submittedrequest", methods = ["GET"])
 def submitted_request():
-    try:
-        netid = _cas.authenticate().rstrip()
-        user = get_student_info(netid)
-        if user.blacklist:
-            html = render_template("blacklistedstudent.html")
-            response = make_response(html)
-            return response
-        if not user.admin:
-            html = render_template("notadmin.html")
-            response = make_response(html)
-            return response
-        user = get_student_info(netid)
-        isAdmin = 0
-        if user.admin:
-            isAdmin = 1
-        request_reason = request.args.get("reason")
-        if (not request_reason):
-            html = render_template("wrongrequestinput.html")
-        else:
-            about_user = request.args.get("reportedUser")
-            club = request.args.get("clubname")
-            tag = request.args.get("tag")
-            descrip = request.args.get("explanation")
-            success = add_request(request_reason, netid, about_user, club, tag, descrip)
-            if success == None:
-                html = render_template("wrongrequestinput.html", isAdmin = isAdmin)
-            else:
-                html = render_template("requestsubmitted.html", isAdmin = isAdmin)
+    # try:
+    netid = _cas.authenticate().rstrip()
+    user = get_student_info(netid)
+    if user.blacklist:
+        html = render_template("blacklistedstudent.html")
         response = make_response(html)
         return response
-    except Exception:
-        print("whoops from submittedrequest")
+    if not user.admin:
+        html = render_template("notadmin.html")
+        response = make_response(html)
+        return response
+    user = get_student_info(netid)
+    isAdmin = 0
+    if user.admin:
+        isAdmin = 1
+    request_reason = request.args.get("reason")
+    if (not request_reason):
+        html = render_template("wrongrequestinput.html")
+    else:
+        about_user = request.args.get("reportedUser")
+        club = request.args.get("clubname")
+        tag = request.args.get("tag")
+        descrip = request.args.get("explanation")
+
+
+        if request_reason == "delete_user":
+            if not about_user or not club:
+                html = render_template("wrongrequestinput.html", isAdmin = isAdmin)
+                response = make_response(html)
+                return response
+            if not member_in_club(about_user, club):
+                html = render_template("studentnotinclub.html", isAdmin = isAdmin, student = about_user, club = club)
+                response = make_response(html)
+                return response
+        elif request_reason == "blacklist_user":
+            if not about_user:
+                html = render_template("wrongrequestinput.html", isAdmin = isAdmin)
+                response = make_response(html)
+                return response
+            if is_blacklist(about_user):
+                html = render_template("studentalreadyblacklist.html", isAdmin = isAdmin, student = about_user)
+                response = make_response(html)
+                return response
+        elif request_reason == "add_tag":
+            if not tag:
+                html = render_template("wrongrequestinput.html", isAdmin = isAdmin)
+                response = make_response(html)
+                return response
+            if tag_exists(tag):
+               in_db = get_tagname(tag) 
+               html = render_template("tagexists.html", isAdmin = isAdmin, tag = in_db)
+               response = make_response(html)
+               return response 
+        elif request_reason == "edit_user":
+            if not about_user:
+                html = render_template("wrongrequestinput.html", isAdmin = isAdmin)
+                response = make_response(html)
+                return response
+        elif request_reason == "edit_club":
+            if not club:
+                html = render_template("wrongrequestinput.html", isAdmin = isAdmin)
+                response = make_response(html)
+                return response
+        success = add_request(request_reason, netid, about_user, club, tag, descrip)
+        if success == None:
+            html = render_template("wrongrequestinput.html", isAdmin = isAdmin)
+        else:
+            html = render_template("requestsubmitted.html", isAdmin = isAdmin)
+    response = make_response(html)
+    return response
+    # except Exception:
+    #     print("whoops from submittedrequest")
 
 @app.route("/creatingtags", methods=["POST"])
 def creatingtags():
@@ -1108,7 +1162,8 @@ def adminratings():
         response = make_response(html)
         return response
 
-    html = render_template("adminratings.html", rating_period = rating_period)
+    html = render_template("adminratings.html", start_rating_period = start_rating_period,
+                            end_rating_period = end_rating_period)
     response = make_response(html)
     return response
 
@@ -1122,15 +1177,25 @@ def update_rating_period():
         response = make_response(html)
         return response
     
-    new_date = request.args.get("new_date")
-    year = int(new_date[0:4])
-    month = int(new_date[5:7])
-    day = int(new_date[8:])
-    
-    set_rating_period(day, month, year)
+    start_date = request.args.get("start_date")
+    start_year = int(start_date[0:4])
+    start_month = int(start_date[5:7])
+    start_day = int(start_date[8:])
 
-    global rating_period
-    rating_period = dt.date(year, month, day)
+    end_date = request.args.get("end_date")
+    end_year = int(end_date[0:4])
+    end_month = int(end_date[5:7])
+    end_day = int(end_date[8:])
+    
+    set_start_rating_period(start_day, start_month, start_year)
+    set_end_rating_period(end_day, end_month, end_year)
+
+    global start_rating_period
+    start_rating_period = dt.date(start_year, start_month, start_day)
+
+    global end_rating_period
+    end_rating_period = dt.date(end_year, end_month, end_day)
+
 
     msg = "Rating period updated"
     return jsonify(msg)

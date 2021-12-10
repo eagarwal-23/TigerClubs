@@ -29,6 +29,12 @@
     <script src="static/jquery.raty.js"></script>
 
 
+    <style>
+        .span{
+            display:inline-block; 
+            word-wrap: break-word;
+        }
+    </style>
 </head>
 
 
@@ -90,7 +96,7 @@
                 <header class="card-header fs-4 fw-bold" style="padding-left: 0%; padding-right: 0%;"> 
                     <div class="btn-group dropright float-right">
                         
-                        <button class="btn btn-sm btn-light" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-sm" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v"></i>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
@@ -189,11 +195,14 @@
                 <br>
                 <div class="border-top my-3"></div>
 
-                <div id="inlinereview">
+                <!-- <div id="inlinereview">
                     <h6> Review:</h6>
                     <p class="lead" style="font-size: 15px;">{{r.text_review}}</p>
-                </div>
-
+                </div> -->
+                    <span style="font-size: 15px;">
+                        <h6> Review:</h6>
+                        {{r.text_review}}
+                    </span>
 
 
             </div>
@@ -219,10 +228,10 @@
             <form>
                 <input type = "hidden" id = "reviewid">
             </form>
-              <p>Are you sure you want to delete this rating? This action cannot be undone.</p>
+              <p>Are you sure you want to delete this review? This action cannot be undone.</p>
             </div>
             <div class="modal-footer">
-              <button type="button" id="deleterating" class="btn btn-danger">Delete Rating</button>
+              <button type="button" id="deleterating" class="btn btn-danger">Delete Review</button>
               <button type="button" class="btn btn-primary" data-dismiss="modal">Go Back</button>
             </div>
           </div>
@@ -458,7 +467,6 @@
                 var time_commitment = $('#time_commitment').data('raty').score();
                 var experience_requirement = $('#experience_requirement').data('raty').score();
                 var text_review = $("#text_review").val();
-                alert(clubname)
 
                 console.log(text_review);
 

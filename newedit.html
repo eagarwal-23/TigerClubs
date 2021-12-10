@@ -110,7 +110,7 @@
                         <div class="form-group">
                             <textarea
                               class="form-control"
-                              id="exampleFormControlTextarea1"
+                              id="bio"
                               rows="3"
                               name="bio" maxlength = 200
                             >{{bio}}</textarea>
@@ -153,10 +153,11 @@
                   </div>
                   <div class = "row">
                   <select
-                  id="clubs"
+                  id="clubSelect"
                   name="clubs"
                   class="form-control"
                   placeholder="Select up to 5 clubs"
+                  onblur="getThis()"
                   multiple
                 >
                   {% for club in clubs: %}
@@ -262,7 +263,7 @@
             // renderChoiceLimit: 5,
           });
     
-          var multipleCancelButton = new Choices("#clubs", {
+          var multipleCancelButton = new Choices("#clubSelect", {
             removeItemButton: true,
             maxItemCount: 5,
             searchResultLimit: 5,
@@ -283,6 +284,34 @@
             },
           });
         });
+
+
+        $("#instagram").blur(function () {
+            val = $("#instagram").val();
+            alert(val)
+        });
+
+        $("#linkedin").blur(function () {
+            val = $("#linkedin").val();
+            alert(val)
+        });
+
+        $("#bio").blur(function () {
+            val = $("#bio").val();
+            alert(val)
+        });
+
+        $("#clubSelect").on('select2:close', function () {
+            alert("why!")
+            val = $("#clubs").val();
+            alert(val)
+        });
+
+        $("#tags").blur(function () {
+            val = $("#tags").val();
+            alert(val)
+        });
+        
         $(".delete_tag").click(function () {
           var tagid = $(this).data("tagid");
           var netid = $(this).data("netid");

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 
 <head>
-    <link rel="shortcut icon" href="static/tigerclubsicon.ico"/>
+    <link rel="shortcut icon" href="static/tigerclubsicon.ico" />
 
     <meta charset="UTF-8">
-    <meta name= "viewport" content= "width-device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width-device-width, initial-scale=1, shrink-to-fit=no">
     <title> Tiger Clubs</title>
     <link rel="stylesheet" href="static/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -19,11 +19,12 @@
 
 <body>
     <div class="menu-bar">
-        <nav class="navbar navbar-expand-lg navbar-dark" style = "background-color: #e8804c;">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #e8804c;">
             <div class="container px-lg-5">
                 <a class="navbar-brand" href="#">TigerClubs</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
@@ -31,43 +32,46 @@
     </div>
     <style>
         .parallax {
-          /* The image used */
-          background-image: url("/static/darkprinceton.jpeg");
-        
-          /* Set a specific height */
-          min-height: 200px;
-        
-          /* Create the parallax scrolling effect */
-          background-attachment: fixed;
-          background-position: center;
-          background-repeat: no-repeat;
-          background-size: cover;
+            /* The image used */
+            background-image: url("/static/darkprinceton.jpeg");
+
+            /* Set a specific height */
+            min-height: 200px;
+
+            /* Create the parallax scrolling effect */
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
-        </style>
-<div class="parallax" style = "padding-top: 5rem; padding-bottom: 2rem;">
-    <div id="login">
-        <h3 class="text-center text-white pt-5"></h3>
-        <div class="container" style="padding-top: 7%">
+    </style>
+    <div class="parallax" style="padding-top: 5rem; padding-bottom: 2rem;">
+        <div id="login">
+            <h3 class="text-center text-white pt-5"></h3>
+            <div class="container" style="padding-top: 7%">
 
-        <div class = "card py-5">
-            <div id="login-row" class="row justify-content-center align-items-center">
-                <div id="login-column" class="col-md-6">
-                    <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" action="landing" method="get">
-                            <h3 class="text-center text" style="color: #000000;">Welcome to TigerGroups!</h3>
-                            <h5 class="text-center text" style="color: #000000;">Learn more about clubs and their
-                                ratings</h5>
+                <div class="card py-5">
+                    <div id="login-row" class="row justify-content-center align-items-center">
+                        <div id="login-column" class="col-md-6">
+                            <div id="login-box" class="col-md-12">
+                                <form id="login-form" class="form" action="landing" method="get">
+                                    <h3 class="text-center text" style="color: #000000;">Welcome to TigerClubs!</h3>
+                                    <h5 class="text-center text" style="color: #000000;">Learn more about clubs and
+                                        their
+                                        ratings</h5>
 
-                            <!-- <div class="form-group">
+                                    <!-- <div class="form-group">
                                 <label for="remember-me" class="text-info"><span style = "color: #000000;">Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>-->
 
-                            <!-- <button type="button" name="submit"
+                                    <!-- <button type="button" name="submit"
                                 
                                 class="btn btn-primary col-md-12" >Click
                                 here to login</button> -->
-                            <a id="submit" name="submit" class="btn btn-primary col-md-12 text-center" href="/landingwhoareyou"
-                                style="background-color: #e8804c; border-color: #e8804c;">Click here to login</a>
-                            <!-- <meta name="user-name" content={{user}} />
+                                    <a id="submit" name="submit" class="btn btn-primary col-md-12 text-center"
+                                        href="/landingwhoareyou"
+                                        style="background-color: #e8804c; border-color: #e8804c;">Click here to
+                                        login</a>
+                                    <!-- <meta name="user-name" content={{user}} />
                             <script>
                                 $('#submit').on('click', function () {
 
@@ -78,26 +82,27 @@
                                 })
                             </script> -->
 
-                        </form>
-                    </div>
+                                </form>
+                            </div>
 
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
     </div>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    </div>
-</div>
-<!-- Footer-->
-<footer>
-{% include "footer.html" %}
-</footer>
+    <!-- Footer-->
+    <footer>
+        {% include "footer.html" %}
+    </footer>
 </body>
+
 </html>

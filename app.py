@@ -77,6 +77,11 @@ def landingwhoareyou():
     auth_user = _cas.authenticate().rstrip()
     user = get_student_info(auth_user)
 
+    if not user:
+        html = render_template("notauser.html")
+        response = make_response(html)
+        return response
+
     if user.blacklist:
         html = render_template("blacklistedstudent.html")
         response = make_response(html)
@@ -91,7 +96,6 @@ def landingwhoareyou():
 
 @app.route("/landing", methods=["GET"])
 def landing():
-    print("okay so we're here")
     netid = _cas.authenticate().rstrip()
     user = get_student_info(netid)
     if user.blacklist:
@@ -102,15 +106,19 @@ def landing():
     sort_criteria = request.args.get("sort")
     clubname = request.args.get("clubname")
     query =  request.args.get("query")
+    prev = request.args.get("prev")
     filter_tags = request.args.getlist("tags")
 
-    print("tags", filter_tags)
     if not filter_tags:
         filter_tags = get_all_tagnames()
     pagenum = request.args.get('page', 1, type=int)
 
     if not sort_criteria:
-        sort_criteria = 'Overall'
+        if not prev:
+            sort_criteria = 'Overall'
+        else:
+            sort_criteria = prev
+    
     
     pagenum = request.args.get('page', 1, type=int)
 
@@ -128,18 +136,18 @@ def landing():
     clubs = club_search(search = clubname, query = sort_criteria, page = pagenum)
     tags = get_all_tags()
 
-    print(tags)
-
     if not clubs:
-        html = render_template("mylanding.html", netid=netid, name = name, hasClubs= False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin, query = clubname)
+        html = render_template("mylanding.html", netid=netid, name = name, hasClubs= False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin, query = clubname, prev = sort_criteria)
     else:
-        html = render_template("mylanding.html", netid=netid, name = name, hasClubs = True, clubs = clubs, clubname = clubname, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin, query = clubname)
+        html = render_template("mylanding.html", netid=netid, name = name, hasClubs = True, clubs = clubs, clubname = clubname, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin, query = clubname, prev = sort_criteria)
     
     response = make_response(html)
     return response
 
 @app.route("/studentsearch", methods=["GET"])
 def studentsearch():
+
+    # old code
     netid = _cas.authenticate().rstrip()
     user = get_student_info(netid)
     if user.blacklist:
@@ -411,23 +419,23 @@ def removingvote():
 
 @app.route("/adminlanding", methods = ["GET"])
 def adminlanding():
-    try:
-        auth_user = _cas.authenticate().rstrip()
-        user = get_student_info(auth_user)
-        if user.blacklist:
-            html = render_template("blacklistedstudent.html")
-            response = make_response(html)
-            return response
-        if (not user.admin):
-            html = render_template("notadmin.html")
-            response = make_response(html)
-            return response
-
-        html = render_template("adminlanding.html", requests = get_all_requests(), hasRequests = True)
+    # try:
+    auth_user = _cas.authenticate().rstrip()
+    user = get_student_info(auth_user)
+    if user.blacklist:
+        html = render_template("blacklistedstudent.html")
         response = make_response(html)
         return response
-    except Exception:
-        print("whoops from adminlanding")
+    if (not user.admin):
+        html = render_template("notadmin.html")
+        response = make_response(html)
+        return response
+
+    html = render_template("adminlanding.html", requests = get_all_requests(), hasRequests = True)
+    response = make_response(html)
+    return response
+    # except Exception:
+    #     print("whoops from adminlanding")
 
 @app.route("/delete_user", methods = ["POST","GET"])
 def delete_user():

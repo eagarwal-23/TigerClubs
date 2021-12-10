@@ -107,15 +107,27 @@
                                         <h6><strong>Description: </strong>{{ request.description }}</h6>
                                     </div>
                                     <div class="modal-footer">
+                                        {% if request.request_type == 0 %}
                                         <button type="button" class="btn btn-success {{ request.request_type }}"
                                             data-request-type="{{ request.request_type }}"
                                             data-netid-sender="{{ request.netid_sender }}"
                                             data-netid-about="{{ request.netid_about }}"
                                             data-clubid="{{ request.clubid }}" data-clubname="{{ request.clubname }}"
                                             data-tagname="{{ request.tagname }}"
-                                            data-requestid="{{ request.requestid }}">Accept</a>
-                                            <button type="button" class="btn btn-danger reject"
-                                                data-requestid="{{ request.requestid }}">Reject</a>
+                                            data-requestid="{{ request.requestid }}">Remove User</a>
+                                        <button type="button" class="btn btn-danger reject"
+                                                data-requestid="{{ request.requestid }}">Reject Request</a>
+                                        {% elif request.request_type == 1 %}
+                                        <button type="button" class="btn btn-success {{ request.request_type }}"
+                                        data-request-type="{{ request.request_type }}"
+                                        data-netid-sender="{{ request.netid_sender }}"
+                                        data-netid-about="{{ request.netid_about }}"
+                                        data-clubid="{{ request.clubid }}" data-clubname="{{ request.clubname }}"
+                                        data-tagname="{{ request.tagname }}"
+                                        data-requestid="{{ request.requestid }}">Blacklist User</a>
+                                    <button type="button" class="btn btn-danger reject"
+                                            data-requestid="{{ request.requestid }}">Reject Request</a>
+                                        {{% endif %}}
                                     </div>
                                 </div>
                             </div>

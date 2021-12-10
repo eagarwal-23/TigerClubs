@@ -27,12 +27,6 @@
 
 <body>
     {% include "navbar.html" %}
-    <!-- <header class="py-5" style= "background-color: black; color: white">
-            <div class="text-center">
-                <h3> <strong>Hi {{name}}</strong></h3>
-                <p>Check out club rankings for Fall 2021-2022</p>
-            </div>
-    </header> -->
 
     <style>
         .parallax {
@@ -330,8 +324,7 @@
             <div class="col-lg-4 col-xxl-3" style="width: 15rem;">
                 <div class="form-floating" style="width: 14rem;">
                     <select class="form-select" id="sort_club" aria-label="Floating label select example"
-                        data-select="{{ sort_by }}">
-                        <option value="lalala">{{ sort_by }}</option>
+                        data-select="{{ sort_by }}" data-prev = "{{ prev }}">
                         <option value="Overall">Overall</option>
                         <option value="Diversity">Diversity</option>
                         <option value="Inclusivity">Inclusivity</option>
@@ -360,11 +353,11 @@
         {% if page_num %}
         <!-- Check for the active page and set the link to "Active"-->
         {% if clubs.page == page_num %}
-        <a href="{{ url_for('landing', query = query, page=page_num) }}" class="btn btn-dark">
+        <a href="{{ url_for('landing', query = query, page=page_num, prev = prev) }}" class="btn btn-dark">
             {{ page_num }}
         </a>
         {% else %}
-        <a href="{{ url_for('landing', query = query, page=page_num) }}" class="btn btn-outline-dark">
+        <a href="{{ url_for('landing', query = query, page=page_num, prev = prev) }}" class="btn btn-outline-dark">
             {{ page_num }}
         </a>
         {% endif %}
@@ -418,6 +411,8 @@
         //     $.each(checkboxValues, function(key, value) {
         //         $("#" + key).prop('checked', value);
         //     });
+        prev = $("#sort_club").data('prev')
+        $("#sort_club").val(prev);
 
         $(document).ready(function () {        
             $("#sort_club").change(function () {

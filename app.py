@@ -1,4 +1,5 @@
 from re import S
+from models import *
 from flask import Flask, request, make_response, jsonify
 import datetime as dt
 from flask import render_template, Response
@@ -354,7 +355,7 @@ def myratings():
             name = student.name
             clubs = get_unrated_clubs(student.netid)
             ratings = get_student_ratings(netid)
-            html = render_template("myratings.html", name = name, review = ratings, clubs = clubs, isAdmin = isAdmin)
+            html = render_template("myratings.html", name = name, review = ratings, clubs = clubs, isAdmin = isAdmin, start = start_rating_period, end = end_rating_period)
             response = make_response(html)
             return response
         else:
@@ -430,7 +431,10 @@ def removingvote():
     try:
         if request.method == 'POST':
             reviewid = request.form['reviewid']
+            review = Review.query.filter_by(reviewid = reviewid)
+            clubname = review.clubname
             delete_rating(reviewid)
+            calculate_club_rating(clubname)
             msg = 'success'
         else:
             msg = "uh oh"

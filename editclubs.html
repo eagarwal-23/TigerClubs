@@ -212,6 +212,7 @@
       });
     });
     $(".delete_student").click(function () {
+      alert("here!")
       var clubid = $(this).data("clubid");
       var netid = $(this).data("netid");
       url = "/delete_user?clubid=" + encodeURIComponent(clubid) + "&netid=" + encodeURIComponent(netid);

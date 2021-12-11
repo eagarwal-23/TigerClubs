@@ -477,6 +477,8 @@ def delete_user():
 
     netid = request.args.get("netid")
     clubid = request.args.get("clubid")
+    print(netid)
+    print(clubid)
     delete_student_club(netid=netid.strip(), clubid=clubid.strip())
     requestid = request.args.get("requestid")
     if requestid:

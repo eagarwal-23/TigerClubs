@@ -52,6 +52,8 @@ def get_all_student_reviews(clubid, netid):
     reviews = []
     student_ratings = get_student_ratings(netid)
     for rating in student_ratings:
+        print(rating.reviewid)
+        print(rating.club)
         club = rating.club[0]
         if club.clubid == clubid:
             reviews.append(rating)

@@ -835,10 +835,7 @@ def file_report():
             html = render_template("blacklistedstudent.html")
             response = make_response(html)
             return response
-        if not user.admin:
-            html = render_template("notadmin.html")
-            response = make_response(html)
-            return response
+
         clubs = get_all_clubs()
         students = get_all_students()
         user = get_student_info(netid)

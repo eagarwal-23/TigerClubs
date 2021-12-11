@@ -212,7 +212,6 @@ def profile(diffperson=None):
         instagram = student.instagram
         if instagram is None:
             instagram = ""
-        print(instagram)
         linkedin = student.linkedin
         if linkedin is None:
             linkedin = "https://www.linkedin.com/feed/"
@@ -245,6 +244,28 @@ def edited_profile():
         linkedin = request.args.get("linkedin")
         update_student_info(realnetid, bio, clubs, tags, instagram, linkedin)
         return profile(diffperson=realnetid)
+    except Exception:
+        print("whoops profile from edit")
+
+# rendering profile page after updating from editprofile.html
+@app.route("/adminprofilefromedit", methods=["GET"])
+def admin_edited_profile():
+    try:
+        netid = _cas.authenticate().rstrip()
+        user = get_student_info(netid)
+        if user.blacklist:
+            html = render_template("blacklistedstudent.html")
+            response = make_response(html)
+            return response
+
+        realnetid = request.args.get("netid")
+        bio = request.args.get("bio")
+        clubs = request.args.getlist("clubs")
+        tags = request.args.getlist("tags")
+        instagram = request.args.get("instagram")
+        linkedin = request.args.get("linkedin")
+        update_student_info(realnetid, bio, clubs, tags, instagram, linkedin)
+        return adminprofile(diffperson=realnetid)
     except Exception:
         print("whoops profile from edit")
 
@@ -975,10 +996,16 @@ def adminprofile(diffperson=None):
         bio = student.bio
         interests = student.tags
         tags = get_all_tags()
+        instagram = student.instagram
+        if instagram is None:
+            instagram = ""
+        linkedin = student.linkedin
+        if linkedin is None:
+            linkedin = "https://www.linkedin.com/feed/"
 
         html = render_template("adminprofile.html", student = student,  name=name, netid= netid,
         classyear=classyear, major=major, clubs=clubs, tags=tags,
-        bio=bio, interests=interests, diffperson = diffperson, isAdmin = isAdmin)
+        bio=bio, interests=interests, diffperson = diffperson, isAdmin = isAdmin, instagram = instagram, linkedin= linkedin)
 
         response = make_response(html)
         return response

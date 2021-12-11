@@ -265,7 +265,8 @@
 
       $(".2").click(function () {
         var netid = $(this).data('netid-about');
-        url = "/editprofile?netid=" + encodeURIComponent(netid)
+        alert
+        url = "/admineditprofile?netid=" + encodeURIComponent(netid)
         $.ajax({
           type: 'GET',
           url: url,

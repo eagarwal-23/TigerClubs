@@ -43,6 +43,11 @@
     <body>
     {% include "admin-navbar.html" %}
     <style>
+      .btn:hover, .btn:focus, .btn:active, .btn.active, .open>.dropdown-toggle.btn-light {
+            color: #fff;
+            background-color: #e8804c;
+            border-color: #e8804c; /*set the color you want here*/
+      }
       .parallax {
         /* The image used */
         background-image: url("/static/darkprinceton.png");
@@ -56,19 +61,15 @@
         background-repeat: no-repeat;
         background-size: cover;
       }
-      .btn:hover, .btn:focus, .btn:active, .btn.active, .open>.dropdown-toggle.btn-light {
-            color: #fff;
-            background-color: #e8804c;
-            border-color: #e8804c; /*set the color you want here*/
-        }
       </style>
 
-<form action="profilefromedit" method="get">
+<form action="adminprofilefromedit" method="get">
     <input type="hidden" name="netid" maxlength = 600 value="{{student.netid}}" />
         <!-- Header - set the background image for the header in the line below-->
         <div class="parallax" style = "padding-top: 5rem; padding-bottom: 2rem;">
               <div class = "row mx-auto py-5">
                 <div class = "col-5 mx-auto">
+                  <div class = "card mx-auto bg-light pl-4"style = "width: 100%" >
                 <div class="container mx-auto p-4 bg-light rounded-3 text-center">
                   <!-- <br>
                   <div class="profile-pic text-center">
@@ -86,19 +87,108 @@
                         href ="https://mail.google.com/mail/?view=cm&fs=1&to={{student.netid}}@princeton.edu&body=Sent%20From%20Tigerclubs" target="_blank">
                           {{student.netid}}@princeton.edu
                         </a>
-
                         <br>
                         <br>
-
-                        {%if diffperson == netid%}  
+                        <div class = "inline-block">
+                        <i class="fab fa-instagram fa-2x"></i> : <input id="instagram" type = "text" name = "instagram" placeholder= "Your Instagram username" value="{{student.instagram}}"/>
+                        </div>
+                        <br>
+                        <div class = "inline-block">
+                        <i class="fab fa-linkedin fa-2x"></i> : <input id="linkedin" type = "text" name = "linkedin" placeholder= "Your LinkedIn profile URL" value="{{student.linkedin}}"/>
+                      </div>
+                        <!-- {%if diffperson == netid%}  
                         <br>
                         <br>
                         <a class="btn btn-sm" style = "background-color: #e8804c; "href="/editprofile">Edit Profile</a>
-                        {%endif%}
+                        {%endif%} -->        
+                </div>
+                <div class="card-body">
+                  <div class="row py-3 align-items-center">
+                      <h4 class="mb-0">Bio (upto 200 characters)</h4>
+                      </div>
+                      <div class = "row">
+                        <div class="form-group">
+                            <textarea
+                              class="form-control"
+                              id="exampleFormControlTextarea1"
+                              rows="3"
+                              name="bio" maxlength = 200
+                            >{{bio}}</textarea>
+                          </div>
+                  </div>
+                  <hr>
+                  <div class="row py-3 align-items-center">
+                      <h4 class="mb-0">Interests</h4>
+                    </div>
+                    <div class = "row">
+                        <select
+                        id="tags"
+                        name="tags"
+                        class="form-control"
+                        placeholder="Select up to 5 tags"
+                        multiple
+                      >
+                        {% for tag in tags: %}
+                        <option value="{{tag}}">{{tag}}</option>
+                        {% endfor %}
+                      </select>
+                    <div class="col-sm-9 text-secondary">
+                      {%for interest in student.tags: %}
+                      <div class = "tag2">
+                        <div class = "badge text-white bg-dark">{{interest}}</div><span class="delete_tag close" data-tagid = "{{interest.tagid}}" data-netid = "{{student.netid}}">&times;</span> 
+                      </div>
+                      <style> 
+                          .tag2 {
+                              display: inline-block;
+                              padding-right: 0.25rem;
+                              padding-left: 0.25rem;
+                          }
+                      </style>
+                      {% endfor %}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row py-3 align-items-center">
+                    <h4 class="mb-0">Clubs</h4>
+                  </div>
+                  <div class = "row">
+                  <select
+                  id="clubs"
+                  name="clubs"
+                  class="form-control"
+                  placeholder="Select up to 5 clubs"
+                  multiple
+                >
+                  {% for club in clubs: %}
+                  <option value="{{club}}">{{club}}</option>
+                  {% endfor %}
+                </select>
+                <div class="col-sm-9 text-secondary">
+                  {%for club in student.clubs: %}
+                  <div class = "tag2">
+                    <div class = "badge text-white bg-dark">{{club}}</div><span class="delete_club close" data-clubid = "{{club.clubid}}" data-netid = "{{student.netid}}">&times;</span> 
+                  </div>
+                  <style> 
+                      .tag2 {
+                          display: inline-block;
+                          padding-right: 0.25rem;
+                          padding-left: 0.25rem;
+                      }
+                  </style>
+                  {% endfor %}
                 </div>
               </div>
+
+                  <hr>
+                  <div class = "row-2">
+                  <input class="btn btn-lg" type="submit" value="Save Changes" style = "background-color: #e8804c;"/>
+                  <a href="/profile?netid={{netid}}">Cancel</a>
+                  </div>
+                </div>
+              </div>
+              </div>
               
-              <div class="col-5 mr-auto">
+              <!-- <div class="col-5 mr-auto">
                 <div class = "card mx-auto bg-light pl-4" >
                 <div class="card-body">
                   <div class="row py-3 align-items-center">
@@ -152,86 +242,10 @@
 
                 </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
-        <!-- Content section-->
-        <section class = "py-5" style = "align-content: center;">
-          <div class="container-fluid">
-              <!-- Page Features-->
-              <div class="row mx-auto gx-lg-5">
-                <div class="col mx-auto gx-lg-5">
-                    <div class="row mx-auto" style="width: 100%;">
-                      <div class="card cardadd card-1 mx-auto" style="width: 38rem; background-color: white; margin: 15px; margin-top:0">
-                        <br>
-                        <h4 class = "mx-auto">Add a new club</h4>
-                        <select
-                    id="clubs"
-                    name="clubs"
-                    class="form-control"
-                    placeholder="Select up to 5 clubs"
-                    multiple
-                  >
-                    {% for club in clubs: %}
-                    <option value="{{club}}">{{club}}</option>
-                    {% endfor %}
-                  </select>
-                      </div>
-                    {%for club in student.clubs: %}
-                      <div class="card card-1 mx-auto" style="width: 38rem; background-color: white; margin: 15px; margin-top:0">
-                          <div class="card-body">
-                            <button class = "btn btn-sm btn-light delete_club text-right float-right" data-clubid = "{{club.clubid}}" data-netid = "{{student.netid}}">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                          <h5 class="card-title" style="color: #e8804c;">{{club}} &nbsp;
-                            {% set unselected = 5 - (club.combined|int)%}
-                            <div id ="inlinereview">
-                                {% for i in range(club.combined|int) %}
-                                <i aria-hidden="true" class="fas fa-star"></i>
-                                {% endfor %}  
-                                {% for i in range(unselected) %}
-                                <i aria-hidden="true" class="far fa-star"></i>
-                                {% endfor %} 
-                            </div></h5>
-                            <div class="border-top my-3"></div>
 
-                            <style>
-                                .fa-star,.fa-star-o,.fa-star-half-o{
-                                display:inline-block;
-                                color:#FDC91B;
-                                font-size:25px !important;
-                                }
-                                #inlinereview{
-                                    display:inline-block;
-                                }
-                            </style></h5>
-                          <h6 class="card-subtitle mb-2 text-muted">Description: {{club.description}} Long yada yaday ydaa</h6>
-                          
-                          
-                          {%for tag in club.tags: %}
-                          <div class = "tag">
-                              <div class = "badge text-white" style = "background-color: #e8804c;">{{tag}}</div>
-                          </div>
-                          <style> 
-                              .tag {
-                                display: inline-block;
-                                font-size: small;
-                                padding-right: 0.25rem;
-                              }
-                          </style>
-                          {% endfor %}
-
-
-                          <a href="/clubpage?clubname={{club}}"></a>
-                          </div>
-                      </div>
-                  {% endfor %}
-                </div>
-                </div>
-              </div>
-            </div>
-            
-            </section>
         <!-- Footer-->
         {% include "footer.html" %}
         <!-- Bootstrap core JS-->
@@ -245,14 +259,14 @@
             removeItemButton: true,
             maxItemCount: 5,
             searchResultLimit: 5,
-            renderChoiceLimit: 5,
+            // renderChoiceLimit: 5,
           });
     
           var multipleCancelButton = new Choices("#clubs", {
             removeItemButton: true,
             maxItemCount: 5,
             searchResultLimit: 5,
-            renderChoiceLimit: 5,
+            // renderChoiceLimit: 5,
           });
         });
 

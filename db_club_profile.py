@@ -18,7 +18,7 @@ def update_club_info(name, description = None, members = None, tags = None):
         for member in members:
             member = member.strip()
             student = Student.query.filter_by(netid=member).first()
-            print(student)
+            print("aaa", student)
             club.members.append(student)
             db.session.add(club)
 
@@ -26,7 +26,6 @@ def update_club_info(name, description = None, members = None, tags = None):
         for tag in tags:
             tag = tag.strip()
             tag = Tag.query.filter_by(name=tag).first()
-            print(tag)
             club.tags.append(tag)
             db.session.add(club)
 

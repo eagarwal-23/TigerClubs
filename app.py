@@ -739,27 +739,26 @@ def editclub():
 
 @app.route("/editclubfromedit", methods=["GET"])
 def editclubfromedit():
-    try:
-        auth_user = _cas.authenticate().rstrip()
-        user = get_student_info(auth_user)
-        if user.blacklist:
-            html = render_template("blacklistedstudent.html")
-            response = make_response(html)
-            return response
-        if not user.admin:
-            html = render_template("notadmin.html")
-            response = make_response(html)
-            return response
-        clubname = request.args.get("clubname")
-        description = request.args.get("description")
-        members = request.args.getlist("members")
-        tags = request.args.getlist("tags")
+    # try:
+    auth_user = _cas.authenticate().rstrip()
+    user = get_student_info(auth_user)
+    if user.blacklist:
+        html = render_template("blacklistedstudent.html")
+        response = make_response(html)
+        return response
+    if not user.admin:
+        html = render_template("notadmin.html")
+        response = make_response(html)
+        return response
+    clubname = request.args.get("clubname")
+    description = request.args.get("description")
+    members = request.args.getlist("members")
+    tags = request.args.getlist("tags")
 
-
-        update_club_info(clubname, description, members, tags)
-        return adminclubpage()
-    except Exception:
-        print("whoops from editclubfromedit")
+    update_club_info(clubname, description, members, tags)
+    return adminclubpage()
+    # except Exception:
+    #     print("whoops from editclubfromedit")
 
 @app.route("/delete_club", methods = ["GET"])
 def delete_club():

@@ -152,16 +152,17 @@ def get_unrated_clubs(netid):
 
 if __name__ == "__main__":
     reviews = get_all_reviews()
-    for review in reviews:
-        club = review.club
-        student = review.student
-        if not club or not student:
-            db.session.delete(review)
-    db.session.commit()
+    # for review in reviews:
+    #     club = review.club
+    #     student = review.student
+    #     if not club or not student:
+    #         db.session.delete(review)
+    # db.session.commit()
 
     requests = get_all_requests()
+    print(requests)
     for request in requests:
-        clubid = review.clubid
+        clubid = request.clubid
         club = Club.query.filter_by(clubid = clubid)
         if not club:
             db.session.delete(request)

@@ -279,6 +279,11 @@
                                                 height: 100%;
                                             }
                                         </style>
+                                        {% if prev != "Club Name" %}
+                                        <h6 class="card-subtitle mb-2 text-muted"
+                                        style="font-weight: bold; font-size: medium; padding-top: 10px;">
+                                        #{{ ((pagenum - 1) * 20) + loop.index }} in {{ prev }}</h6>
+                                        {% endif %}
                                         <h6 class="card-subtitle mb-2 text-muted"
                                             style="font-style: italic; font-size: small; padding-top: 10px;">
                                             <strong>Description:</strong>

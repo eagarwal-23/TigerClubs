@@ -137,9 +137,9 @@ def landing():
     tags = get_all_tags()
 
     if not clubs:
-        html = render_template("mylanding.html", netid=netid, name = name, hasClubs= False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin, query = clubname, prev = sort_criteria)
+        html = render_template("mylanding.html", netid=netid, name = name, hasClubs= False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin, query = clubname, prev = sort_criteria, pagenum = pagenum)
     else:
-        html = render_template("mylanding.html", netid=netid, name = name, hasClubs = True, clubs = clubs, clubname = clubname, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin, query = clubname, prev = sort_criteria)
+        html = render_template("mylanding.html", netid=netid, name = name, hasClubs = True, clubs = clubs, clubname = clubname, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin, query = clubname, prev = sort_criteria, pagenum = pagenum)
     
     response = make_response(html)
     return response

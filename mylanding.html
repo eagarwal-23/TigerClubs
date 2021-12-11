@@ -56,189 +56,24 @@
 
     <div class="container-fluid" style="padding-top: 4rem;">
         <div class="row mx-auto" style="justify-content:space-around">
-            <div class="col-lg-3 col-xxl-2" style="width: 20rem;">
-                <div class="row text-center">
-                    <h5>Filters:</h5>
-                </div>
-                <hr>
-                <a class="btn btn-link text-muted p-0" data-toggle="collapse" href="#collapseExample"
-                    aria-expanded="false" aria-controls="collapseExample">
-                    Categories:
-                </a>
-                <div class="collapse show pt-3" style="padding-left: 1rem;" id="collapseExample">
-                    <div class="form-check pl-0 mb-3">
-                        <input size="42" type="checkbox" class="filter-option form-check-input filled-in" id="ACADEMIC"
-                            oninput="printThis()" />
-                        <label class="form-check-label small text-uppercase card-link-secondary"
-                            for="42">ACADEMIC</label>
-                    </div>
-                    <div class="form-check pl-0 mb-3">
-                        <input size="42" type="checkbox" class="filter-option form-check-input filled-in"
-                            id="ACAPELLA MUSIC" oninput="printThis()" />
-                        <label class="form-check-label small text-uppercase card-link-secondary" for="42"> ACAPELLA
-                            MUSIC</label>
-                    </div>
-                    <div class="form-check pl-0 mb-3">
-                        <input size="42" type="checkbox" class="filter-option form-check-input filled-in"
-                            id="A CAPPELLA" oninput="printThis()" />
-                        <label class="form-check-label small text-uppercase card-link-secondary" for="42">A
-                            CAPPELLA</label>
-                    </div>
-                    <a class="btn btn-link text-muted p-0" data-toggle="collapse" href="#collapseExample2"
-                        aria-expanded="false" aria-controls="collapseExample2">
-                        More
-                    </a>
-                    <div class="collapse pt-3" id="collapseExample2">
-                        {%for tag in tags: %}
-                        <div class="form-check pl-0 mb-3">
-                            <input size="42" type="checkbox" class="tags_tags filter-option form-check-input filled-in"
-                                id="{{tag}}" value = "{{tag}}"/>
-                            <label class="form-check-label small card-link-secondary"
-                                for="42">{{tag}}</label>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <hr>
-                <a class="btn btn-link text-muted p-0" data-toggle="collapse" href="#collapseExample3"
-                    aria-expanded="false" aria-controls="collapseExample3">
-                    Star Ratings:
-                </a>
-                <div class="collapse show pt-3" style="padding-left: 1rem;" id="collapseExample3">
-                    <div class="form-check pl-0 mb-3">
-                        <input size="42" type="checkbox" class="filter-option form-check-input filled-in" id="{{tag}}"
-                            oninput="printThis()" />
-                        <label class="form-check-label small text-uppercase card-link-secondary"
-                            for="42">{% set selected = 5 %}
-                            {% set unselected = 5- selected %}
-                            <div id="inlinereview">
-                                {% for i in range(selected) %}
-                                <i aria-hidden="true" class="fa fa-star"></i>
-                                {% endfor %}
-                                {% for i in range(unselected) %}
-                                <i aria-hidden="true" class="fa fa-star-o"></i>
-                                {% endfor %}
-                            </div></label>
-                    </div>
-                    <div class="form-check pl-0 mb-3">
-                        <input size="42" type="checkbox" class="filter-option form-check-input filled-in" id="{{tag}}"
-                            oninput="printThis()" />
-                        <label class="form-check-label small text-uppercase card-link-secondary"
-                            for="42">{% set selected = 4 %}
-                            {% set unselected = 5- selected %}
-                            <div id="inlinereview">
-                                {% for i in range(selected) %}
-                                <i aria-hidden="true" class="fa fa-star"></i>
-                                {% endfor %}
-                                {% for i in range(unselected) %}
-                                <i aria-hidden="true" class="fa fa-star-o"></i>
-                                {% endfor %}
-                            </div></label>
-                    </div>
-                    <div class="form-check pl-0 mb-3">
-                        <input size="42" type="checkbox" class="filter-option form-check-input filled-in" id="{{tag}}"
-                            oninput="printThis()" />
-                        <label class="form-check-label small text-uppercase card-link-secondary"
-                            for="42">{% set selected = 3 %}
-                            {% set unselected = 5- selected %}
-                            <div id="inlinereview">
-                                {% for i in range(selected) %}
-                                <i aria-hidden="true" class="fa fa-star"></i>
-                                {% endfor %}
-                                {% for i in range(unselected) %}
-                                <i aria-hidden="true" class="fa fa-star-o"></i>
-                                {% endfor %}
-                            </div></label>
-                    </div>
-                    <div class="form-check pl-0 mb-3">
-                        <input size="42" type="checkbox" class="filter-option form-check-input filled-in" id="{{tag}}"
-                            oninput="printThis()" />
-                        <label class="form-check-label small text-uppercase card-link-secondary"
-                            for="42">{% set selected = 2 %}
-                            {% set unselected = 5- 2 %}
-                            <div id="inlinereview">
-                                {% for i in range(selected) %}
-                                <i aria-hidden="true" class="fa fa-star"></i>
-                                {% endfor %}
-                                {% for i in range(unselected) %}
-                                <i aria-hidden="true" class="fa fa-star-o"></i>
-                                {% endfor %}
-                            </div></label>
-                    </div>
-                    <div class="form-check pl-0 mb-3">
-                        <input size="42" type="checkbox" class="filter-option form-check-input filled-in" id="{{tag}}"
-                            oninput="printThis()" />
-                        <label class="form-check-label small text-uppercase card-link-secondary"
-                            for="42">{% set selected = 1 %}
-                            {% set unselected = 5- 1 %}
-                            <div id="inlinereview">
-                                {% for i in range(selected) %}
-                                <i aria-hidden="true" class="fa fa-star"></i>
-                                {% endfor %}
-                                {% for i in range(unselected) %}
-                                <i aria-hidden="true" class="fa fa-star-o"></i>
-                                {% endfor %}
-                            </div>
-                        </label>
-                    </div>
-                </div>
-                <!-- <a
-                      class="btn btn-link text-muted p-0"
-                      data-toggle="collapse"
-                      href="#collapseEx"
-                      aria-expanded="false"
-                      aria-controls="collapseExample"
-                    >
-                    Filter by tag:
-                </a>
-                <div class="collapse show pt-3" id="tagsCollapse">
-                    {%for tag in tags: %}
-                    <div class="form-check pl-0 mb-3">
-                        <input
-                          size="42"
-                          type="checkbox"
-                          class="filter-option form-check-input filled-in"
-                          id="{{tag}}"
-                          oninput="printThis()"
-                        />
-                        <label
-                          class="form-check-label small text-uppercase card-link-secondary"
-                          for="42"
-                          >{{tag}}</label
-                        >
-                      </div>
-                      {% endfor %}
-                      <div class="form-check pl-0 mb-3">
-                        <input
-                          size="44"
-                          type="checkbox"
-                          class="filter-option form-check-input filled-in"
-                          id="44"
-                        />
-                        <label
-                          class="form-check-label small text-uppercase card-link-secondary"
-                          for="44"
-                          >44</label>
-                    </div>
-              </div> -->
-
-            </div>
-            <div class="col-xxl-6 gx-lg-7">
+            <div class="col-xxl-8 gx-lg-7">
                 <div class="row mx-auto" style="width: 100%;">
                     <form class="input-group mx-auto" action="/landing" style="padding-bottom: 1rem; width: 100%;"
                         method="get">
-                        <input id="searchInput" type="search" class="form-control rounded" name="clubname" maxlength="120"
-                            placeholder="Search for a club by name or tags" value="{{query}}" aria-label="Search" />
+                        <input id="searchInput" type="search" class="form-control rounded" name="clubname"
+                            maxlength="120" placeholder="Search for a club by name or tags" value="{{query}}"
+                            aria-label="Search" />
                         <button type="submit" class="btn text-black rounded"
                             style="background-color: #e8804c;">Search</button>
                     </form>
                     {%if hasClubs: %}
                     {%for club in clubs.items: %}
                     <div class="card mx-auto bg-light"
-                        style="background-color: whitesmoke; width:45rem; margin: 10px; padding: 0;">
+                        style="background-color: whitesmoke; width:55rem; margin: 10px; padding: 0;">
                         <div class="row" style="width: 100%;">
                             <div class="col-4" style="height: 100%;">
-                                <img src="{{club.pictureURL}}" class="card-image-top" alt=""></div>
+                                <img src="{{club.pictureURL}}" class="card-image-top" alt="">
+                            </div>
                             <div class="col-8">
                                 <div class="card-body">
                                     <div style="justify-content: space-between;">
@@ -248,14 +83,14 @@
                                         <!-- <h7> <strong>#1 </strong>club <strong>Overall</strong></h7>
                                         <br> -->
                                         {% set unselected = 5 - (club.combined|int)%}
-                                            <div id="inlinereview">
-                                                {% for i in range(club.combined|int) %}
-                                                <i aria-hidden="true" class="fa fa-star"></i>
-                                                {% endfor %}
-                                                {% for i in range(unselected) %}
-                                                <i aria-hidden="true" class="fa fa-star-o"></i>
-                                                {% endfor %}
-                                            </div>
+                                        <div id="inlinereview">
+                                            {% for i in range(club.combined|int) %}
+                                            <i aria-hidden="true" class="fa fa-star"></i>
+                                            {% endfor %}
+                                            {% for i in range(unselected) %}
+                                            <i aria-hidden="true" class="fa fa-star-o"></i>
+                                            {% endfor %}
+                                        </div>
 
                                         <style>
                                             .fa-star,
@@ -281,13 +116,14 @@
                                         </style>
                                         {% if prev != "Club Name" %}
                                         <h6 class="card-subtitle mb-2 text-muted"
-                                        style="font-weight: bold; font-size: medium; padding-top: 10px;">
-                                        #{{ ((pagenum - 1) * 20) + loop.index }} in {{ prev }}</h6>
+                                            style="font-weight: bold; font-size: medium; padding-top: 10px;">
+                                            #{{ ((pagenum - 1) * 20) + loop.index }} in {{ prev }}</h6>
                                         {% endif %}
                                         <h6 class="card-subtitle mb-2 text-muted"
                                             style="font-style: italic; font-size: small; padding-top: 10px;">
                                             <strong>Description:</strong>
-                                            {{club.description[:250] + "..."}}</h6>
+                                            {{club.description[:250] + "..."}}
+                                        </h6>
                                         <!-- <strong id="element1">Overall: </strong> 
                                 {{"{:.1f}".format(club.combined)}} -->
 
@@ -329,7 +165,7 @@
             <div class="col-lg-4 col-xxl-3" style="width: 15rem;">
                 <div class="form-floating" style="width: 14rem;">
                     <select class="form-select" id="sort_club" aria-label="Floating label select example"
-                        data-select="{{ sort_by }}" data-prev = "{{ prev }}">
+                        data-select="{{ sort_by }}" data-prev="{{ prev }}">
                         <option value="Overall">Overall</option>
                         <option value="Diversity">Diversity</option>
                         <option value="Inclusivity">Inclusivity</option>
@@ -419,7 +255,7 @@
         prev = $("#sort_club").data('prev')
         $("#sort_club").val(prev);
 
-        $(document).ready(function () {        
+        $(document).ready(function () {
             $("#sort_club").change(function () {
                 var sortQuery = $("#sort_club").val();
                 var searchQuery = $("#searchInput").val()

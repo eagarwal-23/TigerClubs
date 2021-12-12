@@ -181,7 +181,7 @@
 
                   <hr>
                   <div class = "row-2">
-                  <input id = "savebutton" class="btn btn-lg" type="submit" value="Save Changes" style = "background-color: #e8804c;"/>
+                  <input id = "savebutton" class="btn btn-lg" type="submit" value="Save Changes" style = "background-color: #e8804c;" data-netid = "{{student.netid}}"/>
                   <a href="/profile?netid={{netid}}">Cancel</a>
                   </div>
                 </div>
@@ -267,6 +267,17 @@
         clubid = deleted_clubs[i]
         deleteClubs(clubid);
       }      
+
+      netid = $(this).data('netid')
+      alert(netid)
+      url = "profile?" + "netid=" + encodeURIComponent(netid)
+      $.ajax({
+            url: url,
+            method: "GET",
+            success: function () {
+              window.location.href = url
+            },
+          });
     });
     
         $(document).ready(function () {

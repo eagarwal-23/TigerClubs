@@ -470,10 +470,6 @@ def delete_user():
         html = render_template("blacklistedstudent.html")
         response = make_response(html)
         return response
-    if (not user.admin):
-        html = render_template("notadmin.html")
-        response = make_response(html)
-        return response
 
     netid = request.args.get("netid")
     clubid = request.args.get("clubid")

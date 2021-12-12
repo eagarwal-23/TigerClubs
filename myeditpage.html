@@ -63,7 +63,7 @@
       }
       </style>
 
-<form action="profilefromedit" method="get">
+<form action="/profilefromedit" method="get">
     <input type="hidden" name="netid" maxlength = 600 value="{{student.netid}}" />
         <!-- Header - set the background image for the header in the line below-->
         <div class="parallax" style = "padding-top: 5rem; padding-bottom: 2rem;">
@@ -181,7 +181,7 @@
 
                   <hr>
                   <div class = "row-2">
-                  <input class="btn btn-lg" type="submit" value="Save Changes" style = "background-color: #e8804c;"/>
+                  <input id = "savebutton" class="btn btn-lg" type="submit" value="Save Changes" style = "background-color: #e8804c;"/>
                   <a href="/profile?netid={{netid}}">Cancel</a>
                   </div>
                 </div>
@@ -254,6 +254,23 @@
         <script src="js/scripts.js"></script>
     </body>
     <script>
+    $("#savebutton").click(function () {
+      added_clubs = $("#clubs").val()
+      added_tags = $("#tags").val()
+      bio = $("#bioHere").val()
+      for (var i = 0; i < deleted_tags.length; i++) {
+        tagid = deleted_tags[i]
+        alert("lallaa")
+        deleteTags(tagid);
+      }
+
+      for (var i = 0; i < deleted_clubs.length; i++) {
+        clubid = deleted_clubs[i]
+        alert("lallaa")
+        deleteClubs(clubid);
+      }      
+    });
+    
         $(document).ready(function () {
           var multipleCancelButton = new Choices("#tags", {
             removeItemButton: true,
@@ -269,33 +286,64 @@
             // renderChoiceLimit: 5,
           });
         });
-
+        var deleted_tags = []
+        var deleted_clubs = []
+        var club = ""
         $(".delete_club").click(function () {
           var clubid = $(this).data("clubid");
           var netid = $(this).data("netid");
-          url = "/delete_user?clubid=" + encodeURIComponent(clubid) + "&netid=" + encodeURIComponent(netid);
-          console.log(url)
-          $.ajax({
-            url: url,
-            method: "GET",
-            success: function () {
-              location.reload();
-            },
-          });
+          deleted_clubs.push(clubid)
+          student = netid
+          // url = "/delete_user?clubid=" + encodeURIComponent(clubid) + "&netid=" + encodeURIComponent(netid);
+          // console.log(url)
+          // $.ajax({
+          //   url: url,
+          //   method: "GET",
+          //   success: function () {
+          //     location.reload();
+          //   },
+          // });
         });
         $(".delete_tag").click(function () {
           var tagid = $(this).data("tagid");
           var netid = $(this).data("netid");
-          url = "/delete_tag_user?tagid=" + encodeURIComponent(tagid) + "&netid=" + encodeURIComponent(netid);
+          deleted_tags.push(tagid)
+          student = netid
+          // url = "/delete_tag_user?tagid=" + encodeURIComponent(tagid) + "&netid=" + encodeURIComponent(netid);
+          // console.log(url)
+          // $.ajax({
+          //   url: url,
+          //   method: "GET",
+          //   success: function () {
+          //     location.reload();
+          //   },
+          // });
+        });
+      function deleteTags(tagid) {
+        netid = student
+        url = "/delete_tag_user?tagid=" + encodeURIComponent(tagid) + "&netid=" + encodeURIComponent(netid);
           console.log(url)
+          alert(url)
           $.ajax({
             url: url,
             method: "GET",
             success: function () {
-              location.reload();
             },
           });
-        });
+    }
+
+    function deleteClubs(clubid) {
+      netid = student
+      url = "/delete_user?clubid=" + encodeURIComponent(clubid) + "&netid=" + encodeURIComponent(netid);
+      console.log(url)
+      alert(url)
+      $.ajax({
+        url: url,
+        method: "GET",
+        success: function () {
+        },
+      });
+    }
       </script>
       <script>
         var closebtns = document.getElementsByClassName("close");

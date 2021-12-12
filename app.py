@@ -293,7 +293,7 @@ def editprofile():
     instagram = student.instagram
     linkedin = student.linkedin
     try:
-        html = render_template("newedit.html", name=name, netid=netid, student = student, clubs = clubs, tags = tags,
+        html = render_template("myeditpage.html", name=name, netid=netid, student = student, clubs = clubs, tags = tags,
         classyear=classyear, major=major,instagram = instagram, linkedin = linkedin,
         bio=bio, isAdmin = isAdmin)
         response = make_response(html)
@@ -477,6 +477,7 @@ def delete_user():
 
     netid = request.args.get("netid")
     clubid = request.args.get("clubid")
+    print("why the fuck won't this delete")
     print(netid)
     print(clubid)
     delete_student_club(netid=netid.strip(), clubid=clubid.strip())

@@ -109,6 +109,7 @@ def delete_request(requestid):
 def delete_student_club(netid, clubid):
     student = Student.query.filter_by(netid = netid).first()
     club = Club.query.filter_by(clubid = clubid).first()
+    print("is this the problem")
     list_of_reviews = get_all_student_reviews(club.clubid, student.netid)
     for review in list_of_reviews:
         reviewThis = Review.query.filter_by(reviewid = review.reviewid).first()
@@ -127,9 +128,7 @@ def delete_student_tag(netid, tagid):
 def delete_club_tag_db(clubid, tagid):
     club = Club.query.filter_by(clubid = clubid).first()
     tag = Tag.query.filter_by(tagid = tagid).first()
-    print(club.tags)
     club.tags.remove(tag)
-    print(club.tags)
     db.session.commit()
 
 # for BLACKLIST_USER type request

@@ -186,7 +186,8 @@
 
       added_students = $("#members").val()
       added_tags =$("#tags").val()
-      bio = $("#bio").val()
+      name = $("#clubname").val()
+      desc = $("#descHere").val()
       for (var i = 0; i < deleted_tags.length; i++) {
         tagid = deleted_tags[i]
         deleteTags(tagid);
@@ -215,6 +216,7 @@
       });
     });
     var deleted_tags = []
+    var deleted_students = []
     var club = ""
     $(".delete_tag").click(function () {
       var tagid = $(this).data("tagid");
@@ -231,7 +233,6 @@
       //   },
       // });
     });
-    var deleted_students = []
 
     $(".delete_student").click(function () {
       alert("here!")

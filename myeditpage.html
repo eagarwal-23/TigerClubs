@@ -260,13 +260,11 @@
       bio = $("#bioHere").val()
       for (var i = 0; i < deleted_tags.length; i++) {
         tagid = deleted_tags[i]
-        alert("lallaa")
         deleteTags(tagid);
       }
 
       for (var i = 0; i < deleted_clubs.length; i++) {
         clubid = deleted_clubs[i]
-        alert("lallaa")
         deleteClubs(clubid);
       }      
     });
@@ -323,7 +321,6 @@
         netid = student
         url = "/delete_tag_user?tagid=" + encodeURIComponent(tagid) + "&netid=" + encodeURIComponent(netid);
           console.log(url)
-          alert(url)
           $.ajax({
             url: url,
             method: "GET",
@@ -336,7 +333,6 @@
       netid = student
       url = "/delete_user?clubid=" + encodeURIComponent(clubid) + "&netid=" + encodeURIComponent(netid);
       console.log(url)
-      alert(url)
       $.ajax({
         url: url,
         method: "GET",

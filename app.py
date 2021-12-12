@@ -884,10 +884,6 @@ def submitted_request():
         html = render_template("blacklistedstudent.html")
         response = make_response(html)
         return response
-    if not user.admin:
-        html = render_template("notadmin.html")
-        response = make_response(html)
-        return response
     user = get_student_info(netid)
     isAdmin = 0
     if user.admin:
@@ -1116,10 +1112,6 @@ def students_json():
             html = render_template("blacklistedstudent.html")
             response = make_response(html)
             return response
-        if not user.admin:
-            html = render_template("notadmin.html")
-            response = make_response(html)
-            return response
         if request.method == 'GET':
             students = get_all_students()
             students_json = []
@@ -1141,10 +1133,6 @@ def clubs_json():
         user = get_student_info(netid)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
-            response = make_response(html)
-            return response
-        if not user.admin:
-            html = render_template("notadmin.html")
             response = make_response(html)
             return response
         if request.method== 'GET':

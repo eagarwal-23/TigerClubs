@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="static/choices.css">
     <!------ Include the above in your HEAD tag ---------->
     <link href="static/styles.css" rel="stylesheet" />
+    <link href="static/style.css" rel="stylesheet" />
 
 </head>
 
@@ -56,15 +57,24 @@
 
     <div class="container-fluid" style="padding-top: 4rem;">
         <div class="row mx-auto" style="justify-content:space-around">
-            <div class="col-xxl-8 gx-lg-7">
-                <div class="row mx-auto" style="width: 100%;">
-                    <form class="input-group mx-auto" action="/landing" style="padding-bottom: 1rem; width: 100%;"
-                        method="get">
-                        <input id="searchInput" type="search" class="form-control rounded" name="clubname"
-                            maxlength="120" placeholder="Search for a club by name or tags" value="{{query}}"
-                            aria-label="Search" />
-                        <button type="submit" class="btn text-black rounded"
-                            style="background-color: #e8804c;">Search</button>
+            <div class="col-xxl-9 gx-lg-7">
+                <div class="row mx-auto" style="width: 90%;">
+                    <form class="form-inline my-2 my-lg-0" style="padding-top: 2%; padding-bottom: 1rem;"
+                        action="/landing" method="get">
+                        <div class="flex-container-search">
+
+                            <div class="flex-item  col-10">
+                                <input class="form-control" type="search" name="clubname"
+                                    placeholder="Search for a club by name or tags" value="{{query}}"
+                                    aria-label="Search" maxlength="120" />
+                            </div>
+                            <div class="flex-item col-2">
+                                <button class="btn btn-outline input-block-level"
+                                    style="background-color: #e8804c; width:100%;" type="submit">
+                                    Search
+                                </button>
+                            </div>
+                        </div>
                     </form>
                     {%if hasClubs: %}
                     {%for club in clubs.items: %}

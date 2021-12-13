@@ -208,11 +208,11 @@ def profile(diffperson=None):
         interests = student.tags
         tags = get_all_tags()
         instagram = student.instagram
-        #if instagram is None:
-            #instagram = ""
+        if instagram is None:
+            instagram = ""
         linkedin = student.linkedin
-        #if linkedin is None:
-            #linkedin = "https://www.linkedin.com/feed/"
+        if linkedin is None:
+            linkedin = ""
 
         html = render_template("profile.html", student = student,  name=name, netid= netid,
         classyear=classyear, major=major, clubs=clubs, tags=tags,
@@ -290,6 +290,10 @@ def editprofile():
     tags = get_all_tags()
     instagram = student.instagram
     linkedin = student.linkedin
+    if instagram is None:
+        instagram = ""
+    if linkedin is None:
+        linkedin = ""
     try:
         html = render_template("myeditpage.html", name=name, netid=netid, student = student, clubs = clubs, tags = tags,
         classyear=classyear, major=major,instagram = instagram, linkedin = linkedin,
@@ -991,10 +995,10 @@ def adminprofile(diffperson=None):
         tags = get_all_tags()
         instagram = student.instagram
         if instagram is None:
-            instagram = ""
+           instagram = ""
         linkedin = student.linkedin
         if linkedin is None:
-            linkedin = "https://www.linkedin.com/feed/"
+            linkedin = ""
 
         html = render_template("adminprofile.html", student = student,  name=name, netid= netid,
         classyear=classyear, major=major, clubs=clubs, tags=tags,

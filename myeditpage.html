@@ -90,7 +90,7 @@
                         <br>
                         <br>
                         <div class = "inline-block">
-                          {%if student.instagram != None and student.instagram != "" and student.instagram != "None"%}
+                          {%if instagram != None and instagram != "" and instagram != "None"%}
                         <i class="fab fa-instagram fa-2x"></i> : <input id="instagram" type = "text" name = "instagram" placeholder= "Your Instagram username" value="{{student.instagram}}"/>
                         {%else%}
                         <i class="fab fa-instagram fa-2x"></i> : <input id="instagram" type = "text" name = "instagram" placeholder= "Your Instagram username" value=""/>
@@ -98,7 +98,7 @@
                       </div>
                         <br>
                         <div class = "inline-block">
-                          {%if student.linkedin != None and student.linkedin != "" and student.linkedin != "None"%}
+                          {%if linkedin != None and linkedin != "" and linkedin != "None"%}
                         <i class="fab fa-linkedin fa-2x"></i> : <input id="linkedin" type = "text" name = "linkedin" placeholder= "Your LinkedIn profile URL" value="{{student.linkedin}}"/>
                         {%else%}
                         <i class="fab fa-linkedin fa-2x"></i> : <input id="linkedin" type = "text" name = "linkedin" placeholder= "Your LinkedIn profile URL" value=""/>

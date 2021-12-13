@@ -88,13 +88,21 @@
                           {{student.netid}}@princeton.edu
                         </a>
                         <br>
-                        <br>
                         <div class = "inline-block">
+                          {%if instagram != None and instagram != "" and instagram != "None"%}
                         <i class="fab fa-instagram fa-2x"></i> : <input id="instagram" type = "text" name = "instagram" placeholder= "Your Instagram username" value="{{student.instagram}}"/>
-                        </div>
+                        {%else%}
+                        <i class="fab fa-instagram fa-2x"></i> : <input id="instagram" type = "text" name = "instagram" placeholder= "Your Instagram username" value=""/>
+                        {%endif%}  
+                      </div>
                         <br>
                         <div class = "inline-block">
+                          {%if linkedin != None and linkedin != "" and linkedin != "None"%}
+
                         <i class="fab fa-linkedin fa-2x"></i> : <input id="linkedin" type = "text" name = "linkedin" placeholder= "Your LinkedIn profile URL" value="{{student.linkedin}}"/>
+                        {%else%}
+                        <i class="fab fa-linkedin fa-2x"></i> : <input id="linkedin" type = "text" name = "linkedin" placeholder= "Your LinkedIn profile URL" value=""/>
+                      {%endif%}
                       </div>
                         <!-- {%if diffperson == netid%}  
                         <br>

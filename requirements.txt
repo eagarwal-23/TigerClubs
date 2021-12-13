@@ -1,5 +1,4 @@
 APScheduler==3.8.1
-brotlipy @ file:///Users/runner/miniforge3/conda-bld/brotlipy_1636012319596/work
 certifi==2021.10.8
 cffi @ file:///Users/runner/miniforge3/conda-bld/cffi_1636046173594/work
 charset-normalizer @ file:///home/conda/feedstock_root/build_artifacts/charset-normalizer_1637858084653/work

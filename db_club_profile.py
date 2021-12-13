@@ -81,6 +81,8 @@ def calculate_club_rating(clubname):
 
 # for all clubs, recalculate aggregate ratings'
 def calculate_all_club_ratings():
+    print("lalalalalala")
+    print("recalculating ratings")
     clubs = get_all_clubs()
     for club in clubs:
         reviews = get_club_ratings(club.clubid)

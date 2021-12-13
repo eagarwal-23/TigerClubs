@@ -131,12 +131,36 @@
                                                 height: 100%;
                                             }
                                         </style>
-                                        {% if prev != "Club Name" %}
-                                        {% if query == "" %}
+                                        <!-- {% if prev != "Club Name" %}
                                         <h6 class="card-subtitle mb-2 text-muted"
                                             style="font-weight: bold; font-size: medium; padding-top: 10px;">
                                             #{{ ((pagenum - 1) * 20) + loop.index }} in {{ prev }}</h6>
-                                        {% endif %}
+                                        {% endif %} -->
+
+                                        {% if prev == "Overall" %}
+                                        <h6 class="card-subtitle mb-2 text-muted"
+                                        style="font-weight: bold; font-size: medium; padding-top: 10px;">
+                                        #{{club.ranking_over}} in {{ prev }}</h6>
+                                        {% elif prev == "Diversity" %}
+                                        <h6 class="card-subtitle mb-2 text-muted"
+                                        style="font-weight: bold; font-size: medium; padding-top: 10px;">
+                                        #{{club.ranking_div}} in {{ prev }}</h6>
+                                        {% elif prev == "Inclusivity" %}
+                                        <h6 class="card-subtitle mb-2 text-muted"
+                                        style="font-weight: bold; font-size: medium; padding-top: 10px;">
+                                        #{{club.ranking_inc}} in {{ prev }}</h6>
+                                        {% elif prev == "Time Commitment" %}
+                                        <h6 class="card-subtitle mb-2 text-muted"
+                                        style="font-weight: bold; font-size: medium; padding-top: 10px;">
+                                        #{{club.ranking_time}} in {{ prev }}</h6>
+                                        {% elif prev == "Workload" %}
+                                        <h6 class="card-subtitle mb-2 text-muted"
+                                        style="font-weight: bold; font-size: medium; padding-top: 10px;">
+                                        #{{club.ranking_work}} in {{ prev }}</h6>
+                                        {% elif prev == "Experience Requirement" %}
+                                        <h6 class="card-subtitle mb-2 text-muted"
+                                        style="font-weight: bold; font-size: medium; padding-top: 10px;">
+                                        #{{club.ranking_exp}} in {{ prev }}</h6>
                                         {% endif %}
                                         <h6 class="card-subtitle mb-2 text-muted"
                                             style="font-style: italic; font-size: small; padding-top: 10px;">

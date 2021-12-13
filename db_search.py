@@ -60,17 +60,17 @@ def club_search(search, query = 'Overall', page = 1):
     search_query = '%' + search + '%'
     clubs = Club.query.filter((Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query))))
     if query == 'Overall':
-        clubs = clubs.order_by(Club.combined.desc())
+        clubs = clubs.order_by(Club.ranking_over)
     elif query == 'Diversity':
-        clubs = clubs.order_by(Club.diversity.desc())
+        clubs = clubs.order_by(Club.ranking_div)
     elif query == 'Inclusivity':
-        clubs = clubs.order_by(Club.inclusivity.desc())
+        clubs = clubs.order_by(Club.ranking_inc)
     elif query == 'Time Commitment':
-        clubs = clubs.order_by(Club.time_commitment.desc())
+        clubs = clubs.order_by(Club.ranking_time)
     elif query == 'Workload':
-        clubs = clubs.order_by(Club.workload.desc())
+        clubs = clubs.order_by(Club.ranking_work)
     elif query == 'Experience Requirement':
-        clubs = clubs.order_by(Club.experience_requirement.desc())
+        clubs = clubs.order_by(Club.ranking_exp)
     elif query == 'Club Name':
         clubs = clubs.order_by(Club.name)
 
@@ -83,3 +83,110 @@ def admin_club_search(search, page = 1):
     clubs = Club.query.filter((Club.name.ilike(search_query) | Club.tags.any(Tag.name.ilike(search_query))))
     clubs = clubs.order_by(Club.name).paginate(page = page, per_page = 20)
     return clubs
+
+def calculate_over():
+    print("recalculating overall")
+    # overall
+    clubs = Club.query.order_by(Club.combined.desc()).all()
+    for i in range(len(clubs)):
+        club = clubs[i]
+        club.ranking_over = i + 1
+        db.session.add(club)    
+    db.session.commit()
+    print("done")
+
+def calculate_div():
+    print("recalculating div")
+    # diversity
+    clubs = Club.query.order_by(Club.diversity.desc()).all()
+    for i in range(len(clubs)):
+        club = clubs[i]
+        club.ranking_div = i + 1
+        db.session.add(club)    
+    db.session.commit()
+    print("done")
+
+def calculate_inc():
+    print("recalculating inc")
+    # diversity
+    clubs = Club.query.order_by(Club.inclusivity.desc()).all()
+    for i in range(len(clubs)):
+        club = clubs[i]
+        club.ranking_div = i + 1
+        db.session.add(club)    
+    db.session.commit()
+    print("done")
+
+def calculate_time():
+    print("recalculating time")
+    # diversity
+    clubs = Club.query.order_by(Club.time_commitment.desc()).all()
+    for i in range(len(clubs)):
+        club = clubs[i]
+        club.ranking_div = i + 1
+        db.session.add(club)    
+    db.session.commit()
+    print("done")
+
+def calculate_work():
+    print("recalculating work")
+    # diversity
+    clubs = Club.query.order_by(Club.workload.desc()).all()
+    for i in range(len(clubs)):
+        club = clubs[i]
+        club.ranking_div = i + 1
+        db.session.add(club)    
+    db.session.commit()
+    print("done")
+
+def calculate_exp():
+    print("recalculating work")
+    # diversity
+    clubs = Club.query.order_by(Club.experience_requirement.desc()).all()
+    for i in range(len(clubs)):
+        club = clubs[i]
+        club.ranking_div = i + 1
+        db.session.add(club)    
+    db.session.commit()
+    print("done")
+
+def calculate_club_rankings():
+    print("recalculating rankings")
+    print("lalalalala")
+    # overall
+    clubs = Club.query.order_by(Club.combined.desc()).all()
+    for i in range(len(clubs)):
+        club = clubs[i]
+        club.ranking_over = i + 1
+
+    # diversity
+    clubs = Club.query.order_by(Club.diversity.desc()).all()
+    for i in range(len(clubs)):
+        club = clubs[i]
+        club.ranking_div = i + 1
+
+    # inclusivity
+    clubs = Club.query.order_by(Club.inclusivity.desc()).all()
+    for i in range(len(clubs)):
+        club = clubs[i]
+        club.ranking_inc = i + 1
+    
+    # time commitment
+    clubs = Club.query.order_by(Club.time_commitment.desc()).all()
+    for i in range(len(clubs)):
+        club = clubs[i]
+        club.ranking_time = i + 1
+
+    # workload
+    clubs = Club.query.order_by(Club.workload.desc()).all()
+    for i in range(len(clubs)):
+        club = clubs[i]
+        club.ranking_work = i + 1
+
+    # experience requirement
+    clubs = Club.query.order_by(Club.experience_requirement.desc()).all()
+    for i in range(len(clubs)):
+        club = clubs[i]
+        club.ranking_exp = i + 1
+        db.session.add(club)    
+    db.session.commit()

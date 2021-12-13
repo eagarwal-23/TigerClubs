@@ -4,7 +4,8 @@ import datetime as dt
 from flask import render_template, Response
 from flask_sqlalchemy import SQLAlchemy
 from casclient import CASClient
-import os
+import schedule, time, os, atexit
+from apscheduler.schedulers.background import BackgroundScheduler
 DELETE_USER = 0
 BLACKLIST_USER = 1
 EDIT_USER = 2
@@ -22,6 +23,10 @@ from db_admin import *
 from db_rating_period import *
 
 _cas = CASClient()
+
+def testThis():
+    for i in range(1000):
+        print("A")
 
 def obtain_rating_period():
     start, end = get_rating_period()
@@ -435,6 +440,7 @@ def removingvote():
             name = club[0].name
             delete_rating(reviewid)
             calculate_club_rating(name)
+            
             msg = 'success'
         else:
             msg = "uh oh"
@@ -473,9 +479,6 @@ def delete_user():
 
     netid = request.args.get("netid")
     clubid = request.args.get("clubid")
-    print("why the fuck won't this delete")
-    print(netid)
-    print(clubid)
     delete_student_club(netid=netid.strip(), clubid=clubid.strip())
     requestid = request.args.get("requestid")
     if requestid:
@@ -1228,3 +1231,15 @@ def calculate_club_ratings():
 
     msg = "Calculated all club ratings"
     return jsonify(msg)
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=calculate_over, trigger="interval", minutes=1)
+scheduler.add_job(func=calculate_div, trigger="interval", minutes=1)
+scheduler.add_job(func=calculate_inc, trigger="interval", minutes=1)
+scheduler.add_job(func=calculate_time, trigger="interval", minutes=1)
+scheduler.add_job(func=calculate_work, trigger="interval", minutes=1)
+scheduler.add_job(func=calculate_exp, trigger="interval", minutes=1)
+
+scheduler.start()
+
+atexit.register(lambda: scheduler.shutdown())

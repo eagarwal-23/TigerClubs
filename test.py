@@ -150,23 +150,73 @@ def get_unrated_clubs(netid):
             unrated.append(club)
     return unrated
 
-if __name__ == "__main__":
-    reviews = get_all_reviews()
-    # for review in reviews:
-    #     club = review.club
-    #     student = review.student
-    #     if not club or not student:
-    #         db.session.delete(review)
-    # db.session.commit()
+def calculate_club_rankings():
+    # overall
+    clubs = Club.query.order_by(Club.combined.desc()).all()
+    for i in range(len(clubs)):
+        club = clubs[i]
+        club.ranking_over = i + 1
 
-    requests = get_all_requests()
-    print(requests)
-    for request in requests:
-        clubid = request.clubid
-        club = Club.query.filter_by(clubid = clubid)
-        if not club:
-            db.session.delete(request)
+    # diversity
+    clubs = Club.query.order_by(Club.diversity.desc()).all()
+    for i in range(len(clubs)):
+        club = clubs[i]
+        club.ranking_div = i + 1
+
+    # inclusivity
+    clubs = Club.query.order_by(Club.inclusivity.desc()).all()
+    for i in range(len(clubs)):
+        club = clubs[i]
+        club.ranking_inc = i + 1
+    
+    # time commitment
+    clubs = Club.query.order_by(Club.time_commitment.desc()).all()
+    for i in range(len(clubs)):
+        club = clubs[i]
+        club.ranking_time = i + 1
+
+    # workload
+    clubs = Club.query.order_by(Club.workload.desc()).all()
+    for i in range(len(clubs)):
+        club = clubs[i]
+        club.ranking_work = i + 1
+
+    # experience requirement
+    clubs = Club.query.order_by(Club.experience_requirement.desc()).all()
+    for i in range(len(clubs)):
+        club = clubs[i]
+        club.ranking_exp = i + 1
+        db.session.add(club)    
     db.session.commit()
+        
+
+if __name__ == "__main__":
+    calculate_club_rankings()
+    clubs = Club.query.all()
+    for club in clubs:
+        print(club)
+        print(club.ranking_over)
+        print(club.ranking_div)
+        print(club.ranking_inc)
+        print(club.ranking_time)
+        print(club.ranking_work)
+        print(club.ranking_exp)
+    # reviews = get_all_reviews()
+    # # for review in reviews:
+    # #     club = review.club
+    # #     student = review.student
+    # #     if not club or not student:
+    # #         db.session.delete(review)
+    # # db.session.commit()
+
+    # requests = get_all_requests()
+    # print(requests)
+    # for request in requests:
+    #     clubid = request.clubid
+    #     club = Club.query.filter_by(clubid = clubid)
+    #     if not club:
+    #         db.session.delete(request)
+    # db.session.commit()
     
 
     # club = Club.query.filter_by(name = "Aikido Club").first()

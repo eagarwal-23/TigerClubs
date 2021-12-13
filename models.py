@@ -87,12 +87,21 @@ class Club(db.Model):
     experience_requirement = db.Column(db.Float())
     workload = db.Column(db.Float())
     pictureURL = db.Column(db.String())
+    ranking_over = db.Column(db.Integer())
+    ranking_time = db.Column(db.Integer())
+    ranking_exp = db.Column(db.Integer())
+    ranking_work = db.Column(db.Integer())
+    ranking_div = db.Column(db.Integer())
+    ranking_inc = db.Column(db.Integer())
     members = db.relationship("Student",
                                secondary=student_clubs)
     tags = db.relationship("Tag",
                                secondary=club_tags)
     reviews = db.relationship("Review",
                                secondary=club_reviews)
+
+
+    
 
     @hybrid_property
     def combined(self):

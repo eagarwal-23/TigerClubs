@@ -4,7 +4,8 @@ import datetime as dt
 from flask import render_template, Response
 from flask_sqlalchemy import SQLAlchemy
 from casclient import CASClient
-import os
+import schedule, time, os, atexit
+from apscheduler.schedulers.background import BackgroundScheduler
 DELETE_USER = 0
 BLACKLIST_USER = 1
 EDIT_USER = 2
@@ -23,18 +24,15 @@ from db_rating_period import *
 
 _cas = CASClient()
 
+def testThis():
+    for i in range(1000):
+        print("A")
+
 def obtain_rating_period():
     start, end = get_rating_period()
     return dt.date(start.year, start.month, start.day), dt.date(end.year, end.month, end.day)
 
 start_rating_period, end_rating_period = obtain_rating_period()
-
-def isBlacklist(netid):
-    student = get_student_info(netid)
-    if student.blacklist:
-        html = render_template("isblacklist.html")
-        response = make_response(html)
-        return response
 
 @app.before_request
 def enforceHttpsInHeroku():
@@ -349,8 +347,7 @@ def myratings():
             isAdmin = 1
         today = dt.date.today()
         
-        # if start_rating_period <= today <= end_rating_period:
-        if True:
+        if start_rating_period <= today <= end_rating_period:
             name = student.name
             clubs = get_unrated_clubs(student.netid)
             ratings = get_student_ratings(netid)
@@ -435,6 +432,7 @@ def removingvote():
             name = club[0].name
             delete_rating(reviewid)
             calculate_club_rating(name)
+            
             msg = 'success'
         else:
             msg = "uh oh"
@@ -473,9 +471,6 @@ def delete_user():
 
     netid = request.args.get("netid")
     clubid = request.args.get("clubid")
-    print("why the fuck won't this delete")
-    print(netid)
-    print(clubid)
     delete_student_club(netid=netid.strip(), clubid=clubid.strip())
     requestid = request.args.get("requestid")
     if requestid:
@@ -1228,3 +1223,15 @@ def calculate_club_ratings():
 
     msg = "Calculated all club ratings"
     return jsonify(msg)
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=calculate_over, trigger="interval", minutes=1440)
+scheduler.add_job(func=calculate_div, trigger="interval", minutes=1440)
+scheduler.add_job(func=calculate_inc, trigger="interval", minutes=1440)
+scheduler.add_job(func=calculate_time, trigger="interval", minutes=1440)
+scheduler.add_job(func=calculate_work, trigger="interval", minutes=1440)
+scheduler.add_job(func=calculate_exp, trigger="interval", minutes=1440)
+
+scheduler.start()
+
+atexit.register(lambda: scheduler.shutdown())

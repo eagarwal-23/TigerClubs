@@ -34,13 +34,6 @@ def obtain_rating_period():
 
 start_rating_period, end_rating_period = obtain_rating_period()
 
-def isBlacklist(netid):
-    student = get_student_info(netid)
-    if student.blacklist:
-        html = render_template("isblacklist.html")
-        response = make_response(html)
-        return response
-
 @app.before_request
 def enforceHttpsInHeroku():
     # always force redirect to HTTPS (secure connection)
@@ -354,8 +347,7 @@ def myratings():
             isAdmin = 1
         today = dt.date.today()
         
-        # if start_rating_period <= today <= end_rating_period:
-        if True:
+        if start_rating_period <= today <= end_rating_period:
             name = student.name
             clubs = get_unrated_clubs(student.netid)
             ratings = get_student_ratings(netid)

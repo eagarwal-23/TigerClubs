@@ -112,7 +112,7 @@ def calculate_inc():
     clubs = Club.query.order_by(Club.inclusivity.desc()).all()
     for i in range(len(clubs)):
         club = clubs[i]
-        club.ranking_div = i + 1
+        club.ranking_inc = i + 1
         db.session.add(club)    
     db.session.commit()
     print("done")
@@ -123,7 +123,7 @@ def calculate_time():
     clubs = Club.query.order_by(Club.time_commitment.desc()).all()
     for i in range(len(clubs)):
         club = clubs[i]
-        club.ranking_div = i + 1
+        club.ranking_time = i + 1
         db.session.add(club)    
     db.session.commit()
     print("done")
@@ -134,7 +134,7 @@ def calculate_work():
     clubs = Club.query.order_by(Club.workload.desc()).all()
     for i in range(len(clubs)):
         club = clubs[i]
-        club.ranking_div = i + 1
+        club.ranking_work = i + 1
         db.session.add(club)    
     db.session.commit()
     print("done")
@@ -145,7 +145,7 @@ def calculate_exp():
     clubs = Club.query.order_by(Club.experience_requirement.desc()).all()
     for i in range(len(clubs)):
         club = clubs[i]
-        club.ranking_div = i + 1
+        club.ranking_exp = i + 1
         db.session.add(club)    
     db.session.commit()
     print("done")

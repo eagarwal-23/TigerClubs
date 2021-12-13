@@ -15,8 +15,7 @@ def update_student_photo(netid, pictureURL = None):
 # edit Student's information given their netid
 def update_student_info(netid, bio = None, clubs = None, tags = None, instagram = None, linkedin = None):
     student = Student.query.filter_by(netid = netid).first()
-    if bio != "" and bio:
-        student.bio = bio
+    student.bio = bio
 
     if clubs != "" and clubs:
         for oneClub in clubs:
@@ -31,17 +30,8 @@ def update_student_info(netid, bio = None, clubs = None, tags = None, instagram 
             print(tag)
             student.tags.append(tag)
             db.session.add(student)
-    
-    if instagram != "" and not None:
-        student.instagram = instagram
-    else:
-        student.instagram = ''
-
-    if linkedin != "" and not None:
-        student.linkedin = linkedin
-    else:
-        student.linkedin = ''
-
+    student.instagram = instagram
+    student.linkedin = linkedin
 
     db.session.commit()
 

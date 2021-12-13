@@ -77,9 +77,15 @@
               <a class="btn btn-large" href="https://www.instagram.com/{{instagram + '/'}}" target="_blank">
                 <i class="fa fa-instagram fa-3x" style = "color:purple" aria-hidden="true"></i>
               </a>
-              <a class="btn btn-large"  href ="{{linkedin}}" target="_blank">
-                <i class="fa fa-linkedin fa-3x" style = "color:rgb(45, 119, 255)" aria-hidden="true"></i>
+              {% if not linkedin %}
+              <a class="btn btn-large" href="https://www.linkedin.com/" target="_blank">
+                <i class="fa fa-linkedin fa-3x" style="color:rgb(45, 119, 255)" aria-hidden="true"></i>
               </a>
+              {% else %}
+              <a class="btn btn-large" href="{{linkedin}}" target="_blank">
+                <i class="fa fa-linkedin fa-3x" style="color:rgb(45, 119, 255)" aria-hidden="true"></i>
+              </a>
+              {% endif %}
               <!-- <a href ="https://www.instagram.com/{{instagram + '/'}}">
                 <i class="fab fa-instagram fa-3x" style = "color:purple"></i>
               </a> -->

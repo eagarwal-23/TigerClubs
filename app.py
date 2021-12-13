@@ -11,7 +11,7 @@ EDIT_USER = 2
 EDIT_CLUB = 3
 ADD_TAG = 4
 app = Flask(__name__, template_folder=".")
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://rvwhfgtoycqubz:e0cb0aca7c7da7773f28d1905455da0f9bf5e83d1a0b98be573e86a621c168e9@ec2-23-23-199-57.compute-1.amazonaws.com:5432/d8hudjmal9i0pc"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://igngrblwxoucbw:71c25a3c6dd93a7da2d4a45395a92e1f8f88e0ef57a6ad657746757af7fba2cb@ec2-34-233-214-228.compute-1.amazonaws.com:5432/d9u3qubthcghih"
 app.secret_key = b'!*&y\xc9h`*u\xe0%-\xf2\xbc1\xa8\xd0gF\xc0\x89Y\xb4\xbe'
 db = SQLAlchemy(app)
 

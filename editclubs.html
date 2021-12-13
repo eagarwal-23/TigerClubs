@@ -63,7 +63,7 @@
     }
   </style>
   <div class="parallax">
-    <form action="/editclubfromedit" method="get">
+    <form id ="changesClub" action="/editclubfromedit" method="get">
       <div class="row px-4 px-lg-5 my-5 py-5 justify-content-center">
         <!-- CLUB NAME HEADING CARD -->
         <div class="col-6">
@@ -96,7 +96,7 @@
             <h4 class="font-weight-bold" style="padding: 20px;">Description</h4>
             <div class="col">
               <div class="form-group">
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" type="text" name="description"
+                <textarea class="form-control" id="descHere" rows="3" type="text" name="description"
                   maxlength=350>{{description}}</textarea>
               </div>
             </div>
@@ -104,7 +104,7 @@
               <h4 style="padding-left: 0; padding-top: 20px;"><strong>Club Members:</strong></h4>
               <select id="members" name="members" class="form-control" placeholder="Select up to 5 students" multiple>
                 {% for student in students: %}
-                <option value="{{student.name}}">{{student.name}}</option>
+                <option value="{{student.netid}}">{{student.name}}</option>
                 {% endfor %}
               </select>
             </div>
@@ -128,7 +128,7 @@
             <br>
             <hr>
             <div class="row-2 px-3 py-3">
-              <input class="btn btn-lg" type="submit" value="Save Changes" style="background-color: #e8804c;" />
+              <input class="btn btn-lg" type="submit" value="Save Changes" style="background-color: #e8804c;" id = "savebutton"/>
               <a href="/adminclubs?netid={{netid}}">Cancel</a>
             </div>
           </div>
@@ -182,6 +182,24 @@
         </table>
     </form> -->
   <script>
+    $("#savebutton").click(function () {
+
+      added_students = $("#members").val()
+      added_tags =$("#tags").val()
+      name = $("#clubname").val()
+      desc = $("#descHere").val()
+      for (var i = 0; i < deleted_tags.length; i++) {
+        tagid = deleted_tags[i]
+        deleteTags(tagid);
+      }
+
+      for (var i = 0; i < deleted_students.length; i++) {
+        netid = deleted_students[i]
+        deleteStudents(netid);
+      }
+      
+    });
+
     $(document).ready(function () {
       var multipleCancelButton = new Choices("#members", {
         removeItemButton: true,
@@ -197,33 +215,65 @@
         // renderChoiceLimit: 5,
       });
     });
-
+    var deleted_tags = []
+    var deleted_students = []
+    var club = ""
     $(".delete_tag").click(function () {
       var tagid = $(this).data("tagid");
       var clubid = $(this).data("clubid");
+      deleted_tags.push(tagid)
+      club = clubid
+      // url = "/delete_club_tag?tagid=" + encodeURIComponent(tagid) + "&clubid=" + encodeURIComponent(clubid);
+      // console.log(url)
+      // $.ajax({
+      //   url: url,
+      //   method: "GET",
+      //   success: function () {
+      //     // location.reload();
+      //   },
+      // });
+    });
+
+    $(".delete_student").click(function () {
+      alert("here!")
+      var clubid = $(this).data("clubid");
+      var netid = $(this).data("netid");
+      deleted_students.push(netid)
+      club = clubid
+      // url = "/delete_user?clubid=" + encodeURIComponent(clubid) + "&netid=" + encodeURIComponent(netid);
+      // console.log(url)
+      // $.ajax({
+      //   url: url,
+      //   method: "GET",
+      //   success: function () {
+      //     // location.reload();
+      //   },
+      // });
+    });
+
+    function deleteTags(tagid) {
+      clubid = club
       url = "/delete_club_tag?tagid=" + encodeURIComponent(tagid) + "&clubid=" + encodeURIComponent(clubid);
       console.log(url)
       $.ajax({
         url: url,
         method: "GET",
         success: function () {
-          location.reload();
         },
       });
-    });
-    $(".delete_student").click(function () {
-      var clubid = $(this).data("clubid");
-      var netid = $(this).data("netid");
+    }
+
+    function deleteStudents(netid) {
+      clubid = club
       url = "/delete_user?clubid=" + encodeURIComponent(clubid) + "&netid=" + encodeURIComponent(netid);
       console.log(url)
       $.ajax({
         url: url,
         method: "GET",
         success: function () {
-          location.reload();
         },
       });
-    });
+    }
   </script>
   <script>
     var closebtns = document.getElementsByClassName("close");

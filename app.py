@@ -137,9 +137,9 @@ def landing():
     tags = get_all_tags()
 
     if not clubs:
-        html = render_template("mylanding.html", netid=netid, name = name, hasClubs= False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin, query = clubname, prev = sort_criteria)
+        html = render_template("mylanding.html", netid=netid, name = name, hasClubs= False, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin, query = clubname, prev = sort_criteria, pagenum = pagenum)
     else:
-        html = render_template("mylanding.html", netid=netid, name = name, hasClubs = True, clubs = clubs, clubname = clubname, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin, query = clubname, prev = sort_criteria)
+        html = render_template("mylanding.html", netid=netid, name = name, hasClubs = True, clubs = clubs, clubname = clubname, tags = tags, sort_by = sort_criteria, isAdmin = isAdmin, query = clubname, prev = sort_criteria, pagenum = pagenum)
     
     response = make_response(html)
     return response
@@ -212,7 +212,6 @@ def profile(diffperson=None):
         instagram = student.instagram
         if instagram is None:
             instagram = ""
-        print(instagram)
         linkedin = student.linkedin
         if linkedin is None:
             linkedin = "https://www.linkedin.com/feed/"
@@ -248,6 +247,28 @@ def edited_profile():
     except Exception:
         print("whoops profile from edit")
 
+# rendering profile page after updating from editprofile.html
+@app.route("/adminprofilefromedit", methods=["GET"])
+def admin_edited_profile():
+    try:
+        netid = _cas.authenticate().rstrip()
+        user = get_student_info(netid)
+        if user.blacklist:
+            html = render_template("blacklistedstudent.html")
+            response = make_response(html)
+            return response
+
+        realnetid = request.args.get("netid")
+        bio = request.args.get("bio")
+        clubs = request.args.getlist("clubs")
+        tags = request.args.getlist("tags")
+        instagram = request.args.get("instagram")
+        linkedin = request.args.get("linkedin")
+        update_student_info(realnetid, bio, clubs, tags, instagram, linkedin)
+        return adminprofile(diffperson=realnetid)
+    except Exception:
+        print("whoops profile from edit")
+
 # rendering edit profile page from the profile page
 @app.route("/editprofile", methods=["GET"])
 def editprofile():
@@ -272,7 +293,7 @@ def editprofile():
     instagram = student.instagram
     linkedin = student.linkedin
     try:
-        html = render_template("newedit.html", name=name, netid=netid, student = student, clubs = clubs, tags = tags,
+        html = render_template("myeditpage.html", name=name, netid=netid, student = student, clubs = clubs, tags = tags,
         classyear=classyear, major=major,instagram = instagram, linkedin = linkedin,
         bio=bio, isAdmin = isAdmin)
         response = make_response(html)
@@ -333,7 +354,7 @@ def myratings():
             name = student.name
             clubs = get_unrated_clubs(student.netid)
             ratings = get_student_ratings(netid)
-            html = render_template("myratings.html", name = name, review = ratings, clubs = clubs, isAdmin = isAdmin)
+            html = render_template("myratings.html", name = name, review = ratings, clubs = clubs, isAdmin = isAdmin, start = start_rating_period, end = end_rating_period)
             response = make_response(html)
             return response
         else:
@@ -409,7 +430,11 @@ def removingvote():
     try:
         if request.method == 'POST':
             reviewid = request.form['reviewid']
+            review = Review.query.filter_by(reviewid = reviewid).first()
+            club = review.club
+            name = club[0].name
             delete_rating(reviewid)
+            calculate_club_rating(name)
             msg = 'success'
         else:
             msg = "uh oh"
@@ -445,13 +470,12 @@ def delete_user():
         html = render_template("blacklistedstudent.html")
         response = make_response(html)
         return response
-    if (not user.admin):
-        html = render_template("notadmin.html")
-        response = make_response(html)
-        return response
 
     netid = request.args.get("netid")
     clubid = request.args.get("clubid")
+    print("why the fuck won't this delete")
+    print(netid)
+    print(clubid)
     delete_student_club(netid=netid.strip(), clubid=clubid.strip())
     requestid = request.args.get("requestid")
     if requestid:
@@ -712,27 +736,26 @@ def editclub():
 
 @app.route("/editclubfromedit", methods=["GET"])
 def editclubfromedit():
-    try:
-        auth_user = _cas.authenticate().rstrip()
-        user = get_student_info(auth_user)
-        if user.blacklist:
-            html = render_template("blacklistedstudent.html")
-            response = make_response(html)
-            return response
-        if not user.admin:
-            html = render_template("notadmin.html")
-            response = make_response(html)
-            return response
-        clubname = request.args.get("clubname")
-        description = request.args.get("description")
-        members = request.args.getlist("members")
-        tags = request.args.getlist("tags")
+    # try:
+    auth_user = _cas.authenticate().rstrip()
+    user = get_student_info(auth_user)
+    if user.blacklist:
+        html = render_template("blacklistedstudent.html")
+        response = make_response(html)
+        return response
+    if not user.admin:
+        html = render_template("notadmin.html")
+        response = make_response(html)
+        return response
+    clubname = request.args.get("clubname")
+    description = request.args.get("description")
+    members = request.args.getlist("members")
+    tags = request.args.getlist("tags")
 
-
-        update_club_info(clubname, description, members, tags)
-        return adminclubpage()
-    except Exception:
-        print("whoops from editclubfromedit")
+    update_club_info(clubname, description, members, tags)
+    return adminclubpage()
+    # except Exception:
+    #     print("whoops from editclubfromedit")
 
 @app.route("/delete_club", methods = ["GET"])
 def delete_club():
@@ -835,10 +858,7 @@ def file_report():
             html = render_template("blacklistedstudent.html")
             response = make_response(html)
             return response
-        if not user.admin:
-            html = render_template("notadmin.html")
-            response = make_response(html)
-            return response
+
         clubs = get_all_clubs()
         students = get_all_students()
         user = get_student_info(netid)
@@ -858,10 +878,6 @@ def submitted_request():
     user = get_student_info(netid)
     if user.blacklist:
         html = render_template("blacklistedstudent.html")
-        response = make_response(html)
-        return response
-    if not user.admin:
-        html = render_template("notadmin.html")
         response = make_response(html)
         return response
     user = get_student_info(netid)
@@ -978,10 +994,16 @@ def adminprofile(diffperson=None):
         bio = student.bio
         interests = student.tags
         tags = get_all_tags()
+        instagram = student.instagram
+        if instagram is None:
+            instagram = ""
+        linkedin = student.linkedin
+        if linkedin is None:
+            linkedin = "https://www.linkedin.com/feed/"
 
         html = render_template("adminprofile.html", student = student,  name=name, netid= netid,
         classyear=classyear, major=major, clubs=clubs, tags=tags,
-        bio=bio, interests=interests, diffperson = diffperson, isAdmin = isAdmin)
+        bio=bio, interests=interests, diffperson = diffperson, isAdmin = isAdmin, instagram = instagram, linkedin= linkedin)
 
         response = make_response(html)
         return response
@@ -1086,10 +1108,6 @@ def students_json():
             html = render_template("blacklistedstudent.html")
             response = make_response(html)
             return response
-        if not user.admin:
-            html = render_template("notadmin.html")
-            response = make_response(html)
-            return response
         if request.method == 'GET':
             students = get_all_students()
             students_json = []
@@ -1111,10 +1129,6 @@ def clubs_json():
         user = get_student_info(netid)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
-            response = make_response(html)
-            return response
-        if not user.admin:
-            html = render_template("notadmin.html")
             response = make_response(html)
             return response
         if request.method== 'GET':

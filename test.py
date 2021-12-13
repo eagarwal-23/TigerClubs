@@ -22,6 +22,14 @@ def get_all_students():
     students = Student.query.paginate(page = 1, per_page = 20)
     return students
 
+def get_all_reviews():
+    reviews = Review.query.all()
+    return reviews
+
+def get_all_requests():
+    requests = Request.query.all()
+    return requests
+
 def member_in_club(netid, clubid):
     student = Student.query.filter_by(netid = netid).first()
     club = Club.query.filter_by(name = clubid).first()
@@ -143,13 +151,29 @@ def get_unrated_clubs(netid):
     return unrated
 
 if __name__ == "__main__":
+    reviews = get_all_reviews()
+    # for review in reviews:
+    #     club = review.club
+    #     student = review.student
+    #     if not club or not student:
+    #         db.session.delete(review)
+    # db.session.commit()
+
+    requests = get_all_requests()
+    print(requests)
+    for request in requests:
+        clubid = request.clubid
+        club = Club.query.filter_by(clubid = clubid)
+        if not club:
+            db.session.delete(request)
+    db.session.commit()
     
 
     # club = Club.query.filter_by(name = "Aikido Club").first()
     # student = Student.query.filter_by(netid = "eagarwal").first()
     # (get_unrated_clubs(student.netid))
-    print(member_in_club('eagarwal', 'Mock Trial'))
-    print(member_in_club('ajguerra', 'Mock Trial'))
+    # print(member_in_club('eagarwal', 'Mock Trial'))
+    # print(member_in_club('ajguerra', 'Mock Trial'))
     # print(club)
     # print(club.reviews)
     # for review in club.reviews:

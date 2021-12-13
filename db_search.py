@@ -140,7 +140,7 @@ def calculate_work():
     print("done")
 
 def calculate_exp():
-    print("recalculating work")
+    print("recalculating exp")
     # diversity
     clubs = Club.query.order_by(Club.experience_requirement.desc()).all()
     for i in range(len(clubs)):

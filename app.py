@@ -1233,12 +1233,12 @@ def calculate_club_ratings():
     return jsonify(msg)
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(func=calculate_over, trigger="interval", minutes=1)
-scheduler.add_job(func=calculate_div, trigger="interval", minutes=1)
-scheduler.add_job(func=calculate_inc, trigger="interval", minutes=1)
-scheduler.add_job(func=calculate_time, trigger="interval", minutes=1)
-scheduler.add_job(func=calculate_work, trigger="interval", minutes=1)
-scheduler.add_job(func=calculate_exp, trigger="interval", minutes=1)
+scheduler.add_job(func=calculate_over, trigger="interval", minutes=120)
+scheduler.add_job(func=calculate_div, trigger="interval", minutes=120)
+scheduler.add_job(func=calculate_inc, trigger="interval", minutes=120)
+scheduler.add_job(func=calculate_time, trigger="interval", minutes=120)
+scheduler.add_job(func=calculate_work, trigger="interval", minutes=120)
+scheduler.add_job(func=calculate_exp, trigger="interval", minutes=120)
 
 scheduler.start()
 

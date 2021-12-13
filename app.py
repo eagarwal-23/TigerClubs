@@ -1,6 +1,7 @@
 from re import S
 from flask import Flask, request, make_response, jsonify
 import datetime as dt
+from time import sleep
 from flask import render_template, Response
 from flask_sqlalchemy import SQLAlchemy
 from casclient import CASClient
@@ -241,6 +242,7 @@ def edited_profile():
         instagram = request.args.get("instagram")
         linkedin = request.args.get("linkedin")
         update_student_info(realnetid, bio, clubs, tags, instagram, linkedin)
+        sleep(1)
         return profile(diffperson=realnetid)
     except Exception:
         print("whoops profile from edit")
@@ -263,6 +265,7 @@ def admin_edited_profile():
         instagram = request.args.get("instagram")
         linkedin = request.args.get("linkedin")
         update_student_info(realnetid, bio, clubs, tags, instagram, linkedin)
+        sleep(1)
         return adminprofile(diffperson=realnetid)
     except Exception:
         print("whoops profile from edit")
@@ -752,6 +755,7 @@ def editclubfromedit():
     tags = request.args.getlist("tags")
 
     update_club_info(clubname, description, members, tags)
+    sleep(1)
     return adminclubpage()
     # except Exception:
     #     print("whoops from editclubfromedit")

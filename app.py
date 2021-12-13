@@ -208,11 +208,11 @@ def profile(diffperson=None):
         interests = student.tags
         tags = get_all_tags()
         instagram = student.instagram
-        if instagram is None:
-            instagram = ""
+        #if instagram is None:
+            #instagram = ""
         linkedin = student.linkedin
-        if linkedin is None:
-            linkedin = "https://www.linkedin.com/feed/"
+        #if linkedin is None:
+            #linkedin = "https://www.linkedin.com/feed/"
 
         html = render_template("profile.html", student = student,  name=name, netid= netid,
         classyear=classyear, major=major, clubs=clubs, tags=tags,

@@ -86,7 +86,7 @@
                 }
               </style>
               {% endfor %}
-              <select id="tags" name="tags" class="form-control" placeholder="Select up to 5 tags" multiple>
+              <select id="tags" name="tags" class="form-control" placeholder="Add up to 5 tags" multiple>
                 {% for tag in all_tags: %}
                 <option value="{{tag}}">{{tag}}</option>
                 {% endfor %}
@@ -102,7 +102,7 @@
             </div>
             <div class="col">
               <h4 style="padding-left: 0; padding-top: 20px;"><strong>Club Members:</strong></h4>
-              <select id="members" name="members" class="form-control" placeholder="Select up to 5 students" multiple>
+              <select id="members" name="members" class="form-control" placeholder="Add up to 5 students" multiple>
                 {% for student in students: %}
                 <option value="{{student.netid}}">{{student.name}}</option>
                 {% endfor %}

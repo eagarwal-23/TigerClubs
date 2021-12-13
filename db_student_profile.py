@@ -31,13 +31,8 @@ def update_student_info(netid, bio = None, clubs = None, tags = None, instagram 
             print(tag)
             student.tags.append(tag)
             db.session.add(student)
-    
-    if instagram != "" and not None:
-        student.instagram = instagram
-
-    if linkedin != "" and not None:
-        student.linkedin = linkedin
-
+    student.instagram = instagram
+    student.linkedin = linkedin
 
     db.session.commit()
 

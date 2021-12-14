@@ -1,6 +1,6 @@
 from app import db
 from fake_club_ratings import add_students_club
-from models import Club, Student, Tag
+from models import Club, Student, Tag, Review, Request
 import pandas as pd
 import random
 
@@ -75,10 +75,26 @@ def remove_all_tags(clubname):
     db.session.add(club)
     db.session.commit()
 
+def get_all_club_requests(clubid):
+    requests = Request.query.filter_by(clubid = clubid).all()
+    return requests
+
+def delete_club_db(clubid):
+    club = Club.query.filter_by(clubid = clubid).first()
+    list_of_reviews = club.reviews
+    list_of_requests = get_all_club_requests(club.clubid)
+    db.session.delete(club)
+    for review in list_of_reviews:
+        reviewThis = Review.query.filter_by(reviewid = review.reviewid).first()
+        db.session.delete(reviewThis)
+    for request in list_of_requests:
+        requestThis = Request.query.filter_by(requestid = request.requestid).first()
+        db.session.delete(requestThis)
+    db.session.commit()
+
 def delete_added_clubs():
     clubs = get_all_clubs()
     for club in clubs:
         clubid = club.clubid
-        if not clubid in EXISTING_CLUBS:
-            db.session.delete(club)
+        delete_club_db(clubid)
     db.session.commit()

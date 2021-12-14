@@ -811,10 +811,15 @@ def admintags():
             return response
 
         tagsearch = request.args.get("tag")
-        if tagsearch is None:
-            tagsearch = ""
+        query = request.args.get("query")
+
+        if not tagsearch:
+            if not query:
+                tagsearch = ""
+            else:
+                tagsearch = query
         tags = tag_search(tagsearch)
-        html = render_template("admintags.html", tags=tags)
+        html = render_template("admintags.html", tags=tags, query = tagsearch)
         response = make_response(html)
         return response        
     except Exception:

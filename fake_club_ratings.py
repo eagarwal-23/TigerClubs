@@ -111,8 +111,8 @@ STUDENTS = ['eagarwal', 'jg41', 'nreptak', 'camilanv',
             'nadiar', 'ajguerra']
 
 if __name__ == "__main__":
-    # n_students = 50
-    # n_members = 10
+    n_students = 50
+    n_members = 10
     # students = get_all_netids()
     # selected_students = (random.sample(students, n_students))
     # #print(selected_students)
@@ -139,54 +139,33 @@ if __name__ == "__main__":
     # club = clubs[0]
     # add_students_club(members, club)
 
-    #clubs = get_all_clubs()
-    # club = clubs[0]
-    #print(club.members)
-    # for club in clubs:
-    #     print(club, club.members)
+    clubs = get_all_clubs()
+    students = get_all_students()
+    
+    # adding n_members randomly-selected students to all clubs
+    for club in clubs:
+        print(club.members)
+        members = random.sample(students, n_members)
+        add_students_club(members, club.name)
 
-    # list of all clubs
-    #print(students)
-    # for club in clubs:
-    #     print(club.members)
-        # members = random.sample(students, n_members)
-        # add_students_club(members, club.name)
+    # adding 5 randomly generated ratings to all clubs
     ratings = [1, 2, 3, 4, 5]
     weights = [0.05, 0.05, 0.2, 0.35, 0.35]
-    club = Club.query.filter_by(name = "Class of 2023").first()
-    members = club.members
-    for i in range(10):
-        student = members[i]
-        diversity = (choices(ratings, weights))[0]
-        inclusivity = (choices(ratings, weights))[0]
-        time_commitment = (choices(ratings, weights))[0]
-        experience_requirement = (choices(ratings, weights))[0]
-        workload = (choices(ratings, weights))[0]
-        text = lorem.paragraph()
-        add_rating(student.netid, club.name, diversity,
-                    inclusivity, time_commitment, experience_requirement,
-                    workload, text)
+    for club in clubs:
+        members = club.members
+        for i in range(5):
+            if members == []:
+                selected_students = (random.sample(students, NUM_MEMBERS))
+                add_students_club(selected_students, club.clubname)
+            student = members[i]
+            diversity = (choices(ratings, weights))[0]
+            inclusivity = (choices(ratings, weights))[0]
+            time_commitment = (choices(ratings, weights))[0]
+            experience_requirement = (choices(ratings, weights))[0]
+            workload = (choices(ratings, weights))[0]
+            text = lorem.paragraph()
+            add_rating(student.netid, club.name, diversity,
+                        inclusivity, time_commitment, experience_requirement,
+                        workload, text)
         calculate_club_rating(club.name)
-
-    # clubs = get_all_clubs()
-    # students = get_all_students()
-    # ratings = [1, 2, 3, 4, 5]
-    # weights = [0.05, 0.05, 0.2, 0.35, 0.35]
-    # for club in clubs:
-    #     members = club.members
-    #     for i in range(5):
-    #         if members == []:
-    #             selected_students = (random.sample(students, NUM_MEMBERS))
-    #             add_students_club(selected_students, club.clubname)
-    #         student = members[i]
-    #         diversity = (choices(ratings, weights))[0]
-    #         inclusivity = (choices(ratings, weights))[0]
-    #         time_commitment = (choices(ratings, weights))[0]
-    #         experience_requirement = (choices(ratings, weights))[0]
-    #         workload = (choices(ratings, weights))[0]
-    #         text = lorem.paragraph()
-    #         add_rating(student.netid, club.name, diversity,
-    #                     inclusivity, time_commitment, experience_requirement,
-    #                     workload, text)
-    #     calculate_club_rating(club.name)
-    #     print("Done with", club.name)
+        print("Done with", club.name)

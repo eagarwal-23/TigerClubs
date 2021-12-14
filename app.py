@@ -25,10 +25,6 @@ from db_rating_period import *
 
 _cas = CASClient()
 
-def testThis():
-    for i in range(1000):
-        print("A")
-
 def obtain_rating_period():
     start, end = get_rating_period()
     return dt.date(start.year, start.month, start.day), dt.date(end.year, end.month, end.day)
@@ -305,7 +301,6 @@ def editprofile():
         return response
     except Exception:
         print("whoops from editprofile")
-
 
 @app.route("/clubpage", methods=["GET"])
 def clubpage():
@@ -846,11 +841,6 @@ def deletetag():
         return jsonify(msg)
     except Exception:
         print("whoops from admintags")
-
-@app.route("/sort_clubs", methods = ["GET"])
-def sort_clubs():
-    sort_criteria = request.args.get('sort_club')
-    clubs = club_search("", query = sort_criteria)
 
 @app.route("/report", methods = ["GET"])
 def file_report():

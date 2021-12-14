@@ -509,6 +509,10 @@ def delete_club_tag():
             html = render_template("blacklistedstudent.html")
             response = make_response(html)
             return response
+        if (not user.admin):
+            html = render_template("notadmin.html")
+            response = make_response(html)
+            return response
         clubid = request.args.get("clubid")
         tagid = request.args.get("tagid")
         delete_club_tag_db(clubid=clubid.strip(), tagid=tagid.strip())

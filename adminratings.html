@@ -94,7 +94,10 @@ Start Date:
             var end_date = $("#end_date").val();
             if (start_date == "" || end_date == ""){
                 alert("Must select a non-empty date.");
-            }else{
+            }else if(start_date > end_date){
+              alert("Start Date must be smaller than End Date")
+            }
+            else{
                 url = "/update_rating_period?start_date=" + encodeURIComponent(start_date)
                      + "&end_date=" + encodeURIComponent(end_date);
                 $.ajax({

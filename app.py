@@ -543,9 +543,6 @@ def blacklist_user():
     except Exception:
         print("whoops from blacklist_user")
 
-@app.route("/edit_student")
-@app.route("/edit_club")
-
 @app.route("/add_tag", methods = ['GET', 'POST'])
 def add_tag():
     try:

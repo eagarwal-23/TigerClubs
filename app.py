@@ -466,105 +466,123 @@ def adminlanding():
 def delete_user():
     auth_user = _cas.authenticate().rstrip()
     user = get_student_info(auth_user)
-    if user.blacklist:
-        html = render_template("blacklistedstudent.html")
-        response = make_response(html)
-        return response
+    try:
+        if user.blacklist:
+            html = render_template("blacklistedstudent.html")
+            response = make_response(html)
+            return response
 
-    netid = request.args.get("netid")
-    clubid = request.args.get("clubid")
-    delete_student_club(netid=netid.strip(), clubid=clubid.strip())
-    requestid = request.args.get("requestid")
-    if requestid:
-        delete_request(requestid)
-    msg = 'success'
-    return jsonify(msg)
+        netid = request.args.get("netid")
+        clubid = request.args.get("clubid")
+        delete_student_club(netid=netid.strip(), clubid=clubid.strip())
+        requestid = request.args.get("requestid")
+        if requestid:
+            delete_request(requestid)
+        msg = 'success'
+        return jsonify(msg)
+    except Exception:
+        print("whoops from deleteuser")
 
 @app.route("/delete_tag_user", methods = ["POST","GET"])
 def delete_tag_user():
-    auth_user = _cas.authenticate().rstrip()
-    user = get_student_info(auth_user)
-    if user.blacklist:
-        html = render_template("blacklistedstudent.html")
-        response = make_response(html)
-        return response
-    netid = request.args.get("netid")
-    tagid = request.args.get("tagid")
-    delete_student_tag(netid=netid.strip(), tagid=tagid.strip())
-    msg = 'success'
-    return jsonify(msg)
+    try:
+        auth_user = _cas.authenticate().rstrip()
+        user = get_student_info(auth_user)
+        if user.blacklist:
+            html = render_template("blacklistedstudent.html")
+            response = make_response(html)
+            return response
+        netid = request.args.get("netid")
+        tagid = request.args.get("tagid")
+        delete_student_tag(netid=netid.strip(), tagid=tagid.strip())
+        msg = 'success'
+        return jsonify(msg)
+    except Exception:
+        print("whoops from delete_tag_user")
 
 @app.route("/delete_club_tag", methods = ["POST","GET"])
 def delete_club_tag():
-    auth_user = _cas.authenticate().rstrip()
-    user = get_student_info(auth_user)
-    if user.blacklist:
-        html = render_template("blacklistedstudent.html")
-        response = make_response(html)
-        return response
-    clubid = request.args.get("clubid")
-    tagid = request.args.get("tagid")
-    delete_club_tag_db(clubid=clubid.strip(), tagid=tagid.strip())
-    msg = 'success'
-    return jsonify(msg)
+    try:
+        auth_user = _cas.authenticate().rstrip()
+        user = get_student_info(auth_user)
+        if user.blacklist:
+            html = render_template("blacklistedstudent.html")
+            response = make_response(html)
+            return response
+        clubid = request.args.get("clubid")
+        tagid = request.args.get("tagid")
+        delete_club_tag_db(clubid=clubid.strip(), tagid=tagid.strip())
+        msg = 'success'
+        return jsonify(msg)
+    except Exception:
+        print("whoops from delete_club_tag")
 
 @app.route("/blacklist_user")
 def blacklist_user():
-    auth_user = _cas.authenticate().rstrip()
-    user = get_student_info(auth_user)
-    if user.blacklist:
-        html = render_template("blacklistedstudent.html")
-        response = make_response(html)
-        return response
-    if (not user.admin):
-        html = render_template("notadmin.html")
-        response = make_response(html)
-        return response
-    netid = request.args.get("netid")
-    blacklist_student(netid)
-    requestid = request.args.get("requestid")
-    delete_request(requestid)
-    msg = 'success'
-    return jsonify(msg)
+    try:
+        auth_user = _cas.authenticate().rstrip()
+        user = get_student_info(auth_user)
+        if user.blacklist:
+            html = render_template("blacklistedstudent.html")
+            response = make_response(html)
+            return response
+        if (not user.admin):
+            html = render_template("notadmin.html")
+            response = make_response(html)
+            return response
+        netid = request.args.get("netid")
+        blacklist_student(netid)
+        requestid = request.args.get("requestid")
+        delete_request(requestid)
+        msg = 'success'
+        return jsonify(msg)
+    except Exception:
+        print("whoops from blacklist_user")
 
 @app.route("/edit_student")
 @app.route("/edit_club")
 
 @app.route("/add_tag", methods = ['GET', 'POST'])
 def add_tag():
-    auth_user = _cas.authenticate().rstrip()
-    user = get_student_info(auth_user)
-    if user.blacklist:
-        html = render_template("blacklistedstudent.html")
-        response = make_response(html)
-        return response
-    if (not user.admin):
-        html = render_template("notadmin.html")
-        response = make_response(html)
-        return response
-    tagname = request.args.get("tagname")
-    add_tag_db(tagname)
-    requestid = request.args.get("requestid")
-    delete_request(requestid)
-    msg = 'success'
-    return jsonify(msg)
+    try:
+        auth_user = _cas.authenticate().rstrip()
+        user = get_student_info(auth_user)
+        if user.blacklist:
+            html = render_template("blacklistedstudent.html")
+            response = make_response(html)
+            return response
+        if (not user.admin):
+            html = render_template("notadmin.html")
+            response = make_response(html)
+            return response
+        tagname = request.args.get("tagname")
+        add_tag_db(tagname)
+        requestid = request.args.get("requestid")
+        delete_request(requestid)
+        msg = 'success'
+        return jsonify(msg)
+    except Exception:
+        print("whoops from add_tag")
 
 @app.route("/reject_request", methods = ['GET'])
 def reject_request():
-    auth_user = _cas.authenticate().rstrip()
-    user = get_student_info(auth_user)
-    if user.blacklist:
-        html = render_template("blacklistedstudent.html")
-        response = make_response(html)
-        return response
-    if (not user.admin):
-        html = render_template("notadmin.html")
-        response = make_response(html)
-        return response
-    request_id = request.args.get("requestid")
-    delete_request(request_id)
-    msg = 'success'
-    return jsonify(msg)
+    try:
+        auth_user = _cas.authenticate().rstrip()
+        user = get_student_info(auth_user)
+        if user.blacklist:
+            html = render_template("blacklistedstudent.html")
+            response = make_response(html)
+            return response
+        if (not user.admin):
+            html = render_template("notadmin.html")
+            response = make_response(html)
+            return response
+        request_id = request.args.get("requestid")
+        delete_request(request_id)
+        msg = 'success'
+        return jsonify(msg)
+    except Exception:
+        print("whoops from reject_request")
 
 @app.route("/adminclubs", methods=["GET"])
 def adminclubs():

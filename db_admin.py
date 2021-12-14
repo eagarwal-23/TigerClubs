@@ -109,7 +109,6 @@ def delete_request(requestid):
 def delete_student_club(netid, clubid):
     student = Student.query.filter_by(netid = netid).first()
     club = Club.query.filter_by(clubid = clubid).first()
-    print("is this the problem")
     list_of_reviews = get_all_student_reviews(club.clubid, student.netid)
     for review in list_of_reviews:
         reviewThis = Review.query.filter_by(reviewid = review.reviewid).first()

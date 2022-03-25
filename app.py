@@ -75,8 +75,8 @@ def logout():
 
 @app.route("/landingwhoareyou", methods=["GET"])
 def landingwhoareyou():
+    auth_user = _cas.authenticate().rstrip()
     try:
-        auth_user = _cas.authenticate().rstrip()
         user = get_student_info(auth_user)
 
         if not user:
@@ -103,8 +103,8 @@ def landingwhoareyou():
 
 @app.route("/landing", methods=["GET"])
 def landing():
+    netid = _cas.authenticate().rstrip()
     try:
-        netid = _cas.authenticate().rstrip()
         user = get_student_info(netid)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -159,9 +159,9 @@ def landing():
 
 @app.route("/studentsearch", methods=["GET"])
 def studentsearch():
+    netid = _cas.authenticate().rstrip()
     try:
     # old code
-        netid = _cas.authenticate().rstrip()
         user = get_student_info(netid)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -199,11 +199,10 @@ def studentsearch():
 
 @app.route("/profile", methods=["GET"])
 def profile(diffperson=None):
+    if diffperson is None:
+        diffperson = request.args.get("diffperson")
+    netid = _cas.authenticate().rstrip()
     try:
-        if diffperson is None:
-            diffperson = request.args.get("diffperson")
-        netid = _cas.authenticate().rstrip()
-
         user = get_student_info(netid)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -237,7 +236,6 @@ def profile(diffperson=None):
         html = render_template("profile.html", student = student,  name=name, netid= netid,
         classyear=classyear, major=major, clubs=clubs, tags=tags,
         bio=bio, interests=interests, diffperson = diffperson, isAdmin = isAdmin, instagram = instagram, linkedin= linkedin)
-
         response = make_response(html)
         return response
     except Exception:
@@ -249,8 +247,8 @@ def profile(diffperson=None):
 # rendering profile page after updating from editprofile.html
 @app.route("/profilefromedit", methods=["GET"])
 def edited_profile():
+    netid = _cas.authenticate().rstrip()
     try:
-        netid = _cas.authenticate().rstrip()
         user = get_student_info(netid)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -275,8 +273,8 @@ def edited_profile():
 # rendering profile page after updating from editprofile.html
 @app.route("/adminprofilefromedit", methods=["GET"])
 def admin_edited_profile():
+    netid = _cas.authenticate().rstrip()
     try:
-        netid = _cas.authenticate().rstrip()
         user = get_student_info(netid)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -302,7 +300,6 @@ def admin_edited_profile():
 @app.route("/editprofile", methods=["GET"])
 def editprofile():
     netid = _cas.authenticate().rstrip()
-    
     student = get_student_info(netid)
     if student.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -339,8 +336,8 @@ def editprofile():
 
 @app.route("/clubpage", methods=["GET"])
 def clubpage():
+    netid = _cas.authenticate().rstrip()
     try:
-        netid = _cas.authenticate().rstrip()
         student = get_student_info(netid)
         if student.blacklist:
                 html = render_template("blacklistedstudent.html")
@@ -375,8 +372,8 @@ def clubpage():
 
 @app.route("/myratings", methods = ["POST", "GET"])
 def myratings():
+    netid = _cas.authenticate().rstrip()
     try:
-        netid = _cas.authenticate().rstrip()
         student = get_student_info(netid=netid)
         if student.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -407,8 +404,8 @@ def myratings():
 
 @app.route("/voting", methods = ["POST","GET"])
 def vote():
+    netid = _cas.authenticate().rstrip()
     try:
-        netid = _cas.authenticate().rstrip()
         student = get_student_info(netid)
         if student.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -436,8 +433,8 @@ def vote():
 
 @app.route("/votingedit", methods = ["POST","GET"])
 def voteedit():
+    netid = _cas.authenticate().rstrip()
     try:
-        netid = _cas.authenticate().rstrip()
         student = get_student_info(netid)
         if student.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -494,8 +491,8 @@ def removingvote():
 
 @app.route("/adminlanding", methods = ["GET"])
 def adminlanding():
+    auth_user = _cas.authenticate().rstrip()
     try:
-        auth_user = _cas.authenticate().rstrip()
         user = get_student_info(auth_user)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -541,8 +538,8 @@ def delete_user():
 
 @app.route("/delete_tag_user", methods = ["POST","GET"])
 def delete_tag_user():
+    auth_user = _cas.authenticate().rstrip()
     try:
-        auth_user = _cas.authenticate().rstrip()
         user = get_student_info(auth_user)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -561,8 +558,8 @@ def delete_tag_user():
 
 @app.route("/delete_club_tag", methods = ["POST","GET"])
 def delete_club_tag():
+    auth_user = _cas.authenticate().rstrip()
     try:
-        auth_user = _cas.authenticate().rstrip()
         user = get_student_info(auth_user)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -585,8 +582,8 @@ def delete_club_tag():
 
 @app.route("/blacklist_user")
 def blacklist_user():
+    auth_user = _cas.authenticate().rstrip()
     try:
-        auth_user = _cas.authenticate().rstrip()
         user = get_student_info(auth_user)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -610,8 +607,8 @@ def blacklist_user():
 
 @app.route("/add_tag", methods = ['GET', 'POST'])
 def add_tag():
+    auth_user = _cas.authenticate().rstrip()
     try:
-        auth_user = _cas.authenticate().rstrip()
         user = get_student_info(auth_user)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -635,8 +632,8 @@ def add_tag():
 
 @app.route("/reject_request", methods = ['GET'])
 def reject_request():
+    auth_user = _cas.authenticate().rstrip()
     try:
-        auth_user = _cas.authenticate().rstrip()
         user = get_student_info(auth_user)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -658,9 +655,9 @@ def reject_request():
 
 @app.route("/adminclubs", methods=["GET"])
 def adminclubs():
+    auth_user = _cas.authenticate().rstrip()
     try:
         pagenum = request.args.get('page', 1, type=int)
-        auth_user = _cas.authenticate().rstrip()
         user = get_student_info(auth_user)
         students = get_all_students()
         all_tags = get_all_tags()
@@ -696,8 +693,8 @@ def adminclubs():
 
 @app.route("/adminstudents", methods=["GET"])
 def adminstudents():
+    netid = _cas.authenticate().rstrip()
     try:
-        netid = _cas.authenticate().rstrip()
         user = get_student_info(netid)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -735,8 +732,8 @@ def adminstudents():
 
 @app.route("/adminrequests", methods=["GET"])
 def adminrequests():
+    auth_user = _cas.authenticate().rstrip()
     try:
-        auth_user = _cas.authenticate().rstrip()
         user = get_student_info(auth_user)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -758,8 +755,8 @@ def adminrequests():
 
 @app.route("/adminclubpage", methods=["GET"])
 def adminclubpage():
+    netid = _cas.authenticate().rstrip() 
     try:
-        netid = _cas.authenticate().rstrip() 
         student = get_student_info(netid)
         if student.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -798,8 +795,8 @@ def adminclubpage():
 
 @app.route("/editclub", methods=["GET"])
 def editclub():
+    auth_user = _cas.authenticate().rstrip()
     try:
-        auth_user = _cas.authenticate().rstrip()
         user = get_student_info(auth_user)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -837,8 +834,8 @@ def editclub():
 
 @app.route("/editclubfromedit", methods=["GET"])
 def editclubfromedit():
+    auth_user = _cas.authenticate().rstrip()
     try:
-        auth_user = _cas.authenticate().rstrip()
         user = get_student_info(auth_user)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -864,8 +861,8 @@ def editclubfromedit():
 
 @app.route("/delete_club", methods = ["GET"])
 def delete_club():
+    auth_user = _cas.authenticate().rstrip()
     try:
-        auth_user = _cas.authenticate().rstrip()
         user = get_student_info(auth_user)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -889,8 +886,8 @@ def delete_club():
 
 @app.route("/admintags", methods=["GET"])
 def admintags():
+    auth_user = _cas.authenticate().rstrip()
     try:
-        auth_user = _cas.authenticate().rstrip()
         user = get_student_info(auth_user)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -921,8 +918,8 @@ def admintags():
 
 @app.route("/updatingtags", methods=["POST","GET"])
 def updatingtags():
+    auth_user = _cas.authenticate().rstrip()
     try:
-        auth_user = _cas.authenticate().rstrip()
         user = get_student_info(auth_user)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -945,8 +942,8 @@ def updatingtags():
 
 @app.route("/deletetag", methods=["GET"])
 def deletetag():
+    auth_user = _cas.authenticate().rstrip()
     try:
-        auth_user = _cas.authenticate().rstrip()
         user = get_student_info(auth_user)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -968,8 +965,8 @@ def deletetag():
 
 @app.route("/report", methods = ["GET"])
 def file_report():
+    netid = _cas.authenticate().rstrip()
     try:
-        netid = _cas.authenticate().rstrip()
         user = get_student_info(netid)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -1064,8 +1061,8 @@ def submitted_request():
 
 @app.route("/creatingtags", methods=["POST"])
 def creatingtags():
+    netid = _cas.authenticate().rstrip()
     try:
-        netid = _cas.authenticate().rstrip()
         user = get_student_info(netid)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -1087,10 +1084,10 @@ def creatingtags():
 
 @app.route("/adminprofile", methods=["GET"])
 def adminprofile(diffperson=None):
+    netid = _cas.authenticate().rstrip()
     try:
         if diffperson is None:
             diffperson = request.args.get("diffperson")
-        netid = _cas.authenticate().rstrip()
         user = get_student_info(netid)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -1139,11 +1136,9 @@ def adminprofile(diffperson=None):
 # rendering edit profile page from the profile page
 @app.route("/admineditprofile", methods=["GET"])
 def admineditprofile():
+    adminnetid = _cas.authenticate().rstrip()   
     try:
-        adminnetid = _cas.authenticate().rstrip()
-
         user = get_student_info(adminnetid)
-
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
             response = make_response(html)
@@ -1182,8 +1177,8 @@ def admineditprofile():
 
 @app.route("/blackliststudent", methods=["GET"])
 def blackliststudent():
+    adminnetid = _cas.authenticate()
     try:
-        adminnetid = _cas.authenticate()
         adminnetid = adminnetid.rstrip()
         
         studentnetid = request.args.get("studentnetid")
@@ -1210,9 +1205,8 @@ def blackliststudent():
 
 @app.route("/whiteliststudent", methods=["GET"])
 def whiteliststudent():
+    adminnetid = _cas.authenticate().rstrip()
     try:
-        adminnetid = _cas.authenticate().rstrip()
-
         user = get_student_info(adminnetid)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -1236,8 +1230,8 @@ def whiteliststudent():
 
 @app.route("/getstudentsJSON", methods=["POST", "GET"])
 def students_json():
+    netid = _cas.authenticate().rstrip()
     try:
-        netid = _cas.authenticate().rstrip()
         user = get_student_info(netid)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -1262,8 +1256,8 @@ def students_json():
 
 @app.route("/getclubsJSON", methods=["POST", "GET"])
 def clubs_json():
+    netid = _cas.authenticate().rstrip()
     try:
-        netid = _cas.authenticate().rstrip()
         user = get_student_info(netid)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -1288,8 +1282,8 @@ def clubs_json():
 
 @app.route("/createclub", methods=["POST"])
 def createclub():
+    netid = _cas.authenticate().rstrip()
     try:
-        netid = _cas.authenticate().rstrip()
         user = get_student_info(netid)
         if user.blacklist:
             html = render_template("blacklistedstudent.html")
@@ -1314,8 +1308,8 @@ def createclub():
 
 @app.route("/adminratings", methods=["GET"])
 def adminratings():
+    netid = _cas.authenticate().rstrip()
     try:
-        netid = _cas.authenticate().rstrip()
         user = get_student_info(netid)
 
         if not user.admin:
@@ -1334,8 +1328,8 @@ def adminratings():
 
 @app.route("/update_rating_period", methods=["GET"])
 def update_rating_period():
+    netid = _cas.authenticate().rstrip()
     try:
-        netid = _cas.authenticate().rstrip()
         user = get_student_info(netid)
 
         if not user.admin:
@@ -1372,8 +1366,8 @@ def update_rating_period():
 
 @app.route("/calculate_club_ratings", methods=["GET"])
 def calculate_club_ratings():
+    netid = _cas.authenticate().rstrip()
     try:
-        netid = _cas.authenticate().rstrip()
         user = get_student_info(netid)
 
         if not user.admin:
